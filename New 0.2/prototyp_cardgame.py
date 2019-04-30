@@ -6,6 +6,8 @@ import Window, Map , Player, card
 glEnable(GL_BLEND)
 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
+
+#Code reinigen CHECK
 #rounds -player bezogen arbeiten xD
 #einnehmen von feldern/ feldarten - aqua/violett/grau(unbesetzt)
 #kampfsystem
