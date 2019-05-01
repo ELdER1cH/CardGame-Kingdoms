@@ -1,17 +1,11 @@
 import pyglet
 from pyglet.gl import *
 from pyglet.window import key,mouse
-import Window, Map , Player, card
+import Window
 
-glEnable(GL_BLEND)
-glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-
-
-#Code reinigen CHECK
-#rounds -player bezogen arbeiten xD
 #einnehmen von feldern/ feldarten - aqua/violett/grau(unbesetzt)
 #kampfsystem
-#automatisch nachfüllen + mehr Karten + goldener Stapel
+#mehr Karten + goldener Stapel
 
 #stats/ anzeigen - leben, stats truppen z.b. von letztem select
 #-hover funktion
@@ -20,6 +14,8 @@ glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 #besseres mapping
 #inventar schrumpfen
 #mehrere Karten pro Feld
+
+#done: Code reinigen, automatisch nachfüllen, rounds -player bezogen arbeiten xD
 
 
 if __name__ == "__main__":

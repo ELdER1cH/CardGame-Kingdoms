@@ -1,13 +1,19 @@
 import pyglet
 from pyglet.gl import *
 from pyglet.window import key,mouse
-import Window, Player, card
+import Window, card
+from random import randint
+
 class Map:
-    def __init__(self):
+    def __init__(self,cards,batch,opponent_batch,opponent):
         self.select = None
+        self.opponent = opponent
+        self.opponent_batch = opponent_batch
+        self.cards = cards
+        self.batch=batch
         self.select_frame = pyglet.sprite.Sprite(pyglet.image.load('resc/frame.png')
                                                  ,-120,0)
-
+        #----------------------------------------------------------------------------------------------
         self.map = [
             [None,None,None,None,None],
             [1,1,None,1,1],
@@ -18,12 +24,21 @@ class Map:
             [0,0,0,0,0],
             [1,1,0,1,1]
             ]
+        #----------------------------------------------------------------------------------------------
         
     def update(self):
         pass
     
     def draw(self):
         self.select_frame.draw()
+
+    def update_hand(self,pos):
+        if pos != 4:
+            for i in range(pos+1,5,1):
+                self.map[0][i].sprite.set_position((i-1)*120,0)
+                self.map[0][i-1] = self.map[0][i]
+                self.map[0][i] = None
+        self.map[0][4] = card.Card('scheiegal',self.batch,img=self.cards[randint(0,1)],x=4*120,y=0)
 
     def area_select(self,x,y):#,x1,y1
         for i in range(len(self.map)):
@@ -45,9 +60,17 @@ class Map:
                     x1 = i2*120; y1 = i*100
                     if self.map[i][i2] == None:                
                         if x >= x1 and x <= x1+120 and y >= y1 and y <= y1+100:
+                            self.map[self.select[0]][self.select[1]].opponent_sprite.batch = self.opponent_batch
                             self.map[self.select[0]][self.select[1]].sprite.set_position(x1,y1)
                             self.map[i][i2] = self.map[self.select[0]][self.select[1]]
                             self.map[self.select[0]][self.select[1]] = None
+                            #opponent map update
+                            self.opponent.map.map[7-self.select[0]][4-self.select[1]] = self.map[i][i2]
+                            self.opponent.map.map[7-self.select[0]][4-self.select[1]].opponent_sprite.set_position(600-x1,900-y1)
+                            self.opponent.map.map[7-i][4-i2] = self.map[7-self.select[0]][4-self.select[1]]
+                            self.opponent.map.map[7-self.select[0]][4-self.select[1]] = None
+                            #-------------------
+                            self.update_hand(self.select[1])
                             self.select = None
                             self.select_frame.set_position(-120,0)
         else:
@@ -68,6 +91,11 @@ class Map:
                         self.map[xs][ys].sprite.set_position(x1,y1)
                         self.map[m1][m2] = self.map[xs][ys]
                         self.map[xs][ys] = None
+                        #opponent map update
+                        self.map[m1][m2].opponent_sprite.set_position(600-x1,900-y1)
+                        self.opponent.map.map[7-m1][4-m2] = self.map[7-xs][4-ys]
+                        self.opponent.map.map[7-xs][4-ys] = None
+                        #-------------------
                         self.select = None
                         self.select_frame.set_position(-120,0)
 #n,n,n,n,n
