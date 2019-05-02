@@ -1,15 +1,13 @@
 import pyglet
 from pyglet.gl import *
 from pyglet.window import key,mouse
-import  Map , player, card
+import  Map , player, card, pop_up
 
-
-class Window(pyglet.window.Window):
+class Game(pyglet.window.Window):
     def __init__(self,*args):
         super().__init__(*args,resizable=False,vsync=True)
         self.keys = pyglet.window.key.KeyStateHandler()
         self.push_handlers(self.keys)
-        pyglet.clock.schedule(self.update)
  
         #----------------------------------------------------------------------------------------------
         #Variablen
@@ -17,18 +15,15 @@ class Window(pyglet.window.Window):
         self.opponent_batch = pyglet.graphics.Batch()
         self.current_player = player.Player() #  currentplayer
         self.current_player.opponent = player.Player()
-        self.current_player.map = Map.Map(self.current_player.cards,self.batch,self.opponent_batch,self.current_player.opponent)
+        self.current_player.map = Map.Map(self.current_player.cards,self.batch,self.opponent_batch,self.current_player.opponent,self.current_player)
         self.current_player.load_hand(self.batch)
-        self.current_player.opponent.map = Map.Map(self.current_player.cards,self.opponent_batch,self.batch,self.current_player)
+        self.current_player.opponent.map = Map.Map(self.current_player.cards,self.opponent_batch,self.batch,self.current_player,self.current_player.opponent)
         self.current_player.opponent.load_hand(self.opponent_batch)
         self.current_player.opponent.opponent = self.current_player
-        #self.player2 = Player.Player(self.batch)
-        #self.cardd = card.Card('Reinhard',x=0,y=0)
-        #self.cardd2 = card.Card('Blümchen',img='resc/card_two.png',x=120,y=0)
-        #self.current_player.map.map[0][0] = self.cardd
-        #self.player2.map.map[0][1] = self.cardd2
         self.back = pyglet.image.load('resc/blank.png')
+        self.current_player.mana += self.current_player.mana_reg
         #----------------------------------------------------------------------------------------------
+        pyglet.clock.schedule(self.update)
 
     def swap(self):
         self.current_player = self.current_player.opponent
@@ -36,15 +31,19 @@ class Window(pyglet.window.Window):
         save = self.batch
         self.batch = self.opponent_batch
         self.opponent_batch = save
+        self.current_player.mana += self.current_player.mana_reg
+        if self.current_player.mana > self.current_player.max_mana:
+            self.current_player.mana = self.current_player.max_mana
+        self.current_player.map.card_new_round_action()
         
     def update(self,dt):
-        pass
+        self.current_player.map.update(dt)
 
     def on_mouse_press(self,x,y,button,MOD):
         if button == mouse.LEFT:
-            if self.current_player.map.select == None:
-                self.current_player.map.area_select(x,y)
-            else: self.current_player.map.inside_m(x,y)
+            self.current_player.map.area_select(x,y)
+            self.current_player.map.inside_m(x,y)
+                # self.swap()
         elif button == mouse.RIGHT:
             pass
 
@@ -63,5 +62,6 @@ class Window(pyglet.window.Window):
         self.back.blit(0,100)
         self.batch.draw()
         self.current_player.map.draw()
+        self.current_player.map.pop_up.draw()
         #self.cardd.sprite.draw()
         #self.cardd2.sprite.draw()
