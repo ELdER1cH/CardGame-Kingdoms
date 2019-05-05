@@ -33,8 +33,8 @@ def bb_special(self,c=None):
 
 
 cards = [ #name      level,h,dmg,cost,mana,crit,,img
-    ['Schwertkämpfer',1,500,500,300,7,True,0.01,'resc/card_one.png',None,''],
-    ['Turm',1,5000,5000,0,13,True,0,'resc/card_two.png',None,'immovable'],                   #unbewglich
+    ['Schwertkämpfer',1,500,500,300,7,True,0.01,'resc/swordsman.png',None,''],
+    ['Turm',1,5000,5000,0,13,True,0,'resc/tower.png',None,'immovable'],                   #unbewglich
     ['Palatin',1,2500,2500,100,12,True,0.02,'resc/palatin.png',None,''],
     ['Bauernhof',1,1500,1500,0,17,False,0,'resc/farm.png',farm_special,'immovable'],         #unbeweglich
     ['Speerkämpfer',1,400,400,350,4,True,0.05,'resc/speer.png',None,''],
@@ -43,7 +43,7 @@ cards = [ #name      level,h,dmg,cost,mana,crit,,img
     ['Goblin',1,200,200,350,3,True,0,'resc/Goblin.png',None,''],
     ['Fahnenträger',1,750,750,100,22,False,0,'resc/flag.png',booster_special,''],
     ['BigBoss',1,500,10000,400,16,True,0,'resc/Godzilla.png',bb_special,'immovable'],
-    ['Bombe',1,1,1,1000,11,True,0,'resc/Bomb.png',None,'wantstodie']
+    ['Bombe',1,1,1,1000,11,True,0,'resc/Bomb.png',None,'wantstodie'],
     ['Shield',1,1000,1000,200,22,False,0,'resc/shield.png',shield_special,'']
 ]
 

@@ -5,7 +5,7 @@ class Stats_Display():
         #self.document = pyglet.text.document.FormattedDocument('This is a multi line document. This is a multi line document.')
         #self.document.set_style(0,len(self.document.text),dict(color=(255,0,0,255)))
         #self.text = pyglet.text.layout.TextLayout(self.document,240,420,multiline=True)
-        self.select_sprite = pyglet.sprite.Sprite(pyglet.image.load('resc/card_one.png'),660, 700)
+        self.select_sprite = pyglet.sprite.Sprite(pyglet.image.load('resc/swordsman.png'),660, 700)
         self.mana_label = pyglet.text.Label("",
                           font_name='Times New Roman',
                           font_size=12,
