@@ -30,10 +30,11 @@ class Stats_Display():
             try:
                 self.select_sprite.image = c.sprite.image
                 self.card_label.text = """
+                Name: %s
                 Health: %s
                 Attack: %s
                 Crit: %s
-                Price: %s""" % (c.health,c.attack,c.crit_chance,c.price)
+                Price: %s""" % (c.name,c.health,c.attack,c.crit_chance,c.price)
             except: pass
         else: self.select_sprite.image = pyglet.image.load('resc/frame2.png'); self.card_label.text = ''
 

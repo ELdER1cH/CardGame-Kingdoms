@@ -6,6 +6,7 @@ from random import randint
 
 class Map:
     def __init__(self,cards,batch,opponent_batch,opponent,current_player):
+        # Variablen
         self.select = None
         self.pop_up = pop_up.Pop_Up()
         self.disp = stats_display.Stats_Display()
@@ -18,6 +19,7 @@ class Map:
         self.select_frame = pyglet.sprite.Sprite(pyglet.image.load('resc/frame.png')
                                                  ,-120,0)
         #----------------------------------------------------------------------------------------------
+        # MAP
         self.map = [
             [None,None,None,None,None],
             [1,1,None,1,1],
@@ -31,11 +33,12 @@ class Map:
         #----------------------------------------------------------------------------------------------
     
     def card_new_round_action(self):
+        # Calling every Round Based Special
         for action in self.round_based_specials:
             action(self)
 
     def card_place_action(self):
-        #['Turm',1,7000,7000,0,13,True,0,'resc/card_two.png',None,'immovable']
+        # Actions for placing a Card        
         self.current_player.mana += -self.map[self.select[0]][self.select[1]].price
         if self.map[self.select[0]][self.select[1]].mana_reg: self.current_player.mana_reg += -1
         if self.map[self.select[0]][self.select[1]].special != None:

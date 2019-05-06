@@ -10,6 +10,7 @@ class Card:
     def __init__(self,name,batch,level=1,health=1,max_health=1,attack=1,price=0,
                  mana_reg=True,crit_chance=0.01,
                  img='resc/card_one.png',special=None,moveable='',x=0,y=0):
+        #Variables
         self.name = name
         self.level = level
         self.health = health
@@ -30,10 +31,12 @@ class Card:
         pass
 
     def wakeup(self,map):
+        #For Sleeping Giant
         if self.health >= 5000:
             self.moveable = ""  
 
     def heal(self,map):
+        #Special for Healer
         heal_amount = 300
         try:
             i2 = int(self.sprite.x/120); i = int(self.sprite.y/100)

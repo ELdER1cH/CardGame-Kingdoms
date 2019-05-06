@@ -26,14 +26,17 @@ class Game(pyglet.window.Window):
         pyglet.clock.schedule(self.update)
 
     def swap(self):
+        # Actions for swapping Players
         self.current_player = self.current_player.opponent
         self.opponent = self.current_player.opponent
         save = self.batch
         self.batch = self.opponent_batch
         self.opponent_batch = save
+        #Mana Update
         self.current_player.mana += self.current_player.mana_reg
         if self.current_player.mana > self.current_player.max_mana:
             self.current_player.mana = self.current_player.max_mana
+        #Calling round based actions
         self.current_player.map.card_new_round_action()
         
     def update(self,dt):
@@ -63,5 +66,3 @@ class Game(pyglet.window.Window):
         self.batch.draw()
         self.current_player.map.draw()
         self.current_player.map.pop_up.draw()
-        #self.cardd.sprite.draw()
-        #self.cardd2.sprite.draw()
