@@ -69,7 +69,7 @@ class Map:
             for i2 in range(len(self.map[i])):
                 x1 = i2*120; y1 = i*100
                 #Testen ob dort gklickt werden darf bzw ob es augewähtl werden darf
-                if self.map[i][i2] != None and self.map[i][i2]!= 0 and self.map[i][i2]!= 1 and self.map[i][i2] != 'g':                
+                if self.map[i][i2] != None and self.map[i][i2]!= 0 and self.map[i][i2]!= 1 and self.map[i][i2] != 'g' and self.map[i][i2] != 'noone':                
                     #Testen wo geklickt wird
                     if x >= x1 and x <= x1+120 and y >= y1 and y <= y1+100:
                         #Unterscheidung Hand oder Map und übergeben von variablen
@@ -173,7 +173,9 @@ class Map:
                                     self.select_frame.set_position(-120,0)
 
 
-                                elif self.map[m1][m2] == 0:
+                                elif self.map[m1][m2] == 0 or self.map[m1][m2] == 'noone':
+                                    if self.map[m1][m2] == 0:
+                                        self.opponent.mana_reg += -1
                                     self.map[xs][ys].sprite.set_position(x1,y1)
                                     self.map[m1][m2] = self.map[xs][ys]
                                     #opponent map update
