@@ -23,7 +23,7 @@ class Map:
             [1,1,None,1,1],
             [None,None,None,None,None],
             [None,None,None,None,None],
-            [0,0,0,0,0],
+            ["noone","noone","noone","noone","noone"],
             [0,0,0,0,0],
             [0,0,0,0,0],
             [1,1,0,1,1]
