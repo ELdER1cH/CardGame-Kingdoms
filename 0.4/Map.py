@@ -122,6 +122,7 @@ class Map:
             else:
                 xs,ys = self.select[0:2]
                 if self.map[xs][ys].moveable != 'immovable':
+                    #alle möglichen Positionen
                     lis = []
                     if xs > 1 and self.map[xs-1][ys] != 1:
                         lis.append([xs-1,ys])
