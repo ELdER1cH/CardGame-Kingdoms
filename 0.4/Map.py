@@ -135,6 +135,7 @@ class Map:
                     for m1,m2 in adjacent_tiles:
                         x1 =m2*120; y1 = m1*100
                         if x >= x1 and x <= x1+120 and y >= y1 and y <= y1+100:
+                            #Bewegung in eigenen Feldern
                             if self.map[m1][m2] == None:
                                 self.map[xs][ys].sprite.set_position(x1,y1)
                                 self.map[m1][m2] = self.map[xs][ys]
@@ -146,26 +147,33 @@ class Map:
                                 #-------------------
                                 self.select = None
                                 self.select_frame.set_position(-120,0)
-                            
+                            #Folgende Actionen sind nur mit 4 Mana erlaubt
                             if self.current_player.mana >= 4:
                                 attack_cost = 4
+                                #Angriff auf Gegnerisches Feld
                                 if self.map[m1][m2] == 'g':
+                                    #Variablen
                                     opponent_card = self.opponent.map.map[8-m1][4-m2]
                                     me = self.map[xs][ys]
+                                    #Angriff
                                     opponent_card.health += -me.attack
                                     me.health += -opponent_card.attack/2
+                                    #Crit
                                     if randint(1,100) <= me.crit_chance*100: 
                                         opponent_card.health += -me.attack*0.5
                                         self.pop_up.new_pop_up(x,y,text='%s CRIT - %s left' % (me.attack*1.5,opponent_card.health))
                                     else:
                                         self.pop_up.new_pop_up(x,y,text='%s DMG - %s left' % (me.attack,opponent_card.health))
+                                    
+                                    #Gegnerische Karte stirbt
                                     if opponent_card.health <= 0:
-                                        if opponent_card.mana_reg: self.current_player.mana_reg += 1
+                                        if opponent_card.mana_reg: self.current_player.mana_reg += 1 
                                         del opponent_card.sprite
                                         del opponent_card.opponent_sprite
                                         self.opponent.map.map[8-m1][4-m2] = 0
                                         self.map[m1][m2]= None
-                                                                                
+
+                                    #Meine Karte stirbt bzw "Bombe"
                                     if me.moveable == 'wantstodie' or me.health <= 0:
                                         if me.mana_reg: self.current_player.mana_reg += 1
                                         del me.sprite
