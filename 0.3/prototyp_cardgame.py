@@ -9,6 +9,8 @@ import Game
 
 #stats/ anzeigen - leben, stats truppen z.b. von letztem select
 #-hover funktion
+#Wählen können welche Karten am anfang
+#add King castle
 
 #evtl. 2./ 2.0 prototyp
 #besseres mapping
@@ -26,3 +28,7 @@ if __name__ == "__main__":
     window = Game.Game(840,900,'Prototyp')
     glClearColor(0.9,0.9,1,1)
     pyglet.app.run()
+
+
+#buggs:
+#way to much elo per round, not substracting/ to much addition..
