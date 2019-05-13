@@ -6,7 +6,6 @@ from random import randint
 
 class Map:
     def __init__(self,cards,batch,opponent_batch,opponent,current_player):
-        # Variablen
         self.select = None
         self.pop_up = pop_up.Pop_Up()
         self.disp = stats_display.Stats_Display()
@@ -19,7 +18,6 @@ class Map:
         self.select_frame = pyglet.sprite.Sprite(pyglet.image.load('resc/frame.png')
                                                  ,-120,0)
         #----------------------------------------------------------------------------------------------
-        # MAP
         self.map = [
             [None,None,None,None,None],
             [1,1,None,1,1],
@@ -33,12 +31,11 @@ class Map:
         #----------------------------------------------------------------------------------------------
     
     def card_new_round_action(self):
-        # Calling every Round Based Special
+        # Round specials
         for action in self.round_based_specials:
             action(self)
 
     def card_place_action(self):
-        # Actions for placing a Card        
         self.current_player.mana += -self.map[self.select[0]][self.select[1]].price
         if self.map[self.select[0]][self.select[1]].mana_reg: self.current_player.mana_reg += -1
         if self.map[self.select[0]][self.select[1]].special != None:
@@ -63,27 +60,47 @@ class Map:
         self.map[0][4] = card.Card(c[0],self.batch,c[1],c[2],c[3],c[4],c[5],c[6],c[7],c[8],c[9],c[10],x=4*120,y=0)
 
     def area_select(self,x,y):#,x1,y1
+        #Wo wird geklickt
+        #i = x in Map (Liste)
+        #i2 = y in Map (Liste)
+        #x1 = x in Fenster (Pixel)
+        #y1 = y in Fenster (Pixel) 
         for i in range(len(self.map)):
             for i2 in range(len(self.map[i])):
                 x1 = i2*120; y1 = i*100
+                #Testen ob dort gklickt werden darf bzw ob es augewähtl werden darf
                 if self.map[i][i2] != None and self.map[i][i2]!= 0 and self.map[i][i2]!= 1 and self.map[i][i2] != 'g':                
+                    #Testen wo geklickt wird
                     if x >= x1 and x <= x1+120 and y >= y1 and y <= y1+100:
+                        #Unterscheidung Hand oder Map und übergeben von variablen
                         if i < 1:
+                            #              x y   Genauer
                             self.select = [i,i2,"Hand"]
                         else:
                             self.select = [i,i2,"map"]
+                        #Placing Frame
                         self.select_frame.set_position(x1,y1)
                         break
                         
                 
     def inside_m(self,x,y):#,x1,y1
+        #Aktions mit ausgewählter Karte 
+        #i = x in Map (Liste)
+        #i2 = y in Map (Liste)
+        #x1 = x in Fenster (Pixel)
+        #y1 = y in Fenster (Pixel)
         if self.select != None:
+            ##Aktionen mit Karten in der Hand
             if self.select[2] == "Hand":
+                #Testen wo ist der Klick
                 for i in range(1,len(self.map),1):
                     for i2 in range(len(self.map[i])):
+                        #Klick Koordinaten
                         x1 = i2*120; y1 = i*100
+                        #Neuer Klick abfrage
                         if self.map[i][i2] == None:                
                             if x >= x1 and x <= x1+120 and y >= y1 and y <= y1+100:
+                                #Test -> Genug Mana für Karte
                                 if self.current_player.mana >= self.map[self.select[0]][self.select[1]].price:
                                     self.map[self.select[0]][self.select[1]].opponent_sprite.batch = self.opponent_batch
                                     self.map[self.select[0]][self.select[1]].sprite.set_position(x1,y1)
@@ -101,6 +118,7 @@ class Map:
                                 else: 
                                     self.pop_up.new_red_frame(self.select[1]*120,self.select[0]*100)
                                     break
+            #Aktions mit Karten in Map
             else:
                 xs,ys = self.select[0:2]
                 if self.map[xs][ys].moveable != 'immovable':
