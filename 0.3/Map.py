@@ -23,7 +23,7 @@ class Map:
             [1,1,None,1,1],
             [None,None,None,None,None],
             [None,None,None,None,None],
-            [0,0,0,0,0],
+            ["noone","noone","noone","noone","noone"],
             [0,0,0,0,0],
             [0,0,0,0,0],
             [1,1,0,1,1]
@@ -53,7 +53,7 @@ class Map:
     def update_hand(self,pos):
         if pos != 4:
             for i in range(pos+1,5,1):
-                self.map[0][i].sprite.set_position((i-1)*120,0)
+                self.map[0][i].sprite.position = ((i-1)*120,0)
                 self.map[0][i-1] = self.map[0][i]
                 self.map[0][i] = None
         c = self.cards[randint(0,len(self.cards)-1)]
@@ -69,7 +69,7 @@ class Map:
             for i2 in range(len(self.map[i])):
                 x1 = i2*120; y1 = i*100
                 #Testen ob dort gklickt werden darf bzw ob es augewähtl werden darf
-                if self.map[i][i2] != None and self.map[i][i2]!= 0 and self.map[i][i2]!= 1 and self.map[i][i2] != 'g':                
+                if self.map[i][i2] != None and self.map[i][i2]!= 0 and self.map[i][i2]!= 1 and self.map[i][i2] != 'g' and self.map[i][i2] != 'noone':                
                     #Testen wo geklickt wird
                     if x >= x1 and x <= x1+120 and y >= y1 and y <= y1+100:
                         #Unterscheidung Hand oder Map und übergeben von variablen
@@ -79,7 +79,7 @@ class Map:
                         else:
                             self.select = [i,i2,"map"]
                         #Placing Frame
-                        self.select_frame.set_position(x1,y1)
+                        self.select_frame.position = (x1,y1)
                         break
                         
                 
@@ -103,17 +103,17 @@ class Map:
                                 #Test -> Genug Mana für Karte
                                 if self.current_player.mana >= self.map[self.select[0]][self.select[1]].price:
                                     self.map[self.select[0]][self.select[1]].opponent_sprite.batch = self.opponent_batch
-                                    self.map[self.select[0]][self.select[1]].sprite.set_position(x1,y1)
+                                    self.map[self.select[0]][self.select[1]].sprite.position = (x1,y1)
                                     self.map[i][i2] = self.map[self.select[0]][self.select[1]]
                                     self.card_place_action()
                                     self.map[self.select[0]][self.select[1]] = None
                                     #opponent map update
-                                    self.map[i][i2].opponent_sprite.set_position(600-x1,900-y1)
+                                    self.map[i][i2].opponent_sprite.position= (600-x1,900-y1)
                                     self.opponent.map.map[8-i][4-i2] = 'g'
                                     #-------------------
                                     self.update_hand(self.select[1])
                                     self.select = None
-                                    self.select_frame.set_position(-120,0)
+                                    self.select_frame.position = (-120,0)
                                     break
                                 else: 
                                     self.pop_up.new_red_frame(self.select[1]*120,self.select[0]*100)
@@ -135,16 +135,16 @@ class Map:
                         x1 =m2*120; y1 = m1*100
                         if x >= x1 and x <= x1+120 and y >= y1 and y <= y1+100:
                             if self.map[m1][m2] == None:
-                                self.map[xs][ys].sprite.set_position(x1,y1)
+                                self.map[xs][ys].sprite.position = (x1,y1)
                                 self.map[m1][m2] = self.map[xs][ys]
                                 #opponent map update
-                                self.map[m1][m2].opponent_sprite.set_position(600-x1,900-y1)
+                                self.map[m1][m2].opponent_sprite.position = (600-x1,900-y1)
                                 self.opponent.map.map[8-m1][4-m2] = 'g'
                                 self.opponent.map.map[8-xs][4-ys] = 0
                                 self.map[xs][ys] = None
                                 #-------------------
                                 self.select = None
-                                self.select_frame.set_position(-120,0)
+                                self.select_frame.position = (-120,0)
                             elif self.current_player.mana >= 1:
                                 if self.map[m1][m2] == 'g':
                                     opponent_card = self.opponent.map.map[8-m1][4-m2]
@@ -157,7 +157,7 @@ class Map:
                                     else:
                                         self.pop_up.new_pop_up(x,y,text='%s DMG - %s left' % (me.attack,opponent_card.health))
                                     if opponent_card.health <= 0:
-                                        if opponent_card.mana_reg: self.current_player.mana_reg += 1
+                                        if opponent_card.mana_reg: self.current_player.mana_reg += 1; #self.opponent.mana_reg += -1
                                         del opponent_card.sprite
                                         del opponent_card.opponent_sprite
                                         self.opponent.map.map[8-m1][4-m2] = 0
@@ -170,20 +170,22 @@ class Map:
                                         self.opponent.map.map[8-xs][4-ys] = 0
                                         self.map[xs][ys]= None
                                     self.select = None
-                                    self.select_frame.set_position(-120,0)
+                                    self.select_frame.position = (-120,0)
 
 
-                                elif self.map[m1][m2] == 0:
-                                    self.map[xs][ys].sprite.set_position(x1,y1)
+                                elif self.map[m1][m2] == 0 or self.map[m1][m2] == 'noone':
+                                    if self.map[m1][m2] == 0:
+                                        self.opponent.mana_reg += -1
+                                    self.map[xs][ys].sprite.position = (x1,y1)
                                     self.map[m1][m2] = self.map[xs][ys]
                                     #opponent map update
-                                    self.map[m1][m2].opponent_sprite.set_position(600-x1,900-y1)
+                                    self.map[m1][m2].opponent_sprite.position = (600-x1,900-y1)
                                     self.opponent.map.map[8-m1][4-m2] = 'g'
                                     self.opponent.map.map[8-xs][4-ys] = 0
                                     self.map[xs][ys] = None
                                     #-------------------
                                     self.select = None
-                                    self.select_frame.set_position(-120,0)
+                                    self.select_frame.position = (-120,0)
                                     self.current_player.mana_reg += 1
                                 self.current_player.mana += -1
                             else: break

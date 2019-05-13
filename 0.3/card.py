@@ -4,7 +4,6 @@ from pyglet.window import key,mouse
 import Map , card
 
 class Card:
-    global_cards = []
     #specials = []
     #specials[i](mana_reg,)
     def __init__(self,name,batch,level=1,health=1,max_health=1,attack=1,price=0,
@@ -20,7 +19,6 @@ class Card:
         self.price = price
         self.mana_reg = mana_reg
         self.crit_chance = crit_chance
-        self.global_cards.append(self)
         tex = pyglet.image.load(img)
         self.sprite = pyglet.sprite.Sprite(tex,x, y,batch=batch)
         self.opponent_sprite = pyglet.sprite.Sprite(tex,x, y,batch=None)   
