@@ -16,7 +16,7 @@ def attack_booster_special(self,c=None):
     #Boostvorgang
     for row in range(5):
         if self.map[i][row] != None and self.map[i][row] != 0 and self.map[i][row] != 1 and self.map[i][row] != "g":
-            self.map[i][row].health *= mulitplier
+            self.map[i][row].attack *= mulitplier
 
 
 def shield_booster_special(self, c = None):
