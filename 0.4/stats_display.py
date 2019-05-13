@@ -30,7 +30,7 @@ class Stats_Display():
             try:
                 self.select_sprite.image = c.sprite.image
                 self.card_label.text = """
-                Name: %s
+                %s
                 Health: %s
                 Attack: %s
                 Crit: %s
