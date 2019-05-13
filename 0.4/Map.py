@@ -61,8 +61,8 @@ class Map:
 
     def area_select(self,x,y):#,x1,y1
         #Wo wird geklickt
-        #i = x in Map (Liste)
-        #i2 = y in Map (Liste)
+        #i = x in Map (adjacent_tileste)
+        #i2 = y in Map (adjacent_tileste)
         #x1 = x in Fenster (Pixel)
         #y1 = y in Fenster (Pixel) 
         for i in range(len(self.map)):
@@ -85,8 +85,8 @@ class Map:
                 
     def inside_m(self,x,y):#,x1,y1
         #Aktions mit ausgewählter Karte 
-        #i = x in Map (Liste)
-        #i2 = y in Map (Liste)
+        #i = x in Map (adjacent_tileste)
+        #i2 = y in Map (adjacent_tileste)
         #x1 = x in Fenster (Pixel)
         #y1 = y in Fenster (Pixel)
         if self.select != None:
@@ -123,16 +123,16 @@ class Map:
                 xs,ys = self.select[0:2]
                 if self.map[xs][ys].moveable != 'immovable':
                     #alle möglichen Positionen
-                    lis = []
+                    adjacent_tiles = []
                     if xs > 1 and self.map[xs-1][ys] != 1:
-                        lis.append([xs-1,ys])
+                        adjacent_tiles.append([xs-1,ys])
                     if xs < 7 and self.map[xs+1][ys] != 1:
-                        lis.append([xs+1,ys])
+                        adjacent_tiles.append([xs+1,ys])
                     if ys > 0:
-                        lis.append([xs,ys-1])
+                        adjacent_tiles.append([xs,ys-1])
                     if ys < 4:
-                        lis.append([xs,ys+1])
-                    for m1,m2 in lis:
+                        adjacent_tiles.append([xs,ys+1])
+                    for m1,m2 in adjacent_tiles:
                         x1 =m2*120; y1 = m1*100
                         if x >= x1 and x <= x1+120 and y >= y1 and y <= y1+100:
                             if self.map[m1][m2] == None:
