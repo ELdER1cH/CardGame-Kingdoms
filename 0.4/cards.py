@@ -9,7 +9,7 @@ def healer_special(self,c=None):
     # Adding to round_based_specials
     self.round_based_specials.append(self.map[self.select[0]][self.select[1]].heal)
 
-def booster_special(self,c=None):
+def attack_booster_special(self,c=None):
     #Variablen
     mulitplier = 2
     i2 = int(c.sprite.x/120); i = int(c.sprite.y/100)
@@ -19,7 +19,7 @@ def booster_special(self,c=None):
             self.map[i][row].health *= mulitplier
 
 
-def shield_special(self, c = None):
+def shield_booster_special(self, c = None):
     #Variablen
     mulitplier = 2
     i2 = int(c.sprite.x/120); i = int(c.sprite.y/100)
@@ -31,6 +31,7 @@ def shield_special(self, c = None):
     
 
 def bb_special(self,c=None):
+    #Tank Special
     self.round_based_specials.append(self.map[self.select[0]][self.select[1]].wakeup)
 
 
@@ -46,10 +47,10 @@ cards = [
     ['Healer',1,700,700,100,10,True,0,'resc/healer.png',healer_special,''],                   #special executed on swap()
     ['Orc',1,1000,800,500,9,True,0.05,'resc/Orc.png',None,''],
     ['Goblin',1,200,200,350,3,True,0,'resc/Goblin.png',None,''],
-    ['Fahnenträger',1,750,750,100,22,False,0,'resc/flag.png',booster_special,''],
+    ['Fahnenträger',1,750,750,100,22,False,0,'resc/flag.png',attack_booster_special,''],
     ['BigBoss',1,500,10000,400,16,True,0,'resc/Godzilla.png',bb_special,'immovable'],
     ['Bombe',1,1,1,1000,11,True,0,'resc/Bomb.png',None,'wantstodie'],
-    ['Shield',1,1000,1000,200,22,False,0,'resc/shield.png',shield_special,'']
+    ['Shield',1,1000,1000,200,22,False,0,'resc/shield.png',shield_booster_special,'']
 ]
 
 
