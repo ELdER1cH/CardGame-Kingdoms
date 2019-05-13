@@ -176,7 +176,6 @@ class Map:
                                     self.current_player.mana -= attack_cost
 
                             if self.current_player.mana >= 5:
-                                print('f')
                                 capure_cost = 5
                                 if self.map[m1][m2] == 0 or self.map[m1][m2] == 'noone':
                                     if self.map[m1][m2] == 0:
