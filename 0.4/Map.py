@@ -145,9 +145,9 @@ class Map:
                                 #-------------------
                                 self.select = None
                                 self.select_frame.set_position(-120,0)
-                            elif self.current_player.mana >= 4:
+                            
+                            if self.current_player.mana >= 4:
                                 attack_cost = 4
-                                capure_cost = 5
                                 if self.map[m1][m2] == 'g':
                                     opponent_card = self.opponent.map.map[8-m1][4-m2]
                                     me = self.map[xs][ys]
@@ -173,9 +173,11 @@ class Map:
                                         self.map[xs][ys]= None
                                     self.select = None
                                     self.select_frame.set_position(-120,0)
-
                                     self.current_player.mana -= attack_cost
-                            elif self.current_player.mana >= 5:
+
+                            if self.current_player.mana >= 5:
+                                print(f)
+                                capure_cost = 5
                                 if self.map[m1][m2] == 0 or self.map[m1][m2] == 'noone':
                                     if self.map[m1][m2] == 0:
                                         self.opponent.mana_reg += -1
