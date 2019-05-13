@@ -145,7 +145,7 @@ class Map:
                                 #-------------------
                                 self.select = None
                                 self.select_frame.set_position(-120,0)
-                            elif self.current_player.mana >= 1:
+                            elif self.current_player.mana >= 4:
                                 attack_cost = 4
                                 capure_cost = 5
                                 if self.map[m1][m2] == 'g':
@@ -175,9 +175,8 @@ class Map:
                                     self.select_frame.set_position(-120,0)
 
                                     self.current_player.mana -= attack_cost
-
-
-                                elif self.map[m1][m2] == 0 or self.map[m1][m2] == 'noone':
+                            elif self.current_player.mana >= 5:
+                                if self.map[m1][m2] == 0 or self.map[m1][m2] == 'noone':
                                     if self.map[m1][m2] == 0:
                                         self.opponent.mana_reg += -1
                                     self.map[xs][ys].sprite.set_position(x1,y1)
@@ -191,8 +190,8 @@ class Map:
                                     self.select = None
                                     self.select_frame.set_position(-120,0)
                                     self.current_player.mana_reg += 1
-                                    self.current_player.mana += capure_cost
-                                self.current_player.mana -= 1
+                                    self.current_player.mana -= capure_cost
+                                
                             else: break
                 else: 
                     self.pop_up.new_red_frame(self.select[1]*120,self.select[0]*100)
