@@ -1,6 +1,3 @@
-#name,batch,level=1,health=1,attack=1,price=0,
-#                 manareg=True,crit_chance=0.01,block_chance=0.01,
-#                 img='resc/card_one.png',x=0,y=0
 import card
 
 def farm_special(self,c=None):#mana_reg,maxmana

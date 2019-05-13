@@ -174,6 +174,8 @@ class Map:
 
 
                                 elif self.map[m1][m2] == 0 or self.map[m1][m2] == 'noone':
+                                    capure_cost = 5
+
                                     if self.map[m1][m2] == 0:
                                         self.opponent.mana_reg += -1
                                     self.map[xs][ys].sprite.set_position(x1,y1)
@@ -187,7 +189,8 @@ class Map:
                                     self.select = None
                                     self.select_frame.set_position(-120,0)
                                     self.current_player.mana_reg += 1
-                                self.current_player.mana += -1
+                                    self.current_player.mana += (capure_cost-1)
+                                self.current_player.mana -= 1
                             else: break
                 else: 
                     self.pop_up.new_red_frame(self.select[1]*120,self.select[0]*100)
