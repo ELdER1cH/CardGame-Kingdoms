@@ -147,9 +147,10 @@ class Map:
                                 self.select = None
                                 self.select_frame.set_position(-120,0)
                             
-                            if self.current_player.mana >= 4:
-                                attack_cost = 4
-                                if self.map[m1][m2] == 'g':
+                           
+                            if self.map[m1][m2] == 'g':
+                                if self.current_player.mana >= 4:
+                                    attack_cost = 4
                                     opponent_card = self.opponent.map.map[8-m1][4-m2]
                                     me = self.map[xs][ys]
                                     opponent_card.health += -me.attack
@@ -160,7 +161,9 @@ class Map:
                                     else:
                                         self.pop_up.new_pop_up(x,y,text='%s DMG - %s left' % (me.attack,opponent_card.health))
                                     if opponent_card.health <= 0:
-                                        if opponent_card.mana_reg: self.current_player.mana_reg += 1
+                                        if not opponent_card.mana_reg:
+                                            self.opponent.mana_reg -= 1
+                                        self.current_player.mana_reg += 1
                                         del opponent_card.sprite
                                         del opponent_card.opponent_sprite
                                         self.opponent.map.map[8-m1][4-m2] = 0
@@ -175,10 +178,12 @@ class Map:
                                     self.select = None
                                     self.select_frame.set_position(-120,0)
                                     self.current_player.mana -= attack_cost
+                                else: self.pop_up.new_red_frame(self.select[1]*120,self.select[0]*100)
 
-                            if self.current_player.mana >= 5:
-                                capure_cost = 5
-                                if self.map[m1][m2] == 0 or self.map[m1][m2] == 'noone':
+                            
+                            if self.map[m1][m2] == 0 or self.map[m1][m2] == 'noone':
+                                if self.current_player.mana >= 5:
+                                    capure_cost = 5
                                     if self.map[m1][m2] == 0:
                                         self.opponent.mana_reg += -1
                                     self.map[xs][ys].sprite.set_position(x1,y1)
@@ -194,7 +199,7 @@ class Map:
                                     self.current_player.mana_reg += 1
                                     self.current_player.mana -= capure_cost
                                 
-                            else: self.pop_up.new_red_frame(self.select[1]*120,self.select[0]*100);break
+                                else: self.pop_up.new_red_frame(self.select[1]*120,self.select[0]*100)
                 else: 
                     self.pop_up.new_red_frame(self.select[1]*120,self.select[0]*100)
                     
