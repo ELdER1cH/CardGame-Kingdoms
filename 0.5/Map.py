@@ -162,8 +162,8 @@ class Map:
                             
                            
                             if self.map[m1][m2] == 'g':
-                                if self.current_player.mana >= 4:
-                                    attack_cost = 4
+                                if self.current_player.mana >= 2:
+                                    attack_cost = 2
                                     opponent_card = self.opponent.map.map[8-m1][4-m2]
                                     me = self.map[xs][ys]
                                     #Angriff
