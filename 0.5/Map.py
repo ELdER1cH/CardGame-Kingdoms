@@ -178,6 +178,11 @@ class Map:
                                     
                                     #Gegnerische Karte stirbt
                                     if opponent_card.health <= 0:
+                                        if opponent_card.moveable == "isCastle":
+                                            self.pop_up.new_pop_up(x,y,text='Congrats! You won!!',life_span=4)
+                                            for row in range(len(self.map)):
+                                                for place in range(len(self.map[row])):
+                                                    self.map[row][place] = None
                                         if not opponent_card.mana_reg:
                                             self.opponent.mana_reg -= 1
                                         self.current_player.mana_reg += 1
