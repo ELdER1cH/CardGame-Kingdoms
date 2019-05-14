@@ -61,6 +61,12 @@ class Game(pyglet.window.Window):
             self.current_player.map.select_frame.set_position(-120,0)
         if KEY == key.T:
             self.swap()
+        if KEY == key.D:
+            select = self.current_player.map.select
+            if select != None:
+                if select[0] == 0:
+                    self.current_player.map.map[select[0]][select[1]] = None
+                    self.current_player.map.update_hand(select[1])
         
     def on_key_release(self,KEY,MOD):
         pass
