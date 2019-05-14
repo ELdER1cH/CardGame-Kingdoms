@@ -5,7 +5,7 @@ class Window(pyglet.window.Window):
     def __init__(self,*args):
         super().__init__(*args,resizable=False,vsync=True)
         self.batch = pyglet.graphics.Batch()
-        img = pyglet.image.load('resc/palatin.png')
+        img = pyglet.image.load('Bomb.png')
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
         tex = img.get_texture() 
         tex.width = 120
