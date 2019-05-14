@@ -11,7 +11,7 @@ def healer_special(self,c=None):
 
 def attack_booster_special(self,c=None):
     #Variablen
-    mulitplier = 2
+    mulitplier = 1.3
     i2 = int(c.sprite.x/120); i = int(c.sprite.y/100)
     #Boostvorgang
     for row in range(5):
@@ -21,7 +21,7 @@ def attack_booster_special(self,c=None):
 
 def shield_booster_special(self, c = None):
     #Variablen
-    mulitplier = 2
+    mulitplier = 1.3
     i2 = int(c.sprite.x/120); i = int(c.sprite.y/100)
     #Boostvorgang
     for row in range(5):
@@ -47,11 +47,11 @@ cards = [
     ['Burg',1,25000,25000,400,0,False,0,'resc/castle.png',None,'isCastle'],   
     ['Schwertkämpfer',1,500,500,300,7,True,0.01,'resc/card_one.png',None,''],
     ['Turm',1,5000,5000,0,13,True,0,'resc/card_two.png',None,'immovable'],                   #unbewglich
-    ['Palatin',1,2500,2500,100,12,True,0.02,'resc/palatin.png',None,''],
+    ['Palatin',1,2500,2500,200,13,True,0.02,'resc/palatin.png',None,''],
     ['Bauernhof',1,1500,1500,0,17,False,0,'resc/farm.png',farm_special,'immovable'],         #unbeweglich
     ['Speerkämpfer',1,400,400,350,4,True,0.05,'resc/speer.png',None,''],
     ['Healer',1,700,700,100,10,True,0,'resc/healer.png',healer_special,''],                   #special executed on swap()
-    ['Orc',1,1000,800,500,9,True,0.05,'resc/Orc.png',None,''],
+    ['Orc',1,700,800,500,9,True,0.05,'resc/Orc.png',None,''],
     ['Goblin',1,200,200,350,3,True,0,'resc/Goblin.png',None,''],
     ['Fahnenträger',1,750,750,100,22,False,0,'resc/flag.png',attack_booster_special,''],
     ['BigBoss',1,500,10000,400,16,True,0,'resc/Godzilla.png',bb_special,'immovable'],
