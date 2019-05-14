@@ -51,7 +51,7 @@ class Card:
         if i2 < 4:
             lis.append([i,i2+1])
         for m1,m2 in lis:
-            if map.map[m1][m2] != None and map.map[m1][m2] != 0 and map.map[m1][m2] != 1 and map.map[m1][m2] != "g":
+            if map.map[m1][m2] != None and map.map[m1][m2] != 0 and map.map[m1][m2] != 1 and map.map[m1][m2] != "g" and map.map[m1][m2] != "noone":
                 target = map.map[m1][m2]
                 if target.health+heal_amount <= target.max_health:
                     target.health+=heal_amount

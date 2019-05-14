@@ -6,9 +6,10 @@ import  Map , player, card, pop_up
 class Game(pyglet.window.Window):
     def __init__(self,*args):
         super().__init__(*args,resizable=False,vsync=True)
+        self.set_minimum_size(560, 600)
         self.keys = pyglet.window.key.KeyStateHandler()
         self.push_handlers(self.keys)
- 
+        self.pre_resize_dims = (self.width,self.height)
         #----------------------------------------------------------------------------------------------
         #Variablen
         self.batch = pyglet.graphics.Batch() 
@@ -63,6 +64,18 @@ class Game(pyglet.window.Window):
         
     def on_key_release(self,KEY,MOD):
         pass
+
+    def on_resize(self,width,height):
+        scale_x = width/self.pre_resize_dims[0]
+        scale_y = height/self.pre_resize_dims[1]
+        glScalef(scale_x,scale_y,1)
+        print("ol' width: %s new width: %s cal: %s" % (self.pre_resize_dims[0],width,120*7*scale_x))
+        self.current_player.map.scale_x = scale_x
+        self.current_player.map.scale_y = scale_y  
+        self.current_player.opponent.map.scale_x = scale_x
+        self.current_player.opponent.map.scale_y = scale_y 
+        super().on_resize(width,height)
+        self.pre_resize_dims = (width,height)
 
     def on_draw(self):
         self.clear()

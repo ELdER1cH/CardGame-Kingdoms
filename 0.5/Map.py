@@ -17,6 +17,8 @@ class Map:
         self.round_based_specials = []
         self.select_frame = pyglet.sprite.Sprite(pyglet.image.load('resc/frame.png')
                                                  ,-120,0)
+        self.scale_x = 1
+        self.scale_y = 1
                                                
         #----------------------------------------------------------------------------------------------
         self.map = [
@@ -81,7 +83,7 @@ class Map:
                 #Testen ob dort gklickt werden darf bzw ob es augewähtl werden darf
                 if self.map[i][i2] != None and self.map[i][i2]!= 0 and self.map[i][i2]!= 1 and self.map[i][i2] != 'g' and self.map[i][i2] != 'noone':                
                     #Testen wo geklickt wird
-                    if x >= x1 and x <= x1+120 and y >= y1 and y <= y1+100:
+                    if x >= x1*self.scale_x and x <= (x1+120)*self.scale_x and y >= y1*self.scale_y and y <= (y1+100)*self.scale_y:
                         #Unterscheidung Hand oder Map und übergeben von variablen
                         if i < 1:
                             #              x y   Genauer
@@ -109,7 +111,7 @@ class Map:
                         x1 = i2*120; y1 = i*100
                         #Neuer Klick abfrage
                         if self.map[i][i2] == None:                
-                            if x >= x1 and x <= x1+120 and y >= y1 and y <= y1+100:
+                            if x >= x1*self.scale_x and x <= (x1+120)*self.scale_x and y >= y1*self.scale_y and y <= (y1+100)*self.scale_y:
                                 #Test -> Genug Mana für Karte
                                 if self.current_player.mana >= self.map[self.select[0]][self.select[1]].price:
                                     self.map[self.select[0]][self.select[1]].opponent_sprite.batch = self.opponent_batch
@@ -144,7 +146,7 @@ class Map:
                         adjacent_tiles.append([xs,ys+1])
                     for m1,m2 in adjacent_tiles:
                         x1 =m2*120; y1 = m1*100
-                        if x >= x1 and x <= x1+120 and y >= y1 and y <= y1+100:
+                        if x >= x1*self.scale_x and x <= (x1+120)*self.scale_x and y >= y1*self.scale_y and y <= (y1+100)*self.scale_y:
                             #Bewegung in eigenen Feldern
                             if self.map[m1][m2] == None:
                                 self.map[xs][ys].sprite.set_position(x1,y1)
