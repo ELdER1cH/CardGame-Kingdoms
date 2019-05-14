@@ -22,8 +22,12 @@ class Game(pyglet.window.Window):
         self.current_player.opponent.opponent = self.current_player
         self.back = pyglet.image.load('resc/blank.png')
         self.current_player.mana += self.current_player.mana_reg
+        self.current_player.map.init_castle()
+        self.current_player.opponent.map.init_castle()
         #----------------------------------------------------------------------------------------------
         pyglet.clock.schedule(self.update)
+
+        
 
     def swap(self):
         # Actions for swapping Players

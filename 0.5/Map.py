@@ -17,6 +17,7 @@ class Map:
         self.round_based_specials = []
         self.select_frame = pyglet.sprite.Sprite(pyglet.image.load('resc/frame.png')
                                                  ,-120,0)
+                                               
         #----------------------------------------------------------------------------------------------
         self.map = [
             [None,None,None,None,None],
@@ -29,7 +30,16 @@ class Map:
             [1,1,0,1,1]
             ]
         #----------------------------------------------------------------------------------------------
-    
+
+         
+
+    def init_castle(self):
+        c = self.cards[0]
+        self.map[1][2] = card.Card(c[0],self.batch,c[1],c[2],c[3],c[4],c[5],c[6],c[7],c[8],c[9],c[10],x=2*120,y=100)
+        self.map[1][2].opponent_sprite.set_position(600-240,900-100)
+        self.opponent.map.map[8-1][4-2] = 'g'
+        self.map[1][2].opponent_sprite.batch = self.opponent_batch
+
     def card_new_round_action(self):
         # Round specials
         for action in self.round_based_specials:
@@ -56,7 +66,7 @@ class Map:
                 self.map[0][i].sprite.set_position((i-1)*120,0)
                 self.map[0][i-1] = self.map[0][i]
                 self.map[0][i] = None
-        c = self.cards[randint(0,len(self.cards)-1)]
+        c = self.cards[randint(1,len(self.cards)-1)]
         self.map[0][4] = card.Card(c[0],self.batch,c[1],c[2],c[3],c[4],c[5],c[6],c[7],c[8],c[9],c[10],x=4*120,y=0)
 
     def area_select(self,x,y):#,x1,y1
@@ -121,7 +131,7 @@ class Map:
             #Aktions mit Karten in Map
             else:
                 xs,ys = self.select[0:2]
-                if self.map[xs][ys].moveable != 'immovable':
+                if self.map[xs][ys].moveable != 'immovable' and self.map[xs][ys].moveable != 'isCastle' :
                     #alle möglichen Positionen
                     adjacent_tiles = []
                     if xs > 1 and self.map[xs-1][ys] != 1:

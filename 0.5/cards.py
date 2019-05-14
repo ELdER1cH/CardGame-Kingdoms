@@ -34,11 +34,17 @@ def bb_special(self,c=None):
     #Tank Special
     self.round_based_specials.append(self.map[self.select[0]][self.select[1]].wakeup)
 
+def castle_special(self, c= None):
+    castle=map.map[1][3]
+    castle.health += 200
+
+
 
 
 cards = [ 
     #Cards
         #name      level,h,Max h,dmg,cost,mana,crit,img,        specials,moveable
+    ['Burg',1,25000,25000,400,0,False,0,'resc/castle.png',None,'isCastle'],   
     ['Schwertkämpfer',1,500,500,300,7,True,0.01,'resc/card_one.png',None,''],
     ['Turm',1,5000,5000,0,13,True,0,'resc/card_two.png',None,'immovable'],                   #unbewglich
     ['Palatin',1,2500,2500,100,12,True,0.02,'resc/palatin.png',None,''],
