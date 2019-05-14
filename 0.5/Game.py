@@ -5,7 +5,7 @@ import  Map , player, card, pop_up
 
 class Game(pyglet.window.Window):
     def __init__(self,*args):
-        super().__init__(*args,resizable=False,vsync=True)
+        super().__init__(*args,resizable=True,vsync=True)
         self.set_minimum_size(560, 600)
         self.keys = pyglet.window.key.KeyStateHandler()
         self.push_handlers(self.keys)
