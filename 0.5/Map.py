@@ -167,8 +167,17 @@ class Map:
                                     opponent_card = self.opponent.map.map[8-m1][4-m2]
                                     me = self.map[xs][ys]
                                     #Angriff
-                                    opponent_card.health += -me.attack
-                                    me.health += -opponent_card.attack/2
+                                    if opponent_card.moveable == 'immovable' and me.moveable == 'BW':
+                                        opponent_card.health += -me.attack*1.5
+                                        me.health += -opponent_card.attack/2
+                                    elif opponent_card.moveable != 'immovable' and me.moveable == 'BW':
+                                        opponent_card.health += -me.attack/0.5
+                                        me.health += -opponent_card.attack
+                                    elif opponent_card.moveable == 'BW' :
+                                        opponent_card.health += -me.attack*1.5  
+                                    else:
+                                        opponent_card.health += -me.attack
+                                        me.health += -opponent_card.attack/2
                                     #Crit
                                     if randint(1,100) <= me.crit_chance*100: 
                                         opponent_card.health += -me.attack*0.5

@@ -20,5 +20,7 @@ class Player:
         #Setting up Cars in Hand
         for i in range(5):
             c = self.cards[randint(1,len(self.cards)-1)]
+            while c[5] > 20:
+                c=self.cards[randint(1,len(self.cards)-1)]
             self.map.map[0][i] = card.Card(c[0],batch,c[1],c[2],c[3],c[4],c[5],c[6],c[7],c[8],c[9],c[10],x=i*120,y=0)
             
