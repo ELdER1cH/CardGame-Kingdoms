@@ -1,11 +1,16 @@
-import pyglet
-from pyglet.gl import *
-from pyglet.window import key,mouse
-import  Map , player, card, pop_up
-
-class Game(pyglet.window.Window):
+try:
+    import pyglet
+    from pyglet.gl import *
+    from pyglet.window import key,mouse
+    import chat_dependencies.main_chat as main_chat
+    import  Map , player, card, pop_up
+except ImportError as err:
+  print("couldn't load modue. %s" % (err))
+  
+class Game(main_chat.Window):
     def __init__(self,*args):
         super().__init__(*args,resizable=True,vsync=True)
+        self.g_print("§cStarting...")
         self.set_minimum_size(560, 600)
         self.keys = pyglet.window.key.KeyStateHandler()
         self.push_handlers(self.keys)
@@ -29,8 +34,23 @@ class Game(pyglet.window.Window):
         self.current_player.opponent.map.init_castle()
         #----------------------------------------------------------------------------------------------
         pyglet.clock.schedule(self.update)
+        self.g_print("§cInitiation: done!")
+        self.chat_model.chat.update()
 
-        
+    def on_cmd(self,cmd):
+        if cmd[0] == '/hello world':
+            self.g_print('§cHello, dear fella!')
+        elif cmd[0] == '/mana_cheat':
+            if len(cmd) == 2:
+                if cmd[1] == "-me":
+                    self.current_player.mana = 99999
+                else:
+                    try:
+                        self.current_player.mana += int(cmd[1])
+                    except ValueError as err:
+                        self.g_print("§cplease enter an integer as an argument! %s" % (err))
+            else: self.g_print("/mana_cheat <value/-me>")
+        else: self.g_print("§cunknown command. '%s'" % (" ".join(cmd)))
 
     def swap(self):
         # Actions for swapping Players
@@ -58,20 +78,23 @@ class Game(pyglet.window.Window):
             pass
 
     def on_key_press(self,KEY,MOD):
-        if KEY == key.S:
-            self.current_player.map.select = None
-            self.current_player.map.select_frame.set_position(-120,0)
-        if KEY == key.T:
-            self.swap()
-        if KEY == key.D:
-            select = self.current_player.map.select
-            if select != None:
-                if select[0] == 0:
-                    del self.current_player.map.map[select[0]][select[1]].sprite
-                    self.current_player.map.map[select[0]][select[1]] = None
-                    self.current_player.map.update_hand(select[1])
-        if KEY == key.R:
-            self.set_size(560,600)
+        #key.ENTER & key.ESCAPE in while command_input_state; T = open chat
+        super().on_key_press(KEY,MOD)
+        if not self.chat_model.command_input_widget_state:
+            if KEY == key.R:
+                self.current_player.map.select = None
+                self.current_player.map.select_frame.set_position(-120,0)
+            if KEY == key.S:
+                self.swap()
+            if KEY == key.D:
+                select = self.current_player.map.select
+                if select != None:
+                    if select[0] == 0:
+                        del self.current_player.map.map[select[0]][select[1]].sprite
+                        self.current_player.map.map[select[0]][select[1]] = None
+                        self.current_player.map.update_hand(select[1])
+        #if KEY == key.R:
+        #    self.set_size(560,600)
         
     def on_key_release(self,KEY,MOD):
         pass
@@ -95,3 +118,4 @@ class Game(pyglet.window.Window):
         self.batch.draw()
         self.current_player.map.draw()
         self.current_player.map.pop_up.draw()
+        self.chat_model.draw()
