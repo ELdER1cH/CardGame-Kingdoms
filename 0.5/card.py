@@ -42,7 +42,8 @@ class Card:
 
     def heal(self,map):
         #Special for Healer
-        heal_amount = 300
+        heal_amount = 1200
+        cards_to_heal = 0
         try:
             i2 = int(self.sprite.x/120); i = int(self.sprite.y/100)
         except: return
@@ -57,10 +58,18 @@ class Card:
             lis.append([i,i2+1])
         for m1,m2 in lis:
             if map.map[m1][m2] != None and map.map[m1][m2] != 0 and map.map[m1][m2] != 1 and map.map[m1][m2] != "g" and map.map[m1][m2] != "noone":
+                cards_to_heal += 1 
+        for m1,m2 in lis:
+            if map.map[m1][m2] != None and map.map[m1][m2] != 0 and map.map[m1][m2] != 1 and map.map[m1][m2] != "g" and map.map[m1][m2] != "noone":
                 target = map.map[m1][m2]
+                heal_amount -= -cards_to_heal*(heal_amount/4)
                 if target.health+heal_amount <= target.max_health:
                     target.health+=heal_amount
                     print('Healed %s at %s:%s to %s health' % (target.name,m1,m2,target.health))
+                else:
+                    target.health+=heal_amount-(target.health+heal_amount-target.max_health)
+                    print('Healed %s at %s:%s to %s health' % (target.name,m1,m2,target.health))
+                
             
     
     def draw(self):
