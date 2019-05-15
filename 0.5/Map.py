@@ -179,6 +179,9 @@ class Map:
                                     elif opponent_card.moveable != 'immovable' and me.moveable == 'BW':
                                         dmg = me.attack*.5
                                         back *= 2
+                                    elif opponent_card.moveable == "BW":
+                                        dmg += me.attack*.5
+                                        back = 0
                                         
                                     opponent_card.health += -dmg
                                     me.health += -back
