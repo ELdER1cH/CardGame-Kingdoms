@@ -1,42 +1,44 @@
 import card
 
-def farm_special(self,c=None):#mana_reg,maxmana
+def farm_special(self,on_off,c=None,cp=None):#mana_reg,maxmana
     #Upgrading Max Mana and Mana Reg
-    self.current_player.max_mana += 5
-    self.current_player.mana_reg += 2
+    
+    cp.max_mana += 5*on_off
+    cp.mana_reg += 2*on_off
 
-def healer_special(self,c=None):
+def healer_special(self,on_off,c=None,cp=None):
     # Adding to round_based_specials
-    self.round_based_specials.append(self.map[self.select[0]][self.select[1]].heal)
-
-def attack_booster_special(self,c=None):
+    if on_off == 1:
+        self.round_based_specials.append(self.map[self.select[0]][self.select[1]].heal)
+    
+def attack_booster_special(self,on_off,c=None,cp=None):
     #Variablen
-    mulitplier = 1.3
+    mulitplier = 0.3
     i2 = int(c.sprite.x/120); i = int(c.sprite.y/100)
     #Boostvorgang
     for row in range(5):
         if self.map[i][row] != None and self.map[i][row] != 0 and self.map[i][row] != 1 and self.map[i][row] != "g":
-            self.map[i][row].attack *= mulitplier
+            self.map[i][row].attack += self.map[i][row].attack*mulitplier*on_off
 
 
-def shield_booster_special(self, c = None):
+def shield_booster_special(self,on_off,c = None,cp=None):
     #Variablen
-    mulitplier = 1.3
+    mulitplier = 0.3
     i2 = int(c.sprite.x/120); i = int(c.sprite.y/100)
     #Boostvorgang
     for row in range(5):
         if self.map[i][row] != None and self.map[i][row] != 0 and self.map[i][row] != 1 and self.map[i][row] != "g":
-            self.map[i][row].health *= mulitplier
-
+            self.map[i][row].health += self.map[i][row].health*on_off*mulitplier
     
 
-def bb_special(self,c=None):
+def bb_special(self,on_off,c=None,cp=None):
     #Tank Special
-    self.round_based_specials.append(self.map[self.select[0]][self.select[1]].wakeup)
-
-def castle_special(self, c= None):
-    castle=map.map[1][2]
-    castle.health += 200
+    if on_off == 1:
+        self.round_based_specials.append(self.map[self.select[0]][self.select[1]].wakeup)
+        
+def castle_special(self,on_off,c= None,cp=None):
+    castle=self.map[1][2]
+    castle.health += 200*on_off
 
 
 cards = [ 

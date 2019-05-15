@@ -32,8 +32,8 @@ class Map:
             [1,1,0,1,1]
             ]
         #----------------------------------------------------------------------------------------------
-
-         
+        self.pos_for_specialx = 0; self.pos_for_specialy = 0
+        
 
     def init_castle(self):
         c = self.cards[0]
@@ -53,7 +53,7 @@ class Map:
         self.current_player.mana += -self.map[self.select[0]][self.select[1]].price
         if self.map[self.select[0]][self.select[1]].mana_reg: self.current_player.mana_reg += -1
         if self.map[self.select[0]][self.select[1]].special != None:
-            self.map[self.select[0]][self.select[1]].special(self,self.map[self.select[0]][self.select[1]])
+            self.map[self.select[0]][self.select[1]].special(self,1,self.map[self.select[0]][self.select[1]],self.current_player)
 
     def update(self,dt):
         self.pop_up.update(dt)
@@ -162,7 +162,7 @@ class Map:
                                 self.select = None
                                 self.select_frame.set_position(-120,0)
                             
-                           
+                            self.pos_for_specialx = m1; self.pos_for_specialy = m2
                             if self.map[m1][m2] == 'g':
                                 if self.current_player.mana >= 2:
                                     attack_cost = 2
@@ -215,6 +215,7 @@ class Map:
                                     
                                     
                                     #Gegnerische Karte stirbt
+                                    self.pos_for_specialx = 8-m1; self.pos_for_specialy = 4-m2
                                     if opponent_card.health <= 0:
                                         if opponent_card.moveable == "isCastle":
                                             self.pop_up.new_pop_up(x,y,text='Congrats! You won!!',life_span=10)
@@ -224,17 +225,23 @@ class Map:
                                         if not opponent_card.mana_reg:
                                             self.opponent.mana_reg -= 1
                                         self.current_player.mana_reg += 1
+                                        if opponent_card.special != None:
+                                            opponent_card.special(self,-1,opponent_card,self.opponent)
                                         del opponent_card.sprite
                                         del opponent_card.opponent_sprite
                                         self.opponent.map.map[8-m1][4-m2] = 0
                                         self.map[m1][m2]= None
 
                                     #Meine Karte stirbt bzw "Bombe"
+                                    self.pos_for_specialx = xs; self.pos_for_specialy = ys
                                     if me.moveable == 'wantstodie' or me.health <= 0:
                                         if me.mana_reg: self.current_player.mana_reg += 1
                                         del me.sprite
                                         del me.opponent_sprite
                                         self.opponent.map.map[8-xs][4-ys] = 0
+                                        if self.map[xs][ys].special != None:
+                                            m1 = xs; m2 = ys
+                                            self.map[xs][ys].special(self,-1,self.map[xs][ys],self.current_player)
                                         self.map[xs][ys]= None
                                     self.select = None
                                     self.select_frame.set_position(-120,0)

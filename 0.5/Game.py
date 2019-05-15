@@ -67,6 +67,7 @@ class Game(pyglet.window.Window):
             select = self.current_player.map.select
             if select != None:
                 if select[0] == 0:
+                    del self.current_player.map.map[select[0]][select[1]].sprite
                     self.current_player.map.map[select[0]][select[1]] = None
                     self.current_player.map.update_hand(select[1])
         if KEY == key.R:
@@ -82,10 +83,10 @@ class Game(pyglet.window.Window):
         #glScalef(self.scale_x,self.scale_y,1)
         glScalef(self.scale_x,self.scale_y,1)
         print("ol' width: %s new width: %s cal: %s" % (self.pre_resize_dims[0],width,120*7*self.scale_x))
-        self.current_player.map.self.scale_x = self.scale_x
-        self.current_player.map.self.scale_y = self.scale_y  
-        self.current_player.opponent.map.self.scale_x = self.scale_x
-        self.current_player.opponent.map.self.scale_y = self.scale_y 
+        self.current_player.map.scale_x = self.scale_x
+        self.current_player.map.scale_y = self.scale_y  
+        self.current_player.opponent.map.scale_x = self.scale_x
+        self.current_player.opponent.map.scale_y = self.scale_y 
         super().on_resize(width,height)
         #self.pre_resize_dims = (width,height)
 
