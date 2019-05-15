@@ -44,6 +44,7 @@ class Card:
         #Special for Healer
         heal_amount = 1200
         cards_to_heal = -1
+        real_heal_amount= heal_amount
         try:
             i2 = int(self.sprite.x/120); i = int(self.sprite.y/100)
         except: return
