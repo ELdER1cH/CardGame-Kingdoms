@@ -185,9 +185,9 @@ class Map:
     
                                     if randint(1,100) <= me.crit_chance*100: 
                                         opponent_card.health += -me.attack*0.5; dmg *= 0.5
-                                        self.pop_up.new_pop_up(x,y,text='%s CRIT - %s left' % (dmg,hlth),life_span=0.5)
+                                        self.pop_up.new_pop_up(x,y,text='%s CRIT - %s left' % (dmg,opponent_card.health),life_span=0.5)
                                     else:
-                                        self.pop_up.new_pop_up(x,y,text='%s DMG - %s left' % (dmg,hlth),life_span=0.5)
+                                        self.pop_up.new_pop_up(x,y,text='%s DMG - %s left' % (dmg,opponent_card.health),life_span=0.5)
                                             
                                     #Gegnerische Karte stirbt
                                     self.pos_for_specialx = 8-m1; self.pos_for_specialy = 4-m2
