@@ -169,51 +169,26 @@ class Map:
                                     opponent_card = self.opponent.map.map[8-m1][4-m2]
                                     me = self.map[xs][ys]
                                 #Angriff
-                                    #Gegner Immovable | Ich Belagerung
-                                    if opponent_card.moveable == 'immovable' and me.moveable == 'BW':
-                                        opponent_card.health += -me.attack*1.5
-                                        me.health += -opponent_card.attack/2
-                                        #Crit
-                                        if randint(1,100) <= me.crit_chance*100: 
-                                            opponent_card.health += -me.attack*0.5
-                                            self.pop_up.new_pop_up(x,y,text='%s CRIT - %s left' % (me.attack*1.5,opponent_card.health),life_span=0.5)
-                                        else:
-                                            self.pop_up.new_pop_up(x,y,text='%s DMG - %s left' % (me.attack,opponent_card.health),life_span=0.5)
                                     
+                                    dmg = me.attack; back = opponent_card.attack/2
+                                    
+                                    #Gegner Immovable | Ich Belagerung/ Gegner Belagerung | Ich Normal
+                                    if opponent_card.moveable == 'immovable' or opponent_card.moveable == 'BW' and me.moveable == 'BW':
+                                        dmg += me.attack*.5                                            
                                     #Gegner Normal | Ich Belagerung 
                                     elif opponent_card.moveable != 'immovable' and me.moveable == 'BW':
-                                        opponent_card.health += -me.attack/0.5
-                                        me.health += -opponent_card.attack
-                                        #Crit
-                                        if randint(1,100) <= me.crit_chance*100: 
-                                            opponent_card.health += -me.attack*0.5
-                                            self.pop_up.new_pop_up(x,y,text='%s CRIT - %s left' % (me.attack*1.5,opponent_card.health),life_span=0.5)
+                                        dmg = me.attack*.5
+                                        back *= 2
+                                        
+                                    opponent_card.health += -dmg
+                                    me.health += -back
+    
+                                    if randint(1,100) <= me.crit_chance*100: 
+                                            opponent_card.health += -me.attack*0.5; dmg *= 0.5
+                                            self.pop_up.new_pop_up(x,y,text='%s CRIT - %s left' % (dmg,hlth),life_span=0.5)
                                         else:
-                                            self.pop_up.new_pop_up(x,y,text='%s DMG - %s left' % (me.attack,opponent_card.health),life_span=0.5)
-                                    
-                                    #Gegner Belagerung | Ich Normal
-                                    elif opponent_card.moveable == 'BW' :
-                                        opponent_card.health += -me.attack*1.5
-                                        #Crit
-                                        if randint(1,100) <= me.crit_chance*100: 
-                                            opponent_card.health += -me.attack*0.5
-                                            self.pop_up.new_pop_up(x,y,text='%s CRIT - %s left' % (me.attack*1.5,opponent_card.health),life_span=0.5)
-                                        else:
-                                            self.pop_up.new_pop_up(x,y,text='%s DMG - %s left' % (me.attack,opponent_card.health),life_span=0.5)  
-                                    
-                                    #Alles Normal
-                                    else:
-                                        opponent_card.health += -me.attack
-                                        me.health += -opponent_card.attack/2
-                                        #Crit
-                                        if randint(1,100) <= me.crit_chance*100: 
-                                            opponent_card.health += -me.attack*0.5
-                                            self.pop_up.new_pop_up(x,y,text='%s CRIT - %s left' % (me.attack*1.5,opponent_card.health),life_span=0.5)
-                                        else:
-                                            self.pop_up.new_pop_up(x,y,text='%s DMG - %s left' % (me.attack,opponent_card.health),life_span=0.5)
-                                    #Crit
-                                    
-                                    
+                                            self.pop_up.new_pop_up(x,y,text='%s DMG - %s left' % (dmg,hlth),life_span=0.5)
+                                            
                                     #Gegnerische Karte stirbt
                                     self.pos_for_specialx = 8-m1; self.pos_for_specialy = 4-m2
                                     if opponent_card.health <= 0:
