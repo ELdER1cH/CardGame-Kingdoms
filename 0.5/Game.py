@@ -10,6 +10,8 @@ class Game(pyglet.window.Window):
         self.keys = pyglet.window.key.KeyStateHandler()
         self.push_handlers(self.keys)
         self.pre_resize_dims = (self.width,self.height)
+        self.scale_x = 1
+        self.scale_y = 1
         #----------------------------------------------------------------------------------------------
         #Variablen
         self.batch = pyglet.graphics.Batch() 
@@ -74,16 +76,18 @@ class Game(pyglet.window.Window):
         pass
 
     def on_resize(self,width,height):
-        scale_x = width/self.pre_resize_dims[0]
-        scale_y = height/self.pre_resize_dims[1]
-        glScalef(scale_x,scale_y,1)
-        print("ol' width: %s new width: %s cal: %s" % (self.pre_resize_dims[0],width,120*7*scale_x))
-        self.current_player.map.scale_x = scale_x
-        self.current_player.map.scale_y = scale_y  
-        self.current_player.opponent.map.scale_x = scale_x
-        self.current_player.opponent.map.scale_y = scale_y 
+        glScalef(1/self.scale_x,1/self.scale_y,1)
+        self.scale_x = width/self.pre_resize_dims[0]
+        self.scale_y = height/self.pre_resize_dims[1]
+        #glScalef(self.scale_x,self.scale_y,1)
+        glScalef(self.scale_x,self.scale_y,1)
+        print("ol' width: %s new width: %s cal: %s" % (self.pre_resize_dims[0],width,120*7*self.scale_x))
+        self.current_player.map.self.scale_x = self.scale_x
+        self.current_player.map.self.scale_y = self.scale_y  
+        self.current_player.opponent.map.self.scale_x = self.scale_x
+        self.current_player.opponent.map.self.scale_y = self.scale_y 
         super().on_resize(width,height)
-        self.pre_resize_dims = (width,height)
+        #self.pre_resize_dims = (width,height)
 
     def on_draw(self):
         self.clear()
