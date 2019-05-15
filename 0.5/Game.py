@@ -82,7 +82,6 @@ class Game(pyglet.window.Window):
         self.scale_y = height/self.pre_resize_dims[1]
         #glScalef(self.scale_x,self.scale_y,1)
         glScalef(self.scale_x,self.scale_y,1)
-        print("ol' width: %s new width: %s cal: %s" % (self.pre_resize_dims[0],width,120*7*self.scale_x))
         self.current_player.map.scale_x = self.scale_x
         self.current_player.map.scale_y = self.scale_y  
         self.current_player.opponent.map.scale_x = self.scale_x
