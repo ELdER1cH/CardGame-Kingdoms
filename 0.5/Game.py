@@ -67,6 +67,8 @@ class Game(pyglet.window.Window):
                 if select[0] == 0:
                     self.current_player.map.map[select[0]][select[1]] = None
                     self.current_player.map.update_hand(select[1])
+        if KEY == key.R:
+            self.set_size(560,600)
         
     def on_key_release(self,KEY,MOD):
         pass

@@ -34,6 +34,11 @@ class Card:
         #For Sleeping Giant
         if self.health >= 5000:
             self.moveable = ""  
+    def castle_special(self, map):
+        heal_amount = 200
+        castle=map.map[1][2]
+        if castle.health+heal_amount <= castle.max_health:
+            castle.health += heal_amount
 
     def heal(self,map):
         #Special for Healer
