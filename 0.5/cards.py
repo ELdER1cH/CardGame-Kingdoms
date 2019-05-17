@@ -57,7 +57,7 @@ cards = [
     ['BigBoss',1,500,10000,400,16,True,0,'resc/Godzilla.png',bb_special,'immovable'],
     ['Bombe',1,1,1,1000,3,True,0,'resc/Bomb.png',None,'wantstodie'],
     ['Shield',1,1000,1000,200,22,False,0,'resc/shield.png',shield_booster_special,''],
-    ['Rammbock',1,1500,1000,400,6,False,0,'resc/Rammbock.png',None,'BW']
+    ['Rammbock',1,1500,1000,400,6,True,0,'resc/Rammbock.png',None,'BW']
 ]
 
 
