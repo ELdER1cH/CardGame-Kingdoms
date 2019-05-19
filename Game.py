@@ -63,6 +63,7 @@ class Game(main_chat.Window):
                         self.current_player.map.map[int(cmd[2])+1][int(cmd[1])-1].health += int(cmd[3])
                     except ValueError as err:
                         self.g_print("§cplease enter an integer as an argument! %s" % (err))
+            else: self.g_print("/heal_cheat <x-Koordiante> <y-Koordiante> <healamount>")
         else: self.g_print("§cunknown command. '%s'" % (" ".join(cmd)))
 
     def swap(self):
