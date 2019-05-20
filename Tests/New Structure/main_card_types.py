@@ -13,27 +13,39 @@ SPRITE_HEIGHT = int(100/val)
 class Cards:
   def green():
     owner = "green"
-    img = pyglet.image.load('green_frame.png')#green_frame
+    img = pyglet.image.load('green_frame.png')
     name = "green_frame"
-    return img, owner, name
+    health = 1
+    attack_dmg = 0
+    defend_dmg = 0
+    return img, owner, name, health, attack_dmg, defend_dmg
 
   def yellow():
     owner = "yellow"
     img = pyglet.image.load('yellow_frame.png')
     name = "yellow_frame"
-    return img, owner, name
+    health = 1
+    attack_dmg = 0
+    defend_dmg = 0
+    return img, owner, name,health, attack_dmg, defend_dmg
 
   def gray():
     owner = 'noone'
     img = pyglet.image.load('gray_frame.png')
     name = "gray_frame"
-    return img, owner, name
+    health = 1
+    attack_dmg = 0
+    defend_dmg = 0
+    return img, owner, name,health, attack_dmg, defend_dmg
 
   def castle(owner):
     owner = owner
     img = pyglet.image.load('Castle.png')
     name = "yellow_frame"
-    return img, owner, name
+    health = 10000
+    attack_dmg = 100
+    defend_dmg = 0
+    return img, owner, name,health, attack_dmg, defend_dmg
 
 class Card(pyglet.sprite.Sprite):
   def __init__(self,card_type,*args,batch,**kwargs):
@@ -43,9 +55,9 @@ class Card(pyglet.sprite.Sprite):
 
     self.owner = card_type[1]
     self.name = card_type[2]
-    
-    self.attack_dmg = 10
-    self.defend_dmg = 5
+    self.health = card_type[3]
+    self.attack_dmg = card_type[4]
+    self.defend_dmg = card_type[5]
 
     self.set_dot()
 
@@ -166,8 +178,7 @@ class Window(pyglet.window.Window):
     self.batch = CardBatch()
     img = pyglet.image.load("card_one.png")
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
-    #self.card1 = Card(img,Cards.noone,100,110,batch=self.batch)
-    #self.card2 = Card(img,Cards.speer,100,10,batch=self.batch)
+    
     self.cal_time = 0
     pyglet.clock.schedule(self.update)
     #pyglet.clock.schedule_interval(self.print_cal_time,1)
@@ -190,7 +201,7 @@ class Window(pyglet.window.Window):
     if KEY == key.A:
       img = pyglet.image.load("card_one.png")
       for i in range(100):
-        card = Card(img,0,i*10,batch=self.batch)
+        card = Card(Cards.gray(),0,i*10,batch=self.batch)
 
     if KEY == key.S:
       reference = time.time()
