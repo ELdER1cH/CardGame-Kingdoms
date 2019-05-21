@@ -1,6 +1,6 @@
 import pyglet
 from pyglet.gl import *
-import pop_up, Batch
+import pop_up, Batch, Cards, Card
 from pyglet.window import key, mouse
 #glEnable(GL_BLEND)
 #glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
@@ -21,44 +21,44 @@ class Window(pyglet.window.Window):
   def on_mouse_press(self,x,y,button,MOD):
     #left click?
     if button == mouse.LEFT:
-      clicked_card = self.batch.get_card((x,y))
+      target = self.batch.get_card((x,y))
       #clicked on a card?
-      if clicked_card != None:
-        select = self.batch.get_card(self.batch.select_frame.position)
+      if target != None:
+        selected_card = self.batch.get_card(self.batch.select_frame.position)
         #is there already an selected card?
-        if select != None:
-          if clicked_card.owner == self.batch.castle.owner:
-            if select != clicked_card:
-              adjacent = self.batch.get_adjacent(select.position)
+        if selected_card != None:
+          if target.owner == self.batch.castle.owner:
+            if selected_card != target:
+              adjacent = self.batch.get_adjacent(selected_card.position)
               for allowed_card in adjacent:
-                #if clicked card adjacent to select
-                if clicked_card == allowed_card:
+                #if clicked card adjacent to selected_card
+                if target == allowed_card:
                     #now stuff could happen - attack, move, etc.
 
                     #move if own field
-                    p = clicked_card.position
-                    clicked_card.position = select.position
-                    select.position = p
+                    p = target.position
+                    target.position = selected_card.position
+                    selected_card.position = p
                     self.batch.hide(self.batch.select_frame) 
                     return
-              self.pop_up.new_red_frame(select.position)
+              self.pop_up.new_red_frame(selected_card.position)
             else:
-              #undo select
+              #undo selected_card
               self.batch.hide(self.batch.select_frame)
               
           else:
             #indicate error with red_frame
-            self.pop_up.new_red_frame(select.position)   
+            self.pop_up.new_red_frame(selected_card.position)   
           
-          #set select if own card and not immovable
-        elif clicked_card.owner == self.batch.castle.owner:
-          if clicked_card.special_tag != "immovable":
-            self.batch.select_card(clicked_card)
+        #set selected_card if own card and not immovable
+        elif target.owner == self.batch.castle.owner:
+          if target.special_tag == "immovable":
+            self.batch.select_card(target) 
             #target.replace(Cards.gray,owner="gray")
           else:
-            self.pop_up.new_red_frame(clicked_card.position)
+            self.pop_up.new_red_frame(target.position)
         else:
-            self.pop_up.new_red_frame(clicked_card.position)
+            self.pop_up.new_red_frame(target.position)
 
   def on_key_press(self,KEY,MOD):
     if KEY == key.S:
