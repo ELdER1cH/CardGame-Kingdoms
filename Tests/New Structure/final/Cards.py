@@ -1,5 +1,5 @@
 import pyglet
-from Card import Card as cs
+from Card import Card 
 #speical_tags to yet account for: Bombe, Rammbock, (+Burg) 
 
 cards = {
@@ -7,22 +7,22 @@ cards = {
             'Schwertkaempfer': [1,500,500,300,7,0.01,'resc/card_one.png',[],'',None],
             'Turm': [1,5000,5000,0,13,0,'resc/card_two.png',[],'immovable',None],
             'Palatin': [1,2500,2500,200,13,0.02,'resc/palatin.png',[],'',None],
-            'Bauernhof': [1,1500,1500,0,17,0,'resc/farm.png',[cs.generate_mana,cs.generate_mana,cs.generate_mana],'immovable',cs.farm_special],
+            'Bauernhof': [1,1500,1500,0,17,0,'resc/farm.png',[Card.generate_mana,Card.generate_mana,Card.generate_mana],'immovable',Card.farm_special],
             'Speerkaempfer': [1,400,400,350,4,0.05,'resc/speer.png',[],'',None],
-            'Healer': [1,700,700,100,10,0,'resc/healer.png',[cs.heal],'',None],
+            'Healer': [1,700,700,100,10,0,'resc/healer.png',[Card.heal],'',None],
             'Orc': [1,700,800,500,9,0.05,'resc/Orc.png',[],'',None],
             'Goblin': [1,200,200,350,3,0,'resc/Goblin.png',[],'',None],
-            'Fahnentraeger': [1,750,750,100,22,0,'resc/flag.png',[],'',cs.attack_booster_special],
-            'BigBoss': [1,500,10000,400,16,0,'resc/Godzilla.png',[cs.wake_up],'immovable',None],
+            'Fahnentraeger': [1,750,750,100,22,0,'resc/flag.png',[],'',Card.attack_booster_special],
+            'BigBoss': [1,500,10000,400,16,0,'resc/Godzilla.png',[Card.wake_up],'immovable',None],
             'Bombe': [1,1,1,1000,3,0,'resc/Bomb.png',[],'wantstodie',None],
-            'Shield': [1,1000,1000,200,22,0,'resc/shield.png',[],'',cs.shield_booster_special],
+            'Shield': [1,1000,1000,200,22,0,'resc/shield.png',[],'',Card.shield_booster_special],
             'Rammbock': [1,1500,1000,400,6,0,'resc/Rammbock.png',[],'BW',None]
 }
 def Burg(card):
     img = pyglet.image.load('resc/Castle.png')
     card.level = 1
     card.name = "green_frame"
-    card.specials = [cs.castle_special]
+    card.specials = [Card.castle_special]
     card.place_special = None
     card.health = 10000
     card.max_health = 10000
@@ -36,7 +36,7 @@ def green(card):
     img = pyglet.image.load('resc/green_frame.png')
     card.level = 1
     card.name = "green_frame"
-    card.specials = [cs.generate_mana]
+    card.specials = [Card.generate_mana]
     card.place_special = None
     card.health = 1
     card.max_health = 1
@@ -50,7 +50,7 @@ def yellow(card):
     img = pyglet.image.load('resc/yellow_frame.png')
     card.level = 1
     card.name = "yellow_frame"
-    card.specials = [cs.generate_mana]
+    card.specials = [Card.generate_mana]
     card.place_special = None
     card.health = 1
     card.max_health = 1
