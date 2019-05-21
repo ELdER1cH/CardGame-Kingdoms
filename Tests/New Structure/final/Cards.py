@@ -18,6 +18,7 @@ cards = {
             'Shield': [1,1000,1000,200,22,0,'resc/shield.png',[],'',cs.shield_booster_special],
             'Rammbock': [1,1500,1000,400,6,0,'resc/Rammbock.png',[],'BW',None]
 }
+
 def Burg(card):
     img = pyglet.image.load('resc/Castle.png')
     card.level = 1

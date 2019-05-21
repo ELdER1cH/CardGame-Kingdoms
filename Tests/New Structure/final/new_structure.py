@@ -73,7 +73,7 @@ class Window(pyglet.window.Window):
 
 if __name__ == "__main__":
   width = 600+120*INDENTATION_RIGHT;height =800
-  window = Window(width,height,"New Stucture Testing",resizable=True)
+  window = Window(width,height,"New Stucture Testing",resizable=True,vsync=True)
   glClearColor(255,255,255,255)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
   fps_display = pyglet.window.FPSDisplay(window)
