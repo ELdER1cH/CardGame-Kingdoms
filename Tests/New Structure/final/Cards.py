@@ -4,15 +4,15 @@ from Card import Card as cs
 
 cards = {
             #name level,h,   Maxh,dmg,cost,crit,img,       specials,special_tag,place_special  
-            'Schwertkämpfer': [1,500,500,300,7,0.01,'resc/card_one.png',[],'',None],
+            'Schwertkaempfer': [1,500,500,300,7,0.01,'resc/card_one.png',[],'',None],
             'Turm': [1,5000,5000,0,13,0,'resc/card_two.png',[],'immovable',None],
             'Palatin': [1,2500,2500,200,13,0.02,'resc/palatin.png',[],'',None],
             'Bauernhof': [1,1500,1500,0,17,0,'resc/farm.png',[cs.generate_mana,cs.generate_mana,cs.generate_mana],'immovable',cs.farm_special],
-            'Speerkämpfer': [1,400,400,350,4,0.05,'resc/speer.png',[],'',None],
+            'Speerkaempfer': [1,400,400,350,4,0.05,'resc/speer.png',[],'',None],
             'Healer': [1,700,700,100,10,0,'resc/healer.png',[cs.heal],'',None],
             'Orc': [1,700,800,500,9,0.05,'resc/Orc.png',[],'',None],
             'Goblin': [1,200,200,350,3,0,'resc/Goblin.png',[],'',None],
-            'Fahnenträger': [1,750,750,100,22,0,'resc/flag.png',[],'',cs.attack_booster_special],
+            'Fahnentraeger': [1,750,750,100,22,0,'resc/flag.png',[],'',cs.attack_booster_special],
             'BigBoss': [1,500,10000,400,16,0,'resc/Godzilla.png',[cs.wake_up],'immovable',None],
             'Bombe': [1,1,1,1000,3,0,'resc/Bomb.png',[],'wantstodie',None],
             'Shield': [1,1000,1000,200,22,0,'resc/shield.png',[],'',cs.shield_booster_special],
