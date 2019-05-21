@@ -21,9 +21,6 @@ class CardBatch(pyglet.graphics.Batch):
   def select_card(self,target):
     self.select_frame.position = target.position
 
-  def add(self,*args,**kwargs):
-    return super().add(*args,**kwargs)
-
   def swap(self):
     self.castle = self.get_card((240+120*INDENTATION,700))
     for card in self.cards:
@@ -33,11 +30,7 @@ class CardBatch(pyglet.graphics.Batch):
       card.image.anchor_y = 100-card.image.anchor_y
       card.rotation = 180-card.rotation
       for special in card.specials:
-        special()
-      if self.castle.owner == card.owner:
-        self.castle.mana += card.mana_reg
-      if self.castle.mana > self.castle.max_mana:
-        self.castle.mana = self.castle.max_mana
+        special(card)
     self.hide(self.select_frame)
 
   def hide(self,card):
@@ -57,17 +50,22 @@ class CardBatch(pyglet.graphics.Batch):
         adjacent.append(card)
     return adjacent
 
-  def update(self,pos):
-    pass
-  
+  def get_row(self,pos):
+    row = []
+    x,y = pos
+    for card in self.cards:
+      if card.in_area((0,y),(120,y),
+                      (240,y),(360,y),(480,y)):
+        row.append(card)
+    return row
 
   def draw(self):
     super().draw()
     self.select_frame.draw()
 
   def init_map(self):
-    self.castle = Card.Card(Cards.Burg,240+120*INDENTATION,100,batch=self,owner="yellow")
-    c = Card.Card(Cards.Burg,240+120*INDENTATION,700,batch=self,owner="green")
+    self.castle = Card.Castle(Cards.Burg,240+120*INDENTATION,100,batch=self,owner="yellow")
+    c = Card.Castle(Cards.Burg,240+120*INDENTATION,700,batch=self,owner="green")
     c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
     for i in range(2,7,1):
       for i2 in range(0+INDENTATION,5+INDENTATION,1):
@@ -78,3 +76,6 @@ class CardBatch(pyglet.graphics.Batch):
         if i >= 5:
           c = Card.Card(Cards.green,i2*120,i*100,batch=self,owner="green")
           c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
+
+  def update(self,pos):
+    pass

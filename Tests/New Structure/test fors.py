@@ -1,4 +1,15 @@
-def fors():
+class Test:
+  def test(card):
+    print(card.name)
+
+class ITest:
+  def __init__(self):
+    self.name = "arnolrd"
+    self.specials = Test()
+    self.specials.test(self)
+ITest()
+
+"""def fors():
   for i in range(10):
     if i >= 5:
       return
@@ -38,4 +49,4 @@ glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 texture.blit_into(base,x=0, y=0, z=0)
 img.blit_to_texture(texture.target,0,0, 0, z=1)
 #texture.blit_into(img, x=0, y=0, z=1)
-texture.save('test_merge.png')
+texture.save('test_merge.png')"""
