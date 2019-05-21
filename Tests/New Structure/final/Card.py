@@ -48,6 +48,7 @@ class Card(pyglet.sprite.Sprite):
       self.special_tag = ""
     else: self.special_tag = "immovable"
     
+
   def generate_mana(self):
     if self.owner == self.batch.castle.owner:
       if self.batch.castle.mana < self.batch.castle.max_mana:
@@ -113,6 +114,16 @@ class Card(pyglet.sprite.Sprite):
         return True
 
   def update(self,pos):
+    pass
+
+class Castle(Card):
+  def __init__(self,*args,**kwargs):
+    super().__init__(*args,**kwargs)
+    self.mana = 0
+    self.max_mana = 20
+    self.load_hand()
+    
+  def load_hand(self):
     pass
 
 class CardGroup:

@@ -1,6 +1,6 @@
 import pyglet
 from pyglet.gl import *
-import Cards, Card, Castle
+import Cards, Card
 
 val = 1
 SPRITE_WIDTH = int(120/val)
@@ -64,8 +64,8 @@ class CardBatch(pyglet.graphics.Batch):
     self.select_frame.draw()
 
   def init_map(self):
-    self.castle = Castle.Castle(Cards.Burg,240+120*INDENTATION,100,batch=self,owner="yellow")
-    c = Castle.Castle(Cards.Burg,240+120*INDENTATION,700,batch=self,owner="green")
+    self.castle = Card.Castle(Cards.Burg,240+120*INDENTATION,100,batch=self,owner="yellow")
+    c = Card.Castle(Cards.Burg,240+120*INDENTATION,700,batch=self,owner="green")
     c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
     for i in range(2,7,1):
       for i2 in range(0+INDENTATION,5+INDENTATION,1):
