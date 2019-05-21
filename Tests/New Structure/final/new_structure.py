@@ -52,7 +52,7 @@ class Window(pyglet.window.Window):
           
         #set selected_card if own card and not immovable
         elif target.owner == self.batch.castle.owner:
-          if target.special_tag == "immovable":
+          if target.special_tag != "immovable":
             self.batch.select_card(target) 
             #target.replace(Cards.gray,owner="gray")
           else:

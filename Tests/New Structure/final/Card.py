@@ -116,16 +116,6 @@ class Card(pyglet.sprite.Sprite):
   def update(self,pos):
     pass
 
-class Castle(Card):
-  def __init__(self,*args,**kwargs):
-    super().__init__(*args,**kwargs)
-    self.mana = 0
-    self.max_mana = 20
-    self.load_hand()
-    
-  def load_hand(self):
-    pass
-
 class CardGroup:
   def __init__(self,positon,batch,*cards):
     batch.card_groups.append(self)
