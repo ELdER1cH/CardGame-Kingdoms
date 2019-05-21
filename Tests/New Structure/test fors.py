@@ -7,8 +7,8 @@ class ITest:
     self.name = "arnolrd"
     self.specials = Test()
     self.specials.test(self)
-ITest()
-
+#ITest()
+    
 """def fors():
   for i in range(10):
     if i >= 5:

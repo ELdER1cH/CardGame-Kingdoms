@@ -2,6 +2,7 @@ import pyglet
 from pyglet.gl import *
 import pop_up, Batch
 from pyglet.window import key, mouse
+import Cards, Card
 #glEnable(GL_BLEND)
 #glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
@@ -24,6 +25,7 @@ class Window(pyglet.window.Window):
       clicked_card = self.batch.get_card((x,y))
       #clicked on a card?
       if clicked_card != None:
+        #clicked_card.replace(Cards.init(clicked_card,"Schwertkaempfer"),owner=self.batch.castle.owner)
         select = self.batch.get_card(self.batch.select_frame.position)
         #is there already an selected card?
         if select != None:
