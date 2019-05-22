@@ -7,7 +7,23 @@ class ITest:
     self.name = "arnolrd"
     self.specials = Test()
     self.specials.test(self)
-ITest()
+#ITest()
+
+lis = {
+  "a" : [1],
+  "b" : [2],
+  "c" : [3],
+  "d" : [4]
+  }
+
+from random import randint
+r = randint(0,len(lis))
+print(lis.keys())
+
+for i in range(3):
+  print(i)
+else:
+  print("sth broke")
 
 """def fors():
   for i in range(10):

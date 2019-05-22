@@ -12,16 +12,63 @@ class Card(pyglet.sprite.Sprite):
   def __init__(self,card_type,*args,batch,owner=None,**kwargs):
     batch.cards.append(self)
     super().__init__(Cards.init(self,card_type),*args,batch=batch,**kwargs)
-
     self.owner = owner
+    self.init()
+    
+  def init(self):
     self.resize()
     self.set_dot()
+    self.defend = self.dmg/2
+  
+  def remove(self):
+    for special in self.place_special:
+      special(self,-1)
+    self.delete()
+  
+  def replace(self,target,arg,owner=True):
+    #anc_x,anc_y,rot = self.get_anchor()
+    if owner != True: self.owner = owner
+    if arg == None:
+      self.image = Cards.init(target,arg)
+    else: self.image = Cards.init(target,arg)
+    self.init()
+    self.image.anchor_x = 0
+    self.image.anchor_y = 0
+    self.rotation = 0
+  
+  def fight(self,target,pop_up):
+    if self.batch.castle.mana >= 2:
+      self.batch.castle.mana -= 2
+      if target.special_tag == "unoccupied_field":
+        target.health = self.dmg
+      target.health -= self.dmg
+      self.health -= target.defend
+      pop_up.new_pop_up(target.position,text='%s DMG - %s left'
+                             % (self.dmg,target.health),life_span=0.7)
+                                         
+      if target.health <= 0:
+        if self.owner == "green":
+          target.replace(target,Cards.green,owner="green")
+        else:
+          target.replace(target,Cards.yellow,owner="yellow")
 
-  def fight(self,oppponent):
-    opponent.health -= self.attack_dmg
+      if self.health <= 0:
+        if self.owner == "yellow":
+          self.replace(self,Cards.green,owner="green")
+        else:
+          self.replace(self,Cards.yellow,owner="yellow")
 
-  def defend(self,attacker):
-    attacker.health -= self.defend_dmg   
+      self.batch.update_disp(target)
+        
+    else:
+      pop_up.new_red_frame(target.position)
+
+  def swap(self,card,pos,activate=False):
+    card.position = self.position
+    self.position = pos
+    if activate:
+      for special in self.place_special:
+        special(self,1)
 
   def heal(self):
     heal_amount = 1200
@@ -29,7 +76,7 @@ class Card(pyglet.sprite.Sprite):
     real_heal_amount= heal_amount
     lis = self.batch.get_adjacent(self.position)
     for card in lis:
-        if card.owner == self.owner:
+        if card.owner == self.owner and card.special_tag != "unoccupied_field":
             cards_to_heal += 1 
     for card in lis:
         if card.owner == self.owner:
@@ -77,17 +124,9 @@ class Card(pyglet.sprite.Sprite):
       mulitplier = 0.3
       self.row = self.batch.get_row(self.position)
     #Boostvorgang
-    for card in row:
+    for card in self.row:
       if card.owner == self.owner:
         card.health += card.health*mulitplier*on_off
-
-  def remove(self):
-    self.place_special(-1)
-    self.delete()
-  
-  def replace(self,func,owner=True):
-    if owner != True: self.owner = owner 
-    self.image = func(self)
   
   def resize(self):
     self.image.get_texture().width = SPRITE_WIDTH
@@ -96,8 +135,6 @@ class Card(pyglet.sprite.Sprite):
     self.h = SPRITE_HEIGHT
 
   def set_dot(self):
-    if self.place_special != None:
-      self.place_special(1)
     base = self.image.texture
     texture = pyglet.image.Texture.create(width=self.w,height=self.h)
     if self.owner == 'yellow':

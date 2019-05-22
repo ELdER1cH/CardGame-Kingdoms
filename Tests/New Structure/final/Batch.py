@@ -1,6 +1,6 @@
 import pyglet
 from pyglet.gl import *
-import Cards, Card
+import Cards, Card, stats_display
 from Castle import Castle
 
 val = 1
@@ -15,13 +15,13 @@ class CardBatch(pyglet.graphics.Batch):
     super().__init__()
     self.cards = []
     self.card_groups = []
-    self.init_map()
+    self.disp = stats_display.Stats_Display()
     self.select_frame = pyglet.sprite.Sprite(pyglet.image.load("resc/frame.png"),
                                              -SPRITE_WIDTH,
                                              -SPRITE_HEIGHT)
-  def select_card(self,target):
-    self.select_frame.position = target.position
-
+    self.init_cards()
+    self.mana_reg = 0
+    
   def swap(self):
     self.castle = self.get_card((240+120*INDENTATION,700))
     for card in self.cards:
@@ -31,8 +31,37 @@ class CardBatch(pyglet.graphics.Batch):
       card.image.anchor_y = 100-card.image.anchor_y
       card.rotation = 180-card.rotation
       for special in card.specials:
-        special(card)
+        if card.y > 0 and card.y < 800:
+          special(card)
     self.hide(self.select_frame)
+    self.update_disp(self.castle)
+
+  def update_hand(self,target):
+    row = []
+    pos = target.position
+    for i in range(int(pos[0]/120),5,1):
+      for card in self.cards:
+        if card.in_area((int(120*i),0)):
+          row.append(card)
+          
+    for card in row:
+      target.swap(card,card.position)
+    target.replace(target,Cards.get_random_name())
+
+  def update_disp(self,target):
+    self.mana_reg = 0
+    for card in self.cards:
+      for special in card.specials:
+        if card.y > 0 and card.y < 800 and card.owner == self.castle.owner:
+          if special == Card.Card.generate_mana:  
+            self.mana_reg += 1
+    self.disp.update(self.castle.mana,self.castle.max_mana,
+                     self.mana_reg,target)
+    
+  def select_card(self,target):
+    self.select_frame.position = target.position
+    self.update_disp(target)
+    
 
   def hide(self,card):
     card.position = (-SPRITE_WIDTH,-SPRITE_HEIGHT)
@@ -63,11 +92,15 @@ class CardBatch(pyglet.graphics.Batch):
   def draw(self):
     super().draw()
     self.select_frame.draw()
+    self.disp.draw()
 
-  def init_map(self):
+  def init_cards(self):
     self.castle = Castle(Cards.Burg,240+120*INDENTATION,100,batch=self,owner="yellow")
+    self.castle.load_hand(self.castle.y-100,False)
+    self.castle.mana = 10
     c = Castle(Cards.Burg,240+120*INDENTATION,700,batch=self,owner="green")
     c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
+    c.load_hand(c.y+100,True)
     for i in range(2,7,1):
       for i2 in range(0+INDENTATION,5+INDENTATION,1):
         if i <= 3:
@@ -77,6 +110,10 @@ class CardBatch(pyglet.graphics.Batch):
         if i >= 5:
           c = Card.Card(Cards.green,i2*120,i*100,batch=self,owner="green")
           c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
-
+    self.update_disp(self.castle)
+    
   def update(self,pos):
-    pass
+    self.disp.mana_label.text = """
+        Mana: %s
+        Max Mana: %s
+        Mana Reg: %s""" % (self.castle.mana,self.max_mana,self.mana_reg)
