@@ -1,4 +1,3 @@
-
 try:
   import pyglet
   from pyglet.gl import *
@@ -185,7 +184,7 @@ class Window(main_chat.Window):
 if __name__ == "__main__":
   width = 600+120*INDENTATION_RIGHT;height =800
   window = Window(width,height,"New Stucture Testing",resizable=True,vsync=False)
-  glClearColor(255,255,255,255)
+  glClearColor(135,206,250,255)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
   fps_display = pyglet.window.FPSDisplay(window)
   fps_display.label.font_size = 15

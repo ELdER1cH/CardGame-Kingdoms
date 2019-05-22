@@ -17,7 +17,7 @@ class Stats_Display():
                           font_name='Times New Roman',
                           font_size=12,
                           bold=True,color=(109, 43, 43,255),
-                          x=660, y=600,
+                          x=720, y=600,
                           anchor_x='center', anchor_y='top',multiline=True,width=180)
         
 
