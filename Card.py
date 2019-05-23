@@ -1,6 +1,6 @@
 import pyglet
 from pyglet.gl import *
-import Cards
+import Cards, Window
 
 val = 1
 SPRITE_WIDTH = int(120/val)

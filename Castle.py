@@ -1,6 +1,6 @@
 from Card import Card
-import Cards
-import random
+import Cards,random,Window
+
 
 class Castle(Card):
   def __init__(self,*args,**kwargs):
