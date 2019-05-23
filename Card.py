@@ -37,20 +37,22 @@ class Card(pyglet.sprite.Sprite):
   def fight(self,target,pop_up):
     if self.batch.castle.mana >= 2:
       self.batch.castle.mana -= 2
-      if target.special_tag == "unoccupied_field":
-        #so there is no high -dmg in pop_up xD
-        target.health = self.dmg
+  
       dmg = self.dmg
       defend = target.defend
       if target.special_tag == "BW":
         dmg *=1.5
         defend = 0
       if self.special_tag == "BW":
-        dmg *=.5
+        dmg *=0.5
         defend *= 2
         if target.name == "Burg":
           dmg *= 4
           defend *=.5
+
+      if target.special_tag == "unoccupied_field":
+        #so there is no high -dmg in pop_up xD
+        target.health = dmg
       
       target.health -= dmg
       self.health -= defend

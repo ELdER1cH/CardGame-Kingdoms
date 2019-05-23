@@ -137,6 +137,10 @@ class Window(main_chat.Window):
     if not self.chat_model.command_input_widget_state:
       if KEY == key.S:
         self.batch.swap()
+      elif KEY == key.D:
+        target = self.batch.get_card(self.batch.select_frame.position)
+        if target != None and target.y == 0:     
+          self.batch.update_hand(target)
           
   def on_draw(self):
     self.clear()
@@ -178,6 +182,17 @@ class Window(main_chat.Window):
                 card.health += int(cmd[3])
               else: self.g_print("no card at that coordiante")
             else: self.g_print("/heal_cheat <x-Koordiante> <y-Koordiante> <healamount>")
+        elif cmd[0] == "/replace":
+          if len(cmd) >= 2 and cmd[1] == "-hand":
+            if cmd[2] in list(Cards.cards.keys()):
+              row = self.batch.get_row((0,0))
+              for card in row:
+                card.replace(card,cmd[2],owner=card.owner)
+            else:
+              self.g_print("§cunknown card: %s" % (cmd[2]))
+          else:
+            self.g_print("§c/replace -hand <card_name>")
+
         else: self.g_print("§cunknown command. '%s'" % (" ".join(cmd)))
 
 
