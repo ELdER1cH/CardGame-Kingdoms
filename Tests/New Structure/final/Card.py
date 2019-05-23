@@ -28,9 +28,7 @@ class Card(pyglet.sprite.Sprite):
   def replace(self,target,arg,owner=True):
     #anc_x,anc_y,rot = self.get_anchor()
     if owner != True: self.owner = owner
-    if arg == None:
-      self.image = Cards.init(target,arg)
-    else: self.image = Cards.init(target,arg)
+    self.image = Cards.init(target,arg)
     self.init()
     self.image.anchor_x = 0
     self.image.anchor_y = 0
@@ -48,15 +46,15 @@ class Card(pyglet.sprite.Sprite):
                                          
       if target.health <= 0:
         if self.owner == "green":
-          target.replace(target,Cards.green,owner="green")
+          target.replace(target,"green",owner="green")
         else:
-          target.replace(target,Cards.yellow,owner="yellow")
+          target.replace(target,"yellow",owner="yellow")
 
       if self.health <= 0:
         if self.owner == "yellow":
-          self.replace(self,Cards.green,owner="green")
+          self.replace(self,"green",owner="green")
         else:
-          self.replace(self,Cards.yellow,owner="yellow")
+          self.replace(self,"yellow",owner="yellow")
 
       self.batch.update_disp(target)
         
