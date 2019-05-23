@@ -129,3 +129,51 @@ class Window(main_chat.Window):
       else:
         #IF TARGET IS EMPTY FIELD SHOW RED FRAME
         self.pop_up.new_red_frame(target.position)    
+def on_key_press(self,KEY,MOD):
+    #key.ENTER & key.ESCAPE in while command_input_state; T = open chat
+    super().on_key_press(KEY,MOD)
+    if not self.chat_model.command_input_widget_state:
+      if KEY == key.S:
+        self.batch.swap()
+          
+  def on_draw(self):
+    self.clear()
+    self.batch.draw()
+    self.pop_up.draw()
+    fps_display.draw()
+    self.chat_model.draw()
+
+  def on_resize(self,width,height):
+    glScalef(1/self.scale_x,1/self.scale_y,1)
+    self.scale_x = width/self.pre_resize_dims[0]
+    self.scale_y = height/self.pre_resize_dims[1]
+    #glScalef(self.scale_x,self.scale_y,1)
+    glScalef(self.scale_x,self.scale_y,1)
+    super().on_resize(width,height)
+
+  def on_cmd(self,cmd):
+        if cmd[0] == '/hello world':
+            self.g_print('§cHello, dear fella!')
+        elif cmd[0] == '/mana_cheat':
+            if len(cmd) == 2:
+                if cmd[1] == "-me":
+                    self.batch.castle.mana = 99999
+                else:
+                    try:
+                        self.batch.castle.mana += int(cmd[1])
+                    except ValueError as err:
+                        self.g_print("§cplease enter an integer as an argument! %s" % (err))
+            else: self.g_print("/mana_cheat <value/-me>")
+        elif cmd[0] == '/heal_cheat':
+            if len(cmd) >= 2 and cmd[1] == "-me":
+              self.batch.castle.health = 99999
+            elif len(cmd) == 4:
+              try:
+                card = self.batch.get_card((int(cmd[1])*120,int(cmd[2])*100))
+              except ValueError as err:
+                self.g_print("§cplease enter an integer as an argument! %s" % (err))
+              if card != None:
+                card.health += int(cmd[3])
+              else: self.g_print("no card at that coordiante")
+            else: self.g_print("/heal_cheat <x-Koordiante> <y-Koordiante> <healamount>")
+        else: self.g_print("§cunknown command. '%s'" % (" ".join(cmd)))
