@@ -95,20 +95,20 @@ class CardBatch(pyglet.graphics.Batch):
     self.disp.draw()
 
   def init_cards(self):
-    self.castle = Castle(Cards.Burg,240+120*INDENTATION,100,batch=self,owner="yellow")
+    self.castle = Castle("Burg",240+120*INDENTATION,100,batch=self,owner="yellow")
     self.castle.load_hand(self.castle.y-100,False)
     self.castle.mana = 10
-    c = Castle(Cards.Burg,240+120*INDENTATION,700,batch=self,owner="green")
+    c = Castle("Burg",240+120*INDENTATION,700,batch=self,owner="green")
     c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
     c.load_hand(c.y+100,True)
     for i in range(2,7,1):
       for i2 in range(0+INDENTATION,5+INDENTATION,1):
         if i <= 3:
-          Card.Card(Cards.yellow,i2*120,i*100,batch=self,owner="yellow")
+          Card.Card("yellow",i2*120,i*100,batch=self,owner="yellow")
         if i == 4:
-          Card.Card(Cards.gray,i2*120,i*100,batch=self,owner="gray")
+          Card.Card("gray",i2*120,i*100,batch=self,owner="gray")
         if i >= 5:
-          c = Card.Card(Cards.green,i2*120,i*100,batch=self,owner="green")
+          c = Card.Card("green",i2*120,i*100,batch=self,owner="green")
           c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
     self.update_disp(self.castle)
     
