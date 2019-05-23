@@ -1,6 +1,6 @@
 import pyglet
 from Card import Card
-import random
+import random, Window
 #speical_tags to yet account for: Bombe, Rammbock, (+Burg) 
 
 cards = {

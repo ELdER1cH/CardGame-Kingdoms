@@ -129,18 +129,17 @@ class Window(main_chat.Window):
       else:
         #IF TARGET IS EMPTY FIELD SHOW RED FRAME
         self.pop_up.new_red_frame(target.position)    
-def on_key_press(self,KEY,MOD):
-    #key.ENTER & key.ESCAPE in while command_input_state; T = open chat
-    super().on_key_press(KEY,MOD)
-    if not self.chat_model.command_input_widget_state:
-      if KEY == key.S:
-        self.batch.swap()
+    def on_key_press(self,KEY,MOD):
+        #key.ENTER & key.ESCAPE in while command_input_state; T = open chat
+        super().on_key_press(KEY,MOD)
+        if not self.chat_model.command_input_widget_state:
+            if KEY == key.S:
+                self.batch.swap()
           
   def on_draw(self):
     self.clear()
     self.batch.draw()
     self.pop_up.draw()
-    fps_display.draw()
     self.chat_model.draw()
 
   def on_resize(self,width,height):
