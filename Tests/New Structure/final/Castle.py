@@ -11,7 +11,7 @@ class Castle(Card):
   def load_hand(self,y,bo):
     #Setting up Cars in Hand
     for i in range(5):
-      name, info = random.choice(list(Cards.cards.items()))
+      name, info = Cards.get_random()
       while info[4] > 20:
         name, info = random.choice(list(Cards.cards.items()))
       c = Card(name,i*120,y,batch=self.batch,owner=self.owner)
