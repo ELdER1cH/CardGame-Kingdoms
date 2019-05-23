@@ -143,9 +143,10 @@ class Card(pyglet.sprite.Sprite):
 
   def set_dot(self):
     base = self.image.texture
-    texture = pyglet.image.Texture.create(width=self.w,height=self.h)
-    img = pyglet.image.load("resc/"+self.owner+"_dot.png").get_image_data()
-    base.blit_into(img, x=0, y=0, z=0)
+    if self.owner == "green" or self.owner == "yellow":
+      texture = pyglet.image.Texture.create(width=self.w,height=self.h)
+      img = pyglet.image.load("resc/"+self.owner+"_dot.png").get_image_data()
+      base.blit_into(img, x=0, y=0, z=0)
    
   def in_area(self,*pos):
     mx, my = self.position
