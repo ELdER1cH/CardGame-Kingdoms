@@ -38,13 +38,29 @@ class Card(pyglet.sprite.Sprite):
     if self.batch.castle.mana >= 2:
       self.batch.castle.mana -= 2
       if target.special_tag == "unoccupied_field":
+        #so there is no high -dmg in pop_up xD
         target.health = self.dmg
-      target.health -= self.dmg
-      self.health -= target.defend
+      dmg = self.dmg
+      defend = target.defend
+      if target.special_tag == "BW":
+        dmg *=1.5
+        defend = 0
+      if self.special_tag == "BW":
+        dmg *=.5
+        defend *= 2
+        if target.name == "Burg":
+          dmg *= 4
+          defend *=.5
+      
+      target.health -= dmg
+      self.health -= defend
       pop_up.new_pop_up(target.position,text='%s DMG - %s left'
                              % (self.dmg,target.health),life_span=0.7)
                                          
       if target.health <= 0:
+        if target.name == "Burg":
+          pop_up.new_pop_up((target.position[0]+30,target.position[1]+30),text='Congrats! You won!!',life_span=10)
+          self.batch.cards = []
         if self.owner == "green":
           target.replace(target,"green",owner="green")
         else:
