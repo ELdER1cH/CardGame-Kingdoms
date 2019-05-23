@@ -22,7 +22,11 @@ cards = {
 
 def get_random_name():
     #name, info = random.choice(list(Cards.cards.items()))
-    return random.choice(list(cards.keys()))
+    return random.choice(list(cards.keys()))#[:-3]
+
+def get_random():
+    name, info = random.choice(list(Cards.cards.items()))#[:-3]
+    return name, info
 
 def Burg(card):
     card.img = 'resc/Castle.png'
