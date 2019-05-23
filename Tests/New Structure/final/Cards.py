@@ -44,5 +44,5 @@ def get_random_name():
     return random.choice(list(cards.keys())[:-4])
 
 def get_random():
-    name, info = random.choice(list(Cards.cards.items())[:-4])
+    name, info = random.choice(list(cards.items())[:-4])
     return name, info
