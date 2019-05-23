@@ -1,7 +1,8 @@
 import pyglet
 from pyglet.gl import *
-import Cards, Card, stats_display
+import Cards, Card, stats_display, Window
 from Castle import Castle
+
 
 val = 1
 SPRITE_WIDTH = int(120/val)

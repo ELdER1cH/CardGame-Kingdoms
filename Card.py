@@ -1,6 +1,6 @@
 import pyglet
 from pyglet.gl import *
-import Cards
+import Cards, Window
 
 val = 1
 SPRITE_WIDTH = int(120/val)
@@ -89,12 +89,15 @@ class Card(pyglet.sprite.Sprite):
     cards_to_heal = 0
     adjacent = self.batch.get_adjacent(self.position)
     for card in adjacent:
-        if card.owner == self.owner and card.special_tag != "unoccupied_field":
-            cards_to_heal += 1
+      if card.owner == self.owner and card.special_tag != "unoccupied_field":
+        cards_to_heal += 1
     for card in adjacent:
-        if card.owner == self.owner and card.special_tag != "unoccupied_field":
-            card.health += heal_amount/cards_to_heal
-            print('Healed %s at %s:%s to %s health' % (target.name,target.x/120,target.y/100,target.health))
+      if card.owner == self.owner and card.special_tag != "unoccupied_field":
+        if card.health < card.max_health:
+          card.health += heal_amount/cards_to_heal
+          if card.health > card.max_health:
+            card.health = card.max_health
+          print('Healed %s at %s:%s to %s health' % (card.name,card.x/120,card.y/100,card.health))
 
   def wake_up(self):
     #For Sleeping Giant
@@ -113,7 +116,9 @@ class Card(pyglet.sprite.Sprite):
       self.batch.castle.max_mana += 5*on_off
 
   def castle_special(self):
-    self.health += 200
+    if self.health < self.max_health:
+      self.health += 200
+      if self.health > self.max_health: self.health = self.max_health
 
   def attack_booster_special(self,on_off):
     #Variablen

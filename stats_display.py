@@ -1,5 +1,6 @@
 import pyglet
 import copy
+import Window
 
 class Stats_Display():
     def __init__(self):

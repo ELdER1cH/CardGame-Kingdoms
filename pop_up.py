@@ -1,4 +1,4 @@
-import pyglet
+import pyglet,Window
 
 class Pop_Up:
     def __init__(self):
