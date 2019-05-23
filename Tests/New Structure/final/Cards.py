@@ -17,77 +17,14 @@ cards = {
             'BigBoss': [1,500,10000,400,16,0,'resc/Godzilla.png',[Card.wake_up],'immovable',[]],
             'Bombe': [1,1,1,1000,3,0,'resc/Bomb.png',[],'wantstodie',[]],
             'Shield': [1,1000,1000,200,22,0,'resc/shield.png',[],'',[Card.shield_booster_special]],
-            'Rammbock': [1,1500,1000,400,6,0,'resc/Rammbock.png',[],'BW',[]]
+            'Rammbock': [1,1500,1000,400,6,0,'resc/Rammbock.png',[],'BW',[]],
+            'Burg': [1,10000,10000,400,0,0,'resc/Castle.png',[Card.castle_special],"immovable",[]],
+            'green': [1,1,1,0,0,0,'resc/green_frame.png',[Card.generate_mana],"unoccupied_field",[]],
+            'yellow': [1,1,1,0,0,0,'resc/yellow_frame.png',[Card.generate_mana],"unoccupied_field",[]],
+            'gray': [1,1,1,0,0,0,'resc/gray_frame.png',[],"unoccupied_field",[]]                       
 }
 
-def get_random_name():
-    #name, info = random.choice(list(Cards.cards.items()))
-    return random.choice(list(cards.keys()))#[:-3]
-
-def get_random():
-    name, info = random.choice(list(Cards.cards.items()))#[:-3]
-    return name, info
-
-def Burg(card):
-    card.img = 'resc/Castle.png'
-    card.level = 1
-    card.name = "Burg"
-    card.specials = [Card.castle_special]
-    card.place_special = []
-    card.health = 10000
-    card.max_health = 10000
-    card.dmg = 400
-    card.price = 0
-    card.crit = 0
-    card.special_tag = "immovable"
-    return pyglet.image.load(card.img)
-
-def green(card):
-    card.img = 'resc/green_frame.png'
-    card.level = 1
-    card.name = "green"
-    card.specials = [Card.generate_mana]
-    card.place_special = []
-    card.health = 1
-    card.max_health = 1
-    card.dmg = 0
-    card.price = 0
-    card.crit = 0
-    card.special_tag = "unoccupied_field"
-    return pyglet.image.load(card.img)
-
-def yellow(card):
-    card.img = 'resc/yellow_frame.png'
-    card.level = 1
-    card.name = "yellow"
-    card.specials = [Card.generate_mana]
-    card.place_special = []
-    card.health = 1
-    card.max_health = 1
-    card.dmg = 0
-    card.crit = 0
-    card.price = 0
-    card.special_tag = "unoccupied_field"
-    return pyglet.image.load(card.img)
-    
-def gray(card):
-    card.img = 'resc/gray_frame.png'
-    card.level = 1
-    card.name = "gray_frame"
-    card.specials = []
-    card.place_special = []
-    card.health = 1
-    card.max_health = 1
-    card.dmg = 0
-    card.crit = 0
-    card.price = 0
-    card.special_tag = "unoccupied_field"
-    return pyglet.image.load(card.img)
-
 def init(card,name):
-    if name == gray or name == yellow or name == green or name == Burg:
-        img = name(card)
-        return img
     s = cards[name]
     card.level = s[0]
     card.name = name
@@ -101,3 +38,11 @@ def init(card,name):
     card.special_tag = s[8]
     card.place_special = s[9]
     return pyglet.image.load(card.img)
+
+def get_random_name():
+    #name, info = random.choice(list(Cards.cards.items()))
+    return random.choice(list(cards.keys()))#[:-3]
+
+def get_random():
+    name, info = random.choice(list(Cards.cards.items()))#[:-3]
+    return name, info
