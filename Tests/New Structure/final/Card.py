@@ -70,22 +70,15 @@ class Card(pyglet.sprite.Sprite):
 
   def heal(self):
     heal_amount = 1200
-    cards_to_heal = -1
-    real_heal_amount= heal_amount
-    lis = self.batch.get_adjacent(self.position)
-    for card in lis:
+    cards_to_heal = 0
+    adjacent = self.batch.get_adjacent(self.position)
+    for card in adjacent:
         if card.owner == self.owner and card.special_tag != "unoccupied_field":
-            cards_to_heal += 1 
-    for card in lis:
-        if card.owner == self.owner:
-            target = card
-            real_heal_amount -= cards_to_heal*(heal_amount/4)
-            if target.health+heal_amount <= target.max_health:
-                target.health+=real_heal_amount
-                print('Healed %s at %s:%s to %s health' % (target.name,target.x/120,target.y/100,target.health))
-            else:
-                target.health+=real_heal_amount-(target.health+real_heal_amount-target.max_health)
-                print('Healed %s at %s:%s to %s health' % (target.name,target.x/120,target.y/100,target.health))
+            cards_to_heal += 1
+    for card in adjacent:
+        if card.owner == self.owner and card.special_tag != "unoccupied_field":
+            card.health += heal_amount/cards_to_heal
+            print('Healed %s at %s:%s to %s health' % (target.name,target.x/120,target.y/100,target.health))
 
   def wake_up(self):
     #For Sleeping Giant
@@ -135,13 +128,9 @@ class Card(pyglet.sprite.Sprite):
   def set_dot(self):
     base = self.image.texture
     texture = pyglet.image.Texture.create(width=self.w,height=self.h)
-    if self.owner == 'yellow':
-      img = pyglet.image.load("resc/yellow_dot.png").get_image_data()
-      base.blit_into(img, x=0, y=0, z=0)
-    elif self.owner == "green":
-      img = pyglet.image.load("resc/green_dot.png").get_image_data()
-      base.blit_into(img, x=0, y=0, z=0)
-  
+    img = pyglet.image.load("resc/"+self.owner+"_dot.png").get_image_data()
+    base.blit_into(img, x=0, y=0, z=0)
+   
   def in_area(self,*pos):
     mx, my = self.position
     for x,y in pos:
