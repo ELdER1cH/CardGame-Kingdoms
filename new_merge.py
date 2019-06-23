@@ -134,7 +134,8 @@ class Window(main_chat.Window):
               
               pyglet.clock.schedule_once(self.attack,0.01,clicked_card,target)
 
-        except:
+        except Exception as err:
+          print(err)
           print("Error whilst fetching server messages!")
           pyglet.clock.schedule_once(self.back,0.01)
           break
