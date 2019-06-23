@@ -85,9 +85,9 @@ def unregister(conn,addr,lobby):
             LOBBIES[top_lobby] += [user]
             LOBBIES[lobby].remove(user)
             print(f"<> changed user lobby from lobby {lobby} to {top_lobby}")
-    else:
-        notify_lobby(new_message('message',tval='! no new lobby found.. wait for new users to join (/leave)'),
-                     lobby)
+    #else:
+    #    notify_lobby(new_message('message',tval='! no new lobby found.. wait for new users to join (/leave)'),
+    #                 lobby)
     lobbysize = len(LOBBIES[lobby])
     info = {'type': 'lobby', 'lobby': lobby, 'lobbysize': lobbysize}
     print(">> send", info)
