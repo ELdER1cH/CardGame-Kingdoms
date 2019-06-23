@@ -6,7 +6,7 @@ import threading
 #add player ids again
 
 
-HOST = 'localhost'  # Standard loopback interface address (localhost)
+HOST = '192.168.2.153'  # Standard loopback interface address (localhost)
 PORT = 8765        # Port to listen on (non-privileged ports are > 1023)
 
 USERS = set()
