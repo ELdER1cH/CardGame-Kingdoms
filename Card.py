@@ -134,7 +134,7 @@ class Card(pyglet.sprite.Sprite):
       mulitplier = 0.3
       self.row = self.batch.get_row(self.position)
     #Boostvorgang
-    for card in row:
+    for card in self.row:
       if card.owner == self.owner:
         card.dmg += card.dmg*mulitplier*on_off
 
