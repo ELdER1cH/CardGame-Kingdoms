@@ -61,7 +61,7 @@ class LobbyScreen(Screen):
     self.batch = pyglet.graphics.Batch()
     self.buttons = []
 
-    self.hand = [0,1,2,3,4,5,6]
+    self.hand = [0,1,2,3,4,5,6,7,8,9,10,11,12]
     self.ready = False
     self.opponent_ready = False
 
