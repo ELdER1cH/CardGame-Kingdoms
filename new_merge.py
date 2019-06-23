@@ -80,7 +80,9 @@ class Window(main_chat.Window):
   def receive_messages(self):
       while True:
         try:
-          r = json.loads(self.client.s.recv(4096).decode())
+          re = self.client.s.recv(4096)
+          print(re)
+          r = json.loads(re.decode())
           #print("<< received %s" % r)
           if type(r) == dict:
             if r['type'] == 'lobby':
