@@ -62,8 +62,8 @@ class Window(main_chat.Window):
     self.current_screen = screens.StartScreen(self.width,self.height)
 
   def back_l(self,delay=None):
-    self.current_screen = screens.LobbyScreen(self.width,self.height)
     self.ingame = False
+    self.current_screen = screens.LobbyScreen(self.width,self.height)
 
   def replace(self,delay,target,cardname,activate):
     target.replace(target,cardname,activate=activate,rotate=True)
