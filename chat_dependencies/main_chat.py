@@ -81,7 +81,6 @@ class Window(pyglet.window.Window):
             self.g_print(self.chat_model.ciw.document.text)
             self.chat_model.ciw.document.text = ''
         self.chat_model.command_input_widget_state = False
-        self.chat_model.chat.update()
 
   def on_cmd(self,cmd):
     pass

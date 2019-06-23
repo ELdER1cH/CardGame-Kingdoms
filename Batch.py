@@ -26,7 +26,7 @@ class CardBatch(pyglet.graphics.Batch):
   def card_specials(self,delay=None):
     for card in self.cards:
       for special in card.specials:
-        if card.y > 0 and card.y < 800 and card.owner == self.castle.owner:
+        if card.y > 0 and card.y < 800:
           special(card)
     self.update_disp(self.castle)
     

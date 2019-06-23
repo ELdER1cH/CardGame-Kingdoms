@@ -61,8 +61,9 @@ class Window(main_chat.Window):
   def back(self,delay):
     self.current_screen = screens.StartScreen(self.width,self.height)
 
-  def back_l(self,delay):
+  def back_l(self,delay=None):
     self.current_screen = screens.LobbyScreen(self.width,self.height)
+    self.ingame = False
 
   def replace(self,delay,target,cardname,activate):
     target.replace(target,cardname,activate=activate,rotate=True)
@@ -71,7 +72,10 @@ class Window(main_chat.Window):
     clicked_card.swap(target,target.position)
 
   def attack(self,delay,clicked_card,target):
-    clicked_card.fight(target,self.pop_up)
+    won = clicked_card.fight(target,self.pop_up)
+    if won:
+      self.back_l()
+      self.g_print("You lost!")
     
   def receive_messages(self):
       while True:
@@ -87,7 +91,6 @@ class Window(main_chat.Window):
               self.client.send_lobby()
               print(f"<< lobby update: {self.client.lobby} (size: {self.client.lobbysize})")
               if self.client.lobbysize != 2 and self.ingame:
-                self.ingame = False
                 pyglet.clock.schedule_once(self.back_l,0.01)
             elif r['type'] == 'ready':
               try:
@@ -264,8 +267,11 @@ class Window(main_chat.Window):
                 #IF CARD IN RANGE IS NOT MY CARD
                 if self.batch.castle.mana >= 2:
                   self.batch.castle.mana -= 2
-                  clicked_card.fight(target,self.pop_up)
+                  won = clicked_card.fight(target,self.pop_up)
                   self.client.send_attack_event(clicked_card.position,target.position)
+                  if won:
+                    self.back_l()
+                    self.g_print("You won!")
                 else:
                   self.pop_up.new_red_frame(target.position)
               ##IF TARGET WAS IN REACH, HIDE SELECT, SINCE THERE WAS A SWAO or FIGHT

@@ -41,6 +41,7 @@ class Card(pyglet.sprite.Sprite):
         special(self,1)
   
   def fight(self,target,pop_up):
+    won = False
     dmg = self.dmg
     defend = target.defend
     if target.special_tag == "BW":
@@ -69,7 +70,8 @@ class Card(pyglet.sprite.Sprite):
       if target.special_tag != "unoccupied_field":
         self.batch.update_disp(self)
       if target.name == "Burg":
-        pop_up.new_pop_up((target.position[0]+30,target.position[1]+30),text='Congrats! You won!!',life_span=10)
+        #pop_up.new_pop_up((target.position[0]+30,target.position[1]+30),text='Congrats! You won!!',life_span=5)
+        won = True
         self.batch.cards = []
       if self.owner == "green":
         target.replace(target,"green",owner="green")
@@ -81,7 +83,8 @@ class Card(pyglet.sprite.Sprite):
         self.replace(self,"green",owner="green")
       else:
         self.replace(self,"yellow",owner="yellow")
-
+    return won
+  
   def swap(self,card,pos,activate=False):
     card.position = self.position
     self.position = pos

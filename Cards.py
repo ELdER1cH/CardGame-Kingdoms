@@ -18,7 +18,7 @@ cards = {
             'Bombe': [1,1,1,1000,3,0,'resc/Bomb.png',[],'wantstodie',[]],
             'Shield': [1,1000,1000,200,22,0,'resc/shield.png',[],'',[Card.shield_booster_special]],
             'Rammbock': [1,1500,1000,400,6,0,'resc/Rammbock.png',[],'BW',[]],
-            'Burg': [1,10000,10000,400,0,0,'resc/Castle.png',[Card.castle_special],"immovable",[]],
+            'Burg': [1,1,10000,400,0,0,'resc/Castle.png',[Card.castle_special],"immovable",[]],
             'green': [1,1,1,0,0,0,'resc/green_frame.png',[Card.generate_mana],"unoccupied_field",[]],
             'yellow': [1,1,1,0,0,0,'resc/yellow_frame.png',[Card.generate_mana],"unoccupied_field",[]],
             'gray': [1,1,1,0,0,0,'resc/gray_frame.png',[],"unoccupied_field",[]]                       
