@@ -14,7 +14,7 @@ try:
 except ImportError as err:
   print("couldn't load modue. %s" % (err))
 
-IP = '192.168.2.153'
+IP = 'localhost'
 PORT = 8765
 
 val = 1
