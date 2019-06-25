@@ -40,6 +40,7 @@ class Chat():
       self.display.reverse()
       self.display.remove(self.display[0])
       self.display.reverse()
+    self.update()
     
   def draw(self):
     self.batch.draw()
