@@ -6,7 +6,7 @@ import threading
 #add player ids again
 
 
-HOST = 'localhost'  # Standard loopback interface address (localhost)
+HOST = '192.168.2.153'  # Standard loopback interface address (localhost)
 PORT = 8765        # Port to listen on (non-privileged ports are > 1023)
 
 USERS = set()
@@ -25,8 +25,8 @@ print('<> server bound to addr: %s:%s' % (HOST,PORT))
 
 s.listen()
 
-def lobby_change(lobby):
-    info = {'type': 'lobby', 'lobby': lobby}
+def lobby_change(lobby,lobbysize):
+    info = {'type': 'lobby', 'lobby': lobby, 'lobbysize': lobbysize}
     print(">> send", info)
     return json.dumps(info)
 
@@ -37,7 +37,6 @@ def new_message(t,tval=None):
         info = {'type':t,t:tval}
     print(">> send", info)
     return info
-    
 
 def user_count():
     info = {'type': 'users', 'users': len(USERS)}
@@ -53,10 +52,11 @@ def notify_users(message):
         run = False
         s.close()
 
-def notify_lobby(data,lobby):
+def notify_lobby(data,lobby,conn=None):
     lob = LOBBIES[lobby]
     for user in lob:
-        user.sendall(json.dumps(data).encode())               
+        if user != conn:
+            user.sendall(json.dumps(data).encode())               
 
 def unregister(conn,addr,lobby):
     print(f'<< connection lost: {addr} lobby: {lobby}')
@@ -84,11 +84,14 @@ def unregister(conn,addr,lobby):
             user = users_to_add.pop()
             LOBBIES[top_lobby] += [user]
             LOBBIES[lobby].remove(user)
-            user.sendall(lobby_change(top_lobby).encode())
             print(f"<> changed user lobby from lobby {lobby} to {top_lobby}")
-    else:
-        notify_lobby(new_message('message',tval='! no new lobby found.. wait for new users to join (/leave)'),
-                     lobby)
+    #else:
+    #    notify_lobby(new_message('message',tval='! no new lobby found.. wait for new users to join (/leave)'),
+    #                 lobby)
+    lobbysize = len(LOBBIES[lobby])
+    info = {'type': 'lobby', 'lobby': lobby, 'lobbysize': lobbysize}
+    print(">> send", info)
+    notify_lobby(info,lobby)
     #if len(lobby) == 2:
 
     #else:
@@ -106,7 +109,7 @@ def connection_loop(conn,addr,lobby):
             #m = json.dumps(data)
             #conn.sendall(m.encode())
             #notify_users(m)
-            notify_lobby(data,int(data['lobby']))
+            notify_lobby(data,int(data['lobby']),conn)
             if lobby != int(data['lobby']):
                 lobby = int(data['lobby'])
         except:
@@ -116,10 +119,6 @@ def connection_loop(conn,addr,lobby):
 def register(conn,addr):
     hostname = conn.recv(4096).decode()
     print('<< New connetion from addr: %s hostname: %s' % (addr,hostname))
-    
-    #hostid = id(hostname+str(addr[1]))
-    #conn.sendall(str(hostid).encode())
-    #print(f">> new id: {hostid} - (send back)")
 
     lobby = len(LOBBIES)
     if len(LOBBIES[lobby]) == LOBBY_SIZE:
@@ -127,13 +126,18 @@ def register(conn,addr):
         LOBBIES[lobby] = []
         print(f"<> new lobby: {lobby}")
     LOBBIES[lobby] += [conn]
-    conn.sendall(str(lobby).encode())
-    print(f">> send lobby '{lobby}' to hostname:{addr[1]}")
-    conn.sendall(str(len(LOBBIES[lobby])).encode())
-    print(f">> send lobby size '{LOBBIES[lobby]}' to hostname:{addr[1]}")
+    #conn.sendall(str(lobby).encode())
+    #print(f">> send lobby '{lobby}' to hostname:{addr[1]}")
+    lobbysize = len(LOBBIES[lobby])
+    #conn.sendall(str(lobbysize).encode())
+    #print(f">> send lobby size '{len(LOBBIES[lobby])}' to hostname:{addr[1]}")
+
+    info = {'type': 'lobby', 'lobby': lobby, 'lobbysize': lobbysize}
+    print(">> send", info)
+    notify_lobby(info,lobby)
     
     USERS.add(conn)
-    notify_users(user_count())
+    #notify_users(user_count())
     return lobby
 
 while run:
