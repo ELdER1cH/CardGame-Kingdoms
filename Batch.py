@@ -2,6 +2,7 @@ import pyglet
 from pyglet.gl import *
 import Cards, Card, stats_display, Window
 from Castle import Castle
+import random
 
 
 val = 1
@@ -22,6 +23,13 @@ class CardBatch(pyglet.graphics.Batch):
                                              -SPRITE_HEIGHT)
     self.init_cards()
     self.mana_reg = 0
+
+  def card_specials(self,delay=None):
+    for card in self.cards:
+      for special in card.specials:
+        if card.y > 0 and card.y < 800:
+          special(card)
+    self.update_disp(self.castle)
     
   def swap(self):
     self.castle = self.get_card((240+120*INDENTATION,700))
@@ -47,7 +55,7 @@ class CardBatch(pyglet.graphics.Batch):
           
     for card in row:
       target.swap(card,card.position)
-    target.replace(target,Cards.get_random_name())
+    target.replace(target,random.choice(self.castle.cards))
 
   def update_disp(self,target):
     self.mana_reg = 0
@@ -96,11 +104,11 @@ class CardBatch(pyglet.graphics.Batch):
 
   def init_cards(self):
     self.castle = Castle("Burg",240+120*INDENTATION,100,batch=self,owner="yellow")
-    self.castle.load_hand(self.castle.y-100,False)
+    #self.castle.load_hand(self.castle.y-100,False)
     self.castle.mana = 10
     c = Castle("Burg",240+120*INDENTATION,700,batch=self,owner="green")
     c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
-    c.load_hand(c.y+100,True)
+    #c.load_hand(c.y+100,True)
     for i in range(2,7,1):
       for i2 in range(0+INDENTATION,5+INDENTATION,1):
         if i <= 3:

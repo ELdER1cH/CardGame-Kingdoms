@@ -25,58 +25,66 @@ class Card(pyglet.sprite.Sprite):
       special(self,-1)
     self.delete()
   
-  def replace(self,target,arg,owner=True):
+  def replace(self,target,arg,owner=True,activate=False,rotate=False):
     #anc_x,anc_y,rot = self.get_anchor()
     if owner != True: self.owner = owner
     self.image = Cards.init(target,arg)
     self.init()
-    self.image.anchor_x = 0
-    self.image.anchor_y = 0
-    self.rotation = 0
+    if rotate:
+      self.image.anchor_x = 120; self.image.anchor_y = 100; self.rotation = 180
+    else:
+      self.image.anchor_x = 0
+      self.image.anchor_y = 0
+      self.rotation = 0
+    if activate:
+      for special in self.place_special:
+        special(self,1)
   
   def fight(self,target,pop_up):
-    if self.batch.castle.mana >= 2:
-      self.batch.castle.mana -= 2
-      if target.special_tag == "unoccupied_field":
-        #so there is no high -dmg in pop_up xD
-        target.health = self.dmg
-      dmg = self.dmg
-      defend = target.defend
-      if target.special_tag == "BW":
-        dmg *=1.5
-        defend = 0
-      if self.special_tag == "BW":
-        dmg *=.5
-        defend *= 2
-        if target.name == "Burg":
-          dmg *= 4
-          defend *=.5
+    won = False
+    dmg = self.dmg
+    defend = target.defend
+    if target.special_tag == "BW":
+      dmg *=1.5
+      defend = 0
+    if self.special_tag == "BW":
+      dmg *=0.5
+      defend *= 2
+      if target.name == "Burg":
+        dmg *= 4
+        defend *=.5
+
+    if target.special_tag == "unoccupied_field":
+      #so there is no high -dmg in pop_up xD
+      target.health = dmg
       
-      target.health -= dmg
-      self.health -= defend
-      pop_up.new_pop_up(target.position,text='%s DMG - %s left'
-                             % (self.dmg,target.health),life_span=0.7)
-                                         
-      if target.health <= 0:
-        if target.name == "Burg":
-          pop_up.new_pop_up((target.position[0]+30,target.position[1]+30),text='Congrats! You won!!',life_span=10)
-          self.batch.cards = []
-        if self.owner == "green":
-          target.replace(target,"green",owner="green")
-        else:
-          target.replace(target,"yellow",owner="yellow")
-
-      if self.health <= 0:
-        if self.owner == "yellow":
-          self.replace(self,"green",owner="green")
-        else:
-          self.replace(self,"yellow",owner="yellow")
-
+    target.health -= dmg
+    self.health -= defend
+    pop_up.new_pop_up(target.position,text='%s DMG - %s left'
+                      % (self.dmg,target.health),life_span=0.7)
+    
+    if target.special_tag != "unoccupied_field":
       self.batch.update_disp(target)
-        
-    else:
-      pop_up.new_red_frame(target.position)
+                                         
+    if target.health <= 0:
+      if target.special_tag != "unoccupied_field":
+        self.batch.update_disp(self)
+      if target.name == "Burg":
+        #pop_up.new_pop_up((target.position[0]+30,target.position[1]+30),text='Congrats! You won!!',life_span=5)
+        won = True
+        self.batch.cards = []
+      if self.owner == "green":
+        target.replace(target,"green",owner="green")
+      else:
+        target.replace(target,"yellow",owner="yellow")
 
+    if self.health <= 0:
+      if self.owner == "yellow":
+        self.replace(self,"green",owner="green")
+      else:
+        self.replace(self,"yellow",owner="yellow")
+    return won
+  
   def swap(self,card,pos,activate=False):
     card.position = self.position
     self.position = pos
@@ -126,7 +134,7 @@ class Card(pyglet.sprite.Sprite):
       mulitplier = 0.3
       self.row = self.batch.get_row(self.position)
     #Boostvorgang
-    for card in row:
+    for card in self.row:
       if card.owner == self.owner:
         card.dmg += card.dmg*mulitplier*on_off
 

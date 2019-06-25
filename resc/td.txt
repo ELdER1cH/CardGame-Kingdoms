@@ -1,0 +1,167 @@
+Cardgame:
+
+
+#Startscreen - only screen
+
+Settings ->
+
+Server selection (<default> (xx.xx.xx:8765) change able 
+
+Online ->
+
+LobbyScreen
+
+#Font|Version x.xx.x
+
+
+LobbyScreen:
+
+widgets: (elements)
+
+    Font|playerid
+    Font|lobbynum (?)
+    Font|opponentid 
+    Cmd- for Server messages
+    Ready button (mark next to playerid (Haken/x)
+    Hand selection
+    Castle selection (?)
+    select frame - Size and position is set depending on returned value in on_move from button - button gets xy mouse, calculates and returns pos and size (pos -100,-100 if 
+left again - Button needs to remeber if it was selected for right deselect, else return none or sth)
+
+
+Init:
+
+    init widgets 
+    Init client (try connecting client to address - If fail kick from lobby (fade to kick screen/ loading screen with message, wait, fade to start - boulder doors shut for 
+fade?/ circle emerging to cover screen)), retrive my id, opponent id (, lobbynum) from server - client is bound to/ class of main window (no screen), establish connection 
+with client.start(), client of main window has to be passed to lobbyscreen (arg new_client = True)
+    new_client as optional argument - default false 
+    Variable self.lobbysize = 1 
+    variable self.ready = False
+    variable self.opponent_ready = False
+    Forget half of the above - don’t parse client to screen - parse relevant information to screen (myid etc.) - Start client after received “ONLINE” from button - of last 
+time.. do pass the client to only send to it ^^
+
+
+Cmd: 
+
+    Ought to receive messages from server - put this in main/ window and draw it after self.current_screen - make sure that certain cmds only work Ingame 
+
+
+Ready button:
+
+    only works if lobby size == 2 overwrite standard mouse_press of screen with new algorithm (no more self.buttons) 
+    also only works if hand selected + castle selected 
+    If pressed self.ready = not self.ready, send to lobby - change server message forwarding - send to everyone except to Id of Sender in lobby, send type:ready, ready: 
+self.opponent_ready
+    Return “LREADY” - check it both ready (if self.c_s.ready and self.c_s.o_ready) if so do self.start_game()
+
+
+Hand selection:
+
+    locks if readied 
+
+
+    Needs: field with all cards (scrollable/ side slideable), that can be clicked one by one put in hand (row of exactly 10/7/ dunno cards) hand row can be clicked to 
+remove a card (redecide/ make space for other cards - cards always move to the left so there are no gaps and new cards get always added to the right of the row) 
+    every card can be picked only once or indefinitely?
+    Send other clients my hand + parse my hand to my gamescreen (might not be necessary - opponent doesn’t need to know my hand - only the cards I play)
+    Cards in this hand only need a sprite and a number (corespondent to their index if the cards list) as a trait 
+
+
+    is a button (new/ inherited class ComplexButton) 
+    has self.hand = []
+    has a frame with all cards 
+    has row with selected cards 
+    adds a number (depending where client clicked in cards frame) to self.hand and moves the clicked card sprite down to hand row 
+    (Note that the hands list can also be a set - the order doesn’t matter - cards will be picked (semi-)randomly - perhaps change that and pop/ remove number if removed 
+by clicking in hand row - make sure only one number is removed, if it’s possible to choose a card multiple times (so one could play it more often))
+    cards in hand frame + select logic: frame has own coordinates (frame height/ card height(-gap?) + frame with/ card with (-gap?), card arrangement (number of cards* 
+(card with+gap)) % frame size (+1 if remainder) 
+    Chosen card: x = real_x - posx_button; y = real_x - posy_button; x/= (card_width+gap); y/=(card_height+gap); if x-int(x) >= gap/(card_width+gap): if y-int(y) >= gap/
+(card_height+gap): num_card = int(x) + int(y)* self.width/(card_width+gap); if len(self.hand) < 10: self.hand.append(num_card); card = self.all_cards[num_card); card.position 
+= (self.card_row.x +(gap+card_width)* len(self.hand)-1 (-1 only if position change after append to self.hand - just put it in front and leave the -1 out)
+    Card batch: for card in cards.cards: sprite = piglet.sprite.Sprite(img=piglet.image.load(card[(whatever number is img)], x=i*(card_width+gap), y = (i//self.width/
+(card_width+gap))*(card_height+gap),batch=self.batch); self.all_cards.append(sprite)
+    Page numbers to click at bottom of frame - 1 2 etc or just one if only one page; clicking the page numbers simply Substrats old sprites from batch and ads sprites of 
+next page to batch; num_card += (page_num-1)*max_cards_per_page 
+    Hand row: indicated row where the clicked sprites go if clicked in frame above - exact placement is assed with length of self.hand - clicking on a card in the row will 
+reset its position, pop it of selfhand and moves the other sprites in the row up - so self.hand has to actually be in order since that’s how we’ll locate wich sprite is
+ clicked 
+
+
+Castle selection:
+
+    is standard on default (interaction not required as opposed to the hand selection)
+    locks if readied 
+
+
+    Symbol with Castle that can be clicked an opens an selection wheel (first click open menu (closes if hovered off) second selects new castle and closes menu - sprite/ 
+symbol changes accordingly
+
+
+Client recv thread:
+
+    Where client of window/ main receives messages from server
+    (For the following ifs) If type(self.current_scren) == displays.LobbyScreen
+    if type: lobbysize, lobbysize:2 change self.current_screen.lobbysize = 2
+    If type:”ready”
+    Try: (important double check because if one player tries to unready at exact same time as other player readies the game would start but the other player receives) 
+self.c[..]_screen.opponent_ready = not self.[..].opponent_ready, self.[..].ready = r[“ready”] check it both ready (if self.c_s.ready and self.c_s.o_ready) if so do 
+self.start_game() - there change self.current_screen to displays.GameScreen + ... except: print(‘<< received a message of an action that could not be executed!’)/ g_print :)
+    if type:”hand” - try: self.current_screen.hand = r[“hand”] except: thing as above 
+
+
+Main/ window start_game():
+
+    send my hand 
+    send my castle 
+    change screen (parse my hand + castle)
+
+
+
+GameScreen(Hand, castle)
+
+in onclick if main if screen gamescreen send the returned/ received via client 
+
+init:
+
+    font|round: <1>
+    Add hand + castle to batch 
+    value self.round = 1
+
+
+    remote control/ recv input: place a card, move cards, attack, ready(/swap) - that’s all..
+    Add a game_state? Like waiting = True/ False - let the server decide? (Randomly) - if waiting == False: awaits game client input (+send input to other client); 
+if True: only stats viewing - the recv threat handles opponent actions (if type == ‘swap’: self.batch.get_card(r[“opos”]).swap(r[“npos”])
+    does the recv has to be on an own threat?? - yes, the watching/ waiting player could view card stats of his and opponent cards.. else it should be working fine 
+without I think - maybe try doing it without a second treat if problems occur 
+
+
+Cool stuff todo:
+
+Piano (+/guitar)
+
+Own clothing
+
+Flips 
+
+Own music - daw - edm, future/ deep house
+
+Own art/ practice drawing 
+
+Dancing!
+
+Schreiben 
+
+sprachen lernen
+
+Schulzeug wiederholen perfekt Expertenwissen 
+
+Programmieren - html etc - unity? - 2d Adventure Game 
+
+Handstand 
+
+Sport
+
+Dehnen 
