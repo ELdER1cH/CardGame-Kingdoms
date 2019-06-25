@@ -144,6 +144,8 @@ class Window(main_chat.Window):
       if not self.chat_model.command_input_widget_state:
           if KEY == key.S:
               self.batch_gameState.swap()
+          if KEY == key.P:
+              self.state_of_game = 'start'
           
   def on_draw(self):
     self.clear()
