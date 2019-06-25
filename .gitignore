@@ -114,3 +114,4 @@ dmypy.json
 .pyre/
 .vscode/settings.json
 Tests/New Structure/final/.vscode/launch.json
+.vscode/settings.json
