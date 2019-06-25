@@ -62,7 +62,6 @@ class CardBatch(pyglet.graphics.Batch):
   def select_card(self,target):
     self.select_frame.position = target.position
     self.update_disp(target)
-    
 
   def hide(self,card):
     card.position = (-SPRITE_WIDTH,-SPRITE_HEIGHT)
@@ -118,3 +117,21 @@ class CardBatch(pyglet.graphics.Batch):
         Mana: %s
         Max Mana: %s
         Mana Reg: %s""" % (self.castle.mana,self.max_mana,self.mana_reg)
+
+class StartscreenBatch(pyglet.graphics.Batch):
+  def __init__(self):
+    super().__init__()
+    self.pre_resize_dims = (width,height)
+    self.scale_x = 1
+    self.scale_y = 1
+    self.startlabel = pyglet.text.Label('Start',
+                          font_name='Times New Roman',
+                          font_size=36,
+                          x=width//2, y=height//2,
+                          anchor_x='center', anchor_y='center',
+                          color = (0,0,0,255))
+
+  def draw(self):
+    super().draw()
+    self.startlabel.draw()
+  
