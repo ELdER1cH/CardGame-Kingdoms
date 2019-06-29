@@ -136,3 +136,25 @@ init:
 if True: only stats viewing - the recv threat handles opponent actions (if type == ‘swap’: self.batch.get_card(r[“opos”]).swap(r[“npos”])
     does the recv has to be on an own threat?? - yes, the watching/ waiting player could view card stats of his and opponent cards.. else it should be working fine 
 without I think - maybe try doing it without a second treat if problems occur 
+
+
+
+
+
+td:
+-bug fixen
+	-async? 
+	-lobby bugs 
+-drag and drop in settings
+-server ip in settings
+-max moves per round
+-wall in middle
+-higher max mana
+-add a card that increases max_mana (spells)
+-fight op field conquer by granting opponent one mana per conquered field - that way the next round he get's to win them back 
+-refill: no cards twice!
+
+-cardselection -- somewhat check -> shrink selected card symbols -> upto 9/10 Cards in hand instead of 6
+	-every card only once
+	-min 5 cards?
+-code aufräumen --check!

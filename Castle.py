@@ -1,5 +1,5 @@
 from Card import Card
-import Cards,random,Window
+import Cards,random
 
 
 class Castle(Card):
@@ -8,7 +8,7 @@ class Castle(Card):
     self.mana = 0
     self.max_mana = 20
     
-  def load_hand(self,y,bo,hand=[0]):
+  def load_hand(self,y,hand=[0]):
     #Setting up Cars in Hand
     self.cards = []
     all_cards = list(Cards.cards.keys())
@@ -23,5 +23,3 @@ class Castle(Card):
         info = Cards.cards[name]
       placed.append(name)
       c = Card(name,i*120,y,batch=self.batch,owner=self.owner)
-      if bo:
-        c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180

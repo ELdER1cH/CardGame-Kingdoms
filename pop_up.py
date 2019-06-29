@@ -1,4 +1,4 @@
-import pyglet,Window
+import pyglet
 
 class Pop_Up:
     def __init__(self):
@@ -29,5 +29,3 @@ class Pop_Up:
     def draw(self):
         for pops in self.pop_ups:
             pops[0].draw()
-
-    

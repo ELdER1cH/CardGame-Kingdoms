@@ -5,16 +5,8 @@ class Client():
   def __init__(self,ip,port):
     self.s = socket.socket()
     self.s.connect((ip,port))
-
-    #get rid of all this messages received at the end! have only one!
     
     print('<> conncetion established!')
-    
-    self.s.sendall(socket.gethostname().encode())
-    #self.lobby = int(self.s.recv(1024).decode())
-    #print(f"<< my lobby: {self.lobby}")
-    #self.lobbysize = int(self.s.recv(1024).decode())
-    #print(f"<< my lobby size: {self.lobbysize}")
 
   def send(self,info):
     #print(">> send", info)
@@ -43,4 +35,3 @@ class Client():
   def send_move_done(self):
     info = {'type': 'move_done', 'lobby':self.lobby}
     self.send(json.dumps(info))
-

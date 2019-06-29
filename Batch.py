@@ -1,6 +1,6 @@
 import pyglet
 from pyglet.gl import *
-import Cards, Card, stats_display, Window
+import Cards, Card, stats_display
 from Castle import Castle
 import random
 
@@ -30,20 +30,6 @@ class CardBatch(pyglet.graphics.Batch):
         if card.y > 0 and card.y < 800:
           special(card)
     self.update_disp(self.castle)
-    
-  def swap(self):
-    self.castle = self.get_card((240+120*INDENTATION,700))
-    for card in self.cards:
-      card.position = (width-card.position[0]-card.w-INDENTATION_RIGHT*120,
-                       height+100-card.position[1]-card.h)
-      card.image.anchor_x = 120-card.image.anchor_x
-      card.image.anchor_y = 100-card.image.anchor_y
-      card.rotation = 180-card.rotation
-      for special in card.specials:
-        if card.y > 0 and card.y < 800 and card.owner == self.castle.owner:
-          special(card)
-    self.hide(self.select_frame)
-    self.update_disp(self.castle)
 
   def update_hand(self,target):
     row = []
@@ -55,6 +41,7 @@ class CardBatch(pyglet.graphics.Batch):
           
     for card in row:
       target.swap(card,card.position)
+      
     target.replace(target,random.choice(self.castle.cards))
 
   def update_disp(self,target):
@@ -104,11 +91,9 @@ class CardBatch(pyglet.graphics.Batch):
 
   def init_cards(self):
     self.castle = Castle("Burg",240+120*INDENTATION,100,batch=self,owner="yellow")
-    #self.castle.load_hand(self.castle.y-100,False)
     self.castle.mana = 10
     c = Castle("Burg",240+120*INDENTATION,700,batch=self,owner="green")
     c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
-    #c.load_hand(c.y+100,True)
     for i in range(2,7,1):
       for i2 in range(0+INDENTATION,5+INDENTATION,1):
         if i <= 3:
@@ -125,21 +110,3 @@ class CardBatch(pyglet.graphics.Batch):
         Mana: %s
         Max Mana: %s
         Mana Reg: %s""" % (self.castle.mana,self.max_mana,self.mana_reg)
-
-class StartscreenBatch(pyglet.graphics.Batch):
-  def __init__(self):
-    super().__init__()
-    self.pre_resize_dims = (width,height)
-    self.scale_x = 1
-    self.scale_y = 1
-    self.startlabel = pyglet.text.Label('Start',
-                          font_name='Times New Roman',
-                          font_size=36,
-                          x=width//2, y=height//2,
-                          anchor_x='center', anchor_y='center',
-                          color = (0,0,0,255))
-
-  def draw(self):
-    super().draw()
-    self.startlabel.draw()
-  

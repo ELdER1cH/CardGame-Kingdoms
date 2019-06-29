@@ -10,11 +10,13 @@ try:
   import client
   import screens
   
+#all files: 1285 lines of code (28.06.19 22:55)
+  
 except ImportError as err:
   print("couldn't load modue. %s" % (err))
 
-IP = 'localhost'
-PORT = 8765
+IP = "192.168.2.153"
+PORT = 6789
 
 val = 1
 SPRITE_WIDTH = int(120/val)
@@ -24,7 +26,6 @@ INDENTATION_RIGHT = 2
 class Window(main_chat.Window):
   def __init__(self,*args,**kwargs):
     super().__init__(*args,**kwargs)
-    self.batch = Batch.CardBatch()
     self.pop_up = pop_up.Pop_Up()
 
     self.pre_resize_dims = (self.width,self.height)
@@ -32,12 +33,11 @@ class Window(main_chat.Window):
     self.scale_y = 1
 
     self.current_screen = screens.StartScreen(self.width,self.height)
+    
     self.ingame = False
     self.my_move = False
     
     pyglet.clock.schedule(self.update)
-
-    self.press = [0,0,0]
 
   def on_close(self):
     super().on_close()
@@ -51,11 +51,8 @@ class Window(main_chat.Window):
     self.ingame = True
     self.batch = Batch.CardBatch()
     self.my_move = my_move
-    self.hand = self.current_screen.hand
-    self.batch.castle.load_hand(self.batch.castle.y-100,False,hand=self.hand)
-#send actions via client when playing
-#set player who received 2. ready to waiting and the other to playing/ start
-#execute actions from receive messages
+    self.hand = self.current_screen.hand_selection.hand
+    self.batch.castle.load_hand(self.batch.castle.y-100,hand=self.hand)
 
   def back(self,delay):
     self.current_screen = screens.StartScreen(self.width,self.height)
@@ -80,7 +77,9 @@ class Window(main_chat.Window):
       while True:
         try:
           re = self.client.s.recv(4096)
-          print(re)
+          print(f"""- received: 
+          {re}
+          ----""")
           r = json.loads(re.decode())
           #print("<< received %s" % r)
           if type(r) == dict:
@@ -97,7 +96,7 @@ class Window(main_chat.Window):
               try:
                 self.current_screen.opponent_ready = not self.current_screen.opponent_ready
                 self.current_screen.ready = r['ready']
-                print("mr: %s or: %s" %
+                print("myready: %s opponentready: %s" %
                       (self.current_screen.ready, self.current_screen.opponent_ready))
                 if self.current_screen.ready and self.current_screen.opponent_ready:
                   pyglet.clock.schedule_once(self.start_game,0.01)
@@ -183,7 +182,7 @@ class Window(main_chat.Window):
             #button of startscreen
             self.close()
           elif action == "READY":
-            if self.client.lobbysize == 2:
+            if self.client.lobbysize == 2 and len(self.current_screen.hand_selection.hand) >= 5:
               cs.ready = not cs.ready
               print(f"ready: {cs.ready}")
               self.client.send_ready(self.current_screen.opponent_ready)

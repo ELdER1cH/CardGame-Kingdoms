@@ -1,6 +1,6 @@
 import pyglet
 from Card import Card
-import random, Window
+import random
 #speical_tags to yet account for: Bombe, Rammbock, (+Burg) 
 
 cards = {
@@ -38,11 +38,3 @@ def init(card,name):
     card.special_tag = s[8]
     card.place_special = s[9]
     return pyglet.image.load(card.img)
-
-def get_random_name():
-    #name, info = random.choice(list(Cards.cards.items()))
-    return random.choice(list(cards.keys())[:-4])
-
-def get_random(hand):
-    name = random.choice(list(cards.keys())[:-4])
-    return name, cards[name]
