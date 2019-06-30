@@ -58,12 +58,10 @@ class HandSelection:
                 if ry-int(ry) >= self.gap/(100+self.gap):
                     num = int(int(rx) + int(ry)* self.width/(120+self.gap))
                     if num < len(self.all_cards) and num not in self.hand:
-                        print(num)
                         if len(self.hand) < self.max_hand_lenght:
                             self.sprites[num].y = self.position[1]
                             self.sprites[num].x = (120+self.gap)*len(self.hand)#+self.indentation
                             self.hand.append(num)
-                            print(self.hand)
             
         elif y <= self.h-3*(100+self.gap)-self.gap:
             num = int(x/(120+self.gap))
@@ -80,8 +78,6 @@ class HandSelection:
                 if len(self.hand) > 0:
                     for c in self.hand[num:]:
                         self.sprites[c].x -= (120+self.gap)
-                        
-                print(self.hand)
             
     def press(self,x,y,button):
         if button == mouse.LEFT:

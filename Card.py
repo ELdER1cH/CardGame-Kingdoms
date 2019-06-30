@@ -117,11 +117,13 @@ class Card(pyglet.sprite.Sprite):
   def draw_card_special(self):
       if self.owner == self.batch.castle.owner:
           target = None
-          row = self.batch.get_row((0,0))
-          for card in row:
+          
+          for i in range(5):
+              card = self.batch.get_card((SPRITE_WIDTH*i,0))
               if card.special_tag == "unoccupied_field":
                   target = card
                   break
+              
           if target != None:
               target.replace(target,random.choice(self.batch.castle.cards))
               

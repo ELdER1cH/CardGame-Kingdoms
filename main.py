@@ -54,7 +54,7 @@ class Window(main_chat.Window):
     self.hand = self.current_screen.hand_selection.hand
     self.batch.castle.load_hand(self.batch.castle.y-100,hand=self.hand)
 
-  def back(self,delay):
+  def back(self,delay=None):
     self.current_screen = screens.StartScreen(self.width,self.height)
 
   def back_l(self,delay=None):
@@ -128,26 +128,30 @@ class Window(main_chat.Window):
     
   def receive_messages(self):
       while True:
+        re = ""
         try:
           re = self.client.s.recv(4096).decode()
-          print(f"""- received: 
-          {re}
-          ----""")
-          try: 
-              r = json.loads(re)
-              self.handle_message(r)
-          except:
-              for r2 in json.dumps(re):
-                  r = json.loads(r2)
-                  #print("<< received %s" % r)
-                  self.handle_message(r)
-              
-
+          print(f"- received: {re}")
         except Exception as err:
           print(err)
           print("Error whilst fetching server messages!")
           pyglet.clock.schedule_once(self.back,0.01)
           break
+        try: 
+            r = json.loads(re)
+            self.handle_message(r)
+        except Exception as err:
+            self.client.s.close()
+            print("Error whilst fetching server messages!")
+            pyglet.clock.schedule_once(self.back,0.01)
+            #r1 = list(json.dumps(re))
+            #for r2 in r1:
+            #    print(r2)
+            #    r = json.loads(r2)
+            #    print(f"t2:r:{r}")
+            #    #print("<< received %s" % r)
+            #    self.handle_message(r)
+
 
   def update(self,dt):
     self.pop_up.update(dt)
