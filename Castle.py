@@ -1,5 +1,5 @@
 from Card import Card
-import Cards,random,main
+import Cards,random
 
 
 class Castle(Card):
