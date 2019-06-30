@@ -173,6 +173,7 @@ class Window(main_chat.Window):
             #back to startscreen
             self.current_screen = screens.StartScreen(self.width,self.height)
           elif action == "OFFLINE":
+            self.batch = pyglet.graphics.Batch()
             self.ingame = True
           elif action == "SETTINGS":
             #settings - later: to change server addr. (and maybe sound or sth.)
