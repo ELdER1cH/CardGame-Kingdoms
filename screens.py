@@ -149,8 +149,22 @@ class LobbyScreen(Screen):
     self.ready_button = Button(pyglet.image.load("resc/ready.png")
                                ,width-120,20,batch=self.batch,
                                adj_anchor=False)
-    
     self.ready_button.action = "READY"
-    
-    #self.ready_button.action = "READY"
+    self.buttons.append(self.ready_button)
+
+class OfflineScreen(Screen):
+  def __init__(self,width, height):
+    self.batch = pyglet.graphics.Batch()
+    self.buttons = []
+
+    self.ready = False
+    self.opponent_ready = False
+
+    self.hand_selection = HandSelection(self.batch,width,height)
+    self.buttons.append(self.hand_selection) 
+
+    self.ready_button = Button(pyglet.image.load("resc/ready.png")
+                               ,width-120,20,batch=self.batch,
+                               adj_anchor=False)
+    self.ready_button.action = "StartGameOffline"
     self.buttons.append(self.ready_button)
