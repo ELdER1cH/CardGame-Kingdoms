@@ -3,17 +3,15 @@ try:
   import threading
   import json
   from pyglet.gl import *
-  import pop_up, Batch, Cards, Card
+  import pop_up, Batch, Cards, Card, client
   from pyglet.window import key, mouse
   import chat_dependencies.main_chat as main_chat
   import random
-  import client
-  import screens
-  
-#all files: 1285 lines of code (28.06.19 22:55)
-  
+  import screens 
 except ImportError as err:
   print("couldn't load modue. %s" % (err))
+
+#all files: 1285 lines of code (28.06.19 22:55)
 
 IP = "localhost"
 PORT = 6789

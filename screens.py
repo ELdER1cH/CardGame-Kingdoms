@@ -143,7 +143,6 @@ class LobbyScreen(Screen):
     self.buttons.append(self.hand_selection)
 
     #bad formating, bad layout, bad design
-    #implement Hand selection!
     #implement Castle selection!
     
     self.ready_button = Button(pyglet.image.load("resc/ready.png")
@@ -160,8 +159,16 @@ class OfflineScreen(Screen):
     self.ready = False
     self.opponent_ready = False
 
-    self.hand_selection = HandSelection(self.batch,width,height)
-    self.buttons.append(self.hand_selection) 
+    self.label = pyglet.text.Label(text= 'Start',
+                          x = width//2, 
+                          y = height//2,
+                          font_name='Times New Roman',
+                          font_size=48,
+                          bold=True,
+                          color=(0, 0, 0,255),
+                          batch= self.batch, anchor_x = 'center',anchor_y= 'center'
+                    
+                          )  
 
     self.ready_button = Button(pyglet.image.load("resc/ready.png")
                                ,width-120,20,batch=self.batch,

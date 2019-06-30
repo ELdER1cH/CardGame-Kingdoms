@@ -23,6 +23,7 @@ class Castle(Card):
         info = Cards.cards[name]
       placed.append(name)
       c = Card(name,i*120,y,batch=self.batch,owner=self.owner)
+  
   def load_hand_offline (self,y,bo):
     for i in range(5):
       name, info = Cards.get_random()

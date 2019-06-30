@@ -39,6 +39,7 @@ def init(card,name):
     card.special_tag = s[8]
     card.place_special = s[9]
     return pyglet.image.load(card.img)
+
 def get_random_name():
     #name, info = random.choice(list(Cards.cards.items()))
     return random.choice(list(cards.keys())[:-4])
