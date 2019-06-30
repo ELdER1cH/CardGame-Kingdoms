@@ -271,6 +271,15 @@ class Window(main_chat.Window):
                   #C C C C C -> after: E C C C C
                   clicked_card.swap(target,target.position,activate=True)
                   self.client.send_replace_event(clicked_card.position,clicked_card.name)
+                  if clicked_card.special_tag != "splash":
+                      clicked_card.swap(target,target.position,activate=True)
+                      self.client.send_replace_event(clicked_card.position,clicked_card.name)
+                      self.batch.update_hand(target)
+                  else:
+                      for special in clicked_card.place_special:
+                        special(clicked_card,1)
+                      clicked_card.replace(clicked_card,clicked_card.owner)
+                      self.batch.update_hand(clicked_card)
                   #in Hand: (E=empty field,C=Card in Hand) - (if first card was placed)
                   #E C C C C-> C E C C C-> C C E C C-> C C C E C-> C C C C E-> C C C C C
                   self.batch.update_hand(target)
