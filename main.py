@@ -141,7 +141,10 @@ class Window(main_chat.Window):
             r = json.loads(re)
             self.handle_message(r)
         except Exception as err:
-            self.client.s.close()
+            try:
+                self.client.s.close()
+            except:
+                pass
             print("Error whilst fetching server messages!")
             pyglet.clock.schedule_once(self.back,0.01)
             #r1 = list(json.dumps(re))
@@ -186,7 +189,7 @@ class Window(main_chat.Window):
             #back to startscreen
             self.current_screen = screens.StartScreen(self.width,self.height)
           elif action == "OFFLINE":
-            self.ingame = True
+            print("not inplemented")
           elif action == "SETTINGS":
             #settings - later: to change server addr. (and maybe sound or sth.)
             self.current_screen = screens.SettingsScreen(self.width,self.height)
@@ -236,11 +239,17 @@ class Window(main_chat.Window):
                   #EMPTY FIELD AND CARD IN HAND SWAP POSITIONS
                   #HAND BEFORE: - if first card were to be placed
                   #C C C C C -> after: E C C C C
-                  clicked_card.swap(target,target.position,activate=True)
-                  self.client.send_replace_event(clicked_card.position,clicked_card.name)
+                  if clicked_card.special_tag != "splash":
+                      clicked_card.swap(target,target.position,activate=True)
+                      self.client.send_replace_event(clicked_card.position,clicked_card.name)
+                      self.batch.update_hand(target)
+                  else:
+                      for special in clicked_card.place_special:
+                        special(clicked_card,1)
+                      clicked_card.replace(clicked_card,clicked_card.owner)
+                      self.batch.update_hand(clicked_card)
                   #in Hand: (E=empty field,C=Card in Hand) - (if first card was placed)
                   #E C C C C-> C E C C C-> C C E C C-> C C C E C-> C C C C E-> C C C C C
-                  self.batch.update_hand(target)
                   self.batch.hide(self.batch.select_frame)
                   #UPDATE STATS DISPLAY TO SHOW RIGHT MANA AMOUT
                   self.batch.update_disp(clicked_card)
