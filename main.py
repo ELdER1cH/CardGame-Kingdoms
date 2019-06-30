@@ -11,6 +11,7 @@ try:
   import screens
   
 #all files: 1285 lines of code (28.06.19 22:55)
+
   
 except ImportError as err:
   print("couldn't load modue. %s" % (err))
@@ -151,7 +152,6 @@ class Window(main_chat.Window):
             #    print(f"t2:r:{r}")
             #    #print("<< received %s" % r)
             #    self.handle_message(r)
-
 
   def update(self,dt):
     self.pop_up.update(dt)
@@ -305,7 +305,6 @@ class Window(main_chat.Window):
       else:
         #IF TARGET IS EMPTY FIELD SHOW RED FRAME
         self.pop_up.new_red_frame(target.position)    
-
 
   def on_key_press(self,KEY,MOD):
     #key.ENTER & key.ESCAPE in while command_input_state; T = open chat
