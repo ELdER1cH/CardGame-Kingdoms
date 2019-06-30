@@ -38,7 +38,7 @@ class HandSelection:
         
         self.action = None
         self.height = 4*(100+self.gap)+self.gap    
-        self.width = self.cpr*(120+self.gap) 
+        self.width = self.cpr*(120+self.gap)+(120+self.gap)
         self.position = (0,(height-self.height))        
         
         self.sprites = []

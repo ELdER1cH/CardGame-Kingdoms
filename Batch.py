@@ -56,7 +56,7 @@ class CardBatch(pyglet.graphics.Batch):
     for card in row:
       target.swap(card,card.position)
       
-    target.replace(target,random.choice(self.castle.cards))
+    #target.replace(target,random.choice(self.castle.cards))
 
   def update_disp(self,target):
     self.mana_reg = 0
