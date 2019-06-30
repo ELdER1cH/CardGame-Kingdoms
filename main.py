@@ -271,7 +271,7 @@ class Window(main_chat.Window):
                   #C C C C C -> after: E C C C C
                   clicked_card.swap(target,target.position,activate=True)
                   self.client.send_replace_event(clicked_card.position,clicked_card.name)
-<<<<<<< HEAD
+
                   if clicked_card.special_tag != "splash":
                       clicked_card.swap(target,target.position,activate=True)
                       self.client.send_replace_event(clicked_card.position,clicked_card.name)
@@ -281,11 +281,14 @@ class Window(main_chat.Window):
                         special(clicked_card,1)
                       clicked_card.replace(clicked_card,clicked_card.owner)
                       self.batch.update_hand(clicked_card)
-=======
->>>>>>> parent of 75272ce... done!
+
                   #in Hand: (E=empty field,C=Card in Hand) - (if first card was placed)
                   #E C C C C-> C E C C C-> C C E C C-> C C C E C-> C C C C E-> C C C C C
                   self.batch.update_hand(target)
+
+                  #in Hand: (E=empty field,C=Card in Hand) - (if first card was placed)
+                  #E C C C C-> C E C C C-> C C E C C-> C C C E C-> C C C C E-> C C C C C
+
                   self.batch.hide(self.batch.select_frame)
                   #UPDATE STATS DISPLAY TO SHOW RIGHT MANA AMOUT
                   self.batch.update_disp(clicked_card)
