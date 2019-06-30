@@ -212,41 +212,6 @@ class Window(main_chat.Window):
     y /= self.scale_y
     ###LEFT
     if button == mouse.LEFT:
-<<<<<<< HEAD
-
-      #bin ich online?
-
-        ###NEW CLICK/ TARGET
-        target = self.batch.get_card((x,y))
-        if target == None: return
-        ###OLD CLICK/ SELECT
-        clicked_card = self.batch.get_card(self.batch.select_frame.position)
-        #MAKE SURE THERES A CARD AT THE OLD CLICK - IF THERES NONE, TARGET = NEW SELECT
-        if clicked_card != None:
-          ###HIDE IF DOUBLE CLICK
-          if target == clicked_card:
-            self.batch.hide(self.batch.select_frame)
-            
-          #---HAND---
-          ###IF SELECT IN HAND  
-          elif clicked_card.y == 0:
-            ###IF TARGET NOT IN HAND
-            if target.y > 0:
-              ###IF TARGET IS MINE
-              if target.owner == clicked_card.owner:
-                ###IF TARGET IS EMPTY FIELD
-                if target.special_tag == "unoccupied_field":
-                  #IF PLAYER HAS ENOUGH MONEY
-                  if self.batch.castle.mana >= clicked_card.price:
-                    self.batch.castle.mana -= clicked_card.price
-                    #EMPTY FIELD AND CARD IN HAND SWAP POSITIONS
-                    #HAND BEFORE: - if first card were to be placed
-                    #C C C C C -> after: E C C C C
-                    if clicked_card.special_tag != "splash":
-                     clicked_card.swap(target,target.position,activate=True)
-                    clicked_card.swap(target,target.position,activate=True)
-                    if self.online == True:      
-=======
       
       ###NEW CLICK/ TARGET
       target = self.batch.get_card((x,y))
@@ -276,7 +241,6 @@ class Window(main_chat.Window):
                   #C C C C C -> after: E C C C C
                   if clicked_card.special_tag != "splash":
                       clicked_card.swap(target,target.position,activate=True)
->>>>>>> parent of b6feebd... Merge branch 'master' into booster-karten
                       self.client.send_replace_event(clicked_card.position,clicked_card.name)
                       self.batch.update_hand(target)
                   else:
