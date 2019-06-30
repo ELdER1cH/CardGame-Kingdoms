@@ -212,7 +212,7 @@ class Window(main_chat.Window):
     y /= self.scale_y
     ###LEFT
     if button == mouse.LEFT:
-<<<<<<< HEAD
+
 
       #bin ich online?
 
@@ -246,7 +246,6 @@ class Window(main_chat.Window):
                      clicked_card.swap(target,target.position,activate=True)
                     clicked_card.swap(target,target.position,activate=True)
                     if self.online == True:      
-=======
       
       ###NEW CLICK/ TARGET
       target = self.batch.get_card((x,y))
@@ -276,7 +275,6 @@ class Window(main_chat.Window):
                   #C C C C C -> after: E C C C C
                   if clicked_card.special_tag != "splash":
                       clicked_card.swap(target,target.position,activate=True)
->>>>>>> parent of b6feebd... Merge branch 'master' into booster-karten
                       self.client.send_replace_event(clicked_card.position,clicked_card.name)
                       self.batch.update_hand(target)
                   else:
