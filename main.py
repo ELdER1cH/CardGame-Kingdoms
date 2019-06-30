@@ -7,7 +7,13 @@ try:
   from pyglet.window import key, mouse
   import chat_dependencies.main_chat as main_chat
   import random
-  import screens 
+  import client
+  import screens
+  
+#all files: 1285 lines of code (28.06.19 22:55)
+
+  
+
 except ImportError as err:
   print("couldn't load modue. %s" % (err))
 
@@ -143,7 +149,10 @@ class Window(main_chat.Window):
             r = json.loads(re)
             self.handle_message(r)
         except Exception as err:
-            self.client.s.close()
+            try:
+                self.client.s.close()
+            except:
+                pass
             print("Error whilst fetching server messages!")
             pyglet.clock.schedule_once(self.back,0.01)
             #r1 = list(json.dumps(re))
@@ -153,7 +162,6 @@ class Window(main_chat.Window):
             #    print(f"t2:r:{r}")
             #    #print("<< received %s" % r)
             #    self.handle_message(r)
-
 
   def update(self,dt):
     self.pop_up.update(dt)
@@ -217,6 +225,7 @@ class Window(main_chat.Window):
     y /= self.scale_y
     ###LEFT
     if button == mouse.LEFT:
+
       #bin ich online?
 
         ###NEW CLICK/ TARGET
@@ -245,6 +254,8 @@ class Window(main_chat.Window):
                     #EMPTY FIELD AND CARD IN HAND SWAP POSITIONS
                     #HAND BEFORE: - if first card were to be placed
                     #C C C C C -> after: E C C C C
+                    if clicked_card.special_tag != "splash":
+                     clicked_card.swap(target,target.position,activate=True)
                     clicked_card.swap(target,target.position,activate=True)
                     if self.online == True:      
                       self.client.send_replace_event(clicked_card.position,clicked_card.name)
@@ -305,6 +316,7 @@ class Window(main_chat.Window):
             else:
               ###IF CARD NOT IN REACH, TRY SELECTING THAT CARD
               self.select(target,clicked_card)
+
 
         ##SINCE THERES NO SELECTED CARD, TARGET = NEW SELECT
         elif target.special_tag != "unoccupied_field":
