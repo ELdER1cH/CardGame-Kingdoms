@@ -56,7 +56,7 @@ class HandSelection:
             rx /= (120+self.gap); ry = (self.height-ry)/(100+self.gap)
             if rx-int(rx) <= 1-self.gap/(120+self.gap): 
                 if ry-int(ry) >= self.gap/(100+self.gap):
-                    num = int(int(rx) + int(ry)* (self.width/(120+self.gap)-1))
+                    num = int(int(rx) + int(ry)* self.width/(120+self.gap))
                     if num < len(self.all_cards) and num not in self.hand:
                         if len(self.hand) < self.max_hand_lenght:
                             self.sprites[num].y = self.position[1]
