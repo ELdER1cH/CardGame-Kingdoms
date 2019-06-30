@@ -2,7 +2,7 @@ import socket
 import json
 import threading
 
-HOST = '192.168.2.153'  # Standard loopback interface address (localhost)
+HOST = 'localhost'  # Standard loopback interface address (localhost)
 PORT = 6789        # Port to listen on (non-privileged ports are > 1023)
 
 USERS = set()

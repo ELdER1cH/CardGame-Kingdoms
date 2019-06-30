@@ -15,7 +15,7 @@ try:
 except ImportError as err:
   print("couldn't load modue. %s" % (err))
 
-IP = "192.168.2.153"
+IP = "localhost"
 PORT = 6789
 
 val = 1
@@ -173,8 +173,7 @@ class Window(main_chat.Window):
             #back to startscreen
             self.current_screen = screens.StartScreen(self.width,self.height)
           elif action == "OFFLINE":
-            #load old version of game?
-            print('not featured yet')
+            self.ingame = True
           elif action == "SETTINGS":
             #settings - later: to change server addr. (and maybe sound or sth.)
             self.current_screen = screens.SettingsScreen(self.width,self.height)

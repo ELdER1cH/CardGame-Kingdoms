@@ -24,6 +24,20 @@ class CardBatch(pyglet.graphics.Batch):
     self.init_cards()
     self.mana_reg = 0
 
+  def swap(self):
+    self.castle = self.get_card((240+120*INDENTATION,700))
+    for card in self.cards:
+      card.position = (width-card.position[0]-card.w-INDENTATION_RIGHT*120,
+                       height+100-card.position[1]-card.h)
+      card.image.anchor_x = 120-card.image.anchor_x
+      card.image.anchor_y = 100-card.image.anchor_y
+      card.rotation = 180-card.rotation
+      for special in card.specials:
+        if card.y > 0 and card.y < 800 and card.owner == self.castle.owner:
+          special(card)
+    self.hide(self.select_frame)
+    self.update_disp(self.castle)
+
   def card_specials(self,delay=None):
     for card in self.cards:
       for special in card.specials:
