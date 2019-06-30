@@ -209,40 +209,6 @@ class Window(main_chat.Window):
     y /= self.scale_y
     ###LEFT
     if button == mouse.LEFT:
-
-      #bin ich online?
-
-        ###NEW CLICK/ TARGET
-        target = self.batch.get_card((x,y))
-        if target == None: return
-        ###OLD CLICK/ SELECT
-        clicked_card = self.batch.get_card(self.batch.select_frame.position)
-        #MAKE SURE THERES A CARD AT THE OLD CLICK - IF THERES NONE, TARGET = NEW SELECT
-        if clicked_card != None:
-          ###HIDE IF DOUBLE CLICK
-          if target == clicked_card:
-            self.batch.hide(self.batch.select_frame)
-            
-          #---HAND---
-          ###IF SELECT IN HAND  
-          elif clicked_card.y == 0:
-            ###IF TARGET NOT IN HAND
-            if target.y > 0:
-              ###IF TARGET IS MINE
-              if target.owner == clicked_card.owner:
-                ###IF TARGET IS EMPTY FIELD
-                if target.special_tag == "unoccupied_field":
-                  #IF PLAYER HAS ENOUGH MONEY
-                  if self.batch.castle.mana >= clicked_card.price:
-                    self.batch.castle.mana -= clicked_card.price
-                    #EMPTY FIELD AND CARD IN HAND SWAP POSITIONS
-                    #HAND BEFORE: - if first card were to be placed
-                    #C C C C C -> after: E C C C C
-                    if clicked_card.special_tag != "splash":
-                     clicked_card.swap(target,target.position,activate=True)
-                    clicked_card.swap(target,target.position,activate=True)
-                    if self.online == True:      
-      
       ###NEW CLICK/ TARGET
       target = self.batch.get_card((x,y))
       if target == None: return
@@ -282,7 +248,7 @@ class Window(main_chat.Window):
                       self.batch.update_hand(clicked_card)
                   #in Hand: (E=empty field,C=Card in Hand) - (if first card was placed)
                   #E C C C C-> C E C C C-> C C E C C-> C C C E C-> C C C C E-> C C C C C
-                  self.batch.update_hand(target)
+
                   self.batch.hide(self.batch.select_frame)
                   #UPDATE STATS DISPLAY TO SHOW RIGHT MANA AMOUT
                   self.batch.update_disp(clicked_card)
