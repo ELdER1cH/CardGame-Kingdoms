@@ -254,6 +254,8 @@ class Window(main_chat.Window):
                     #EMPTY FIELD AND CARD IN HAND SWAP POSITIONS
                     #HAND BEFORE: - if first card were to be placed
                     #C C C C C -> after: E C C C C
+                    if clicked_card.special_tag != "splash":
+                     clicked_card.swap(target,target.position,activate=True)
                     clicked_card.swap(target,target.position,activate=True)
                     if self.online == True:      
                       self.client.send_replace_event(clicked_card.position,clicked_card.name)
