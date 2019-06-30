@@ -1,6 +1,7 @@
 import pyglet
 from pyglet.gl import *
 import Cards
+import random
 
 val = 1
 SPRITE_WIDTH = int(120/val)
@@ -113,6 +114,17 @@ class Card(pyglet.sprite.Sprite):
       self.special_tag = ""
     else: self.special_tag = "immovable"
     
+  def draw_card_special(self):
+      if self.owner == self.batch.castle.owner:
+          target = None
+          row = self.batch.get_row((0,0))
+          for card in row:
+              if card.special_tag == "unoccupied_field":
+                  target = card
+                  break
+          if target != None:
+              target.replace(target,random.choice(self.batch.castle.cards))
+              
   def generate_mana(self):
     if self.owner == self.batch.castle.owner:
       if self.batch.castle.mana < self.batch.castle.max_mana:
