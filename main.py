@@ -235,8 +235,6 @@ class Window(main_chat.Window):
                   #EMPTY FIELD AND CARD IN HAND SWAP POSITIONS
                   #HAND BEFORE: - if first card were to be placed
                   #C C C C C -> after: E C C C C
-                  clicked_card.swap(target,target.position,activate=True)
-                  self.client.send_replace_event(clicked_card.position,clicked_card.name)
                   if clicked_card.special_tag != "splash":
                       clicked_card.swap(target,target.position,activate=True)
                       self.client.send_replace_event(clicked_card.position,clicked_card.name)
@@ -248,7 +246,6 @@ class Window(main_chat.Window):
                       self.batch.update_hand(clicked_card)
                   #in Hand: (E=empty field,C=Card in Hand) - (if first card was placed)
                   #E C C C C-> C E C C C-> C C E C C-> C C C E C-> C C C C E-> C C C C C
-
                   self.batch.hide(self.batch.select_frame)
                   #UPDATE STATS DISPLAY TO SHOW RIGHT MANA AMOUT
                   self.batch.update_disp(clicked_card)
