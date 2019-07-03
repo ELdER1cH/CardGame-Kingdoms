@@ -53,9 +53,10 @@ class Window(main_chat.Window):
       self.batch = Batch.CardBatchOffline()
     self.ingame = True
     self.my_move = my_move
-    self.hand = self.current_screen.hand_selection.hand
+    if self.online:
+      self.hand = self.current_screen.hand_selection.hand
     self.batch.castle.load_hand(self.batch.castle.y-100,hand=self.hand)
-
+    
   def back(self,delay=None):
     self.current_screen = screens.StartScreen(self.width,self.height)
 
@@ -154,7 +155,6 @@ class Window(main_chat.Window):
             #    #print("<< received %s" % r)
             #    self.handle_message(r)
 
-
   def update(self,dt):
     self.pop_up.update(dt)
   
@@ -184,7 +184,6 @@ class Window(main_chat.Window):
               self.current_screen = screens.StartScreen(self.width,self.height)
               return
             threading.Thread(target=self.receive_messages).start()
-            
           elif action == "BACK":
             #back to startscreen
             self.current_screen = screens.StartScreen(self.width,self.height)
