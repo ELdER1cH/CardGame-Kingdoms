@@ -119,7 +119,7 @@ class Card(pyglet.sprite.Sprite):
           target = None
           
           for i in range(5):
-              card = self.batch.get_card((SPRITE_WIDTH*i,0))
+              card = self.batch.get_card((SPRITE_WIDTH*(i),0))
               if card.special_tag == "unoccupied_field":
                   target = card
                   break
@@ -162,7 +162,7 @@ class Card(pyglet.sprite.Sprite):
       if card.owner == self.owner:
         card.health += card.health*mulitplier*on_off
   
-  def splash_mana(self):
+  def splash_mana(self, on_off):
     if self.owner == self.batch.castle.owner:
       if self.batch.castle.mana < self.batch.castle.max_mana:
         self.batch.castle.mana += 1

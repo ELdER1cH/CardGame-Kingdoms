@@ -1,13 +1,11 @@
 try:
   import pyglet
-  import threading
-  import json
+  import threading, json, random, screens
   from pyglet.gl import *
   import pop_up, Batch, Cards, Card, client
   from pyglet.window import key, mouse
   import chat_dependencies.main_chat as main_chat
-  import random
-  import screens 
+ 
 except ImportError as err:
   print("couldn't load modue. %s" % (err))
 
@@ -55,7 +53,10 @@ class Window(main_chat.Window):
     self.my_move = my_move
     if self.online:
       self.hand = self.current_screen.hand_selection.hand
-    self.batch.castle.load_hand(self.batch.castle.y-100,hand=self.hand)
+      self.batch.castle.load_hand(self.batch.castle.y-100,hand=self.hand)
+    else:
+      self.hand = list(Cards.cards.keys())[:-4]
+      self.batch.castle.load_hand(self.batch.castle.y-100,hand=self.hand)
     
   def back(self,delay=None):
     self.current_screen = screens.StartScreen(self.width,self.height)
@@ -244,6 +245,8 @@ class Window(main_chat.Window):
                     #EMPTY FIELD AND CARD IN HAND SWAP POSITIONS
                     #HAND BEFORE: - if first card were to be placed
                     #C C C C C -> after: E C C C C
+                    if clicked_card.special_tag != "splash":	
+                     clicked_card.swap(target,target.position,activate=True)
                     clicked_card.swap(target,target.position,activate=True)
                     if self.online == True:      
                       self.client.send_replace_event(clicked_card.position,clicked_card.name)

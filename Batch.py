@@ -24,6 +24,22 @@ class CardBatch(pyglet.graphics.Batch):
     self.init_cards()
     self.mana_reg = 0
 
+  def init_cards(self):
+    self.castle = Castle("Burg",240+120*INDENTATION,100,batch=self,owner="yellow")
+    self.castle.mana = 10
+    c = Castle("Burg",240+120*INDENTATION,700,batch=self,owner="green")
+    c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
+    for i in range(2,7,1):
+      for i2 in range(0+INDENTATION,5+INDENTATION,1):
+        if i <= 3:
+          Card.Card("yellow",i2*120,i*100,batch=self,owner="yellow")
+        if i == 4:
+          Card.Card("gray",i2*120,i*100,batch=self,owner="gray")
+        if i >= 5:
+          c = Card.Card("green",i2*120,i*100,batch=self,owner="green")
+          c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
+    self.update_disp(self.castle)
+
   def swap(self):
     self.castle = self.get_card((240+120*INDENTATION,700))
     for card in self.cards:
@@ -103,22 +119,6 @@ class CardBatch(pyglet.graphics.Batch):
     self.select_frame.draw()
     self.disp.draw()
 
-  def init_cards(self):
-    self.castle = Castle("Burg",240+120*INDENTATION,100,batch=self,owner="yellow")
-    self.castle.mana = 10
-    c = Castle("Burg",240+120*INDENTATION,700,batch=self,owner="green")
-    c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
-    for i in range(2,7,1):
-      for i2 in range(0+INDENTATION,5+INDENTATION,1):
-        if i <= 3:
-          Card.Card("yellow",i2*120,i*100,batch=self,owner="yellow")
-        if i == 4:
-          Card.Card("gray",i2*120,i*100,batch=self,owner="gray")
-        if i >= 5:
-          c = Card.Card("green",i2*120,i*100,batch=self,owner="green")
-          c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
-    self.update_disp(self.castle)
-
   def update(self,pos):
     self.disp.mana_label.text = """
         Mana: %s
@@ -139,11 +139,11 @@ class CardBatchOffline(pyglet.graphics.Batch):
 
   def init_cards(self):
     self.castle = Castle("Burg",240+120*INDENTATION,100,batch=self,owner="yellow")
-    self.castle.load_hand_offline(self.castle.y-100,False)
+    #self.castle.load_hand(self.castle.y-100,False)
     self.castle.mana = 10
     c = Castle("Burg",240+120*INDENTATION,700,batch=self,owner="green")
     c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
-    c.load_hand_offline(c.y+100,True)
+    #c.load_hand(c.y+100,True)
     for i in range(2,7,1):
       for i2 in range(0+INDENTATION,5+INDENTATION,1):
         if i <= 3:
@@ -154,7 +154,14 @@ class CardBatchOffline(pyglet.graphics.Batch):
           c = Card.Card("green",i2*120,i*100,batch=self,owner="green")
           c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
     self.update_disp(self.castle)
-
+    
+  def card_specials(self,delay=None):
+    for card in self.cards:
+      for special in card.specials:
+        if card.y > 0 and card.y < 800:
+          special(card)
+    self.update_disp(self.castle)
+    
   def swap(self):
     self.castle = self.get_card((240+120*INDENTATION,700))
     for card in self.cards:
@@ -179,7 +186,7 @@ class CardBatchOffline(pyglet.graphics.Batch):
           
     for card in row:
       target.swap(card,card.position)
-    target.replace(target,Cards.get_random_name())
+    target.replace(target,random.choice(self.castle.cards))
 
   def update_disp(self,target):
     self.mana_reg = 0
@@ -194,7 +201,7 @@ class CardBatchOffline(pyglet.graphics.Batch):
   def select_card(self,target):
     self.select_frame.position = target.position
     self.update_disp(target)
-  
+
   def hide(self,card):
     card.position = (-SPRITE_WIDTH,-SPRITE_HEIGHT)
 
@@ -225,7 +232,7 @@ class CardBatchOffline(pyglet.graphics.Batch):
     super().draw()
     self.select_frame.draw()
     self.disp.draw()
-
+   
   def update(self,pos):
     self.disp.mana_label.text = """
         Mana: %s

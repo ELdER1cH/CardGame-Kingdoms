@@ -1,6 +1,14 @@
 import pyglet
 from pyglet.window import mouse, key
+from main import Window
 import Cards
+from pyglet.gl import *
+
+val = 1
+SPRITE_WIDTH = int(120/val)
+SPRITE_HEIGHT = int(100/val)
+INDENTATION = 0
+INDENTATION_RIGHT = 2
 
 class Button(pyglet.sprite.Sprite):
   def __init__(self,img,*args,adj_anchor=True,**kwargs):
@@ -56,7 +64,7 @@ class HandSelection:
             rx /= (120+self.gap); ry = (self.height-ry)/(100+self.gap)
             if rx-int(rx) <= 1-self.gap/(120+self.gap): 
                 if ry-int(ry) >= self.gap/(100+self.gap):
-                    num = int(int(rx) + int(ry)* self.width/(120+self.gap))
+                    num = int(int(rx) + int(ry)* (self.width/(120+self.gap)-1))
                     if num < len(self.all_cards) and num not in self.hand:
                         if len(self.hand) < self.max_hand_lenght:
                             self.sprites[num].y = self.position[1]
