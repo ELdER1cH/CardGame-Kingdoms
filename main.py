@@ -36,15 +36,10 @@ class Window(main_chat.Window):
 
     pyglet.clock.schedule(self.update)
 
-  def on_close(self):
-    super().on_close()
-    print('programm closed!')
-    try:
-      self.client.s.close()
-    except:
-      pass
+#------------------------------ Game Stuff --------------------------------------
 
   def start_game(self,delay=0,my_move=True):
+    self.hand = []
     if self.online:
       self.batch = Batch.CardBatch()
     else:
@@ -55,16 +50,10 @@ class Window(main_chat.Window):
       self.hand = self.current_screen.hand_selection.hand
       self.batch.castle.load_hand(self.batch.castle.y-100,hand=self.hand)
     else:
-      self.hand = list(Cards.cards.keys())[:-4]
+      for i in range(0,len(Cards.cards)-3):
+        self.hand.append(i)
       self.batch.castle.load_hand(self.batch.castle.y-100,hand=self.hand)
     
-  def back(self,delay=None):
-    self.current_screen = screens.StartScreen(self.width,self.height)
-
-  def back_l(self,delay=None):
-    self.ingame = False
-    self.current_screen = screens.LobbyScreen(self.width,self.height)
-
   def replace(self,delay,target,cardname,activate):
     target.replace(target,cardname,activate=activate,rotate=True)
 
@@ -76,89 +65,11 @@ class Window(main_chat.Window):
     if won:
       self.back_l()
       self.g_print("You lost!")
-      
-  def handle_message(self,r):
-      if type(r) == dict:
-                if r['type'] == 'lobby':
-                  self.client.lobby = int(r['lobby'])
-                  self.client.lobbysize = int(r['lobbysize'])
-                  self.current_screen.ready = False
-                  self.current_screen.opponent_ready = False
-                  self.client.send_lobby()
-                  print(f"<< lobby update: {self.client.lobby} (size: {self.client.lobbysize})")
-                  if self.client.lobbysize != 2 and self.ingame:
-                    pyglet.clock.schedule_once(self.back_l,0.01)
-                elif r['type'] == 'ready':
-                  try:
-                    self.current_screen.opponent_ready = not self.current_screen.opponent_ready
-                    self.current_screen.ready = r['ready']
-                    print("myready: %s opponentready: %s" %
-                          (self.current_screen.ready, self.current_screen.opponent_ready))
-                    if self.current_screen.ready and self.current_screen.opponent_ready:
-                      pyglet.clock.schedule_once(self.start_game,0.01)
-                  except:
-                    print("<< r['ready'] received a message for an action that could not be executed!")
-    
-                elif r['type'] == 'move_done':
-                  self.my_move = True
-                  pyglet.clock.schedule_once(self.batch.card_specials,0.01)
-                  print("<< your turn!")
-    
-                elif r['type'] == 'replace':
-                  pos, cardname = r['replace']
-                  pos = (480-int(pos[0]),800-int(pos[1]))
-                  target = self.batch.get_card(pos)
-                  pyglet.clock.schedule_once(self.replace,0.01,target,cardname,True)
-    
-                elif r['type'] == 'swap':
-                  pos1,pos2 = r['swap']
-                  pos1 = (480-int(pos1[0]),800-int(pos1[1]))
-                  pos2 = (480-int(pos2[0]),800-int(pos2[1]))
-                  
-                  clicked_card = self.batch.get_card(pos1)
-                  target = self.batch.get_card(pos2)
-                  
-                  pyglet.clock.schedule_once(self.swap,0.01,clicked_card,target)
-    
-                elif r['type'] == 'attack':
-                  pos1,pos2 = r['attack']
-                  pos1 = (480-int(pos1[0]),800-int(pos1[1]))
-                  pos2 = (480-int(pos2[0]),800-int(pos2[1]))
-                  
-                  clicked_card = self.batch.get_card(pos1)
-                  target = self.batch.get_card(pos2)
-                  
-                  pyglet.clock.schedule_once(self.attack,0.01,clicked_card,target)
-    
-  def receive_messages(self):
-      while True:
-        re = ""
-        try:
-          re = self.client.s.recv(4096).decode()
-          print(f"- received: {re}")
-        except Exception as err:
-          print(err)
-          print("Error whilst fetching server messages!")
-          pyglet.clock.schedule_once(self.back,0.01)
-          break
-        try: 
-            r = json.loads(re)
-            self.handle_message(r)
-        except Exception as err:
-            self.client.s.close()
-            print("Error whilst fetching server messages!")
-            pyglet.clock.schedule_once(self.back,0.01)
-            #r1 = list(json.dumps(re))
-            #for r2 in r1:
-            #    print(r2)
-            #    r = json.loads(r2)
-            #    print(f"t2:r:{r}")
-            #    #print("<< received %s" % r)
-            #    self.handle_message(r)
-
+  
   def update(self,dt):
     self.pop_up.update(dt)
   
+#------------------------------ System / Strukture -------------------------------------------------------- 
   def select(self,target,clicked_card):
     if target.special_tag != "immovable" or target.y == 0:
       if target.owner == self.batch.castle.owner:
@@ -339,7 +250,15 @@ class Window(main_chat.Window):
         target = self.batch.get_card(self.batch.select_frame.position)
         if target != None and target.y == 0:     
           self.batch.update_hand(target)
-          
+
+  def on_close(self):
+    super().on_close()
+    print('programm closed!')
+    try:
+      self.client.s.close()
+    except:
+      pass        
+  
   def on_draw(self):
     self.clear()
     if self.ingame:
@@ -395,7 +314,92 @@ class Window(main_chat.Window):
             self.g_print("§c/replace -hand <card_name>")
 
         else: self.g_print("§cunknown command. '%s'" % (" ".join(cmd)))
+# -------------------------- Server Stuff ------------------------------------------
+  def back(self,delay=None):
+    self.current_screen = screens.StartScreen(self.width,self.height)
 
+  def back_l(self,delay=None):
+    self.ingame = False
+    self.current_screen = screens.LobbyScreen(self.width,self.height)
+
+  def handle_message(self,r):
+      if type(r) == dict:
+                if r['type'] == 'lobby':
+                  self.client.lobby = int(r['lobby'])
+                  self.client.lobbysize = int(r['lobbysize'])
+                  self.current_screen.ready = False
+                  self.current_screen.opponent_ready = False
+                  self.client.send_lobby()
+                  print(f"<< lobby update: {self.client.lobby} (size: {self.client.lobbysize})")
+                  if self.client.lobbysize != 2 and self.ingame:
+                    pyglet.clock.schedule_once(self.back_l,0.01)
+                elif r['type'] == 'ready':
+                  try:
+                    self.current_screen.opponent_ready = not self.current_screen.opponent_ready
+                    self.current_screen.ready = r['ready']
+                    print("myready: %s opponentready: %s" %
+                          (self.current_screen.ready, self.current_screen.opponent_ready))
+                    if self.current_screen.ready and self.current_screen.opponent_ready:
+                      pyglet.clock.schedule_once(self.start_game,0.01)
+                  except:
+                    print("<< r['ready'] received a message for an action that could not be executed!")
+    
+                elif r['type'] == 'move_done':
+                  self.my_move = True
+                  pyglet.clock.schedule_once(self.batch.card_specials,0.01)
+                  print("<< your turn!")
+    
+                elif r['type'] == 'replace':
+                  pos, cardname = r['replace']
+                  pos = (480-int(pos[0]),800-int(pos[1]))
+                  target = self.batch.get_card(pos)
+                  pyglet.clock.schedule_once(self.replace,0.01,target,cardname,True)
+    
+                elif r['type'] == 'swap':
+                  pos1,pos2 = r['swap']
+                  pos1 = (480-int(pos1[0]),800-int(pos1[1]))
+                  pos2 = (480-int(pos2[0]),800-int(pos2[1]))
+                  
+                  clicked_card = self.batch.get_card(pos1)
+                  target = self.batch.get_card(pos2)
+                  
+                  pyglet.clock.schedule_once(self.swap,0.01,clicked_card,target)
+    
+                elif r['type'] == 'attack':
+                  pos1,pos2 = r['attack']
+                  pos1 = (480-int(pos1[0]),800-int(pos1[1]))
+                  pos2 = (480-int(pos2[0]),800-int(pos2[1]))
+                  
+                  clicked_card = self.batch.get_card(pos1)
+                  target = self.batch.get_card(pos2)
+                  
+                  pyglet.clock.schedule_once(self.attack,0.01,clicked_card,target)
+    
+  def receive_messages(self):
+      while True:
+        re = ""
+        try:
+          re = self.client.s.recv(4096).decode()
+          print(f"- received: {re}")
+        except Exception as err:
+          print(err)
+          print("Error whilst fetching server messages!")
+          pyglet.clock.schedule_once(self.back,0.01)
+          break
+        try: 
+            r = json.loads(re)
+            self.handle_message(r)
+        except Exception as err:
+            self.client.s.close()
+            print("Error whilst fetching server messages!")
+            pyglet.clock.schedule_once(self.back,0.01)
+            #r1 = list(json.dumps(re))
+            #for r2 in r1:
+            #    print(r2)
+            #    r = json.loads(r2)
+            #    print(f"t2:r:{r}")
+            #    #print("<< received %s" % r)
+            #    self.handle_message(r)
 if __name__ == "__main__":
   width = 600+120*INDENTATION_RIGHT;height =800
   window = Window(width,height,"Cardgame - Online Version (developer build)",resizable=True,vsync=False)
