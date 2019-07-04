@@ -337,6 +337,7 @@ class Window(main_chat.Window):
         target = self.batch.get_card(self.batch.select_frame.position)
         if target != None and target.y == 0:     
           self.batch.update_hand(target)
+
           
   def on_draw(self):
     self.clear()
@@ -393,7 +394,12 @@ class Window(main_chat.Window):
             self.g_print("§c/replace -hand <card_name>")
 
         else: self.g_print("§cunknown command. '%s'" % (" ".join(cmd)))
-
+  
+  def get_scale_x(self):
+    return self.scale_x
+  
+  def get_scale_y(self):
+    return self.scale_y
 if __name__ == "__main__":
   width = 600+120*INDENTATION_RIGHT;height =800
   window = Window(width,height,"Cardgame - Online Version (developer build)",resizable=True,vsync=False)

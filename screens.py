@@ -1,6 +1,13 @@
 import pyglet
 from pyglet.window import mouse, key
 import Cards
+from pyglet.gl import *
+from main import Window
+
+val = 1
+SPRITE_WIDTH = int(120/val)
+SPRITE_HEIGHT = int(100/val)
+INDENTATION_RIGHT = 2
 
 class Button(pyglet.sprite.Sprite):
   def __init__(self,img,*args,adj_anchor=True,**kwargs):
@@ -9,10 +16,24 @@ class Button(pyglet.sprite.Sprite):
       img.anchor_y = img.height//2
     super().__init__(img,*args,**kwargs)
     self.action = None
+  
+  def resize(self,width, height):
+    super().on_resize(width,height)
+    glScalef(1/self.scale_x,1/self.scale_y,1)
+    self.scale_x = width/self.pre_resize_dims[0]
+    self.scale_y = height/self.pre_resize_dims[1]
+    #glScalef(self.scale_x,self.scale_y,1)
+    glScalef(self.scale_x,self.scale_y,1)
+  
+
 
   def press(self,x,y,button):
     if button == mouse.LEFT:
       xp,yp = self.position
+      x /= self.scale_x
+      y /= self.scale_y
+      xp /= self.scale_x
+      yp /= self.scale_y
       xp -= self.image.anchor_x; yp -= self.image.anchor_y
       if x >= xp and x < xp+self.width and y >= yp and y < yp+self.height:
         return self.action
