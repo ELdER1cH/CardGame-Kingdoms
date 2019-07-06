@@ -168,6 +168,10 @@ class Window(main_chat.Window):
       self.pop_up.new_red_frame(target.position)
 
   def on_mouse_press(self,x,y,button,MOD,antir=True):
+    # X & Y scaling for on_resize 
+    x /= self.scale_x
+    y /= self.scale_y
+    
     if not self.ingame:
       cs = self.current_screen
       for b in cs.buttons:
@@ -213,8 +217,7 @@ class Window(main_chat.Window):
     if not self.my_move:
       return
     
-    x /= self.scale_x
-    y /= self.scale_y
+
     ###LEFT
     if button == mouse.LEFT:
       #bin ich online?
