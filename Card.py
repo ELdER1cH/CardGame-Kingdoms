@@ -141,6 +141,9 @@ class Card(pyglet.sprite.Sprite):
       self.health += 200
       if self.health > self.max_health: self.health = self.max_health
 
+  def wall_special(self):
+    self.health -= 3000
+    pass
   def attack_booster_special(self,on_off):
     #Variablen
     if on_off == 1:

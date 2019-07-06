@@ -23,7 +23,7 @@ cards = {
             'green': [1,1,1,0,0,0,'resc/green_frame.png',[Card.generate_mana],"unoccupied_field",[]],
             'yellow': [1,1,1,0,0,0,'resc/yellow_frame.png',[Card.generate_mana],"unoccupied_field",[]],
             'gray': [1,1,1,0,0,0,'resc/gray_frame.png',[],"unoccupied_field",[]],
-            'wall': [1,15000,15000,400,0,0,'',[],"immovable",[]]
+            'wall': [1,15000,15000,400,0,0,'',[Card.wall_special],"immovable",[]]
                                   
 }
 
