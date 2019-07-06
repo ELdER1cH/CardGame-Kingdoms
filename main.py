@@ -5,7 +5,7 @@ try:
   import pop_up, Batch, Cards, Card, client
   from pyglet.window import key, mouse
   import chat_dependencies.main_chat as main_chat
- 
+  
 except ImportError as err:
   print("couldn't load modue. %s" % (err))
 
@@ -28,7 +28,7 @@ class Window(main_chat.Window):
     self.scale_x = 1
     self.scale_y = 1
 
-    self.current_screen = screens.StartScreen(self.width,self.height)
+    self.current_screen = screens.StartScreen(840,800)
     
     self.ingame = False
     self.my_move = False
@@ -319,11 +319,11 @@ class Window(main_chat.Window):
         else: self.g_print("§cunknown command. '%s'" % (" ".join(cmd)))
 # -------------------------- Server Stuff ------------------------------------------
   def back(self,delay=None):
-    self.current_screen = screens.StartScreen(self.width,self.height)
+    self.current_screen = screens.StartScreen(840,800)
 
   def back_l(self,delay=None):
     self.ingame = False
-    self.current_screen = screens.LobbyScreen(self.width,self.height)
+    self.current_screen = screens.LobbyScreen(840,800)
 
   def handle_message(self,r):
       if type(r) == dict:
