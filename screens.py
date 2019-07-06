@@ -1,6 +1,14 @@
 import pyglet
 from pyglet.window import mouse, key
+from main import Window
 import Cards
+from pyglet.gl import *
+
+val = 1
+SPRITE_WIDTH = int(120/val)
+SPRITE_HEIGHT = int(100/val)
+INDENTATION = 0
+INDENTATION_RIGHT = 2
 
 class Button(pyglet.sprite.Sprite):
   def __init__(self,img,*args,adj_anchor=True,**kwargs):
