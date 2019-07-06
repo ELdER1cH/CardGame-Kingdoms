@@ -268,6 +268,15 @@ class Window(main_chat.Window):
                             self.client.send_replace_event(target.position,"yellow")
                     self.batch.update_disp(self.batch.castle)
         
+      elif KEY == key.C:
+          print("close")
+          try:
+              self.client.s.close()
+          except:
+              pass
+          self.back()
+          self.ingame = False
+        
 
   def on_close(self):
     super().on_close()
