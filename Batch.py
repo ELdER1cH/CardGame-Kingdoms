@@ -144,6 +144,7 @@ class CardBatchOffline(pyglet.graphics.Batch):
     c = Castle("Burg",240+120*INDENTATION,700,batch=self,owner="green")
     c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
     c.load_hand(c.y+100,bo=True)
+
     for i in range(2,7,1):
       for i2 in range(0+INDENTATION,5+INDENTATION,1):
         if i <= 3:
@@ -234,6 +235,7 @@ class CardBatchOffline(pyglet.graphics.Batch):
     self.select_frame.draw()
     self.disp.draw()
    
+
   def update(self,pos):
     self.disp.mana_label.text = """
         Mana: %s

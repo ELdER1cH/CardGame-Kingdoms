@@ -5,11 +5,12 @@ try:
   import pop_up, Batch, Cards, Card, client
   from pyglet.window import key, mouse
   import chat_dependencies.main_chat as main_chat
- 
+
+  
+#all files: 1285 lines of code (28.06.19 22:55)
+
 except ImportError as err:
   print("couldn't load modue. %s" % (err))
-
-#all files: 1285 lines of code (28.06.19 22:55)
 
 IP = "localhost"
 PORT = 6789
@@ -32,8 +33,7 @@ class Window(main_chat.Window):
     
     self.ingame = False
     self.my_move = False
-    self.online = True
-
+    
     pyglet.clock.schedule(self.update)
 
 #------------------------------ Game Stuff --------------------------------------
@@ -44,7 +44,9 @@ class Window(main_chat.Window):
       self.batch = Batch.CardBatch()
     else:
       self.batch = Batch.CardBatchOffline()
+
     self.ingame = True
+    self.batch = Batch.CardBatch()
     self.my_move = my_move
     if self.online:
       self.hand = self.current_screen.hand_selection.hand
@@ -61,7 +63,7 @@ class Window(main_chat.Window):
     if won:
       self.back_l()
       self.g_print("You lost!")
-  
+
   def update(self,dt):
     self.pop_up.update(dt)
   
@@ -82,7 +84,6 @@ class Window(main_chat.Window):
         action = b.press(x,y,button)
         if action != None:
           if action == "ONLINE":
-            self.online = True
             self.current_screen = screens.LobbyScreen(self.width,self.height)
             try:
               self.client = client.Client(IP,PORT)
@@ -96,8 +97,7 @@ class Window(main_chat.Window):
             #back to startscreen
             self.current_screen = screens.StartScreen(self.width,self.height)
           elif action == "OFFLINE":
-            self.current_screen =  screens.OfflineScreen(self.width, self.height)
-            self.online = False
+            print("not inplemented")
           elif action == "SETTINGS":
             #settings - later: to change server addr. (and maybe sound or sth.)
             self.current_screen = screens.SettingsScreen(self.width,self.height)
@@ -112,10 +112,6 @@ class Window(main_chat.Window):
               if self.current_screen.ready and self.current_screen.opponent_ready:
                 self.start_game(my_move=False)
                 self.batch.castle.mana = 2
-          elif action == "StartGameOffline":
-            self.start_game()
-            self.batch.castle.mana = 2
-          
       return
     if not self.my_move:
       return
@@ -124,6 +120,7 @@ class Window(main_chat.Window):
     y /= self.scale_y
     ###LEFT
     if button == mouse.LEFT:
+
       #bin ich online?
 
         ###NEW CLICK/ TARGET
@@ -162,24 +159,18 @@ class Window(main_chat.Window):
                         special(clicked_card,1)
                       clicked_card.replace(clicked_card,clicked_card.owner)
                       self.batch.update_hand(clicked_card)
-                      
                     self.batch.hide(self.batch.select_frame)
                     #UPDATE STATS DISPLAY TO SHOW RIGHT MANA AMOUT
                     self.batch.update_disp(clicked_card)
-                  else:
-                    self.pop_up.new_pop_up((x,y),0.5,'TOO COSTLY: %s' % (clicked_card.price))
-                    self.pop_up.new_red_frame(clicked_card.position)
                 else:
-                  ###IF NEW CLICK NOT A EMPTY FIELD (AND MY CARD), SELECT THAT CARD
-                  self.select(target,clicked_card)
+                  self.pop_up.new_pop_up((x,y),0.5,'TOO COSTLY: %s' % (clicked_card.price))
+                  self.pop_up.new_red_frame(clicked_card.position)
               else:
-                ###IF TARGET IS NOT MY CARD SHOW A RED FRAME
-                self.pop_up.new_red_frame(clicked_card.position)
+                ###IF NEW CLICK NOT A EMPTY FIELD (AND MY CARD), SELECT THAT CARD
+                self.select(target,clicked_card)
             else:
-              ###IF CARD IS IN HAND SELECT THAT CARD INSTEAD
-              self.batch.select_card(target)
-
-          #---NOT HAND---
+              ###IF TARGET IS NOT MY CARD SHOW A RED FRAME
+              self.pop_up.new_red_frame(clicked_card.position)
           else:
             #GET UP, DOWN, LEFT, RIGHT TO SELECT
             adjacent = self.batch.get_adjacent(clicked_card.position)
@@ -222,32 +213,29 @@ class Window(main_chat.Window):
               ###IF CARD NOT IN REACH, TRY SELECTING THAT CARD
               self.select(target,clicked_card)
 
-        ##SINCE THERES NO SELECTED CARD, TARGET = NEW SELECT
-        elif target.special_tag != "unoccupied_field":
-          #IF TARGET IS NO EMPTY FIELD, SHOW ITS STATS IN STATS DISPLAY
-          ##ONLY DO THIS IF TARGET IS NOT IN ENEMY HAND
-          if target.y > 0 and target.y < 800:
-            self.batch.disp.update_to_enemy(target)
-          #TRY SELECTING THAT CARD
-          self.select(target,clicked_card)
-        else:
-          #IF TARGET IS EMPTY FIELD SHOW RED FRAME
-          self.pop_up.new_red_frame(target.position)    
-
+      ##SINCE THERES NO SELECTED CARD, TARGET = NEW SELECT
+      elif target.special_tag != "unoccupied_field":
+        #IF TARGET IS NO EMPTY FIELD, SHOW ITS STATS IN STATS DISPLAY
+        ##ONLY DO THIS IF TARGET IS NOT IN ENEMY HAND
+        if target.y > 0 and target.y < 800:
+          self.batch.disp.update_to_enemy(target)
+        #TRY SELECTING THAT CARD
+        self.select(target,clicked_card)
+      else:
+        #IF TARGET IS EMPTY FIELD SHOW RED FRAME
+        self.pop_up.new_red_frame(target.position)    
+  
   def on_key_press(self,KEY,MOD):
     #key.ENTER & key.ESCAPE in while command_input_state; T = open chat
     super().on_key_press(KEY,MOD)
     if not self.chat_model.command_input_widget_state:
       if KEY == key.S:
-        if self.online == True:
-          #self.batch.swap()
-          if self.my_move:
-            self.client.send_move_done()
-            self.my_move = False
-            self.batch.hide(self.batch.select_frame)
-            self.batch.disp.clear()
-        else:
-          self.batch.swap()    
+        #self.batch.swap()
+        if self.my_move:
+          self.client.send_move_done()
+          self.my_move = False
+          self.batch.hide(self.batch.select_frame)
+          self.batch.disp.clear()
           
       elif KEY == key.D:
         target = self.batch.get_card(self.batch.select_frame.position)

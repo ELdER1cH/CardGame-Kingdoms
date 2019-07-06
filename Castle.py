@@ -10,6 +10,7 @@ class Castle(Card):
     
   def load_hand(self,y,hand=[i for i in range(len(Cards.cards)-4)],bo=False):
     #Setting up Cards in Hand
+
     self.cards = []
     all_cards = list(Cards.cards.keys())
     placed = []

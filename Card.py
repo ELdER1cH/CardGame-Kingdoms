@@ -151,8 +151,7 @@ class Card(pyglet.sprite.Sprite):
       if card.owner == self.owner:
         card.dmg += card.dmg*mulitplier*on_off
 
-  def shield_booster_special(self,on_off):
-        
+  def shield_booster_special(self,on_off):    
     #Variablen
     if on_off == 1:
       mulitplier = 0.3
