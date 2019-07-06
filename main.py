@@ -11,7 +11,7 @@ except ImportError as err:
 
 #all files: 1285 lines of code (28.06.19 22:55)
 
-IP = "localhost"
+IP = "79.231.167.136"
 PORT = 6789
 
 val = 1
