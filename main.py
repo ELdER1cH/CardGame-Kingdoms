@@ -50,7 +50,7 @@ class Window(main_chat.Window):
       self.hand = self.current_screen.hand_selection.hand
       self.batch.castle.load_hand(self.batch.castle.y-100,hand=self.hand)
     else:
-      for i in range(0,len(Cards.cards)-3):
+      for i in range(0,len(Cards.cards)-4):
         self.hand.append(i)
       self.batch.castle.load_hand(self.batch.castle.y-100,hand=self.hand)
     
