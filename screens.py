@@ -50,24 +50,44 @@ class HandSelection:
                                                      height-(int(i/self.cpr)+1)*(100+self.gap),batch=batch))
             
     def move_card(self,x,y):
+        #rx & ry werden angepasst, dass sie am Rand des Kartenauswahlfelds beginnen und nicht am Rand des Fensters 
         rx = x-self.indentation
         ry = y-(self.h-self.height)
+        #wenn eine Karte der Hand hinzugefügt werden soll - Klick in kartenauswahl  
         if y >= self.h-3*(100+self.gap):
+            # rx wird geteilt - soll maximal 5 (bzw. 0-4) sein, weil es 5 Karten pro Reihe gibt
             rx /= (120+self.gap); ry = (self.height-ry)/(100+self.gap)
+            # wenn der click nicht zwischen den Karten war 
             if rx-int(rx) <= 1-self.gap/(120+self.gap): 
                 if ry-int(ry) >= self.gap/(100+self.gap):
-                    num = int(int(rx) + int(ry)* self.width/(120+self.gap))
+                    # Testet in welcher Reihe geklickt wurde und setzt je nachdem num fest
+                      # Num Calc: Karten Nummer wird anhand der Stelle und Reihe bestimmt (Zahl von 0-4 + (0-2 für die Reihe * 5 Karten pro Reihe)
+                    #Reihe 1
+                    if int(int(ry)* self.width/(120+self.gap)-1) < 5:
+                      num = int(int(rx) + int(ry)* self.width/(120+self.gap)) 
+                    #Reihe 2
+                    elif   int(int(ry)* self.width/(120+self.gap)-1) < 11:  
+                      num = int(int(rx) + int(ry)* self.width/(120+self.gap)-1)
+                    #Reihe 3
+                    else:
+                      num = int(int(rx) + int(ry)* self.width/(120+self.gap)-2)    
+                    # wenn die Nummer nicht größer als alle Karten ist & und die Nummer noch nicht in die Hand gewählt wurde 
                     if num < len(self.all_cards) and num not in self.hand:
+                        #wenn Die Hand nicht schon voll ist 
                         if len(self.hand) < self.max_hand_lenght:
+                            # Karte nach unten in seinen Platz in der Hand schieben
                             self.sprites[num].y = self.position[1]
                             self.sprites[num].x = (120+self.gap)*len(self.hand)#+self.indentation
                             self.hand.append(num)
-            
+        # wenn der Klick bei den schon ausgewählten Karten war    
         elif y <= self.h-3*(100+self.gap)-self.gap:
+            # num ist wieder die Stelle in der Reihe - bloß gibt es nur eine Reihe
             num = int(x/(120+self.gap))
             rx = x/(120+self.gap)
+            # Lücken Check - soll nicht dazwischen sein 
             if rx-int(rx) >= 1-self.gap/(120+self.gap): 
                 return
+            # wenn alles passt die Karte wieder aus der Hand entfernen und an den alten Platz ziehen     
             if len(self.hand) > num:
                 card = self.hand[num]
                 self.sprites[card].y = self.h-(int(card/self.cpr)+1)*(100+self.gap)
@@ -139,35 +159,14 @@ class LobbyScreen(Screen):
     self.buttons.append(self.hand_selection)
 
     #bad formating, bad layout, bad design
+    #implement Hand selection!
     #implement Castle selection!
     
     self.ready_button = Button(pyglet.image.load("resc/ready.png")
                                ,width-120,20,batch=self.batch,
                                adj_anchor=False)
+    
     self.ready_button.action = "READY"
-    self.buttons.append(self.ready_button)
-
-class OfflineScreen(Screen):
-  def __init__(self,width, height):
-    self.batch = pyglet.graphics.Batch()
-    self.buttons = []
-
-    self.ready = False
-    self.opponent_ready = False
-
-    self.label = pyglet.text.Label(text= 'Start',
-                          x = width//2, 
-                          y = height//2,
-                          font_name='Times New Roman',
-                          font_size=48,
-                          bold=True,
-                          color=(0, 0, 0,255),
-                          batch= self.batch, anchor_x = 'center',anchor_y= 'center'
-                    
-                          )  
-
-    self.ready_button = Button(pyglet.image.load("resc/ready.png")
-                               ,width-120,20,batch=self.batch,
-                               adj_anchor=False)
-    self.ready_button.action = "StartGameOffline"
+    
+    #self.ready_button.action = "READY"
     self.buttons.append(self.ready_button)

@@ -151,8 +151,7 @@ class Card(pyglet.sprite.Sprite):
       if card.owner == self.owner:
         card.dmg += card.dmg*mulitplier*on_off
 
-  def shield_booster_special(self,on_off):
-        
+  def shield_booster_special(self,on_off):    
     #Variablen
     if on_off == 1:
       mulitplier = 0.3
@@ -162,7 +161,7 @@ class Card(pyglet.sprite.Sprite):
       if card.owner == self.owner:
         card.health += card.health*mulitplier*on_off
   
-  def splash_mana(self):
+  def splash_mana(self, on_off):
     if self.owner == self.batch.castle.owner:
       if self.batch.castle.mana < self.batch.castle.max_mana:
         self.batch.castle.mana += 1
