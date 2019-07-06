@@ -152,8 +152,15 @@ class LobbyScreen(Screen):
     self.ready_button = Button(pyglet.image.load("resc/ready.png")
                                ,width-120,20,batch=self.batch,
                                adj_anchor=False)
+       
     self.ready_button.action = "READY"
     self.buttons.append(self.ready_button)
+    
+    self.back_button = Button(pyglet.image.load("resc/backArrow.png")
+                              ,20,20, batch = self.batch,
+                              adj_anchor=False)
+    self.back_button.action = "BACK"
+    self.buttons.append(self.back_button)
 
 class OfflineScreen(Screen):
   def __init__(self,width, height):
@@ -162,6 +169,7 @@ class OfflineScreen(Screen):
 
     self.ready = False
     self.opponent_ready = False
+
 
     self.label = pyglet.text.Label(text= 'Start',
                           x = width//2, 
@@ -173,9 +181,13 @@ class OfflineScreen(Screen):
                           batch= self.batch, anchor_x = 'center',anchor_y= 'center'
                     
                           )  
-
+    self.back_button = Button(pyglet.image.load("resc/backArrow.png")
+                          ,20,20, batch = self.batch,
+                          adj_anchor=False)
     self.ready_button = Button(pyglet.image.load("resc/ready.png")
                                ,width-120,20,batch=self.batch,
                                adj_anchor=False)
     self.ready_button.action = "StartGameOffline"
+    self.back_button.action = "BACK"
     self.buttons.append(self.ready_button)
+    self.buttons.append(self.back_button)
