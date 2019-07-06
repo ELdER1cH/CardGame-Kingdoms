@@ -251,8 +251,13 @@ class Window(main_chat.Window):
           
       elif KEY == key.D:
         target = self.batch.get_card(self.batch.select_frame.position)
-        if target != None and target.y == 0:     
-          self.batch.update_hand(target)
+        if target != None:
+            if target.y == 0:     
+                self.batch.update_hand(target)
+            elif target.owner == self.batch.castle.owner and target.y > 100 and target.y < 700:
+                    target.replace(target,target.owner)
+                    self.batch.hide(self.batch.select_frame)
+        
 
   def on_close(self):
     super().on_close()
