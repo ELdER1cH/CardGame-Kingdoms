@@ -139,11 +139,11 @@ class CardBatchOffline(pyglet.graphics.Batch):
 
   def init_cards(self):
     self.castle = Castle("Burg",240+120*INDENTATION,100,batch=self,owner="yellow")
-    #self.castle.load_hand(self.castle.y-100,False)
+    self.castle.load_hand(self.castle.y-100,bo=False)
     self.castle.mana = 10
     c = Castle("Burg",240+120*INDENTATION,700,batch=self,owner="green")
     c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
-    #c.load_hand(c.y+100,True)
+    c.load_hand(c.y+100,bo=True)
     for i in range(2,7,1):
       for i2 in range(0+INDENTATION,5+INDENTATION,1):
         if i <= 3:
@@ -171,8 +171,9 @@ class CardBatchOffline(pyglet.graphics.Batch):
       card.image.anchor_y = 100-card.image.anchor_y
       card.rotation = 180-card.rotation
       for special in card.specials:
-        if card.y > 0 and card.y < 800 and card.owner == self.castle.owner:
-          special(card)
+        if special != Card.Card.draw_card_special:
+            if card.y > 0 and card.y < 800 and card.owner == self.castle.owner:
+              special(card)
     self.hide(self.select_frame)
     self.update_disp(self.castle)
 

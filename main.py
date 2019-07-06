@@ -49,10 +49,6 @@ class Window(main_chat.Window):
     if self.online:
       self.hand = self.current_screen.hand_selection.hand
       self.batch.castle.load_hand(self.batch.castle.y-100,hand=self.hand)
-    else:
-      for i in range(0,len(Cards.cards)-3):
-        self.hand.append(i)
-      self.batch.castle.load_hand(self.batch.castle.y-100,hand=self.hand)
     
   def replace(self,delay,target,cardname,activate):
     target.replace(target,cardname,activate=activate,rotate=True)
@@ -156,14 +152,17 @@ class Window(main_chat.Window):
                     #EMPTY FIELD AND CARD IN HAND SWAP POSITIONS
                     #HAND BEFORE: - if first card were to be placed
                     #C C C C C -> after: E C C C C
-                    if clicked_card.special_tag != "splash":	
-                     clicked_card.swap(target,target.position,activate=True)
-                    clicked_card.swap(target,target.position,activate=True)
-                    if self.online == True:      
-                      self.client.send_replace_event(clicked_card.position,clicked_card.name)
-                    #in Hand: (E=empty field,C=Card in Hand) - (if first card was placed)
-                    #E C C C C-> C E C C C-> C C E C C-> C C C E C-> C C C C E-> C C C C C
-                    self.batch.update_hand(target)
+                    if clicked_card.special_tag != "splash":
+                      clicked_card.swap(target,target.position,activate=True)
+                      if self.online:
+                          self.client.send_replace_event(clicked_card.position,clicked_card.name)
+                      self.batch.update_hand(target)
+                    else:
+                      for special in clicked_card.place_special:
+                        special(clicked_card,1)
+                      clicked_card.replace(clicked_card,clicked_card.owner)
+                      self.batch.update_hand(clicked_card)
+                      
                     self.batch.hide(self.batch.select_frame)
                     #UPDATE STATS DISPLAY TO SHOW RIGHT MANA AMOUT
                     self.batch.update_disp(clicked_card)
@@ -208,8 +207,12 @@ class Window(main_chat.Window):
                     if self.online == True:
                       self.client.send_attack_event(clicked_card.position,target.position)
                     if won:
-                      self.back_l()
-                      self.g_print("You won!")
+                        if self.online:
+                            self.back_l()
+                        else:
+                          self.ingame = False
+                          self.back()
+                        self.g_print("You won!")
                   else:
                     self.pop_up.new_red_frame(target.position)
                 ##IF TARGET WAS IN REACH, HIDE SELECT, SINCE THERE WAS A SWAO or FIGHT
@@ -390,16 +393,14 @@ class Window(main_chat.Window):
             r = json.loads(re)
             self.handle_message(r)
         except Exception as err:
-            self.client.s.close()
+            try:
+                self.client.s.close()
+            except:
+                pass
             print("Error whilst fetching server messages!")
             pyglet.clock.schedule_once(self.back,0.01)
-            #r1 = list(json.dumps(re))
-            #for r2 in r1:
-            #    print(r2)
-            #    r = json.loads(r2)
-            #    print(f"t2:r:{r}")
-            #    #print("<< received %s" % r)
-            #    self.handle_message(r)
+        
+        
 if __name__ == "__main__":
   width = 600+120*INDENTATION_RIGHT;height =800
   window = Window(width,height,"Cardgame - Online Version (developer build)",resizable=True,vsync=False)
