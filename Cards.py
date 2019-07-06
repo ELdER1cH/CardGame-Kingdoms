@@ -23,7 +23,7 @@ cards = {
             'green': [1,1,1,0,0,0,'resc/green_frame.png',[Card.generate_mana],"unoccupied_field",[]],
             'yellow': [1,1,1,0,0,0,'resc/yellow_frame.png',[Card.generate_mana],"unoccupied_field",[]],
             'gray': [1,1,1,0,0,0,'resc/gray_frame.png',[],"unoccupied_field",[]],
-            'wall': [1,15000,15000,400,0,0,'',[],"immovable",[]]
+            'wall': [1,15000,15000,400,0,0,'resc/wall.png',[],"immovable",[]]
                                   
 }
 
@@ -41,11 +41,3 @@ def init(card,name):
     card.special_tag = s[8]
     card.place_special = s[9]
     return pyglet.image.load(card.img)
-
-def get_random_name():
-    #name, info = random.choice(list(Cards.cards.items()))
-    return random.choice(list(cards.keys())[:-4])
-
-def get_random():
-    name = random.choice(list(cards.keys())[:-4])
-    return name, cards[name]
