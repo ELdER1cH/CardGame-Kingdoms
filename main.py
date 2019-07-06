@@ -10,7 +10,7 @@ except ImportError as err:
   print("couldn't load modue. %s" % (err))
 
 #all files: 1285 lines of code (28.06.19 22:55)
-
+#79.231.167.136
 IP = "79.231.167.136"
 PORT = 6789
 
@@ -115,6 +115,10 @@ class Window(main_chat.Window):
           elif action == "StartGameOffline":
             self.start_game()
             self.batch.castle.mana = 2
+          elif action == "BACK":
+            print('f')
+            self.client.s.close()
+            self.back
           
       return
     if not self.my_move:
