@@ -119,7 +119,7 @@ class Card(pyglet.sprite.Sprite):
           target = None
           
           for i in range(5):
-              card = self.batch.get_card((SPRITE_WIDTH*i,0))
+              card = self.batch.get_card((SPRITE_WIDTH*(i),0))
               if card.special_tag == "unoccupied_field":
                   target = card
                   break
@@ -151,7 +151,8 @@ class Card(pyglet.sprite.Sprite):
       if card.owner == self.owner:
         card.dmg += card.dmg*mulitplier*on_off
 
-  def shield_booster_special(self,on_off):    
+  def shield_booster_special(self,on_off):
+        
     #Variablen
     if on_off == 1:
       mulitplier = 0.3
