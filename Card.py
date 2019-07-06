@@ -114,7 +114,7 @@ class Card(pyglet.sprite.Sprite):
       self.special_tag = ""
     else: self.special_tag = "immovable"
     
-  def draw_card_special(self):
+  def draw_card_special(self,on_off=False):
       if self.owner == self.batch.castle.owner:
           target = None
           

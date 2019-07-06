@@ -159,6 +159,7 @@ class Window(main_chat.Window):
                       self.batch.update_hand(target)
                     else:
                       for special in clicked_card.place_special:
+                        print(special)
                         special(clicked_card,1)
                       clicked_card.replace(clicked_card,clicked_card.owner)
                       self.batch.update_hand(clicked_card)
@@ -255,8 +256,17 @@ class Window(main_chat.Window):
             if target.y == 0:     
                 self.batch.update_hand(target)
             elif target.owner == self.batch.castle.owner and target.y > 100 and target.y < 700:
-                    target.replace(target,target.owner)
                     self.batch.hide(self.batch.select_frame)
+                    self.batch.castle.mana += target.price-1
+                    target.replace(target,target.owner)
+                    if self.batch.castle.mana > self.batch.castle.max_mana:
+                        self.batch.castle.mana = self.batch.castle.max_mana
+                    if self.online:
+                        if target.name == "yellow":
+                            self.client.send_replace_event(target.position,"green")
+                        else:
+                            self.client.send_replace_event(target.position,"yellow")
+                    self.batch.update_disp(self.batch.castle)
         
 
   def on_close(self):
