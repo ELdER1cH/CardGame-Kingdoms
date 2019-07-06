@@ -11,7 +11,7 @@ try:
   import screens
   
 #all files: 1285 lines of code (28.06.19 22:55)
-  
+
 except ImportError as err:
   print("couldn't load modue. %s" % (err))
 
@@ -141,10 +141,7 @@ class Window(main_chat.Window):
             r = json.loads(re)
             self.handle_message(r)
         except Exception as err:
-            try:
-                self.client.s.close()
-            except:
-                pass
+            self.client.s.close()
             print("Error whilst fetching server messages!")
             pyglet.clock.schedule_once(self.back,0.01)
             #r1 = list(json.dumps(re))
@@ -212,7 +209,6 @@ class Window(main_chat.Window):
     y /= self.scale_y
     ###LEFT
     if button == mouse.LEFT:
-      
       ###NEW CLICK/ TARGET
       target = self.batch.get_card((x,y))
       if target == None: return
@@ -301,7 +297,6 @@ class Window(main_chat.Window):
           else:
             ###IF CARD NOT IN REACH, TRY SELECTING THAT CARD
             self.select(target,clicked_card)
-
       ##SINCE THERES NO SELECTED CARD, TARGET = NEW SELECT
       elif target.special_tag != "unoccupied_field":
         #IF TARGET IS NO EMPTY FIELD, SHOW ITS STATS IN STATS DISPLAY
@@ -313,8 +308,6 @@ class Window(main_chat.Window):
       else:
         #IF TARGET IS EMPTY FIELD SHOW RED FRAME
         self.pop_up.new_red_frame(target.position)    
-
-
   def on_key_press(self,KEY,MOD):
     #key.ENTER & key.ESCAPE in while command_input_state; T = open chat
     super().on_key_press(KEY,MOD)
