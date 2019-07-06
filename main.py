@@ -92,9 +92,6 @@ class Window(main_chat.Window):
               self.current_screen = screens.StartScreen(840,800)
               return
             threading.Thread(target=self.receive_messages).start()
-          elif action == "BACK":
-            #back to startscreen
-            self.current_screen = screens.StartScreen(840,800)
           elif action == "OFFLINE":
             self.current_screen =  screens.OfflineScreen(840,800)
             self.online = False
@@ -116,9 +113,13 @@ class Window(main_chat.Window):
             self.start_game()
             self.batch.castle.mana = 2
           elif action == "BACK":
-            print('f')
-            self.client.s.close()
-            self.back
+            self.ingame = False
+            self.back()
+            try:
+              self.client.s.close()
+            except:
+              pass
+            
           
       return
     if not self.my_move:
