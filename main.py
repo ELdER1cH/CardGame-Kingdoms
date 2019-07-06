@@ -79,28 +79,28 @@ class Window(main_chat.Window):
     if not self.ingame:
       cs = self.current_screen
       for b in cs.buttons:
-        action = b.press(x,y,button)
+        action = b.press((x / self.scale_x), (y / self.scale_y),button)
         if action != None:
           if action == "ONLINE":
             self.online = True
-            self.current_screen = screens.LobbyScreen(self.width,self.height)
+            self.current_screen = screens.LobbyScreen(840,800)
             try:
               self.client = client.Client(IP,PORT)
             except Exception as err:
               print(err)
               print("<> connection could not be established!")
-              self.current_screen = screens.StartScreen(self.width,self.height)
+              self.current_screen = screens.StartScreen(840,800)
               return
             threading.Thread(target=self.receive_messages).start()
           elif action == "BACK":
             #back to startscreen
-            self.current_screen = screens.StartScreen(self.width,self.height)
+            self.current_screen = screens.StartScreen(840,800)
           elif action == "OFFLINE":
-            self.current_screen =  screens.OfflineScreen(self.width, self.height)
+            self.current_screen =  screens.OfflineScreen(840,800)
             self.online = False
           elif action == "SETTINGS":
             #settings - later: to change server addr. (and maybe sound or sth.)
-            self.current_screen = screens.SettingsScreen(self.width,self.height)
+            self.current_screen = screens.SettingsScreen(840,800)
           elif action == "QUIT":
             #button of startscreen
             self.close()
