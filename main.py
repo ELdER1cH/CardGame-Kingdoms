@@ -40,10 +40,11 @@ class Window(main_chat.Window):
 
   def start_game(self,delay=0,my_move=True):
     self.hand = []
-    if self.online:
-      self.batch = Batch.CardBatch()
-    else:
-      self.batch = Batch.CardBatchOffline()
+    self.batch = Batch.CardBatch()
+    # Sets online state for game 
+    self.batch.online = self.online
+    # Initialising Cards
+    self.batch.init_cards()
     self.ingame = True
     self.my_move = my_move
     if self.online:
@@ -83,6 +84,7 @@ class Window(main_chat.Window):
         if action != None:
           if action == "ONLINE":
             self.online = True
+            self.batch.online = True
             self.current_screen = screens.LobbyScreen(840,800)
             try:
               self.client = client.Client(IP,PORT)
