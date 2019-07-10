@@ -11,7 +11,7 @@ except ImportError as err:
 
 #all files: 1285 lines of code (28.06.19 22:55)
 #79.231.167.136
-IP = "79.231.167.136"
+IP = "localhost"
 PORT = 6789
 
 val = 1
@@ -33,6 +33,9 @@ class Window(main_chat.Window):
     self.ingame = False
     self.my_move = False
     self.online = True
+    self.lead_execute = False
+    
+    self.batch = Batch.CardBatch()
 
     pyglet.clock.schedule(self.update)
 
@@ -40,6 +43,7 @@ class Window(main_chat.Window):
 
   def start_game(self,delay=0,my_move=True):
     self.hand = []
+    
     self.batch = Batch.CardBatch()
     # Sets online state for game 
     self.batch.online = self.online
@@ -47,6 +51,7 @@ class Window(main_chat.Window):
     self.batch.init_cards()
     self.ingame = True
     self.my_move = my_move
+    self.lead_execute = my_move
     if self.online:
       self.hand = self.current_screen.hand_selection.hand
       self.batch.castle.load_hand(self.batch.castle.y-100,hand=self.hand)
@@ -165,7 +170,6 @@ class Window(main_chat.Window):
                       self.batch.update_hand(target)
                     else:
                       for special in clicked_card.place_special:
-                        print(special)
                         special(clicked_card,1)
                       clicked_card.replace(clicked_card,clicked_card.owner)
                       self.batch.update_hand(clicked_card)
@@ -253,6 +257,8 @@ class Window(main_chat.Window):
             self.my_move = False
             self.batch.hide(self.batch.select_frame)
             self.batch.disp.clear()
+            if self.lead_execute:
+                self.batch.card_specials()                
         else:
           self.batch.swap()    
           
@@ -379,7 +385,8 @@ class Window(main_chat.Window):
     
                 elif r['type'] == 'move_done':
                   self.my_move = True
-                  pyglet.clock.schedule_once(self.batch.card_specials,0.01)
+                  if not self.lead_execute:
+                      pyglet.clock.schedule_once(self.batch.card_specials,0.01)
                   print("<< your turn!")
     
                 elif r['type'] == 'replace':

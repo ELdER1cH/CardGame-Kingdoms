@@ -51,7 +51,7 @@ class HandSelection:
         
         self.sprites = []
         
-        self.all_cards = list(Cards.cards.keys())[:-4]
+        self.all_cards = list(Cards.cards.keys())[:-5]
         for i in range(len(self.all_cards)):
             self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
                                                      self.indentation+(i % self.cpr)*(120+self.gap),
