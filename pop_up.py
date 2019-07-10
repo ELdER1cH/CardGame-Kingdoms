@@ -3,14 +3,24 @@ import pyglet
 class Pop_Up:
     def __init__(self):
         self.pop_ups = []
+        
+    def your_turn_pop_up(self,delay,pos=(0,0)):
+        self.pop_up_label = pyglet.text.Label('<< your turn!',
+                                              font_name ='Arial',
+                                              font_size=30,
+                                              bold=True,
+                                              x=pos[0], y=pos[1],
+                                              anchor_x='center', anchor_y='center',color=(50,255,50,255))
+        self.life_time = 0.8
+        self.pop_ups.append([self.pop_up_label,self.life_time])
 
-    def new_pop_up(self,pos,life_span=0.3,text=''):
+    def new_pop_up(self,pos,life_span=0.3,text='', font_size =12,color=(255,50,50,255),delay=None):
         self.pop_up_label = pyglet.text.Label(text,
                           font_name='Arial',
-                          font_size=12,
+                          font_size=font_size,
                           bold=True,
                           x=pos[0], y=pos[1],
-                          anchor_x='left', anchor_y='center',color=(255,50,50,255))
+                          anchor_x='left', anchor_y='center',color=color)
         self.life_time = life_span
         self.pop_ups.append([self.pop_up_label,self.life_time])
 

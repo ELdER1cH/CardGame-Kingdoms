@@ -55,6 +55,8 @@ class Window(main_chat.Window):
     if self.online:
       self.hand = self.current_screen.hand_selection.hand
       self.batch.castle.load_hand(self.batch.castle.y-100,hand=self.hand)
+    if self.my_move:
+      self.pop_up.your_turn_pop_up(0.01,(self.width//2,self.height//2))
     
   def replace(self,delay,target,cardname,activate):
     target.replace(target,cardname,activate=activate,rotate=True)
@@ -387,8 +389,9 @@ class Window(main_chat.Window):
                   self.my_move = True
                   if not self.lead_execute:
                       pyglet.clock.schedule_once(self.batch.card_specials,0.01)
-                  print("<< your turn!")
-    
+                  #print("<< your turn!")
+                  pyglet.clock.schedule_once(self.pop_up.your_turn_pop_up,0.01,(self.width//2,self.height//2))
+                  
                 elif r['type'] == 'replace':
                   pos, cardname = r['replace']
                   pos = (480-int(pos[0]),800-int(pos[1]))
