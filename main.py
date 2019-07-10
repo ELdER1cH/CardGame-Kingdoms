@@ -63,8 +63,7 @@ class Window(main_chat.Window):
       self.g_print("You lost!")
   
   def update(self,dt):
-    self.pop_up.update(dt)
-  
+    self.pop_up.update(dt)  
 #------------------------------ System / Strukture -------------------------------------------------------- 
   def select(self,target,clicked_card):
     if target.special_tag != "immovable" or target.y == 0:

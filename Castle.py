@@ -8,7 +8,7 @@ class Castle(Card):
     self.mana = 0
     self.max_mana = 20
     
-  def load_hand(self,y,hand=[i for i in range(len(Cards.cards)-4)],bo=False):
+  def load_hand(self,y,hand=[i for i in range(len(Cards.cards)-5)],bo=False):
     #Setting up Cards in Hand
     self.cards = []
     all_cards = list(Cards.cards.keys())

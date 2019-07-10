@@ -18,13 +18,14 @@ cards = {
             'Bombe': [1,1,1,1000,3,0,'resc/Bomb.png',[],'wantstodie',[]],
             'Shield': [1,1000,1000,200,22,0,'resc/shield.png',[],'',[Card.shield_booster_special]],
             'Rammbock': [1,1500,1000,400,6,0,'resc/Rammbock.png',[],'BW',[]],
-            'SplashMana': [1,0,0,0,0,0,'resc\splash_mana.jpg',[],'splash',[Card.splash_mana,Card.splash_mana,Card.splash_mana]],
+            'SplashMana': [1,0,0,0,0,0,'resc/splash_mana.jpg',[],'splash',[Card.splash_mana,Card.splash_mana,Card.splash_mana]],
             'Burg': [1,5000,10000,400,0,0,'resc/Castle.png',[Card.castle_special,Card.draw_card_special],"immovable",[]],
             'green': [1,1,1,0,0,0,'resc/green_frame.png',[Card.generate_mana],"unoccupied_field",[]],
             'yellow': [1,1,1,0,0,0,'resc/yellow_frame.png',[Card.generate_mana],"unoccupied_field",[]],
-            'gray': [1,1,1,0,0,0,'resc/gray_frame.png',[],"unoccupied_field",[]]
-                                  
+            'gray': [1,1,1,0,0,0,'resc/gray_frame.png',[],"unoccupied_field",[]],
+            'wall': [1,15000,15000,400,0,0,'resc/wall.png',[Card.wall_special],"immovable",[]]
 }
+
 
 def init(card,name):
     s = cards[name]
@@ -40,11 +41,3 @@ def init(card,name):
     card.special_tag = s[8]
     card.place_special = s[9]
     return pyglet.image.load(card.img)
-
-def get_random_name():
-    #name, info = random.choice(list(Cards.cards.items()))
-    return random.choice(list(cards.keys())[:-4])
-
-def get_random():
-    name = random.choice(list(cards.keys())[:-4])
-    return name, cards[name]
