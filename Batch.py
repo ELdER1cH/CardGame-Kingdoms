@@ -34,7 +34,7 @@ class CardBatch(pyglet.graphics.Batch):
         if i <= 3:
           Card.Card("yellow",i2*120,i*100,batch=self,owner="yellow")
         if i == 4:
-          Card.Card("gray",i2*120,i*100,batch=self,owner="gray")
+          Card.Card("wall",i2*120,i*100,batch=self,owner="gray")
         if i >= 5:
           c = Card.Card("green",i2*120,i*100,batch=self,owner="green")
           c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
@@ -149,7 +149,7 @@ class CardBatchOffline(pyglet.graphics.Batch):
         if i <= 3:
           Card.Card("yellow",i2*120,i*100,batch=self,owner="yellow")
         if i == 4:
-          Card.Card("gray",i2*120,i*100,batch=self,owner="gray")
+          Card.Card("wall",i2*120,i*100,batch=self,owner="gray")
         if i >= 5:
           c = Card.Card("green",i2*120,i*100,batch=self,owner="green")
           c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
@@ -172,8 +172,9 @@ class CardBatchOffline(pyglet.graphics.Batch):
       card.rotation = 180-card.rotation
       for special in card.specials:
         if special != Card.Card.draw_card_special:
-            if card.y > 0 and card.y < 800 and card.owner == self.castle.owner:
-              special(card)
+            if card.y > 0 and card.y < 800:
+                if card.owner == self.castle.owner or card.owner == "gray":
+                    special(card)
     self.hide(self.select_frame)
     self.update_disp(self.castle)
 
