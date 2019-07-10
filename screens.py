@@ -26,6 +26,59 @@ class Button(pyglet.sprite.Sprite):
         return self.action
     return None
 
+class TextBox(pyglet.sprite.Sprite):
+  def __init__(self,img,*args,adj_anchor=False,**kwargs):
+    if adj_anchor:
+      img.anchor_x = img.width//2
+      img.anchor_y = img.height//2
+    super().__init__(img,*args,**kwargs)
+    self.action = None
+    self.active = False
+    self.label = pyglet.text.Label('',
+                                              font_name ='Arial',
+                                              font_size=25,
+                                              bold=False,
+                                              x=self.position[0]+55, y=self.position[1]+61,
+                                              color=(0,0,0,255))
+    self.text = ""
+    self.is_blink = False
+
+  def press(self,x,y,button):
+    if button == mouse.LEFT:
+      xp,yp = self.position
+      xp -= self.image.anchor_x; yp -= self.image.anchor_y
+      if x >= xp and x < xp+self.width and y >= yp and y < yp+self.height:
+        self.active = not self.active
+        if self.active:
+            self.image = pyglet.image.load("resc/active_ip_settings.png")
+            self.label.text = self.text
+        else:
+            self.image = pyglet.image.load("resc/unactive_ip_settings.png")
+            return "NEWIP" + self.text
+    return None
+
+  def blink(self):
+      self.is_blink = not self.is_blink
+      
+      if self.is_blink:
+          self.label.text = self.text + "|"
+      else:
+          self.label.text = self.text
+
+  def new_key(self,KEY):
+      if len(self.text) > 0:
+          if KEY == "BACKSPACE":
+              self.text = self.text[:-1]
+              self.label.text = self.text 
+      if len(self.text) < 15:
+          if KEY == "_0" or KEY == "_1" or KEY == "_2" or KEY == "_3" or KEY == "_4" or KEY == "_5" or KEY == "_6" or KEY == "_7" or KEY == "_8" or KEY == "_9" or KEY == "PERIOD":
+              if KEY != "PERIOD":
+                  self.text += KEY[1:]
+              else: self.text += "."
+              
+          self.label.text = self.text      
+      
+
 class HandSelection:
     def __init__(self,batch,width,height):
         self.hand = []#[0,1,2,3,4,5,6,7,8,9,10,11,12]#
@@ -126,14 +179,31 @@ class StartScreen(Screen):
     self.buttons.append(button)
 
 class SettingsScreen(Screen):
-  def __init__(self,width,height):
+  def __init__(self,width,height,IP):
     self.batch = pyglet.graphics.Batch()
     self.buttons = []
     
-    img = pyglet.image.load("resc/Castle.png")
-    button = Button(img,width/2,height/2,batch=self.batch)
+    img = pyglet.image.load("resc/unactive_ip_settings.png")
+    self.ip_textbox = TextBox(img,width/2-img.width/2,height/2+img.height/2,batch=self.batch)
+    self.buttons.append(self.ip_textbox)
+    self.ip_textbox.text = IP
+ 
+    button = Button(pyglet.image.load("resc/notready.png"),width/2,height/2-120,batch=self.batch)
     button.action = "BACK"
     self.buttons.append(button)
+    self.blink_time = 0
+    
+  def update(self,dt):
+    if self.ip_textbox.active:
+        self.blink_time += dt
+        if self.blink_time >= 0.7:
+            self.blink_time = 0
+            self.ip_textbox.blink()
+            
+  def draw(self):
+    self.batch.draw()
+    if self.ip_textbox.active:
+        self.ip_textbox.label.draw()
     
 class LobbyScreen(Screen):
   def __init__(self,width,height):

@@ -11,7 +11,7 @@ except ImportError as err:
 
 #all files: 1285 lines of code (28.06.19 22:55)
 #79.231.167.136
-IP = "localhost"
+IP = "127.0.0.1"
 PORT = 6789
 
 val = 1
@@ -27,6 +27,8 @@ class Window(main_chat.Window):
     self.pre_resize_dims = (self.width,self.height)
     self.scale_x = 1
     self.scale_y = 1
+    
+    self.IP = IP
 
     self.current_screen = screens.StartScreen(840,800)
     
@@ -71,7 +73,8 @@ class Window(main_chat.Window):
       self.g_print("You lost!")
   
   def update(self,dt):
-    self.pop_up.update(dt)  
+    self.pop_up.update(dt) 
+    self.current_screen.update(dt) 
 #------------------------------ System / Strukture -------------------------------------------------------- 
   def select(self,target,clicked_card):
     if target.special_tag != "immovable" or target.y == 0:
@@ -93,10 +96,11 @@ class Window(main_chat.Window):
             self.batch.online = True
             self.current_screen = screens.LobbyScreen(840,800)
             try:
-              self.client = client.Client(IP,PORT)
+              self.client = client.Client(self.IP,PORT)
             except Exception as err:
               print(err)
               print("<> connection could not be established!")
+              print(f"({self.IP}:{PORT})")
               self.current_screen = screens.StartScreen(840,800)
               return
             threading.Thread(target=self.receive_messages).start()
@@ -105,7 +109,7 @@ class Window(main_chat.Window):
             self.online = False
           elif action == "SETTINGS":
             #settings - later: to change server addr. (and maybe sound or sth.)
-            self.current_screen = screens.SettingsScreen(840,800)
+            self.current_screen = screens.SettingsScreen(840,800,self.IP)
           elif action == "QUIT":
             #button of startscreen
             self.close()
@@ -127,6 +131,9 @@ class Window(main_chat.Window):
               self.client.s.close()
             except:
               pass
+          elif "NEWIP" in action:
+              self.IP = action[5:]
+              print(self.IP)
             
           
       return
@@ -251,45 +258,48 @@ class Window(main_chat.Window):
     #key.ENTER & key.ESCAPE in while command_input_state; T = open chat
     super().on_key_press(KEY,MOD)
     if not self.chat_model.command_input_widget_state:
-      if KEY == key.S:
-        if self.online == True:
-          #self.batch.swap()
-          if self.my_move:
-            self.client.send_move_done()
-            self.my_move = False
-            self.batch.hide(self.batch.select_frame)
-            self.batch.disp.clear()
-            if self.lead_execute:
-                self.batch.card_specials()                
-        else:
-          self.batch.swap()    
-          
-      elif KEY == key.D:
-        target = self.batch.get_card(self.batch.select_frame.position)
-        if target != None:
-            if target.y == 0:     
-                self.batch.update_hand(target)
-            elif target.owner == self.batch.castle.owner and target.y > 100 and target.y < 700:
-                    self.batch.hide(self.batch.select_frame)
-                    self.batch.castle.mana += target.price-1
-                    target.replace(target,target.owner)
-                    if self.batch.castle.mana > self.batch.castle.max_mana:
-                        self.batch.castle.mana = self.batch.castle.max_mana
-                    if self.online:
-                        if target.name == "yellow":
-                            self.client.send_replace_event(target.position,"green")
-                        else:
-                            self.client.send_replace_event(target.position,"yellow")
-                    self.batch.update_disp(self.batch.castle)
-        
-      elif KEY == key.C:
-          print("close")
-          try:
-              self.client.s.close()
-          except:
-              pass
-          self.back()
-          self.ingame = False
+      if self.ingame:
+          if KEY == key.S:
+            if self.online == True:
+              #self.batch.swap()
+              if self.my_move:
+                self.client.send_move_done()
+                self.my_move = False
+                self.batch.hide(self.batch.select_frame)
+                self.batch.disp.clear()
+                if self.lead_execute:
+                    self.batch.card_specials()                
+            else:
+              self.batch.swap()    
+              
+          elif KEY == key.D:
+            target = self.batch.get_card(self.batch.select_frame.position)
+            if target != None:
+                if target.y == 0:     
+                    self.batch.update_hand(target)
+                elif target.owner == self.batch.castle.owner and target.y > 100 and target.y < 700:
+                        self.batch.hide(self.batch.select_frame)
+                        self.batch.castle.mana += target.price-1
+                        target.replace(target,target.owner)
+                        if self.batch.castle.mana > self.batch.castle.max_mana:
+                            self.batch.castle.mana = self.batch.castle.max_mana
+                        if self.online:
+                            if target.name == "yellow":
+                                self.client.send_replace_event(target.position,"green")
+                            else:
+                                self.client.send_replace_event(target.position,"yellow")
+                        self.batch.update_disp(self.batch.castle)
+            
+          elif KEY == key.C:
+              print("close")
+              try:
+                  self.client.s.close()
+              except:
+                  pass
+              self.back()
+              self.ingame = False
+      elif type(self.current_screen) == screens.SettingsScreen:
+          self.current_screen.ip_textbox.new_key(key.symbol_string(KEY))
         
 
   def on_close(self):
@@ -437,7 +447,7 @@ class Window(main_chat.Window):
                 self.client.s.close()
             except:
                 pass
-            print("Error whilst fetching server messages!")
+            print("Disconnected")
             pyglet.clock.schedule_once(self.back,0.01)
         
         
