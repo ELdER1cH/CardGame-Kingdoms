@@ -74,16 +74,10 @@ class Card(pyglet.sprite.Sprite):
         #pop_up.new_pop_up((target.position[0]+30,target.position[1]+30),text='Congrats! You won!!',life_span=5)
         won = True
         self.batch.cards = []
-      if self.owner == "green":
-        target.replace(target,"green",owner="green")
-      else:
-        target.replace(target,"yellow",owner="yellow")
+      target.replace(target,self.owner,owner=self.owner)
 
     if self.health <= 0:
-      if self.owner == "yellow":
-        self.replace(self,"green",owner="green")
-      else:
-        self.replace(self,"yellow",owner="yellow")
+      self.replace(self,target.owner,owner=target.owner)
     return won
   
   def swap(self,card,pos,activate=False):
@@ -141,6 +135,11 @@ class Card(pyglet.sprite.Sprite):
       self.health += 200
       if self.health > self.max_health: self.health = self.max_health
 
+  def wall_special(self):
+    self.health -= 3000
+    if self.health <= 0:
+        self.replace(self,"gray")
+        
   def attack_booster_special(self,on_off):
     #Variablen
     if on_off == 1:

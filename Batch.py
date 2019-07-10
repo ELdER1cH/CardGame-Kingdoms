@@ -40,7 +40,7 @@ class CardBatch(pyglet.graphics.Batch):
         if i <= 3:
           Card.Card("yellow",i2*120,i*100,batch=self,owner="yellow")
         if i == 4:
-          Card.Card("gray",i2*120,i*100,batch=self,owner="gray")
+          Card.Card("wall",i2*120,i*100,batch=self,owner="gray")
         if i >= 5:
           c = Card.Card("green",i2*120,i*100,batch=self,owner="green")
           c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
@@ -91,7 +91,6 @@ class CardBatch(pyglet.graphics.Batch):
             self.mana_reg += 1
     self.disp.update(self.castle.mana,self.castle.max_mana,
                      self.mana_reg,target)
-
 
   def select_card(self,target):
     self.select_frame.position = target.position
