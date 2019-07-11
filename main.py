@@ -123,7 +123,7 @@ class Window(main_chat.Window):
                 self.batch.castle.mana = 2
           elif action == "StartGameOffline":
             self.start_game()
-            self.batch.castle.mana = 2
+            self.batch.castle.mana = 10
           elif action == "BACK":
             self.ingame = False
             self.back()
@@ -301,7 +301,6 @@ class Window(main_chat.Window):
       elif type(self.current_screen) == screens.SettingsScreen:
           self.current_screen.ip_textbox.new_key(key.symbol_string(KEY))
         
-
   def on_close(self):
     super().on_close()
     print('programm closed!')
