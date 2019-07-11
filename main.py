@@ -133,7 +133,7 @@ class Window(main_chat.Window):
               pass
           elif "NEWIP" in action:
               self.IP = action[5:]
-              print(self.IP)
+              self.g_print(self.IP)
             
           
       return
