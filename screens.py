@@ -77,7 +77,6 @@ class TextBox(pyglet.sprite.Sprite):
               else: self.text += "."
               
           self.label.text = self.text      
-      
 
 class HandSelection:
     def __init__(self,batch,width,height):

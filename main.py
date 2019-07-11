@@ -270,7 +270,9 @@ class Window(main_chat.Window):
                 if self.lead_execute:
                     self.batch.card_specials()                
             else:
-              self.batch.swap()    
+              self.batch.swap()  
+              if self.batch.castle.owner == 'yellow':
+                    self.batch.card_specials()  
               
           elif KEY == key.D:
             target = self.batch.get_card(self.batch.select_frame.position)

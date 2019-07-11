@@ -57,6 +57,7 @@ class CardBatch(pyglet.graphics.Batch):
       for special in card.specials:
         if card.y > 0 and card.y < 800 and card.owner == self.castle.owner:
           special(card)
+        
     self.hide(self.select_frame)
     self.update_disp(self.castle)
 
