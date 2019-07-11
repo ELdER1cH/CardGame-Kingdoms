@@ -77,7 +77,13 @@ class Card(pyglet.sprite.Sprite):
       target.replace(target,self.owner,owner=self.owner)
 
     if self.health <= 0:
-      self.replace(self,target.owner,owner=target.owner)
+      #Wenn Mauer angeriffen wird
+      if target.name != 'Wall':
+        #feld wird mit gegnerischem Feld ersetzt
+        self.replace(self,target.owner,owner=target.owner)
+      else:
+        #feld wird mit mienem Feld ersetzt
+        self.replace(self,self.owner,owner=self.owner)
     return won
   
   def swap(self,card,pos,activate=False):

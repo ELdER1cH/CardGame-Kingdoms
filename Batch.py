@@ -82,7 +82,6 @@ class CardBatch(pyglet.graphics.Batch):
     if not self.online:  
       target.replace(target,random.choice(self.castle.cards))
 
-  
   def update_disp(self,target):
     self.mana_reg = 0
     for card in self.cards:
