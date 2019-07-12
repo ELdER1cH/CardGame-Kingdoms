@@ -11,6 +11,8 @@ except ImportError as err:
 
 #all files: 1285 lines of code (28.06.19 22:55)
 #79.231.167.136
+
+#python -m auto_py_to_exe
 IP = "127.0.0.1"
 PORT = 6789
 
