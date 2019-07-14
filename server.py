@@ -12,11 +12,6 @@ run = True
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-print('Enter Host:')
-userhost = input()
-
-HOST = userhost
-
 try:
     s.bind((HOST, PORT))
 except socket.error as e:

@@ -9,4 +9,5 @@ def do():
   #main.green_gone()
   #main.full_black()
 
+  #main.whitey_gone()
 do()

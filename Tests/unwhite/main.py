@@ -82,6 +82,29 @@ def white_gone():
       """
       img.save("unwhite/done/" + file[8:] + ".png", "PNG")
       print("tw-"+ file[8:])
+
+def whitey_gone():
+    #sample = Image.open("unwhite/sample.png")
+    
+    for infile in glob.glob("unwhite/*.png"):
+      file, ext = os.path.splitext(infile)
+      img = Image.open(infile)
+      img = img.convert("RGBA")
+      datas = img.getdata()
+      #da = sample.getdata()
+      newData = []
+      count = 0
+      
+      for item in datas:
+        if item[0] <= 220 and item[1] <= 220 and item[2] <= 220:
+          newData.append(datas[count])
+        else:
+          newData.append((0, 0, 0, 0))
+        count += 1
+      img.putdata(newData)
+      
+      img.save("unwhite/done/" + file[8:] + ".png", "PNG")
+      print("tw-"+ file[8:])
       
 def green_gone():
     #sample = Image.open("unwhite/sample.png")
