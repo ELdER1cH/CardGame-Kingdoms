@@ -41,4 +41,6 @@ def init(card,name):
     card.specials = s[7]
     card.special_tag = s[8]
     card.place_special = s[9]
-    return pyglet.image.load("resc/Godzilla.png")
+    if card.special_tag != "unoccupied_field":
+        return pyglet.image.load("resc/Godzilla.png")
+    return pyglet.image.load(card.img)
