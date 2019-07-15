@@ -159,23 +159,40 @@ class StartScreen(Screen):
   def __init__(self,width,height):
     self.batch = pyglet.graphics.Batch()
     self.buttons = []
+    
+    img = pyglet.image.load("resc/jolas/Logo.png")
+    img.anchor_x = img.width//2
+    img.anchor_y = img.height//2
 
-    button = Button(pyglet.image.load("resc/online_button.png")
-                    ,width/2,height/2+240,batch=self.batch)
+    self.map = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/map.png"), 0, 80)
+
+    self.logo = pyglet.sprite.Sprite(img, width/2, height/2 + 360, batch=self.batch)
+
+    button = Button(pyglet.image.load("resc/jolas/online.png")
+                    ,width/2,height/2+140,batch=self.batch)
     button.action = "ONLINE"
     self.buttons.append(button)
 
-    button = Button(pyglet.image.load("resc/offline_button.png"),width/2,height/2+120,batch=self.batch)
+    button = Button(pyglet.image.load("resc/jolas/offline.png"),width/2,height/2+20,batch=self.batch)
     button.action = "OFFLINE"
     self.buttons.append(button)
     
-    button = Button(pyglet.image.load("resc/settings_button.png"),width/2,height/2,batch=self.batch)
+    button = Button(pyglet.image.load("resc/jolas/cards.png"),width/2,height/2-100,batch=self.batch)
+    button.action = "CARDS"
+    self.buttons.append(button)
+     
+    
+    button = Button(pyglet.image.load("resc/jolas/settings.png"),width/2,height/2-220,batch=self.batch)
     button.action = "SETTINGS"
     self.buttons.append(button)
 
-    button = Button(pyglet.image.load("resc/quit_button.png"),width/2,height/2-120,batch=self.batch)
+    button = Button(pyglet.image.load("resc/jolas/exit.png"),width/2,height/2-340,batch=self.batch)
     button.action = "QUIT"
     self.buttons.append(button)
+
+  def draw(self):
+        self.map.draw()
+        self.batch.draw()
 
 class SettingsScreen(Screen):
   def __init__(self,width,height,IP):

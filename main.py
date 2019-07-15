@@ -25,14 +25,13 @@ class Window(main_chat.Window):
   def __init__(self,*args,**kwargs):
     super().__init__(*args,**kwargs)
     self.pop_up = pop_up.Pop_Up()
-
+    self.maximize()
     self.pre_resize_dims = (self.width,self.height)
     self.scale_x = 1
     self.scale_y = 1
-    
     self.IP = IP
 
-    self.current_screen = screens.StartScreen(840,800)
+    self.current_screen = screens.StartScreen(1920,1080)
     
     self.ingame = False
     self.my_move = False
@@ -42,6 +41,8 @@ class Window(main_chat.Window):
     self.batch = Batch.CardBatch()
 
     pyglet.clock.schedule(self.update)
+
+    
 
 #------------------------------ Game Stuff --------------------------------------
 
@@ -96,22 +97,22 @@ class Window(main_chat.Window):
           if action == "ONLINE":
             self.online = True
             self.batch.online = True
-            self.current_screen = screens.LobbyScreen(840,800)
+            self.current_screen = screens.LobbyScreen(1920,1080)
             try:
               self.client = client.Client(self.IP,PORT)
             except Exception as err:
               print(err)
               print("<> connection could not be established!")
               print(f"({self.IP}:{PORT})")
-              self.current_screen = screens.StartScreen(840,800)
+              self.current_screen = screens.StartScreen(1920,1080)
               return
             threading.Thread(target=self.receive_messages).start()
           elif action == "OFFLINE":
-            self.current_screen =  screens.OfflineScreen(840,800)
+            self.current_screen =  screens.OfflineScreen(1920,1080)
             self.online = False
           elif action == "SETTINGS":
             #settings - later: to change server addr. (and maybe sound or sth.)
-            self.current_screen = screens.SettingsScreen(840,800,self.IP)
+            self.current_screen = screens.SettingsScreen(1920,1080,self.IP)
           elif action == "QUIT":
             #button of startscreen
             self.close()
@@ -248,7 +249,7 @@ class Window(main_chat.Window):
         elif target.special_tag != "unoccupied_field":
           #IF TARGET IS NO EMPTY FIELD, SHOW ITS STATS IN STATS DISPLAY
           ##ONLY DO THIS IF TARGET IS NOT IN ENEMY HAND
-          if target.y > 0 and target.y < 800:
+          if target.y > 0 and target.y < 1080:
             self.batch.disp.update_to_enemy(target)
           #TRY SELECTING THAT CARD
           self.select(target,clicked_card)
@@ -370,11 +371,11 @@ class Window(main_chat.Window):
         else: self.g_print("§cunknown command. '%s'" % (" ".join(cmd)))
 # -------------------------- Server Stuff ------------------------------------------
   def back(self,delay=None):
-    self.current_screen = screens.StartScreen(840,800)
+    self.current_screen = screens.StartScreen(1920,1080)
 
   def back_l(self,delay=None):
     self.ingame = False
-    self.current_screen = screens.LobbyScreen(840,800)
+    self.current_screen = screens.LobbyScreen(1920,1080)
 
   def handle_message(self,r):
       if type(r) == dict:
@@ -407,14 +408,14 @@ class Window(main_chat.Window):
                   
                 elif r['type'] == 'replace':
                   pos, cardname = r['replace']
-                  pos = (480-int(pos[0]),800-int(pos[1]))
+                  pos = (480-int(pos[0]),1080-int(pos[1]))
                   target = self.batch.get_card(pos)
                   pyglet.clock.schedule_once(self.replace,0.01,target,cardname,True)
     
                 elif r['type'] == 'swap':
                   pos1,pos2 = r['swap']
-                  pos1 = (480-int(pos1[0]),800-int(pos1[1]))
-                  pos2 = (480-int(pos2[0]),800-int(pos2[1]))
+                  pos1 = (480-int(pos1[0]),1080-int(pos1[1]))
+                  pos2 = (480-int(pos2[0]),1080-int(pos2[1]))
                   
                   clicked_card = self.batch.get_card(pos1)
                   target = self.batch.get_card(pos2)
@@ -423,8 +424,8 @@ class Window(main_chat.Window):
     
                 elif r['type'] == 'attack':
                   pos1,pos2 = r['attack']
-                  pos1 = (480-int(pos1[0]),800-int(pos1[1]))
-                  pos2 = (480-int(pos2[0]),800-int(pos2[1]))
+                  pos1 = (480-int(pos1[0]),1080-int(pos1[1]))
+                  pos2 = (480-int(pos2[0]),1080-int(pos2[1]))
                   
                   clicked_card = self.batch.get_card(pos1)
                   target = self.batch.get_card(pos2)
@@ -455,7 +456,7 @@ class Window(main_chat.Window):
         
         
 if __name__ == "__main__":
-  width = 600+120*INDENTATION_RIGHT;height =800
+  width = 1920;height = 1080
   window = Window(width,height,"Cardgame - Online Version (developer build)",resizable=True,vsync=False)
   glClearColor(135,206,250,255)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
