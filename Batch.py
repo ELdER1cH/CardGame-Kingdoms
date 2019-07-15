@@ -10,7 +10,7 @@ SPRITE_WIDTH = int(135/val)
 SPRITE_HEIGHT = int(135/val)
 INDENTATION = 0
 INDENTATION_RIGHT = 2
-width = 600+135*INDENTATION_RIGHT;height =800
+width = 1920;height =1080
 
 class CardBatch(pyglet.graphics.Batch):      
   def __init__(self):
@@ -27,9 +27,9 @@ class CardBatch(pyglet.graphics.Batch):
     
 
   def init_cards(self):
-    self.castle = Castle("Burg",240+135*INDENTATION,135,batch=self,owner="yellow")
+    self.castle = Castle("Burg",270,135,batch=self,owner="yellow")
     self.castle.mana = 10
-    c = Castle("Burg",240+135*INDENTATION,700,batch=self,owner="green")
+    c = Castle("Burg",270,954,batch=self,owner="green")
     c.image.anchor_x = 135; c.image.anchor_y = 135; c.rotation = 180
     # only happening if game is offline
     if not self.online:
@@ -47,10 +47,9 @@ class CardBatch(pyglet.graphics.Batch):
     self.update_disp(self.castle)
 
   def swap(self):
-    self.castle = self.get_card((240+135*INDENTATION,700))
+    self.castle = self.get_card((270,954))
     for card in self.cards:
-      card.position = (width-card.position[0]-card.w-INDENTATION_RIGHT*135,
-                       height+135-card.position[1]-card.h)
+      card.position = (135*4-card.position[0],height+135-card.position[1]-card.h)
       card.image.anchor_x = 135-card.image.anchor_x
       card.image.anchor_y = 135-card.image.anchor_y
       card.rotation = 180-card.rotation

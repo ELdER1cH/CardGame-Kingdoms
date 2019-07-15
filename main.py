@@ -152,12 +152,14 @@ class Window(main_chat.Window):
         if target == None: return
         ###OLD CLICK/ SELECT
         clicked_card = self.batch.get_card(self.batch.select_frame.position)
+        
         #MAKE SURE THERES A CARD AT THE OLD CLICK - IF THERES NONE, TARGET = NEW SELECT
         if clicked_card != None:
+          print(clicked_card.y) 
           ###HIDE IF DOUBLE CLICK
           if target == clicked_card:
             self.batch.hide(self.batch.select_frame)
-            
+           
           #---HAND---
           ###IF SELECT IN HAND  
           elif clicked_card.y == 0:
@@ -273,7 +275,8 @@ class Window(main_chat.Window):
             else:
               self.batch.swap()  
               if self.batch.castle.owner == 'yellow':
-                    self.batch.card_specials()  
+                    self.batch.card_specials() 
+              print(self.batch.castle.owner) 
               
           elif KEY == key.D:
             target = self.batch.get_card(self.batch.select_frame.position)

@@ -11,5 +11,12 @@
             "program": "${file}",
             "console": "integratedTerminal"
         }
+        {
+            "name": "Python: Main",
+            "type": "python",
+            "request": "launch",
+            "program": "C:/Users/Maxi.bwimmer/Documents/GitHub/Cardgame/Cardgame/main.py",
+            "console": "integratedTerminal"
+        }
     ]
 }
