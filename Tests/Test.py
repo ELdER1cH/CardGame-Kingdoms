@@ -56,7 +56,7 @@ def update(dummy):
         square1.angle -= 5
 
 
-square1 = TexturedSquare(120, 120, 300, 200, "texture.jpg")
+square1 = TexturedSquare(135, 135, 300, 200, "texture.jpg")
 
 pyglet.clock.schedule_interval(update,1/60.0)
 pyglet.app.run()

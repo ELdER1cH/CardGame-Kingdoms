@@ -25,7 +25,7 @@ widgets: (elements)
     Ready button (mark next to playerid (Haken/x)
     Hand selection
     Castle selection (?)
-    select frame - Size and position is set depending on returned value in on_move from button - button gets xy mouse, calculates and returns pos and size (pos -100,-100 if 
+    select frame - Size and position is set depending on returned value in on_move from button - button gets xy mouse, calculates and returns pos and size (pos -135,-135 if 
 left again - Button needs to remeber if it was selected for right deselect, else return none or sth)
 
 
@@ -39,7 +39,7 @@ with client.start(), client of main window has to be passed to lobbyscreen (arg 
     Variable self.lobbysize = 1 
     variable self.ready = False
     variable self.opponent_ready = False
-    Forget half of the above - don’t parse client to screen - parse relevant information to screen (myid etc.) - Start client after received “ONLINE” from button - of last 
+    Forget half of the above - donï¿½t parse client to screen - parse relevant information to screen (myid etc.) - Start client after received ï¿½ONLINEï¿½ from button - of last 
 time.. do pass the client to only send to it ^^
 
 
@@ -54,7 +54,7 @@ Ready button:
     also only works if hand selected + castle selected 
     If pressed self.ready = not self.ready, send to lobby - change server message forwarding - send to everyone except to Id of Sender in lobby, send type:ready, ready: 
 self.opponent_ready
-    Return “LREADY” - check it both ready (if self.c_s.ready and self.c_s.o_ready) if so do self.start_game()
+    Return ï¿½LREADYï¿½ - check it both ready (if self.c_s.ready and self.c_s.o_ready) if so do self.start_game()
 
 
 Hand selection:
@@ -65,7 +65,7 @@ Hand selection:
     Needs: field with all cards (scrollable/ side slideable), that can be clicked one by one put in hand (row of exactly 10/7/ dunno cards) hand row can be clicked to 
 remove a card (redecide/ make space for other cards - cards always move to the left so there are no gaps and new cards get always added to the right of the row) 
     every card can be picked only once or indefinitely?
-    Send other clients my hand + parse my hand to my gamescreen (might not be necessary - opponent doesn’t need to know my hand - only the cards I play)
+    Send other clients my hand + parse my hand to my gamescreen (might not be necessary - opponent doesnï¿½t need to know my hand - only the cards I play)
     Cards in this hand only need a sprite and a number (corespondent to their index if the cards list) as a trait 
 
 
@@ -74,8 +74,8 @@ remove a card (redecide/ make space for other cards - cards always move to the l
     has a frame with all cards 
     has row with selected cards 
     adds a number (depending where client clicked in cards frame) to self.hand and moves the clicked card sprite down to hand row 
-    (Note that the hands list can also be a set - the order doesn’t matter - cards will be picked (semi-)randomly - perhaps change that and pop/ remove number if removed 
-by clicking in hand row - make sure only one number is removed, if it’s possible to choose a card multiple times (so one could play it more often))
+    (Note that the hands list can also be a set - the order doesnï¿½t matter - cards will be picked (semi-)randomly - perhaps change that and pop/ remove number if removed 
+by clicking in hand row - make sure only one number is removed, if itï¿½s possible to choose a card multiple times (so one could play it more often))
     cards in hand frame + select logic: frame has own coordinates (frame height/ card height(-gap?) + frame with/ card with (-gap?), card arrangement (number of cards* 
 (card with+gap)) % frame size (+1 if remainder) 
     Chosen card: x = real_x - posx_button; y = real_x - posy_button; x/= (card_width+gap); y/=(card_height+gap); if x-int(x) >= gap/(card_width+gap): if y-int(y) >= gap/
@@ -86,7 +86,7 @@ by clicking in hand row - make sure only one number is removed, if it’s possible
     Page numbers to click at bottom of frame - 1 2 etc or just one if only one page; clicking the page numbers simply Substrats old sprites from batch and ads sprites of 
 next page to batch; num_card += (page_num-1)*max_cards_per_page 
     Hand row: indicated row where the clicked sprites go if clicked in frame above - exact placement is assed with length of self.hand - clicking on a card in the row will 
-reset its position, pop it of selfhand and moves the other sprites in the row up - so self.hand has to actually be in order since that’s how we’ll locate wich sprite is
+reset its position, pop it of selfhand and moves the other sprites in the row up - so self.hand has to actually be in order since thatï¿½s how weï¿½ll locate wich sprite is
  clicked 
 
 
@@ -105,11 +105,11 @@ Client recv thread:
     Where client of window/ main receives messages from server
     (For the following ifs) If type(self.current_scren) == displays.LobbyScreen
     if type: lobbysize, lobbysize:2 change self.current_screen.lobbysize = 2
-    If type:”ready”
+    If type:ï¿½readyï¿½
     Try: (important double check because if one player tries to unready at exact same time as other player readies the game would start but the other player receives) 
-self.c[..]_screen.opponent_ready = not self.[..].opponent_ready, self.[..].ready = r[“ready”] check it both ready (if self.c_s.ready and self.c_s.o_ready) if so do 
-self.start_game() - there change self.current_screen to displays.GameScreen + ... except: print(‘<< received a message of an action that could not be executed!’)/ g_print :)
-    if type:”hand” - try: self.current_screen.hand = r[“hand”] except: thing as above 
+self.c[..]_screen.opponent_ready = not self.[..].opponent_ready, self.[..].ready = r[ï¿½readyï¿½] check it both ready (if self.c_s.ready and self.c_s.o_ready) if so do 
+self.start_game() - there change self.current_screen to displays.GameScreen + ... except: print(ï¿½<< received a message of an action that could not be executed!ï¿½)/ g_print :)
+    if type:ï¿½handï¿½ - try: self.current_screen.hand = r[ï¿½handï¿½] except: thing as above 
 
 
 Main/ window start_game():
@@ -131,9 +131,9 @@ init:
     value self.round = 1
 
 
-    remote control/ recv input: place a card, move cards, attack, ready(/swap) - that’s all..
+    remote control/ recv input: place a card, move cards, attack, ready(/swap) - thatï¿½s all..
     Add a game_state? Like waiting = True/ False - let the server decide? (Randomly) - if waiting == False: awaits game client input (+send input to other client); 
-if True: only stats viewing - the recv threat handles opponent actions (if type == ‘swap’: self.batch.get_card(r[“opos”]).swap(r[“npos”])
+if True: only stats viewing - the recv threat handles opponent actions (if type == ï¿½swapï¿½: self.batch.get_card(r[ï¿½oposï¿½]).swap(r[ï¿½nposï¿½])
     does the recv has to be on an own threat?? - yes, the watching/ waiting player could view card stats of his and opponent cards.. else it should be working fine 
 without I think - maybe try doing it without a second treat if problems occur 
 

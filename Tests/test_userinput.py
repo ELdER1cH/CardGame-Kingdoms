@@ -50,7 +50,7 @@ class Window(pyglet.window.Window):
 
         self.batch = pyglet.graphics.Batch()
         self.labels = [
-            pyglet.text.Label('Name', x=10, y=100, anchor_y='bottom',
+            pyglet.text.Label('Name', x=10, y=135, anchor_y='bottom',
                               color=(0, 0, 0, 255), batch=self.batch),
             pyglet.text.Label('Species', x=10, y=60, anchor_y='bottom',
                               color=(0, 0, 0, 255), batch=self.batch),
@@ -59,7 +59,7 @@ class Window(pyglet.window.Window):
                               batch=self.batch)
         ]
         self.widgets = [
-            TextWidget('', 200, 100, self.width - 210, self.batch),
+            TextWidget('', 200, 135, self.width - 210, self.batch),
             TextWidget('', 200, 60, self.width - 210, self.batch),
             TextWidget('', 200, 20, self.width - 210, self.batch)
         ]

@@ -5,7 +5,7 @@ class Rectangle(object):
     def __init__(self, x1, y1, x2, y2, batch):
         self.vertex_list = batch.add(4, pyglet.gl.GL_QUADS, None,
             ('v2i', [x1, y1, x2, y1, x2, y2, x1, y2]),
-            ('c4B', [100, 200, 220, 50] * 4)
+            ('c4B', [135, 200, 220, 50] * 4)
         )
 
 class TextWidget(object):

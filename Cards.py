@@ -6,11 +6,11 @@ import random
 cards = {
             #name level,h,   Maxh,dmg,cost,crit,img,       specials,special_tag,place_special  
             'Schwertkaempfer': [1,500,500,300,7,0.01,'resc/card_one.png',[],'',[]],
-            'Turm': [1,5000,5000,0,13,0,'resc/card_two.png',[],'immovable',[]],
+            'Turm': [1,5000,5000,0,13,0,'resc/tower.png',[],'immovable',[]],
             'Palatin': [1,2500,2500,200,13,0.02,'resc/palatin.png',[],'',[]],
             'Bauernhof': [1,1500,1500,0,17,0,'resc/farm.png',[Card.generate_mana,Card.generate_mana,Card.generate_mana],'immovable',[Card.farm_special]],
             'Speerkaempfer': [1,400,400,350,4,0.05,'resc/speer.png',[],'',[]],
-            'Healer': [1,700,700,100,10,0,'resc/healer.png',[Card.heal],'',[]],
+            'Healer': [1,700,700,135,10,0,'resc/healer.png',[Card.heal],'',[]],
             'Orc': [1,700,800,500,9,0.05,'resc/Orc.png',[],'',[]],
             'Goblin': [1,200,200,350,3,0,'resc/Goblin.png',[],'',[Card.draw_card_special]],
             'Fahnentraeger': [1,750,750,100,22,0,'resc/flag.png',[],'',[Card.attack_booster_special]],
@@ -41,4 +41,6 @@ def init(card,name):
     card.specials = s[7]
     card.special_tag = s[8]
     card.place_special = s[9]
+    if card.special_tag != "unoccupied_field" and card.special_tag != "immovable":
+        return pyglet.image.load("resc/Godzilla.png")
     return pyglet.image.load(card.img)

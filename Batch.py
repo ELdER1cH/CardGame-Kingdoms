@@ -6,11 +6,11 @@ import random
 
 
 val = 1
-SPRITE_WIDTH = int(120/val)
-SPRITE_HEIGHT = int(100/val)
+SPRITE_WIDTH = int(135/val)
+SPRITE_HEIGHT = int(135/val)
 INDENTATION = 0
 INDENTATION_RIGHT = 2
-width = 600+120*INDENTATION_RIGHT;height =800
+width = 600+135*INDENTATION_RIGHT;height =800
 
 class CardBatch(pyglet.graphics.Batch):      
   def __init__(self):
@@ -27,32 +27,32 @@ class CardBatch(pyglet.graphics.Batch):
     
 
   def init_cards(self):
-    self.castle = Castle("Burg",240+120*INDENTATION,100,batch=self,owner="yellow")
+    self.castle = Castle("Burg",240+135*INDENTATION,135,batch=self,owner="yellow")
     self.castle.mana = 10
-    c = Castle("Burg",240+120*INDENTATION,700,batch=self,owner="green")
-    c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
+    c = Castle("Burg",240+135*INDENTATION,700,batch=self,owner="green")
+    c.image.anchor_x = 135; c.image.anchor_y = 135; c.rotation = 180
     # only happening if game is offline
     if not self.online:
-      self.castle.load_hand(self.castle.y-100,bo=False)
-      c.load_hand(c.y+100,bo=True)
+      self.castle.load_hand(self.castle.y-135,bo=False)
+      c.load_hand(c.y+135,bo=True)
     for i in range(2,7,1):
       for i2 in range(0+INDENTATION,5+INDENTATION,1):
         if i <= 3:
-          Card.Card("yellow",i2*120,i*100,batch=self,owner="yellow")
+          Card.Card("yellow",i2*135,i*135,batch=self,owner="yellow")
         if i == 4:
-          Card.Card("Wall",i2*120,i*100,batch=self,owner="gray")
+          Card.Card("Wall",i2*135,i*135,batch=self,owner="gray")
         if i >= 5:
-          c = Card.Card("green",i2*120,i*100,batch=self,owner="green")
-          c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
+          c = Card.Card("green",i2*135,i*135,batch=self,owner="green")
+          c.image.anchor_x = 135; c.image.anchor_y = 135; c.rotation = 180
     self.update_disp(self.castle)
 
   def swap(self):
-    self.castle = self.get_card((240+120*INDENTATION,700))
+    self.castle = self.get_card((240+135*INDENTATION,700))
     for card in self.cards:
-      card.position = (width-card.position[0]-card.w-INDENTATION_RIGHT*120,
-                       height+100-card.position[1]-card.h)
-      card.image.anchor_x = 120-card.image.anchor_x
-      card.image.anchor_y = 100-card.image.anchor_y
+      card.position = (width-card.position[0]-card.w-INDENTATION_RIGHT*135,
+                       height+135-card.position[1]-card.h)
+      card.image.anchor_x = 135-card.image.anchor_x
+      card.image.anchor_y = 135-card.image.anchor_y
       card.rotation = 180-card.rotation
       for special in card.specials:
         if card.y > 0 and card.y < 800 and card.owner == self.castle.owner:
@@ -71,9 +71,9 @@ class CardBatch(pyglet.graphics.Batch):
   def update_hand(self,target):
     row = []
     pos = target.position
-    for i in range(int(pos[0]/120),5,1):
+    for i in range(int(pos[0]/135),5,1):
       for card in self.cards:
-        if card.in_area((int(120*i),0)):
+        if card.in_area((int(135*i),0)):
           row.append(card)
           
     for card in row:
@@ -117,7 +117,7 @@ class CardBatch(pyglet.graphics.Batch):
     row = []
     x,y = pos
     for card in self.cards:
-      if card.in_area((0,y),(120,y),
+      if card.in_area((0,y),(135,y),
                       (240,y),(360,y),(480,y)):
         row.append(card)
     return row
