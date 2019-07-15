@@ -47,7 +47,7 @@ class Model(object):
 class Window(pyglet.window.Window): 
   def __init__(self,*args,**kwargs):
     super().__init__(*args,**kwargs)
-    self.set_location(200, 100)
+    self.set_location(200, 135)
     pyglet.clock.schedule(self.update)
     self.keys = pyglet.window.key.KeyStateHandler()
     self.push_handlers(self.keys)

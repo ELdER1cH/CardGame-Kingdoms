@@ -3,7 +3,7 @@ from pyglet.gl import *
 import glob, os
 
 ###add more flexibility
-coords_p = -100,-700
+coords_p = -135,-700
 
 #size_m = 200, 200
 #size_p = 400, 400

@@ -27,7 +27,7 @@ class Chat():
         self.text_labels[tl].color = (255,50,50,220)
       else:
         self.text_labels[tl].text = self.display[tl]
-        self.text_labels[tl].color = (100,0,100,255)
+        self.text_labels[tl].color = (135,0,135,255)
         
 
   def add_to_chat(self,text):

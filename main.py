@@ -17,8 +17,8 @@ IP = "127.0.0.1"
 PORT = 6789
 
 val = 1
-SPRITE_WIDTH = int(120/val)
-SPRITE_HEIGHT = int(100/val)
+SPRITE_WIDTH = int(135/val)
+SPRITE_HEIGHT = int(135/val)
 INDENTATION_RIGHT = 2
 
 class Window(main_chat.Window):
@@ -59,7 +59,7 @@ class Window(main_chat.Window):
     self.lead_execute = my_move
     if self.online:
       self.hand = self.current_screen.hand_selection.hand
-      self.batch.castle.load_hand(self.batch.castle.y-100,hand=self.hand)
+      self.batch.castle.load_hand(self.batch.castle.y-135,hand=self.hand)
     if self.my_move:
       self.pop_up.your_turn_pop_up(0.01,(self.width//2,self.height//2))
     
@@ -282,7 +282,7 @@ class Window(main_chat.Window):
             if target != None:
                 if target.y == 0:     
                     self.batch.update_hand(target)
-                elif target.owner == self.batch.castle.owner and target.y > 100 and target.y < 700:
+                elif target.owner == self.batch.castle.owner and target.y > 135 and target.y < 700:
                         self.batch.hide(self.batch.select_frame)
                         self.batch.castle.mana += target.price-1
                         target.replace(target,target.owner)
@@ -350,7 +350,7 @@ class Window(main_chat.Window):
               self.batch.castle.health = 99999
             elif len(cmd) == 4:
               try:
-                card = self.batch.get_card((int(cmd[1])*120,int(cmd[2])*100))
+                card = self.batch.get_card((int(cmd[1])*135,int(cmd[2])*135))
               except ValueError as err:
                 self.g_print("§cplease enter an integer as an argument! %s" % (err))
               if card != None:

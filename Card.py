@@ -4,8 +4,8 @@ import Cards
 import random
 
 val = 1
-SPRITE_WIDTH = int(120/val)
-SPRITE_HEIGHT = int(100/val)
+SPRITE_WIDTH = int(135/val)
+SPRITE_HEIGHT = int(135/val)
 INDENTATION = 0
 INDENTATION_RIGHT = 2
 
@@ -32,7 +32,7 @@ class Card(pyglet.sprite.Sprite):
     self.image = Cards.init(target,arg)
     self.init()
     if rotate:
-      self.image.anchor_x = 120; self.image.anchor_y = 100; self.rotation = 180
+      self.image.anchor_x = 135; self.image.anchor_y = 135; self.rotation = 180
     else:
       self.image.anchor_x = 0
       self.image.anchor_y = 0
@@ -106,7 +106,7 @@ class Card(pyglet.sprite.Sprite):
           card.health += heal_amount/cards_to_heal
           if card.health > card.max_health:
             card.health = card.max_health
-          print('Healed %s at %s:%s to %s health' % (card.name,card.x/120,card.y/100,card.health))
+          print('Healed %s at %s:%s to %s health' % (card.name,card.x/135,card.y/135,card.health))
 
   def wake_up(self):
     #For Sleeping Giant
@@ -199,8 +199,8 @@ class CardGroup:
     batch.card_groups.append(self)
     self.batch = batch
     self.position = position
-    self.h = 100
-    self.w = 120
+    self.h = 135
+    self.w = 135
     self.num_cards = 0
     for card in cards:
       self.add_card(card)

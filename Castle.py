@@ -22,7 +22,7 @@ class Castle(Card):
         name = random.choice(self.cards)
         info = Cards.cards[name]
       placed.append(name)
-      c = Card(name,i*120,y,batch=self.batch,owner=self.owner)
+      c = Card(name,i*135,y,batch=self.batch,owner=self.owner)
       if bo:
-          c.image.anchor_x = 120; c.image.anchor_y = 100; c.rotation = 180
+          c.image.anchor_x = 135; c.image.anchor_y = 135; c.rotation = 180
   

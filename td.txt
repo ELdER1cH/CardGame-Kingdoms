@@ -25,7 +25,7 @@ widgets: (elements)
     Ready button (mark next to playerid (Haken/x)
     Hand selection
     Castle selection (?)
-    select frame - Size and position is set depending on returned value in on_move from button - button gets xy mouse, calculates and returns pos and size (pos -100,-100 if 
+    select frame - Size and position is set depending on returned value in on_move from button - button gets xy mouse, calculates and returns pos and size (pos -135,-135 if 
 left again - Button needs to remeber if it was selected for right deselect, else return none or sth)
 
 
