@@ -96,7 +96,7 @@ def whitey_gone():
       count = 0
       
       for item in datas:
-        if item[0] <= 220 and item[1] <= 220 and item[2] <= 220:
+        if item[0] != 0 and item[1] != 0 and item[2] != 0:
           newData.append(datas[count])
         else:
           newData.append((0, 0, 0, 0))

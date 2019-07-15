@@ -5,9 +5,9 @@ import main
 
 def do():
   #main.sample_resize()
-  main.white_gone()
+  #main.white_gone()
   #main.green_gone()
   #main.full_black()
 
-  #main.whitey_gone()
+  main.whitey_gone()
 do()
