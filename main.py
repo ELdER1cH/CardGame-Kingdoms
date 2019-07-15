@@ -42,8 +42,6 @@ class Window(main_chat.Window):
 
     pyglet.clock.schedule(self.update)
 
-    
-
 #------------------------------ Game Stuff --------------------------------------
 
   def start_game(self,delay=0,my_move=True):
