@@ -115,7 +115,7 @@ class Card(pyglet.sprite.Sprite):
     #For Sleeping Giant
     if self.health >= 5000:
       self.special_tag = ""
-    else: self.special_tag = "immovable"
+
     
   def draw_card_special(self,on_off=False):
       if self.owner == self.batch.castle.owner:
@@ -157,7 +157,7 @@ class Card(pyglet.sprite.Sprite):
         
   def attack_booster_special(self,on_off):
     #Variablen
-    multiplier = 0.3
+    multiplier = 0.5
     if on_off == 1:
       self.row = self.batch.get_row(self.position)
     #Boostvorgang
@@ -171,7 +171,7 @@ class Card(pyglet.sprite.Sprite):
   def shield_booster_special(self,on_off):
         
     #Variablen
-    multiplier = 0.3
+    multiplier = 0.5
     if on_off == 1:
       self.row = self.batch.get_row(self.position)
     #Boostvorgang

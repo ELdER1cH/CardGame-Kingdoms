@@ -1,5 +1,6 @@
 import pyglet
 import copy
+import Cards
 
 class Stats_Display():
     def __init__(self):
@@ -7,7 +8,7 @@ class Stats_Display():
         #self.document.set_style(0,len(self.document.text),dict(color=(255,0,0,255)))
         #self.text = pyglet.text.layout.TextLayout(self.document,240,420,multiline=True)
         self.blank = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/blank_card.png"),135*6, 10)
-        self.select_sprite = pyglet.sprite.Sprite(pyglet.image.load("resc/gray_frame.png"),135*6+100, 600)
+        self.select_sprite = pyglet.sprite.Sprite(pyglet.image.load("resc/gray_frame.png"),self.blank.x+100, self.blank.y+300)
         self.mana_label = pyglet.text.Label("",
                           font_name='Times New Roman',
                           font_size=12,
@@ -20,7 +21,13 @@ class Stats_Display():
                           bold=True,color=(109, 43, 43,255),
                           x=720, y=600,
                           anchor_x='center', anchor_y='top',multiline=True,width=180)
-        
+        self.card_describtion_card = pyglet.text.Label("",
+                            font_name='Bahnschrift Light', font_size=12,
+                            bold=True,color=(109, 43, 43,255),
+                            x=self.blank.x+150, y=self.blank.y+160,
+                            anchor_x='center', anchor_y='top',multiline=True,width=180)
+    
+        self.blank.x
 
     def update(self,mana,max_mana,mana_reg,target):
         self.mana_label.text = """
@@ -38,6 +45,9 @@ class Stats_Display():
         Crit: %s
         Price: %s""" % (target.name,target.health,target.dmg,
                         target.crit,target.price)
+
+        self.card_describtion_card.text = target.description
+        
         
     def clear(self):
         self.mana_label.text = ""
@@ -59,3 +69,4 @@ class Stats_Display():
         self.blank.draw()
         self.select_sprite.draw()
         self.card_label.draw()
+        self.card_describtion_card.draw()

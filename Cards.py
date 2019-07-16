@@ -27,9 +27,34 @@ cards = {
             'Wall': [1,15000,15000,400,0,0,'resc/wall.png',[Card.wall_special],"immovable",[]]
 }
 
+cards_describtion={
+    'Schwertkaempfer':["""Ein einsamer Schwertkaempfer"""],
+    'Turm': ["""Ein Gebäude mit viel Hp. Aber Achtung ! Er kann nicht verschoben werden"""],
+    'Palatin': ["""Er ist mächtig und kann viel aushalten, macht aber wenig Schaden!"""],
+    'Bauernhof': ["""Erhöht dein maximales Mana um 5 und deine Manaregeneration um 2"""],
+    'Speerkaempfer': ["""Vorsicht vor den Speeren, die sind spitz"""],
+    'Healer': ["""Sie heilt 1200 Leben und verteilt sie gerecht unter nahen Landsleuten"""],
+    'Orc': ["""Stark und hässlich  """],
+    'Goblin': ["""Dieser kleine Dieb hat eine Karten in seinem Beutel"""],
+    'Fahnentraeger': ["""Die Moral ist gestärkt und alle Truppen dieser Reihe machen 1,5 fachen Schaden"""],
+    'Shield': ["""Durch diesen Panzertrupp werden die Leben aller Einheiten dieser Reihe um 1,5 verstärkt"""],
+    'BigBoss': ["""Er muss bis 5000 Leben geheilt werden, damit er aufwacht, aber dann ist er nicht mehr aufzuhalten """],
+    'Bombe': ["""Starker aber einmaliger Schaden"""],
+    'Rammbock': ["""Diese Einheit machen gegen Gebäude 1,5 fachen Schaden, bekommt aber von normalen Einheiten 1,5 fachen Schaden"""],
+    'SplashMana': ["""Schnelle drei Mana ... Was gibt es besseres?"""],
+    'Dwarf': ["""Zwergen sind missmutig, dieser auch."""],
+    'Burg': [""" """],
+    'green': [""" """],
+    'yellow': [""" """],
+    'gray': [""" """],
+    'Wall': [""" """]
+}
+
+
 
 def init(card,name):
     s = cards[name]
+    d = cards_describtion[name]
     card.level = s[0]
     card.name = name
     card.health = s[1]
@@ -41,4 +66,6 @@ def init(card,name):
     card.specials = s[7]
     card.special_tag = s[8]
     card.place_special = s[9]
+    card.description = d[0]
+    
     return pyglet.image.load(card.img)
