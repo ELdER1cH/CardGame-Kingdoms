@@ -35,6 +35,7 @@ class Window(main_chat.Window):
 
     self.loading_text = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/loading.png"),700,400)
     self.wappen = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/wappen_small.png"),20,800)
+    self.map_border = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/Rahmen_map.png"), width //2, height//22)
 
     self.map = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/map2.png"),left_gap-135,135)
 
@@ -136,7 +137,7 @@ class Window(main_chat.Window):
             #button of startscreen
             self.close()
           elif action == "CARDS":
-            self.current_screen = screens.CardScreen(1920,1080)
+                self.current_screen = screens.CardScreen(1920,1080)
           elif action == "READY":
             if self.client.lobbysize == 2 and len(self.current_screen.hand_selection.hand) >= 5:
               cs.ready = not cs.ready
@@ -349,6 +350,7 @@ class Window(main_chat.Window):
         self.map.draw()
         self.batch.draw()
         self.pop_up.draw()
+        self.map_border.draw()
       else:
         self.current_screen.draw()
       fps_display.draw() 

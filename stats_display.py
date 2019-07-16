@@ -9,12 +9,7 @@ class Stats_Display():
         #self.document.set_style(0,len(self.document.text),dict(color=(255,0,0,255)))
         #self.text = pyglet.text.layout.TextLayout(self.document,240,420,multiline=True)
         
-        self.mana_label = pyglet.text.Label("",
-                          font_name='Times New Roman',
-                          font_size=12,
-                          bold=True,color=(109, 43, 43,255),
-                          x=720, y=790,
-                          anchor_x='center', anchor_y='top',multiline=True,width=220)
+    
 # --- Left Side -------------------------------------------------------------------
     # --- Rounds Counter ----------------------------------------------------------
         self.rounds_counter_background = pyglet.sprite.Sprite(pyglet.image.load("resc\jolas\Rounds_Counter.png"),0, height //2)
@@ -23,6 +18,12 @@ class Stats_Display():
                                 bold = True,color=(255, 255,255,255),
                                 x=73, y=height//2+50,
                                 anchor_x='center', anchor_y='center')
+        self.mana_label = pyglet.text.Label("",
+                        font_name='Times New Roman',
+                        font_size=20,
+                        bold=True,color=(0, 0, 0,255),
+                        x=0, y=1080,
+                        anchor_x='left', anchor_y='top',multiline=True,width=400)
 
 # ---Right Side -------------------------------------------------------------------
     # --- Side Card ---------------------------------------------------------------
