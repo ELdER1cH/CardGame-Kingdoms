@@ -67,6 +67,7 @@ class Window(main_chat.Window):
     self.batch.init_cards()
     self.ingame = True
     self.my_move = my_move
+    Batch.round_counter = 0
     if self.online:
       self.hand = self.current_screen.hand_selection.hand
       self.batch.castle.load_hand(self.batch.castle.y-135,hand=self.hand)
@@ -291,6 +292,7 @@ class Window(main_chat.Window):
               self.batch.swap()  
               if self.batch.castle.owner == 'yellow':
                     self.batch.grouped_card_specials(gray=True) 
+                    Batch.round_counter += 1
               
           elif KEY == key.D:
             target = self.batch.get_card(self.batch.select_frame.position)

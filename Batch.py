@@ -12,7 +12,7 @@ INDENTATION = 0
 INDENTATION_RIGHT = 2
 width = 1920;height =1080
 left_gap = width//2 - 2*135
-
+round_counter = 1
 
 
 class CardBatch(pyglet.graphics.Batch):      
@@ -58,7 +58,8 @@ class CardBatch(pyglet.graphics.Batch):
       for special in card.specials:
         if card.y > 0 and card.y < 1080 and card.owner == self.castle.owner:
           special(card)
-        
+    if self.castle.owner == "green":
+      round_counter += 1    
     self.hide(self.select_frame)
     self.update_disp(self.castle)
 
