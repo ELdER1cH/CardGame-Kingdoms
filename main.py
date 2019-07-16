@@ -467,25 +467,34 @@ class Window(main_chat.Window):
     
   def receive_messages(self):
       while True:
-        re = ""
+        strings = ""
         try:
           re = self.client.s.recv(4096).decode()
-          print(f"- received: {re}")
+          print("re: %s" % re)
+          if re != "":
+            strings = re.split('\0')
+          print(strings)
+          for s in strings[:-1]:
+              print("Received: %s" % s) 
+          #print(f"- received: {re}")
         except Exception as err:
           print(err)
           print("Error whilst fetching server messages!")
           pyglet.clock.schedule_once(self.back,0.01)
           break
-        try: 
-            r = json.loads(re)
-            self.handle_message(r)
-        except Exception as err:
-            try:
-                self.client.s.close()
-            except:
-                pass
-            print("Disconnected")
-            pyglet.clock.schedule_once(self.back,0.01)
+          
+        for s in strings:
+          try: 
+              r = json.loads(s)
+              self.handle_message(r)
+          except Exception as err:
+              try:
+                  self.client.s.close()
+              except:
+                  pass
+              print("Disconnected")
+              pyglet.clock.schedule_once(self.back,0.01)
+              break
         
         
 if __name__ == "__main__":

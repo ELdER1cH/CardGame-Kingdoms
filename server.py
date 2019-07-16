@@ -52,7 +52,8 @@ def notify_lobby(data,lobby,conn=None):
     lob = LOBBIES[lobby]
     for user in lob:
         if user != conn:
-            user.sendall(json.dumps(data).encode())               
+            user.sendall(json.dumps(data).encode())   
+    print(f">>send {data}")            
 
 def unregister(conn,addr,lobby):
     print(f'<< connection lost: {addr} lobby: {lobby}')
@@ -95,7 +96,7 @@ def connection_loop(conn,addr,lobby):
             #m = json.dumps(data)
             #conn.sendall(m.encode())
             #notify_users(m)
-            notify_lobby(data,int(data['lobby']),conn)
+            notify_lobby(data+"\0",int(data['lobby']),conn)
             if lobby != int(data['lobby']):
                 lobby = int(data['lobby'])
         except:
