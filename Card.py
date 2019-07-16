@@ -24,7 +24,7 @@ class Card(pyglet.sprite.Sprite):
   def remove(self):
     for special in self.place_special:
       special(self,-1)
-    self.delete()
+    #self.delete()
   
   def replace(self,target,arg,owner=True,activate=False,rotate=False):
     #anc_x,anc_y,rot = self.get_anchor()
@@ -74,15 +74,18 @@ class Card(pyglet.sprite.Sprite):
         #pop_up.new_pop_up((target.position[0]+30,target.position[1]+30),text='Congrats! You won!!',life_span=5)
         won = True
         self.batch.cards = []
+      target.remove()
       target.replace(target,self.owner,owner=self.owner)
 
     if self.health <= 0:
       #Wenn Mauer angeriffen wird
       if target.name != 'Wall':
         #feld wird mit gegnerischem Feld ersetzt
+        self.remove()
         self.replace(self,target.owner,owner=target.owner)
       else:
         #feld wird mit mienem Feld ersetzt
+        self.remove()
         self.replace(self,self.owner,owner=self.owner)
     return won
   
@@ -133,8 +136,14 @@ class Card(pyglet.sprite.Sprite):
         self.batch.castle.mana += 1
 
   def farm_special(self,on_off):
-    if self.batch.castle.owner == self.owner:
-      self.batch.castle.max_mana += 5*on_off
+      if self.owner == self.batch.castle.owner:
+        self.batch.castle.max_mana += 5*on_off
+      else:
+        castle = self.batch.get_card((270,954))
+        castle.max_mana += 5*on_off
+        if castle.mana >= castle.max_mana:
+              castle.mana = castle.max_mana
+      print("farm_special!") 
 
   def castle_special(self):
     if self.health < self.max_health:
@@ -148,25 +157,31 @@ class Card(pyglet.sprite.Sprite):
         
   def attack_booster_special(self,on_off):
     #Variablen
+    multiplier = 0.3
     if on_off == 1:
-      mulitplier = 0.3
       self.row = self.batch.get_row(self.position)
     #Boostvorgang
     for card in self.row:
       if card.owner == self.owner:
-        card.dmg += card.dmg*mulitplier*on_off
+        if on_off == 1:
+          card.dmg += card.dmg*multiplier*on_off
+        else:
+          card.dmg = card.dmg/(1+multiplier)
 
   def shield_booster_special(self,on_off):
         
     #Variablen
+    multiplier = 0.3
     if on_off == 1:
-      mulitplier = 0.3
       self.row = self.batch.get_row(self.position)
     #Boostvorgang
     for card in self.row:
       if card.owner == self.owner:
-        card.health += card.health*mulitplier*on_off
-  
+        if on_off == 1:
+          card.health += card.health*multiplier*on_off
+        else:
+          card.health = card.health/(1+multiplier)
+
   def splash_mana(self, on_off):
     if self.owner == self.batch.castle.owner:
       if self.batch.castle.mana < self.batch.castle.max_mana:

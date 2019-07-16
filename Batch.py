@@ -23,8 +23,7 @@ class CardBatch(pyglet.graphics.Batch):
                                              -SPRITE_HEIGHT)
     #Decides if game is online or offline
     self.online = True
-    self.mana_reg = 0
-    
+    self.mana_reg = 0    
 
   def init_cards(self):
     self.castle = Castle("Burg",270,135,batch=self,owner="yellow")
@@ -54,7 +53,7 @@ class CardBatch(pyglet.graphics.Batch):
       card.image.anchor_y = 135-card.image.anchor_y
       card.rotation = 180-card.rotation
       for special in card.specials:
-        if card.y > 0 and card.y < 800 and card.owner == self.castle.owner:
+        if card.y > 0 and card.y < 1080 and card.owner == self.castle.owner:
           special(card)
         
     self.hide(self.select_frame)
@@ -63,8 +62,22 @@ class CardBatch(pyglet.graphics.Batch):
   def card_specials(self,delay=None):
     for card in self.cards:
       for special in card.specials:
-        if card.y > 0 and card.y < 800:
+        if card.y > 0 and card.y < 1080:
           special(card)
+    self.update_disp(self.castle)
+
+  def grouped_card_specials(self,delay=None,group=False,gray=False):
+    for card in self.cards:
+      for special in card.specials:
+        if card.y > 0 and card.y < 1080:
+          if not gray:
+            if group and card.owner == self.castle.owner: 
+              special(card)
+            elif not group and card.owner != self.castle.owner:
+              special(card)
+          elif card.owner != "yellow" and card.owner != "green":
+            special(card)
+      
     self.update_disp(self.castle)
 
   def update_hand(self,target):
@@ -85,7 +98,7 @@ class CardBatch(pyglet.graphics.Batch):
     self.mana_reg = 0
     for card in self.cards:
       for special in card.specials:
-        if card.y > 0 and card.y < 800 and card.owner == self.castle.owner:
+        if card.y > 0 and card.y < 1080 and card.owner == self.castle.owner:
           if special == Card.Card.generate_mana:  
             self.mana_reg += 1
     self.disp.update(self.castle.mana,self.castle.max_mana,
