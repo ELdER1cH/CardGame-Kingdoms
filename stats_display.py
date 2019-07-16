@@ -26,7 +26,7 @@ class Stats_Display():
 
 # ---Right Side -------------------------------------------------------------------
     # --- Side Card ---------------------------------------------------------------
-        self.blank = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/blank_card.png"),1500, height //4, )
+        self.blank = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/blank_card.png"),1530, height //4, )
         #anchor_x = 'center', anchor_y = 'center'
         self.select_sprite = pyglet.sprite.Sprite(pyglet.image.load("resc/gray_frame.png"),self.blank.x+50, self.blank.y+220)
         # --- Card Describtion ---

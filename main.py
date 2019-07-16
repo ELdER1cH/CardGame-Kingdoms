@@ -36,6 +36,8 @@ class Window(main_chat.Window):
     self.loading_text = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/loading.png"),700,400)
     self.wappen = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/wappen_small.png"),20,800)
 
+    self.map = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/map2.png"),left_gap-135,135)
+
     self.current_screen = screens.StartScreen(1920,1080)
     
     self.ingame = False
@@ -341,6 +343,7 @@ class Window(main_chat.Window):
     self.clear()
     if not self.loading:
       if self.ingame:
+        self.map.draw()
         self.batch.draw()
         self.pop_up.draw()
       else:
