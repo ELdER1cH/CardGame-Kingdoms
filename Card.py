@@ -112,7 +112,7 @@ class Card(pyglet.sprite.Sprite):
     #For Sleeping Giant
     if self.health >= 5000:
       self.special_tag = ""
-    else: self.special_tag = "immovable"
+
     
   def draw_card_special(self,on_off=False):
       if self.owner == self.batch.castle.owner:
