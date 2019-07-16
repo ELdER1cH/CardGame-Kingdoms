@@ -18,7 +18,7 @@ cards = {
             'Bombe': [1,1,1,1000,3,0,'resc\jolas\Bombe.png',[],'wantstodie',[]],
             'Shield': [1,1000,1000,200,22,0,'resc\jolas\Schield.png',[],'',[Card.shield_booster_special]],
             'Rammbock': [1,1500,1000,400,6,0,'resc\jolas\Rammbock.png',[],'BW',[]],
-            'SplashMana': [1,0,0,0,0,0,'resc\splash_mana.jpg',[],'splash',[Card.splash_mana,Card.splash_mana,Card.splash_mana]],
+            'SplashMana': [1,0,0,0,0,0,'resc\splash_mana.png',[],'splash',[Card.splash_mana,Card.splash_mana,Card.splash_mana]],
             'Dwarf': [1,1000,1000,400,9,0,'resc\jolas\Zwerg.png',[],'',[]],
             'Burg': [1,5000,10000,400,0,0,'resc/Castle.png',[Card.castle_special,Card.draw_card_special],"immovable",[]],
             'green': [1,1,1,0,0,0,'resc/green_frame.png',[Card.generate_mana],"unoccupied_field",[]],

@@ -133,6 +133,8 @@ class Window(main_chat.Window):
           elif action == "QUIT":
             #button of startscreen
             self.close()
+          elif action == "CARDS":
+            self.current_screen = screens.CardScreen(1920,1080)
           elif action == "READY":
             if self.client.lobbysize == 2 and len(self.current_screen.hand_selection.hand) >= 5:
               cs.ready = not cs.ready
@@ -157,6 +159,7 @@ class Window(main_chat.Window):
           elif "NEWIP" in action:
               self.IP = action[5:]
               self.g_print(self.IP)
+          
             
           
       return
