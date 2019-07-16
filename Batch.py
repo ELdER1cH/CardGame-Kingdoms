@@ -12,8 +12,6 @@ INDENTATION = 0
 INDENTATION_RIGHT = 2
 width = 1920;height =1080
 left_gap = width//2 - 2*135
-round_counter = 1
-
 
 class CardBatch(pyglet.graphics.Batch):      
   def __init__(self):
@@ -27,6 +25,7 @@ class CardBatch(pyglet.graphics.Batch):
     #Decides if game is online or offline
     self.online = True
     self.mana_reg = 0    
+    self.round_counter = 1
 
   def init_cards(self):
     self.castle = Castle("Burg",width//2,135,batch=self,owner="yellow")
@@ -57,9 +56,7 @@ class CardBatch(pyglet.graphics.Batch):
       card.rotation = 180-card.rotation
       for special in card.specials:
         if card.y > 0 and card.y < 1080 and card.owner == self.castle.owner:
-          special(card)
-    if self.castle.owner == "green":
-      round_counter += 1    
+          special(card) 
     self.hide(self.select_frame)
     self.update_disp(self.castle)
 
@@ -81,6 +78,8 @@ class CardBatch(pyglet.graphics.Batch):
               special(card)
           elif card.owner != "yellow" and card.owner != "green":
             special(card)
+    if group:
+          self.round_counter += 1
       
     self.update_disp(self.castle)
 
@@ -106,7 +105,7 @@ class CardBatch(pyglet.graphics.Batch):
           if special == Card.Card.generate_mana:  
             self.mana_reg += 1
     self.disp.update(self.castle.mana,self.castle.max_mana,
-                     self.mana_reg,target)
+                     self.mana_reg,target,self.round_counter)
 
   def select_card(self,target):
     self.select_frame.position = target.position

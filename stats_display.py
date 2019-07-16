@@ -19,10 +19,10 @@ class Stats_Display():
     # --- Rounds Counter ----------------------------------------------------------
         self.rounds_counter_background = pyglet.sprite.Sprite(pyglet.image.load("resc\jolas\Rounds_Counter.png"),0, height //2)
         self.rounds_counter_number = pyglet.text.Label("",
-                                font_name='Bahnschrift Light', font_size=12,
-                                bold = True,color=(109, 43, 43,255),
-                                x=20, y=height//2,
-                                anchor_x='left', anchor_y='top')
+                                font_name='Bahnschrift Light', font_size=48,
+                                bold = True,color=(255, 255,255,255),
+                                x=73, y=height//2+50,
+                                anchor_x='center', anchor_y='center')
 
 # ---Right Side -------------------------------------------------------------------
     # --- Side Card ---------------------------------------------------------------
@@ -60,7 +60,7 @@ class Stats_Display():
     
         
 #
-    def update(self,mana,max_mana,mana_reg,target):
+    def update(self,mana,max_mana,mana_reg,target,round_counter=None):
         self.mana_label.text = """
         Mana: %s
         Max Mana: %s
@@ -71,7 +71,7 @@ class Stats_Display():
             self.select_sprite.image = pyglet.image.load(target.img)
         
         # Round Counter
-        self.rounds_counter_number.text = str(Batch.round_counter) 
+        self.rounds_counter_number.text = str(round_counter) 
 
         # Side Card    
         self.card_describtion_card.text = target.description
