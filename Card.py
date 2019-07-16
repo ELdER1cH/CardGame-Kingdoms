@@ -149,7 +149,7 @@ class Card(pyglet.sprite.Sprite):
   def attack_booster_special(self,on_off):
     #Variablen
     if on_off == 1:
-      mulitplier = 0.3
+      mulitplier = 0.5
       self.row = self.batch.get_row(self.position)
     #Boostvorgang
     for card in self.row:
@@ -160,7 +160,7 @@ class Card(pyglet.sprite.Sprite):
         
     #Variablen
     if on_off == 1:
-      mulitplier = 0.3
+      mulitplier = 0.5
       self.row = self.batch.get_row(self.position)
     #Boostvorgang
     for card in self.row:

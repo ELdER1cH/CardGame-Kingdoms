@@ -24,7 +24,7 @@ class Stats_Display():
         self.card_describtion_card = pyglet.text.Label("",
                             font_name='Bahnschrift Light', font_size=12,
                             bold=True,color=(109, 43, 43,255),
-                            x=720, y=300,
+                            x=135*6+150, y=170,
                             anchor_x='center', anchor_y='top',multiline=True,width=180)
         
 
@@ -68,3 +68,4 @@ class Stats_Display():
         self.blank.draw()
         self.select_sprite.draw()
         self.card_label.draw()
+        self.card_describtion_card.draw()
