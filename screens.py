@@ -81,7 +81,7 @@ class TextBox(pyglet.sprite.Sprite):
 class HandSelection:
     def __init__(self,batch,width,height):
         self.hand = []#[0,1,2,3,4,5,6,7,8,9,10,11,12]#
-        self.max_hand_lenght = 6
+        self.max_hand_lenght = 10
         """
         mesh:
         x,x,x,x,x    | all_cards
@@ -92,46 +92,51 @@ class HandSelection:
         self.h = height
         self.w = width
         
-        self.indentation = 135
+        self.all_card_indentation = 100
+        self.frame_height_gain = 120
         self.gap = 20
-        self.cpr = 5
+        self.cpr = 8
         
         self.action = None
-        self.height = 4*(135+self.gap)+self.gap    
-        self.width = self.cpr*(135+self.gap)+(135+self.gap)
-        self.position = (0,(height-self.height))        
+        self.height = 3*(135+self.gap)+self.gap   
+        self.width = self.cpr*(135+self.gap)+(135+self.gap)*2
+        self.position = (30,(height-self.height-450))        
         
+        self.background = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/card_selection_frame.png"),self.position[0],self.position[1]+135+self.gap*2)
+
+        self.grass_row = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/grass_row.png"),self.position[0],self.position[1])
+
         self.sprites = []
         
         self.all_cards = list(Cards.cards.keys())[:-5]
         for i in range(len(self.all_cards)):
             self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
-                                                     self.indentation+(i % self.cpr)*(135+self.gap),
-                                                     height-(int(i/self.cpr)+1)*(135+self.gap),batch=batch))
+                                                     self.all_card_indentation+self.position[0]+(i % self.cpr)*(135+self.gap),
+                                                     self.height-(int(i/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain,batch=batch))
             
     def move_card(self,x,y):
-        rx = x-self.indentation
-        ry = y-(self.h-self.height)
-        if y >= self.h-3*(135+self.gap):
-            rx /= (135+self.gap); ry = (self.height-ry)/(135+self.gap)
+        rx = x-self.all_card_indentation-self.position[0]
+        ry = (self.height+self.frame_height_gain)-(y-self.position[1])#(self.h-self.position[1])-(y-self.position[1])-self.height
+        if y >=self.position[1]+self.frame_height_gain:
+            rx /= (135+self.gap); ry /= (135+self.gap)
             if rx-int(rx) <= 1-self.gap/(135+self.gap): 
                 if ry-int(ry) >= self.gap/(135+self.gap):
-                    num = int(int(rx) + int(ry)* (self.width/(135+self.gap)-1))
+                    num = int(int(rx) + int(ry)* (self.width/(135+self.gap)-2))
                     if num < len(self.all_cards) and num not in self.hand:
                         if len(self.hand) < self.max_hand_lenght:
                             self.sprites[num].y = self.position[1]
-                            self.sprites[num].x = (135+self.gap)*len(self.hand)#+self.indentation
+                            self.sprites[num].x = self.position[0]+(135+self.gap)*len(self.hand)#+self.indentation
                             self.hand.append(num)
             
-        elif y <= self.h-3*(135+self.gap)-self.gap:
-            num = int(x/(135+self.gap))
-            rx = x/(135+self.gap)
+        elif y <= self.position[1]+(135+self.gap)+self.gap:
+            num = int((x-self.position[0])/(135+self.gap))
+            rx = (x-self.position[0])/(135+self.gap)
             if rx-int(rx) >= 1-self.gap/(135+self.gap): 
                 return
             if len(self.hand) > num:
                 card = self.hand[num]
-                self.sprites[card].y = self.h-(int(card/self.cpr)+1)*(135+self.gap)
-                self.sprites[card].x = self.indentation+(card % self.cpr)*(135+self.gap)
+                self.sprites[card].y = self.height-(int(card/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain
+                self.sprites[card].x = self.all_card_indentation+(card % self.cpr)*(135+self.gap)+self.position[0]
                 
                 self.hand.remove(card)
                 
@@ -142,7 +147,7 @@ class HandSelection:
     def press(self,x,y,button):
         if button == mouse.LEFT:
           xp,yp = self.position
-          if x >= xp and x < xp+self.width and y >= yp and y < yp+self.height:
+          if x >= xp and x < xp+self.width and y >= yp and y < yp+self.height+self.frame_height_gain:
             #print("pressed")
             self.move_card(x,y)
             return self.action
@@ -229,14 +234,39 @@ class LobbyScreen(Screen):
     self.ready = False
     self.opponent_ready = False
     
+    ## hand selection -> backround frame
+    ## add changeable label for opponent search
+    ## change ready/ unready label accordingly
+    #d# add header 
+    
+    self.opponent_found_img = pyglet.image.load("resc/jolas/opponent_found.png")
+    self.awaiting_opponent_img = pyglet.image.load("resc/jolas/awaiting_opponent.png")
+
+    self.ready_img = pyglet.image.load("resc/jolas/ready.png")
+    self.unready_img = pyglet.image.load("resc/jolas/unready.png")
+
+    self.opponent_search = pyglet.sprite.Sprite(self.awaiting_opponent_img, 0, height-150, batch=self.batch)
+
+    self.blank_card = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/blank_card.png"), width-400, 350, batch=self.batch)
+
+    img = pyglet.image.load("resc/jolas/your_hand.png")
+    img.anchor_x = img.width//2
+    img.anchor_y = img.height//2
+
+    self.your_hand = pyglet.sprite.Sprite(img, width/2-100, 60, batch=self.batch)
+
+    img = pyglet.image.load("resc/jolas/lobby_title.png")
+    img.anchor_x = img.width//2
+    img.anchor_y = img.height//2
+    self.lobby_title = pyglet.sprite.Sprite(img, width/2, height/2 + 450, batch=self.batch)
+
     self.hand_selection = HandSelection(self.batch,width,height)
     self.buttons.append(self.hand_selection)
 
     #bad formating, bad layout, bad design
     #implement Castle selection!
     
-    self.ready_button = Button(pyglet.image.load("resc/ready.png")
-                               ,width-135,20,batch=self.batch,
+    self.ready_button = Button(self.ready_img,width-300,20,batch=self.batch,
                                adj_anchor=False)
        
     self.ready_button.action = "READY"
@@ -247,6 +277,23 @@ class LobbyScreen(Screen):
                               adj_anchor=False)
     self.back_button.action = "BACK"
     self.buttons.append(self.back_button)
+  
+  def update_opponent_search(self,delay,lz):
+    if lz != 2:
+      self.opponent_search.image = self.awaiting_opponent_img
+    else:
+      self.opponent_search.image = self.opponent_found_img
+
+  def update_ready_button(self,delay=None):
+    if self.ready:
+      self.ready_button.image = self.unready_img
+    else:
+      self.ready_button.image = self.ready_img
+  
+  def draw(self):
+        self.hand_selection.background.draw()
+        self.hand_selection.grass_row.draw()
+        self.batch.draw()
 
 class OfflineScreen(Screen):
   def __init__(self,width, height):

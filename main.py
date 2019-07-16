@@ -72,6 +72,7 @@ class Window(main_chat.Window):
       self.batch.castle.load_hand(self.batch.castle.y-135,hand=self.hand)
     if self.my_move:
       self.pop_up.your_turn_pop_up(0.01,(self.width//2,self.height//2))
+    self.loading = False
     
   def replace(self,delay,target,cardname,activate):
     target.replace(target,cardname,activate=activate,rotate=True)
@@ -137,6 +138,7 @@ class Window(main_chat.Window):
               cs.ready = not cs.ready
               print(f"ready: {cs.ready}")
               self.client.send_ready(self.current_screen.opponent_ready)
+              self.current_screen.update_ready_button()
               if self.current_screen.ready and self.current_screen.opponent_ready:
                 self.start_game(my_move=False)
                 self.batch.castle.mana = 0
@@ -412,6 +414,8 @@ class Window(main_chat.Window):
                   print(f"<< lobby update: {self.client.lobby} (size: {self.client.lobbysize})")
                   if self.client.lobbysize != 2 and self.ingame:
                     pyglet.clock.schedule_once(self.back_l,0.01)
+                  if not self.ingame:
+                    pyglet.clock.schedule_once(self.current_screen.update_opponent_search, 0.01, self.client.lobbysize)
                 elif r['type'] == 'ready':
                   try:
                     self.current_screen.opponent_ready = not self.current_screen.opponent_ready
@@ -419,6 +423,7 @@ class Window(main_chat.Window):
                     print("myready: %s opponentready: %s" %
                           (self.current_screen.ready, self.current_screen.opponent_ready))
                     if self.current_screen.ready and self.current_screen.opponent_ready:
+                      self.loading = True
                       pyglet.clock.schedule_once(self.start_game,0.01)
                   except:
                     print("<< r['ready'] received a message for an action that could not be executed!")
