@@ -91,6 +91,13 @@ class Stats_Display():
             self.select_sprite.image = pyglet.image.load(target.img[:-4]+"_large.png")
         except:
             self.select_sprite.image = pyglet.image.load(target.img)
+
+        # Side Card    
+        self.card_describtion_card.text = target.description
+        self.card_name.text = target.name
+        self.card_damage.text = str(target.dmg)
+        self.card_health.text = str(target.health)
+        self.card_cost.text = str(target.price)
         
 
     def draw(self):
