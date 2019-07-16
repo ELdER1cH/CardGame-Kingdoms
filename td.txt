@@ -1,4 +1,12 @@
-Cardgame:
+﻿Cardgame:
+
+- in stats_display bei batch die ganzen sprites schonmal vorladen + blank karte und immer aus der liste nehmen
+
+- multiplayer issues fixen? -> teilweise zurück zum Startbilschirm springen wenn auf online cklicken zu schnell oder so
+- manchmal beide ready, aber nur einer lädt richtig, anderes win freezed
+
+
+
 
 
 #Startscreen - only screen

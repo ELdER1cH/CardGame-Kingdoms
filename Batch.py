@@ -10,7 +10,7 @@ SPRITE_WIDTH = int(135/val)
 SPRITE_HEIGHT = int(135/val)
 INDENTATION = 0
 INDENTATION_RIGHT = 2
-width = 600+135*INDENTATION_RIGHT;height =800
+width = 1920;height =1080
 
 class CardBatch(pyglet.graphics.Batch):      
   def __init__(self):
@@ -23,13 +23,12 @@ class CardBatch(pyglet.graphics.Batch):
                                              -SPRITE_HEIGHT)
     #Decides if game is online or offline
     self.online = True
-    self.mana_reg = 0
-    
+    self.mana_reg = 0    
 
   def init_cards(self):
-    self.castle = Castle("Burg",240+135*INDENTATION,135,batch=self,owner="yellow")
+    self.castle = Castle("Burg",270,135,batch=self,owner="yellow")
     self.castle.mana = 10
-    c = Castle("Burg",240+135*INDENTATION,700,batch=self,owner="green")
+    c = Castle("Burg",270,945,batch=self,owner="green")
     c.image.anchor_x = 135; c.image.anchor_y = 135; c.rotation = 180
     # only happening if game is offline
     if not self.online:
@@ -47,15 +46,14 @@ class CardBatch(pyglet.graphics.Batch):
     self.update_disp(self.castle)
 
   def swap(self):
-    self.castle = self.get_card((240+135*INDENTATION,700))
+    self.castle = self.get_card((270,954))
     for card in self.cards:
-      card.position = (width-card.position[0]-card.w-INDENTATION_RIGHT*135,
-                       height+135-card.position[1]-card.h)
+      card.position = (135*4-card.position[0],height-card.position[1])
       card.image.anchor_x = 135-card.image.anchor_x
       card.image.anchor_y = 135-card.image.anchor_y
       card.rotation = 180-card.rotation
       for special in card.specials:
-        if card.y > 0 and card.y < 800 and card.owner == self.castle.owner:
+        if card.y > 0 and card.y < 1080 and card.owner == self.castle.owner:
           special(card)
         
     self.hide(self.select_frame)
@@ -64,8 +62,22 @@ class CardBatch(pyglet.graphics.Batch):
   def card_specials(self,delay=None):
     for card in self.cards:
       for special in card.specials:
-        if card.y > 0 and card.y < 800:
+        if card.y > 0 and card.y < 1080:
           special(card)
+    self.update_disp(self.castle)
+
+  def grouped_card_specials(self,delay=None,group=False,gray=False):
+    for card in self.cards:
+      for special in card.specials:
+        if card.y > 0 and card.y < 1080:
+          if not gray:
+            if group and card.owner == self.castle.owner: 
+              special(card)
+            elif not group and card.owner != self.castle.owner:
+              special(card)
+          elif card.owner != "yellow" and card.owner != "green":
+            special(card)
+      
     self.update_disp(self.castle)
 
   def update_hand(self,target):
@@ -86,7 +98,7 @@ class CardBatch(pyglet.graphics.Batch):
     self.mana_reg = 0
     for card in self.cards:
       for special in card.specials:
-        if card.y > 0 and card.y < 800 and card.owner == self.castle.owner:
+        if card.y > 0 and card.y < 1080 and card.owner == self.castle.owner:
           if special == Card.Card.generate_mana:  
             self.mana_reg += 1
     self.disp.update(self.castle.mana,self.castle.max_mana,
