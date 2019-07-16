@@ -27,9 +27,36 @@ cards = {
             'Wall': [1,15000,15000,400,0,0,'resc/wall.png',[Card.wall_special],"immovable",[]]
 }
 
+cards_describtion={
+    'Schwertkaempfer':["""Ein einsamer Schwertkaempfer"""],
+    'Turm': ["""Ein Gebäude mit viel Hp
+                Aber Achtung !
+                Er kann nicht verschoben werden"""],
+    'Palatin': [""" """],
+    'Bauernhof': [""" """],
+    'Speerkaempfer': [""" """],
+    'Healer': [""" """],
+    'Orc': [""" """],
+    'Goblin': [""" """],
+    'Fahnentraeger': [""" """],
+    'BigBoss': [""" """],
+    'Bombe': [""" """],
+    'Shield': [""" """],
+    'Rammbock': [""" """],
+    'SplashMana': [""" """],
+    'Dwarf': [""" """],
+    'Burg': [""" """],
+    'green': [""" """],
+    'yellow': [""" """],
+    'gray': [""" """],
+    'Wall': [""" """]
+}
+
+
 
 def init(card,name):
     s = cards[name]
+    d = cards_describtion[name]
     card.level = s[0]
     card.name = name
     card.health = s[1]
@@ -41,4 +68,6 @@ def init(card,name):
     card.specials = s[7]
     card.special_tag = s[8]
     card.place_special = s[9]
+    card.description = d[0]
+    
     return pyglet.image.load(card.img)
