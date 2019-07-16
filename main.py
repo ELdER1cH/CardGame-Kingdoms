@@ -112,8 +112,7 @@ class Window(main_chat.Window):
       return
     threading.Thread(target=self.receive_messages).start()
     self.loading = False
-        
-
+  
   def on_mouse_press(self,x,y,button,MOD,antir=True):
     if not self.ingame:
       cs = self.current_screen

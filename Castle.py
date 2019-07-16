@@ -1,6 +1,8 @@
 from Card import Card
 import Cards,random
 
+width = 1920;height =1080
+left_gap = width//2 - 2*135
 
 class Castle(Card):
   def __init__(self,*args,**kwargs):
@@ -22,7 +24,7 @@ class Castle(Card):
         name = random.choice(self.cards)
         info = Cards.cards[name]
       placed.append(name)
-      c = Card(name,i*135,y,batch=self.batch,owner=self.owner)
+      c = Card(name,i*135+left_gap,y,batch=self.batch,owner=self.owner)
       if bo:
           c.image.anchor_x = 135; c.image.anchor_y = 135; c.rotation = 180
   

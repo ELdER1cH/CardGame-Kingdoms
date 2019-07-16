@@ -9,6 +9,8 @@ SPRITE_HEIGHT = int(135/val)
 INDENTATION = 0
 INDENTATION_RIGHT = 2
 
+left_gap = 1920//2 - 2*135
+
 class Card(pyglet.sprite.Sprite):
   def __init__(self,card_type,*args,batch,owner=None,**kwargs):
     batch.cards.append(self)
@@ -115,14 +117,13 @@ class Card(pyglet.sprite.Sprite):
     #For Sleeping Giant
     if self.health >= 5000:
       self.special_tag = ""
-
-    
+   
   def draw_card_special(self,on_off=False):
       if self.owner == self.batch.castle.owner:
           target = None
           
           for i in range(5):
-              card = self.batch.get_card((SPRITE_WIDTH*(i),0))
+              card = self.batch.get_card((left_gap+SPRITE_WIDTH*(i),0))
               if card.special_tag == "unoccupied_field":
                   target = card
                   break
@@ -139,7 +140,7 @@ class Card(pyglet.sprite.Sprite):
       if self.owner == self.batch.castle.owner:
         self.batch.castle.max_mana += 5*on_off
       else:
-        castle = self.batch.get_card((270,954))
+        castle = self.batch.get_card((left_gap+270,954))
         castle.max_mana += 5*on_off
         if castle.mana >= castle.max_mana:
               castle.mana = castle.max_mana
