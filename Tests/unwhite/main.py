@@ -26,6 +26,7 @@ def full_black():
       file, ext = os.path.splitext(infile)
       img = Image.open(infile)
       img = img.convert("RGBA")
+      
       datas = img.getdata()
       newData = []
       

@@ -7,7 +7,8 @@ class Stats_Display():
         #self.document = pyglet.text.document.FormattedDocument('This is a multi line document. This is a multi line document.')
         #self.document.set_style(0,len(self.document.text),dict(color=(255,0,0,255)))
         #self.text = pyglet.text.layout.TextLayout(self.document,240,420,multiline=True)
-        self.select_sprite = pyglet.sprite.Sprite(pyglet.image.load('resc/gray_frame.png'),660, 600)
+        self.blank = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/blank_card.png"),135*6, 10)
+        self.select_sprite = pyglet.sprite.Sprite(pyglet.image.load("resc/gray_frame.png"),135*6+100, 600)
         self.mana_label = pyglet.text.Label("",
                           font_name='Times New Roman',
                           font_size=12,
@@ -32,9 +33,10 @@ class Stats_Display():
         Mana: %s
         Max Mana: %s
         Mana Reg: %s""" % (mana,max_mana,mana_reg)
-
-        self.select_sprite.image = pyglet.image.load(target.img)
-        
+        try:
+            self.select_sprite.image = pyglet.image.load(target.img[:-4]+"_large.png")
+        except:
+            self.select_sprite.image = pyglet.image.load(target.img)
         self.card_label.text = """
         %s
         Health: %s
@@ -63,5 +65,6 @@ class Stats_Display():
 
     def draw(self):
         self.mana_label.draw()
+        self.blank.draw()
         self.select_sprite.draw()
         self.card_label.draw()

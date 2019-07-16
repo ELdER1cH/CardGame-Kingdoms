@@ -5,7 +5,7 @@ try:
   import pop_up, Batch, Cards, Card, client
   from pyglet.window import key, mouse
   import chat_dependencies.main_chat as main_chat
-  
+
 except ImportError as err:
   print("couldn't load modue. %s" % (err))
 
@@ -154,8 +154,7 @@ class Window(main_chat.Window):
         clicked_card = self.batch.get_card(self.batch.select_frame.position)
         
         #MAKE SURE THERES A CARD AT THE OLD CLICK - IF THERES NONE, TARGET = NEW SELECT
-        if clicked_card != None:
-          print(clicked_card.y) 
+        if clicked_card != None: 
           ###HIDE IF DOUBLE CLICK
           if target == clicked_card:
             self.batch.hide(self.batch.select_frame)
@@ -276,7 +275,6 @@ class Window(main_chat.Window):
               self.batch.swap()  
               if self.batch.castle.owner == 'yellow':
                     self.batch.card_specials() 
-              print(self.batch.castle.owner) 
               
           elif KEY == key.D:
             target = self.batch.get_card(self.batch.select_frame.position)
@@ -326,12 +324,16 @@ class Window(main_chat.Window):
     self.chat_model.draw()
 
   def on_resize(self,width,height):
-    glScalef(1/self.scale_x,1/self.scale_y,1)
-    self.scale_x = width/self.pre_resize_dims[0]
-    self.scale_y = height/self.pre_resize_dims[1]
-    #glScalef(self.scale_x,self.scale_y,1)
-    glScalef(self.scale_x,self.scale_y,1)
-    super().on_resize(width,height)
+    if width >= 853 and height >= 480:
+      glScalef(1/self.scale_x,1/self.scale_y,1)
+      self.scale_x = width/self.pre_resize_dims[0]
+      self.scale_y = height/self.pre_resize_dims[1]
+      #glScalef(self.scale_x,self.scale_y,1)
+      glScalef(self.scale_x,self.scale_y,1)
+      super().on_resize(width,height)
+    else:
+          self.set_size(853,480)
+          self.set_minimum_size(853, 480)
 
   def on_cmd(self,cmd):
         if cmd[0] == '/hello world':
@@ -409,14 +411,14 @@ class Window(main_chat.Window):
                   
                 elif r['type'] == 'replace':
                   pos, cardname = r['replace']
-                  pos = (480-int(pos[0]),1080-int(pos[1]))
+                  pos = (540-int(pos[0]),1080-int(pos[1]))
                   target = self.batch.get_card(pos)
                   pyglet.clock.schedule_once(self.replace,0.01,target,cardname,True)
     
                 elif r['type'] == 'swap':
                   pos1,pos2 = r['swap']
-                  pos1 = (480-int(pos1[0]),1080-int(pos1[1]))
-                  pos2 = (480-int(pos2[0]),1080-int(pos2[1]))
+                  pos1 = (540-int(pos1[0]),1080-int(pos1[1]))
+                  pos2 = (540-int(pos2[0]),1080-int(pos2[1]))
                   
                   clicked_card = self.batch.get_card(pos1)
                   target = self.batch.get_card(pos2)
@@ -425,8 +427,8 @@ class Window(main_chat.Window):
     
                 elif r['type'] == 'attack':
                   pos1,pos2 = r['attack']
-                  pos1 = (480-int(pos1[0]),1080-int(pos1[1]))
-                  pos2 = (480-int(pos2[0]),1080-int(pos2[1]))
+                  pos1 = (540-int(pos1[0]),1080-int(pos1[1]))
+                  pos2 = (540-int(pos2[0]),1080-int(pos2[1]))
                   
                   clicked_card = self.batch.get_card(pos1)
                   target = self.batch.get_card(pos2)
