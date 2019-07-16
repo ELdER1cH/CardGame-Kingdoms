@@ -21,6 +21,7 @@ val = 1
 SPRITE_WIDTH = int(135/val)
 SPRITE_HEIGHT = int(135/val)
 INDENTATION_RIGHT = 2
+left_gap = 1920//2 - 2*135
 
 class Window(main_chat.Window):
   def __init__(self,*args,**kwargs):
@@ -71,6 +72,7 @@ class Window(main_chat.Window):
       self.batch.castle.load_hand(self.batch.castle.y-135,hand=self.hand)
     if self.my_move:
       self.pop_up.your_turn_pop_up(0.01,(self.width//2,self.height//2))
+    self.loading = False
     
   def replace(self,delay,target,cardname,activate):
     target.replace(target,cardname,activate=activate,rotate=True)
@@ -112,8 +114,7 @@ class Window(main_chat.Window):
       return
     threading.Thread(target=self.receive_messages).start()
     self.loading = False
-        
-
+  
   def on_mouse_press(self,x,y,button,MOD,antir=True):
     if not self.ingame:
       cs = self.current_screen
@@ -137,6 +138,7 @@ class Window(main_chat.Window):
               cs.ready = not cs.ready
               print(f"ready: {cs.ready}")
               self.client.send_ready(self.current_screen.opponent_ready)
+              self.current_screen.update_ready_button()
               if self.current_screen.ready and self.current_screen.opponent_ready:
                 self.start_game(my_move=False)
                 self.batch.castle.mana = 0
@@ -374,7 +376,7 @@ class Window(main_chat.Window):
               self.batch.castle.health = 99999
             elif len(cmd) == 4:
               try:
-                card = self.batch.get_card((int(cmd[1])*135,int(cmd[2])*135))
+                card = self.batch.get_card((int(cmd[1])*135+left_gap,int(cmd[2])*135))
               except ValueError as err:
                 self.g_print("§cplease enter an integer as an argument! %s" % (err))
               if card != None:
@@ -412,6 +414,8 @@ class Window(main_chat.Window):
                   print(f"<< lobby update: {self.client.lobby} (size: {self.client.lobbysize})")
                   if self.client.lobbysize != 2 and self.ingame:
                     pyglet.clock.schedule_once(self.back_l,0.01)
+                  if not self.ingame:
+                    pyglet.clock.schedule_once(self.current_screen.update_opponent_search, 0.01, self.client.lobbysize)
                 elif r['type'] == 'ready':
                   try:
                     self.current_screen.opponent_ready = not self.current_screen.opponent_ready
@@ -419,6 +423,7 @@ class Window(main_chat.Window):
                     print("myready: %s opponentready: %s" %
                           (self.current_screen.ready, self.current_screen.opponent_ready))
                     if self.current_screen.ready and self.current_screen.opponent_ready:
+                      self.loading = True
                       pyglet.clock.schedule_once(self.start_game,0.01)
                   except:
                     print("<< r['ready'] received a message for an action that could not be executed!")
@@ -431,14 +436,14 @@ class Window(main_chat.Window):
                   
                 elif r['type'] == 'replace':
                   pos, cardname = r['replace']
-                  pos = (540-int(pos[0]),1080-int(pos[1]))
+                  pos = ((135*4+left_gap)-int(pos[0])+left_gap,1080-int(pos[1]))
                   target = self.batch.get_card(pos)
                   pyglet.clock.schedule_once(self.replace,0.01,target,cardname,True)
     
                 elif r['type'] == 'swap':
                   pos1,pos2 = r['swap']
-                  pos1 = (540-int(pos1[0]),1080-int(pos1[1]))
-                  pos2 = (540-int(pos2[0]),1080-int(pos2[1]))
+                  pos1 = ((540+left_gap)-int(pos1[0]),1080-int(pos1[1]))
+                  pos2 = ((540+left_gap)-int(pos2[0]),1080-int(pos2[1]))
                   
                   clicked_card = self.batch.get_card(pos1)
                   target = self.batch.get_card(pos2)
@@ -447,8 +452,8 @@ class Window(main_chat.Window):
     
                 elif r['type'] == 'attack':
                   pos1,pos2 = r['attack']
-                  pos1 = (540-int(pos1[0]),1080-int(pos1[1]))
-                  pos2 = (540-int(pos2[0]),1080-int(pos2[1]))
+                  pos1 = ((540+left_gap)-int(pos1[0]),1080-int(pos1[1]))
+                  pos2 = ((540+left_gap)-int(pos2[0]),1080-int(pos2[1]))
                   
                   clicked_card = self.batch.get_card(pos1)
                   target = self.batch.get_card(pos2)

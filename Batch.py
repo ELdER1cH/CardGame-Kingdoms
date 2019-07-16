@@ -11,6 +11,9 @@ SPRITE_HEIGHT = int(135/val)
 INDENTATION = 0
 INDENTATION_RIGHT = 2
 width = 1920;height =1080
+left_gap = width//2 - 2*135
+
+
 
 class CardBatch(pyglet.graphics.Batch):      
   def __init__(self):
@@ -26,9 +29,9 @@ class CardBatch(pyglet.graphics.Batch):
     self.mana_reg = 0    
 
   def init_cards(self):
-    self.castle = Castle("Burg",270,135,batch=self,owner="yellow")
+    self.castle = Castle("Burg",width//2,135,batch=self,owner="yellow")
     self.castle.mana = 10
-    c = Castle("Burg",270,945,batch=self,owner="green")
+    c = Castle("Burg",width//2,945,batch=self,owner="green")
     c.image.anchor_x = 135; c.image.anchor_y = 135; c.rotation = 180
     # only happening if game is offline
     if not self.online:
@@ -37,18 +40,18 @@ class CardBatch(pyglet.graphics.Batch):
     for i in range(2,7,1):
       for i2 in range(0+INDENTATION,5+INDENTATION,1):
         if i <= 3:
-          Card.Card("yellow",i2*135,i*135,batch=self,owner="yellow")
+          Card.Card("yellow",i2*135+left_gap,i*135,batch=self,owner="yellow")
         if i == 4:
-          Card.Card("Wall",i2*135,i*135,batch=self,owner="gray")
+          Card.Card("Wall",i2*135+left_gap,i*135,batch=self,owner="gray")
         if i >= 5:
-          c = Card.Card("green",i2*135,i*135,batch=self,owner="green")
+          c = Card.Card("green",i2*135+left_gap,i*135,batch=self,owner="green")
           c.image.anchor_x = 135; c.image.anchor_y = 135; c.rotation = 180
     self.update_disp(self.castle)
 
   def swap(self):
-    self.castle = self.get_card((270,954))
+    self.castle = self.get_card((width//2,945))
     for card in self.cards:
-      card.position = (135*4-card.position[0],height-card.position[1])
+      card.position = ((135*4+left_gap)-card.position[0]+left_gap,height-card.position[1])
       card.image.anchor_x = 135-card.image.anchor_x
       card.image.anchor_y = 135-card.image.anchor_y
       card.rotation = 180-card.rotation

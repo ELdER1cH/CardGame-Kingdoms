@@ -1,13 +1,14 @@
 import pyglet
 import copy
 import Cards
-
+width = 1920;height =1080
 class Stats_Display():
     def __init__(self):
         #self.document = pyglet.text.document.FormattedDocument('This is a multi line document. This is a multi line document.')
         #self.document.set_style(0,len(self.document.text),dict(color=(255,0,0,255)))
         #self.text = pyglet.text.layout.TextLayout(self.document,240,420,multiline=True)
-        self.blank = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/blank_card.png"),135*6, 10)
+        self.blank = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/blank_card.png"),1500, height //4, )
+        #anchor_x = 'center', anchor_y = 'center'
         self.select_sprite = pyglet.sprite.Sprite(pyglet.image.load("resc/gray_frame.png"),self.blank.x+50, self.blank.y+220)
         self.mana_label = pyglet.text.Label("",
                           font_name='Times New Roman',
@@ -69,17 +70,10 @@ class Stats_Display():
     def clear(self):
         self.mana_label.text = ""
         self.select_sprite.image = pyglet.image.load('resc/gray_frame.png')
-        self.card_label.text = ""
         
     def update_to_enemy(self,target):
         self.select_sprite.image = pyglet.image.load(target.img)
-        self.card_label.text = """
-        %s
-        Health: %s
-        Attack: %s
-        Crit: %s
-        Price: %s""" % (target.name,target.health,target.dmg,
-                        target.crit,target.price)
+        
 
     def draw(self):
         self.mana_label.draw()
