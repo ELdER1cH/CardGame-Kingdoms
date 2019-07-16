@@ -142,9 +142,11 @@ class Window(main_chat.Window):
               if self.current_screen.ready and self.current_screen.opponent_ready:
                 self.start_game(my_move=False)
                 self.batch.castle.mana = 0
+                self.batch.round_counter = 0
           elif action == "StartGameOffline":
             self.start_game()
             self.batch.castle.mana = 10
+            self.batch.round_counter = 1
           elif action == "BACK":
             self.ingame = False
             self.back()
@@ -290,9 +292,12 @@ class Window(main_chat.Window):
                 self.batch.grouped_card_specials(group=False)
                 #s:2x r: 2x                
             else:
-              self.batch.swap()  
+              
               if self.batch.castle.owner == 'yellow':
                     self.batch.grouped_card_specials(gray=True) 
+                    self.batch.round_counter += 1
+              
+              self.batch.swap()
               
           elif KEY == key.D:
             target = self.batch.get_card(self.batch.select_frame.position)
