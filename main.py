@@ -447,8 +447,9 @@ class Window(main_chat.Window):
     
                 elif r['type'] == 'swap':
                   pos1,pos2 = r['swap']
-                  pos1 = ((540+left_gap)-int(pos1[0]),1080-int(pos1[1]))
-                  pos2 = ((540+left_gap)-int(pos2[0]),1080-int(pos2[1]))
+                  pos1 = ((540+left_gap)-int(pos1[0])+left_gap,1080-int(pos1[1]))
+                  pos2 = ((540+left_gap)-int(pos2[0])+left_gap,1080-int(pos2[1]))
+                  print("p1:%s, p2:%s" % (pos1,pos2))
                   
                   clicked_card = self.batch.get_card(pos1)
                   target = self.batch.get_card(pos2)
@@ -457,8 +458,8 @@ class Window(main_chat.Window):
     
                 elif r['type'] == 'attack':
                   pos1,pos2 = r['attack']
-                  pos1 = ((540+left_gap)-int(pos1[0]),1080-int(pos1[1]))
-                  pos2 = ((540+left_gap)-int(pos2[0]),1080-int(pos2[1]))
+                  pos1 = ((540+left_gap)-int(pos1[0])+left_gap,1080-int(pos1[1]))
+                  pos2 = ((540+left_gap)-int(pos2[0])+left_gap,1080-int(pos2[1]))
                   
                   clicked_card = self.batch.get_card(pos1)
                   target = self.batch.get_card(pos2)
@@ -467,7 +468,64 @@ class Window(main_chat.Window):
     
   def receive_messages(self):
       while True:
-        re = ""
+            re = ""
+            try:
+              re = self.client.s.recv(4096).decode()
+              print(f"- received: {re}")
+              spl = re.split("}{")
+              print(spl)
+            except Exception as err:
+              print(err)
+              print("Error whilst fetching server messages!")
+              pyglet.clock.schedule_once(self.back,0.01)
+              break
+            try: 
+                r = json.loads(re)
+                self.handle_message(r)
+            except Exception as err:
+                print(err)
+                try:
+                    self.client.s.close()
+                except:
+                    pass
+                print("Disconnected")
+                pyglet.clock.schedule_once(self.back,0.01)
+                break
+      """while True:
+        strings = ""
+        try:
+          re = self.client.s.recv(4096).decode()
+          if re != "":
+            print("re: %s" % re)
+
+          strings = re.split('\0')
+          #print(strings)
+          #for s in strings[:-1]:
+          #    print("Received: %s" % s) 
+          #print(f"- received: {re}")
+        except Exception as err:
+          print(err)
+          print("Error whilst fetching server messages!")
+          pyglet.clock.schedule_once(self.back,0.01)
+          break
+          
+        for s in strings[:-1]:
+          try: 
+              r = json.loads(s)
+              self.handle_message(r)
+          except Exception as err:
+              try:
+                  self.client.s.close()
+              except:
+                  pass
+              print("Disconnected")
+              pyglet.clock.schedule_once(self.back,0.01)
+              break"""
+
+      """
+
+      while True:
+            re = ""
         try:
           re = self.client.s.recv(4096).decode()
           print(f"- received: {re}")
@@ -486,6 +544,8 @@ class Window(main_chat.Window):
                 pass
             print("Disconnected")
             pyglet.clock.schedule_once(self.back,0.01)
+
+      """
         
         
 if __name__ == "__main__":
