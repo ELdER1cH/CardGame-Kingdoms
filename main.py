@@ -446,6 +446,7 @@ class Window(main_chat.Window):
                 elif r['type'] == 'move_done':
                   self.my_move = True
                   pyglet.clock.schedule_once(self.batch.grouped_card_specials,0.01,True)
+                  pyglet.clock.schedule_once(self.batch.grouped_card_specials,0.01,gray=True)
                   #print("<< your turn!")
                   pyglet.clock.schedule_once(self.pop_up.your_turn_pop_up,0.01,(self.width//2,self.height//2))
                   

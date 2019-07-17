@@ -81,8 +81,12 @@ class CardBatch(pyglet.graphics.Batch):
           if not gray:
             if group and card.owner == self.castle.owner: 
               special(card)
-            elif not group and card.owner != self.castle.owner:
-              special(card)
+            elif not group and self.castle.owner == "yellow":
+                if card.owner == 'green':
+                  special(card)
+            elif not group and self.castle.owner == "green":
+                if card.owner == 'yellow':
+                  special(card)
           elif card.owner != "yellow" and card.owner != "green":
             special(card)
     if group:
@@ -103,6 +107,8 @@ class CardBatch(pyglet.graphics.Batch):
     #only happening if game is offline
     if not self.online:  
       target.replace(target,random.choice(self.castle.cards))
+    else:
+      target.replace(target,self.castle.owner)
 
   def update_disp(self,target):
     self.disp.update(self.castle.mana,self.castle.max_mana,target,self.round_counter)
