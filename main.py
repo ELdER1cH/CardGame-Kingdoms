@@ -97,6 +97,7 @@ class Window(main_chat.Window):
             self.batch.pop_up.mana_event(target.position,3)
       elif clicked_card.name == 'FireBall':
             self.batch.pop_up.explosion_event(target.position)
+            self.batch.pop_up.damage_event(target.position,clicked_card.dmg)
             if self.online == True:
                 self.client.send_splash_attack_event(target.position,clicked_card.dmg)
       won = None
