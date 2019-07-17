@@ -17,6 +17,7 @@ class Card(pyglet.sprite.Sprite):
     super().__init__(Cards.init(self,card_type),*args,batch=batch,**kwargs)
     self.owner = owner
     self.init()
+    self.batch = batch
     
   def init(self):
     self.resize()
@@ -31,6 +32,9 @@ class Card(pyglet.sprite.Sprite):
   def replace(self,target,arg,owner=True,activate=False,rotate=False):
     #anc_x,anc_y,rot = self.get_anchor()
     if owner != True: self.owner = owner
+    if activate:
+      for special in self.place_special:
+        special(self,1)
     self.image = Cards.init(target,arg)
     self.init()
     if rotate:
@@ -39,10 +43,7 @@ class Card(pyglet.sprite.Sprite):
       self.image.anchor_x = 0
       self.image.anchor_y = 0
       self.rotation = 0
-    if activate:
-      for special in self.place_special:
-        special(self,1)
-  
+
   def fight(self,target,pop_up):
     won = False
     dmg = self.dmg
@@ -63,10 +64,13 @@ class Card(pyglet.sprite.Sprite):
       
     target.health -= dmg
     self.health -= defend
-    pop_up.new_pop_up(target.position,text='%s DMG - %s left'
-                      % (self.dmg,target.health),life_span=0.7)
+
     if target.name == "Burg":
       self.batch.disp.burg_label.text = str(target.health)
+
+    self.batch.pop_up.damage_event(target.position,dmg)
+    
+    
     if target.special_tag != "unoccupied_field":
       self.batch.update_disp(target)
                                          
@@ -100,6 +104,7 @@ class Card(pyglet.sprite.Sprite):
         special(self,1)
 
   def heal(self):
+    print('t')
     heal_amount = 1200
     cards_to_heal = 0
     adjacent = self.batch.get_adjacent(self.position)
@@ -112,6 +117,7 @@ class Card(pyglet.sprite.Sprite):
           card.health += heal_amount/cards_to_heal
           if card.health > card.max_health:
             card.health = card.max_health
+          self.batch.pop_up.heal_special(card.position,amount=heal_amount/cards_to_heal)
           print('Healed %s at %s:%s to %s health' % (card.name,card.x/135,card.y/135,card.health))
 
   def wake_up(self):
@@ -120,17 +126,17 @@ class Card(pyglet.sprite.Sprite):
       self.special_tag = ""
    
   def draw_card_special(self,on_off=False):
-      if self.owner == self.batch.castle.owner:
-          target = None
-          
-          for i in range(5):
-              card = self.batch.get_card((left_gap+SPRITE_WIDTH*(i),0))
-              if card.special_tag == "unoccupied_field":
-                  target = card
-                  break
-              
-          if target != None:
-              target.replace(target,random.choice(self.batch.castle.cards))
+      if self.batch.online == True:
+        if self.owner == self.batch.castle.owner:
+            target = None
+            for i in range(5):
+                card = self.batch.get_card((left_gap+SPRITE_WIDTH*(i),0))
+                if card.special_tag == "unoccupied_field":
+                    target = card
+                    break
+                
+            if target != None:
+                target.replace(target,random.choice(self.batch.castle.cards))
               
   def generate_mana(self):
     if self.owner == self.batch.castle.owner:
@@ -185,10 +191,11 @@ class Card(pyglet.sprite.Sprite):
           card.health = card.health/(1+multiplier)
 
   def splash_mana(self, on_off):
+    print('f')
     if self.owner == self.batch.castle.owner:
       if self.batch.castle.mana < self.batch.castle.max_mana:
         self.batch.castle.mana += 1
-
+    
   def resize(self):
     self.image.get_texture().width = SPRITE_WIDTH
     self.image.get_texture().height = SPRITE_HEIGHT

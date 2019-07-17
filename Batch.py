@@ -1,6 +1,6 @@
 import pyglet
 from pyglet.gl import *
-import Cards, Card, stats_display
+import Cards, Card, stats_display, pop_up
 from Castle import Castle
 import random
 
@@ -26,6 +26,7 @@ class CardBatch(pyglet.graphics.Batch):
     #Decides if game is online or offline
     self.online = True 
     self.round_counter = 1
+    self.pop_up = pop_up.Pop_Up()
 
   def init_cards(self):
     self.castle = Castle("Burg",width//2,135,batch=self,owner="yellow")
@@ -55,9 +56,14 @@ class CardBatch(pyglet.graphics.Batch):
       card.image.anchor_x = 135-card.image.anchor_x
       card.image.anchor_y = 135-card.image.anchor_y
       card.rotation = 180-card.rotation
+    for card in self.cards:  
       for special in card.specials:
         if card.y > 0 and card.y < 1080 and card.owner == self.castle.owner:
           special(card) 
+          if card.special_tag == 'unoccupied_field':
+            self.pop_up.mana_event(card.position)
+          if card.name == 'Bauernhof':
+            self.pop_up.mana_event(card.position,3)
     self.hide(self.select_frame)
     self.update_disp(self.castle)
 
@@ -87,9 +93,9 @@ class CardBatch(pyglet.graphics.Batch):
   def update_hand(self,target):
     row = []
     pos = target.position
-    for i in range(int(pos[0]/135),5,1):
+    for i in range(int((pos[0]-left_gap)/(135)),5,1):
       for card in self.cards:
-        if card.in_area((int(135*i),0)):
+        if card.in_area((int(135*i)+left_gap,0)):
           row.append(card)
           
     for card in row:
@@ -117,8 +123,8 @@ class CardBatch(pyglet.graphics.Batch):
     adjacent = []
     x,y = pos
     for card in self.cards:
-      if card.in_area((x+card.w,y),(x,y+card.h),
-                        (x-card.w,y),(x,y-card.h)):
+      if card.in_area((x+card.w+2,y),(x,y+card.h+2),
+                        (x-card.w+2,y),(x,y-card.h+2)):
         adjacent.append(card)
     return adjacent
 
@@ -127,7 +133,7 @@ class CardBatch(pyglet.graphics.Batch):
     x,y = pos
     for card in self.cards:
       if card.in_area((0,y),(135,y),
-                      (240,y),(360,y),(480,y)):
+                      (135*2,y),(135*3,y),(135*4,y)):
         row.append(card)
     return row
 
@@ -135,6 +141,7 @@ class CardBatch(pyglet.graphics.Batch):
     self.map_background.draw()
     super().draw()
     self.select_frame.draw()
+    self.pop_up.draw()
     self.disp.draw()
 
   def update(self,pos):

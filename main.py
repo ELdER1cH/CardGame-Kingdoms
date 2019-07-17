@@ -45,10 +45,8 @@ class Window(main_chat.Window):
 
     self.loading = True
     
-    pyglet.clock.schedule_once(self.init_batch, 0.1)
-    #self.batch = Batch.CardBatch()
-
-    pyglet.clock.schedule(self.update)
+    self.init_batch()
+    
 
 #------------------------------ Game Stuff --------------------------------------
 
@@ -56,6 +54,8 @@ class Window(main_chat.Window):
     self.batch = Batch.CardBatch()
     #time.sleep(2)
     self.loading = False
+    
+    
 
   def start_game(self,delay=0,my_move=True):
     self.hand = []
@@ -72,7 +72,7 @@ class Window(main_chat.Window):
       self.hand = self.current_screen.hand_selection.hand
       self.batch.castle.load_hand(self.batch.castle.y-135,hand=self.hand)
     if self.my_move:
-      self.pop_up.your_turn_pop_up(0.01,(self.width//2,self.height//2))
+      self.pop_up.your_turn_pop_up(0.01,(width//2,height//2))
     self.loading = False
     
   def replace(self,delay,target,cardname,activate):
@@ -88,6 +88,7 @@ class Window(main_chat.Window):
       self.g_print("You lost!")
   
   def update(self,dt):
+    self.batch.pop_up.update(dt)
     self.pop_up.update(dt) 
     self.current_screen.update(dt) 
 #------------------------------ System / Strukture -------------------------------------------------------- 
@@ -208,7 +209,8 @@ class Window(main_chat.Window):
                     else:
                       clicked_card.replace(clicked_card,clicked_card.owner,activate=True)
                       self.batch.update_hand(clicked_card)
-                      
+                      self.batch.pop_up.mana_event(target.position,3)
+
                     self.batch.hide(self.batch.select_frame)
                     #UPDATE STATS DISPLAY TO SHOW RIGHT MANA AMOUT
                     self.batch.update_disp(clicked_card)
@@ -311,7 +313,7 @@ class Window(main_chat.Window):
             if target != None:
                 if target.y == 0:     
                     self.batch.update_hand(target)
-                elif target.owner == self.batch.castle.owner and target.y > 135 and target.y < 700:
+                elif target.owner == self.batch.castle.owner and target.y > 135 and target.y < 135*7:
                         self.batch.hide(self.batch.select_frame)
                         self.batch.castle.mana += target.price-1
                         target.remove()
