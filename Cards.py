@@ -6,9 +6,9 @@ import random
 cards = {
             #name level,h,   Maxh,dmg,cost,crit,img,       specials,special_tag,place_special  
             'Schwertkaempfer': [1,500,500,300,7,0.01,'resc\jolas\Schwertkaempfer.png',[],'',[]],
-            'Turm': [1,5000,5000,0,13,0,'resc/tower.png',[],'immovable',[]],
+            'Turm': [1,5000,5000,0,13,0,'resc/jolas/turm.png',[],'immovable',[]],
             'Palatin': [1,2500,2500,200,13,0.02,'resc\jolas\Palatin.png',[],'',[]],
-            'Bauernhof': [1,1500,1500,0,17,0,'resc/farm.png',[Card.generate_mana,Card.generate_mana,Card.generate_mana],'immovable',[Card.farm_special]],
+            'Bauernhof': [1,1500,1500,0,17,0,'resc/jolas/bauernhof.png',[Card.generate_mana,Card.generate_mana,Card.generate_mana],'immovable',[Card.farm_special]],
             'Speerkaempfer': [1,400,400,350,4,0.05,'resc\jolas\Speerwerfer.png',[],'',[]],
             'Healer': [1,700,700,135,10,0,'resc\jolas\Healer.png',[Card.heal],'',[]],
             'Orc': [1,700,800,500,9,0.05,'resc/jolas/ork.png',[],'',[]],
@@ -18,13 +18,13 @@ cards = {
             'Bombe': [1,1,1,1000,3,0,'resc\jolas\Bombe.png',[],'wantstodie',[]],
             'Shield': [1,1000,1000,200,22,0,'resc\jolas\Schield.png',[],'',[Card.shield_booster_special]],
             'Rammbock': [1,1500,1000,400,6,0,'resc\jolas\Rammbock.png',[],'BW',[]],
-            'SplashMana': [1,0,0,0,0,0,'resc\splash_mana.png',[],'splash',[Card.splash_mana,Card.splash_mana,Card.splash_mana]],
+            'SplashMana': [1,0,0,0,0,0,'resc\jolas/splashmana.png',[],'splash',[Card.splash_mana,Card.splash_mana,Card.splash_mana]],
             'Dwarf': [1,1000,1000,400,9,0,'resc\jolas\Zwerg.png',[],'',[]],
-            'Burg': [1,5000,10000,400,0,0,'resc/Castle.png',[Card.castle_special,Card.draw_card_special],"immovable",[]],
+            'Burg': [1,5000,10000,400,0,0,'resc/jolas/burg.png',[Card.castle_special,Card.draw_card_special],"immovable",[]],
             'green': [1,1,1,0,0,0,'resc/green_frame.png',[Card.generate_mana],"unoccupied_field",[]],
             'yellow': [1,1,1,0,0,0,'resc/yellow_frame.png',[Card.generate_mana],"unoccupied_field",[]],
             'gray': [1,1,1,0,0,0,'resc/gray_frame.png',[],"unoccupied_field",[]],
-            'Wall': [1,15000,15000,400,0,0,'resc/wall.png',[Card.wall_special],"immovable",[]]
+            'Wall': [1,15000,15000,400,0,0,'resc/jolas/mauer.png',[Card.wall_special],"immovable",[]]
 }
 
 cards_describtion={
