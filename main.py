@@ -14,7 +14,7 @@ except ImportError as err:
 #79.231.167.136
 
 #python -m auto_py_to_exe
-IP = "192.168.2.153"
+IP = "127.0.0.1"
 PORT = 6789
 
 val = 1
@@ -125,7 +125,7 @@ class Window(main_chat.Window):
         if action != None:
           if action == "ONLINE":
             self.loading = True
-            pyglet.clock.schedule_once(self.start_client,0.01)
+            pyglet.clock.schedule_once(self.start_client,0.2)
           elif action == "OFFLINE":
             self.current_screen =  screens.OfflineScreen(1920,1080)
             self.online = False
