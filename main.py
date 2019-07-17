@@ -14,7 +14,7 @@ except ImportError as err:
 #79.231.167.136
 
 #python -m auto_py_to_exe
-IP = "127.0.0.1"
+IP = "192.168.2.153"
 PORT = 6789
 
 val = 1
