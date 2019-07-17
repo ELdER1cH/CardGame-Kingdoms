@@ -80,7 +80,7 @@ class Pop_Up:
                 if pops[1] <= 0 or pops[0].color[3] <= 0:
                     self.pop_ups.remove(pops) 
             else:
-                if pops[0] == self.explosion:
+                if type(pops[0]) == pyglet.sprite.Sprite:
                     pops[0].opacity -= 5
                 pops[1] += -dt
                 if pops[1] <= 0 or pops[0].opacity <= 0:
