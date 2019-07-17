@@ -312,7 +312,7 @@ class Window(main_chat.Window):
             if target != None:
                 if target.y == 0:     
                     self.batch.update_hand(target)
-                elif target.owner == self.batch.castle.owner and target.y > 135 and target.y < 700:
+                elif target.owner == self.batch.castle.owner and target.y > 135 and target.y < 135*7:
                         self.batch.hide(self.batch.select_frame)
                         self.batch.castle.mana += target.price-1
                         target.remove()

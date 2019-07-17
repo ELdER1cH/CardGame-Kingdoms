@@ -55,16 +55,16 @@ class Pop_Up:
 
     def update(self,dt):
         for pops in self.pop_ups:
+             
             if type(pops[0]) == pyglet.text.Label:
                 if pops[0].font_name == 'Times New Roman':  
                     pops[0].font_size += 1
                     pops[0].color= (pops[0].color[0],pops[0].color[1],pops[0].color[2],pops[0].color[3] -20)
                     pops[0].y += 2
-                    if pops[0].color[3] <= 0:
-                        self.pop_ups.remove(pops)
             pops[1] += -dt
-            if pops[1] <= 0:
-                self.pop_ups.remove(pops)  
+            if pops[1] <= 0 or pops[0].color[3] <= 0:
+                self.pop_ups.remove(pops) 
+            
 
     def draw(self):
         for pops in self.pop_ups:

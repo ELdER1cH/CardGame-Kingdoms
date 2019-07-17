@@ -44,7 +44,6 @@ class Card(pyglet.sprite.Sprite):
       self.image.anchor_y = 0
       self.rotation = 0
 
-  
   def fight(self,target,pop_up):
     won = False
     dmg = self.dmg
@@ -123,17 +122,17 @@ class Card(pyglet.sprite.Sprite):
       self.special_tag = ""
    
   def draw_card_special(self,on_off=False):
-      if self.owner == self.batch.castle.owner:
-          target = None
-          
-          for i in range(5):
-              card = self.batch.get_card((left_gap+SPRITE_WIDTH*(i),0))
-              if card.special_tag == "unoccupied_field":
-                  target = card
-                  break
-              
-          if target != None:
-              target.replace(target,random.choice(self.batch.castle.cards))
+      if self.batch.online == True:
+        if self.owner == self.batch.castle.owner:
+            target = None
+            for i in range(5):
+                card = self.batch.get_card((left_gap+SPRITE_WIDTH*(i),0))
+                if card.special_tag == "unoccupied_field":
+                    target = card
+                    break
+                
+            if target != None:
+                target.replace(target,random.choice(self.batch.castle.cards))
               
   def generate_mana(self):
     if self.owner == self.batch.castle.owner:
@@ -193,8 +192,6 @@ class Card(pyglet.sprite.Sprite):
       if self.batch.castle.mana < self.batch.castle.max_mana:
         self.batch.castle.mana += 1
     
-
-
   def resize(self):
     self.image.get_texture().width = SPRITE_WIDTH
     self.image.get_texture().height = SPRITE_HEIGHT

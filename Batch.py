@@ -92,9 +92,9 @@ class CardBatch(pyglet.graphics.Batch):
   def update_hand(self,target):
     row = []
     pos = target.position
-    for i in range(int(pos[0]/135),5,1):
+    for i in range(int((pos[0]-left_gap)/(135)),5,1):
       for card in self.cards:
-        if card.in_area((int(135*i),0)):
+        if card.in_area((int(135*i)+left_gap,0)):
           row.append(card)
           
     for card in row:
@@ -139,7 +139,7 @@ class CardBatch(pyglet.graphics.Batch):
     x,y = pos
     for card in self.cards:
       if card.in_area((0,y),(135,y),
-                      (240,y),(360,y),(480,y)):
+                      (135*2,y),(135*3,y),(135*4,y)):
         row.append(card)
     return row
 
