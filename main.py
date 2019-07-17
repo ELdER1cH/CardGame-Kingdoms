@@ -46,8 +46,6 @@ class Window(main_chat.Window):
     self.loading = True
     
     self.init_batch()
-    
-
 #------------------------------ Game Stuff --------------------------------------
 
   def init_batch(self,delay=None):
@@ -89,6 +87,50 @@ class Window(main_chat.Window):
     self.batch.pop_up.update(dt)
     self.pop_up.update(dt) 
     self.current_screen.update(dt) 
+
+  def button_actions(self,x,y,button,MOD,antir):
+    cs = self.current_screen
+    for b in cs.buttons:
+      action = b.press((x / self.scale_x), (y / self.scale_y),button)
+      if action != None:
+        if action == "ONLINE":
+          self.loading = True
+          pyglet.clock.schedule_once(self.start_client,0.2)
+        elif action == "OFFLINE":
+          self.current_screen =  screens.OfflineScreen(1920,1080)
+          self.online = False
+        elif action == "SETTINGS":
+          #settings - later: to change server addr. (and maybe sound or sth.)
+          self.current_screen = screens.SettingsScreen(1920,1080,self.IP)
+        elif action == "QUIT":
+          #button of startscreen
+          self.close()
+        elif action == "CARDS":
+              self.current_screen = screens.CardScreen(1920,1080)
+        elif action == "READY":
+          if self.client.lobbysize == 2 and len(self.current_screen.hand_selection.hand) >= 5:
+            cs.ready = not cs.ready
+            print(f"ready: {cs.ready}")
+            self.client.send_ready(self.current_screen.opponent_ready)
+            self.current_screen.update_ready_button()
+            if self.current_screen.ready and self.current_screen.opponent_ready:
+              self.start_game(my_move=False)
+              self.batch.castle.mana = 0
+              self.batch.round_counter = 0
+        elif action == "StartGameOffline":
+          self.start_game()
+          self.batch.castle.mana = 10
+          self.batch.round_counter = 1
+        elif action == "BACK":
+          self.ingame = False
+          self.back()
+          try:
+            self.client.s.close()
+          except:
+            pass
+        elif "NEWIP" in action:
+            self.IP = action[5:]
+            self.g_print(self.IP)
 
   def splash_event(self,clicked_card,target):
     if self.batch.castle.mana >= clicked_card.price:
@@ -143,51 +185,7 @@ class Window(main_chat.Window):
   
   def on_mouse_press(self,x,y,button,MOD,antir=True):
     if not self.ingame:
-      cs = self.current_screen
-      for b in cs.buttons:
-        action = b.press((x / self.scale_x), (y / self.scale_y),button)
-        if action != None:
-          if action == "ONLINE":
-            self.loading = True
-            pyglet.clock.schedule_once(self.start_client,0.2)
-          elif action == "OFFLINE":
-            self.current_screen =  screens.OfflineScreen(1920,1080)
-            self.online = False
-          elif action == "SETTINGS":
-            #settings - later: to change server addr. (and maybe sound or sth.)
-            self.current_screen = screens.SettingsScreen(1920,1080,self.IP)
-          elif action == "QUIT":
-            #button of startscreen
-            self.close()
-          elif action == "CARDS":
-                self.current_screen = screens.CardScreen(1920,1080)
-          elif action == "READY":
-            if self.client.lobbysize == 2 and len(self.current_screen.hand_selection.hand) >= 5:
-              cs.ready = not cs.ready
-              print(f"ready: {cs.ready}")
-              self.client.send_ready(self.current_screen.opponent_ready)
-              self.current_screen.update_ready_button()
-              if self.current_screen.ready and self.current_screen.opponent_ready:
-                self.start_game(my_move=False)
-                self.batch.castle.mana = 0
-                self.batch.round_counter = 0
-          elif action == "StartGameOffline":
-            self.start_game()
-            self.batch.castle.mana = 10
-            self.batch.round_counter = 1
-          elif action == "BACK":
-            self.ingame = False
-            self.back()
-            try:
-              self.client.s.close()
-            except:
-              pass
-          elif "NEWIP" in action:
-              self.IP = action[5:]
-              self.g_print(self.IP)
-          
-            
-          
+      self.button_actions(x,y,button,MOD,antir)
       return
     if not self.my_move:
       return
