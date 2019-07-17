@@ -211,7 +211,8 @@ class Window(main_chat.Window):
                     else:
                       clicked_card.replace(clicked_card,clicked_card.owner,activate=True)
                       self.batch.update_hand(clicked_card)
-                      
+                      self.batch.pop_up.emptyfield_special(target.position,3)
+
                     self.batch.hide(self.batch.select_frame)
                     #UPDATE STATS DISPLAY TO SHOW RIGHT MANA AMOUT
                     self.batch.update_disp(clicked_card)

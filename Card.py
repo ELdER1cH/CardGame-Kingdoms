@@ -32,6 +32,9 @@ class Card(pyglet.sprite.Sprite):
   def replace(self,target,arg,owner=True,activate=False,rotate=False):
     #anc_x,anc_y,rot = self.get_anchor()
     if owner != True: self.owner = owner
+    if activate:
+      for special in self.place_special:
+        special(self,1)
     self.image = Cards.init(target,arg)
     self.init()
     if rotate:
@@ -40,9 +43,7 @@ class Card(pyglet.sprite.Sprite):
       self.image.anchor_x = 0
       self.image.anchor_y = 0
       self.rotation = 0
-    if activate:
-      for special in self.place_special:
-        special(self,1)
+
   
   def fight(self,target,pop_up):
     won = False
@@ -187,9 +188,12 @@ class Card(pyglet.sprite.Sprite):
           card.health = card.health/(1+multiplier)
 
   def splash_mana(self, on_off):
+    print('f')
     if self.owner == self.batch.castle.owner:
       if self.batch.castle.mana < self.batch.castle.max_mana:
         self.batch.castle.mana += 1
+    
+
 
   def resize(self):
     self.image.get_texture().width = SPRITE_WIDTH

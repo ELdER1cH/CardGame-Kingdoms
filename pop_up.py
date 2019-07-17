@@ -60,6 +60,8 @@ class Pop_Up:
                     pops[0].font_size += 1
                     pops[0].color= (pops[0].color[0],pops[0].color[1],pops[0].color[2],pops[0].color[3] -20)
                     pops[0].y += 2
+                    if pops[0].color[3] <= 0:
+                        self.pop_ups.remove(pops)
             pops[1] += -dt
             if pops[1] <= 0:
                 self.pop_ups.remove(pops)  
