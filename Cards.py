@@ -30,9 +30,9 @@ cards = {
 
 cards_describtion={
     'Schwertkaempfer':["""Ein einsamer Schwertkaempfer"""],
-    'Turm': ["""Ein Gebäude mit viel Leben. !Aber Achtung ! Er kann nicht verschoben werden."""],
+    'Turm': ["""Ein Gebäude mit viel Leben. ! Aber Achtung ! Er kann nicht verschoben werden."""],
     'Palatin': ["""Er ist mächtig und kann viel aushalten, macht aber wenig Schaden!"""],
-    'Bauernhof': ["""Nütze Felder und Kornspeicher, dadürch erhöht sich dein maximales Mana um 5 und deine Manaregeneration um 2."""],
+    'Bauernhof': ["""Nütze Felder und Kornspeicher, dadurch erhöht sich dein maximales Mana um 5 und deine Manaregeneration um 2."""],
     'Speerkaempfer': ["""Vorsicht vor den Speeren, die sind spitz!"""],
     'Healer': ["""Sie heilt 1200 Leben und verteilt sie gerecht unter nahen Landsleuten."""],
     'Orc': ["""Stark und hässlich"""],
