@@ -560,7 +560,7 @@ class Window(main_chat.Window):
         
 if __name__ == "__main__":
   width = 1920;height = 1080
-  window = Window(width,height,"Cardgame - Online Version (developer build)",resizable=True,vsync=False)
+  window = Window(width,height,"Cardgame - Online Version (developer build)",resizable=True,vsync=True)
   window.maximize()
   glClearColor(135,206,250,255)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
