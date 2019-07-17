@@ -36,6 +36,8 @@ class Window(main_chat.Window):
     self.loading_text = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/loading.png"),700,400)
     self.wappen = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/wappen_small.png"),20,800)
 
+    self.weiter_button = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/weitergeben_button.png"),left_gap+135*6,10)
+
     #self.map = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/map2.png"),left_gap-135,135)
 
     self.current_screen = screens.StartScreen(1920,1080)
@@ -194,8 +196,11 @@ class Window(main_chat.Window):
     y /= self.scale_y
     ###LEFT
     if button == mouse.LEFT:
-      #bin ich online?
-
+        if x >= self.weiter_button.position[0]:
+          if x >= self.weiter_button.position[0] and x < self.weiter_button.position[0]+self.weiter_button.width and y >= self.weiter_button.position[1] and y < self.weiter_button.position[1]+self.weiter_button.height:
+                self.weitergeben()
+                return
+        
         ###NEW CLICK/ TARGET
         target = self.batch.get_card((x,y))
         if target == None: return
@@ -302,6 +307,26 @@ class Window(main_chat.Window):
           #IF TARGET IS EMPTY FIELD SHOW RED FRAME
           self.pop_up.new_red_frame(target.position)    
 
+
+  def weitergeben(self):
+    if self.online == True:
+          #self.batch.swap()
+      if self.my_move:
+        self.client.send_move_done()
+        self.my_move = False
+        self.batch.hide(self.batch.select_frame)
+        self.batch.disp.clear()
+        self.batch.grouped_card_specials(group=False)
+        #s:2x r: 2x                
+    else:
+      
+      if self.batch.castle.owner == 'yellow':
+            self.batch.grouped_card_specials(gray=True) 
+            self.batch.round_counter += 1
+      
+      self.batch.swap()
+    self.batch.disp.burg_label.text = str(int(self.batch.castle.health))
+            
   def on_key_press(self,KEY,MOD):
     #key.ENTER & key.ESCAPE in while command_input_state; T = open chat
     super().on_key_press(KEY,MOD)
@@ -310,23 +335,7 @@ class Window(main_chat.Window):
     if not self.chat_model.command_input_widget_state:
       if self.ingame:
           if KEY == key.S:
-            if self.online == True:
-              #self.batch.swap()
-              if self.my_move:
-                self.client.send_move_done()
-                self.my_move = False
-                self.batch.hide(self.batch.select_frame)
-                self.batch.disp.clear()
-                self.batch.grouped_card_specials(group=False)
-                #s:2x r: 2x                
-            else:
-              
-              if self.batch.castle.owner == 'yellow':
-                    self.batch.grouped_card_specials(gray=True) 
-                    self.batch.round_counter += 1
-              
-              self.batch.swap()
-            self.batch.disp.burg_label.text = str(int(self.batch.castle.health))
+            self.weitergeben()
               
           elif KEY == key.D:
             target = self.batch.get_card(self.batch.select_frame.position)
@@ -373,6 +382,7 @@ class Window(main_chat.Window):
         #self.map.draw()
         self.batch.draw()
         self.pop_up.draw()
+        self.weiter_button.draw()
       else:
         self.current_screen.draw()
       fps_display.draw() 
