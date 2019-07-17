@@ -65,7 +65,8 @@ class Card(pyglet.sprite.Sprite):
     self.health -= defend
     pop_up.new_pop_up(target.position,text='%s DMG - %s left'
                       % (self.dmg,target.health),life_span=0.7)
-    
+    if target.name == "Burg":
+      self.batch.disp.burg_label.text = str(target.health)
     if target.special_tag != "unoccupied_field":
       self.batch.update_disp(target)
                                          

@@ -22,9 +22,9 @@ class CardBatch(pyglet.graphics.Batch):
     self.select_frame = pyglet.sprite.Sprite(pyglet.image.load("resc/frame.png"),
                                              -SPRITE_WIDTH,
                                              -SPRITE_HEIGHT)
+    self.map_background = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/map_background.png"),0,0)
     #Decides if game is online or offline
-    self.online = True
-    self.mana_reg = 0    
+    self.online = True 
     self.round_counter = 1
 
   def init_cards(self):
@@ -46,6 +46,7 @@ class CardBatch(pyglet.graphics.Batch):
           c = Card.Card("green",i2*135+left_gap,i*135,batch=self,owner="green")
           c.image.anchor_x = 135; c.image.anchor_y = 135; c.rotation = 180
     self.update_disp(self.castle)
+    self.disp.burg_label.text = str(int(self.castle.health))
 
   def swap(self):
     self.castle = self.get_card((width//2,945))
@@ -98,14 +99,7 @@ class CardBatch(pyglet.graphics.Batch):
       target.replace(target,random.choice(self.castle.cards))
 
   def update_disp(self,target):
-    self.mana_reg = 0
-    for card in self.cards:
-      for special in card.specials:
-        if card.y > 0 and card.y < 1080 and card.owner == self.castle.owner:
-          if special == Card.Card.generate_mana:  
-            self.mana_reg += 1
-    self.disp.update(self.castle.mana,self.castle.max_mana,
-                     self.mana_reg,target,self.round_counter)
+    self.disp.update(self.castle.mana,self.castle.max_mana,target,self.round_counter)
 
   def select_card(self,target):
     self.select_frame.position = target.position
@@ -138,13 +132,11 @@ class CardBatch(pyglet.graphics.Batch):
     return row
 
   def draw(self):
+    self.map_background.draw()
     super().draw()
     self.select_frame.draw()
     self.disp.draw()
 
   def update(self,pos):
-    self.disp.mana_label.text = """
-        Mana: %s
-        Max Mana: %s
-        Mana Reg: %s""" % (self.castle.mana,self.max_mana,self.mana_reg)
+    self.disp.mana_label.text = "%s/%s" % (self.castle.mana,self.max_mana)
 

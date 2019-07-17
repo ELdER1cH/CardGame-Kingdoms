@@ -35,12 +35,10 @@ class Window(main_chat.Window):
 
     self.loading_text = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/loading.png"),700,400)
     self.wappen = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/wappen_small.png"),20,800)
-    self.map_border = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/Rahmen_map.png"), width //2, height//22)
 
-    self.map = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/map2.png"),left_gap-135,135)
+    #self.map = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/map2.png"),left_gap-135,135)
 
     self.current_screen = screens.StartScreen(1920,1080)
-    
     self.ingame = False
     self.my_move = False
     self.online = True
@@ -285,6 +283,8 @@ class Window(main_chat.Window):
   def on_key_press(self,KEY,MOD):
     #key.ENTER & key.ESCAPE in while command_input_state; T = open chat
     super().on_key_press(KEY,MOD)
+    if KEY == key.F11:
+          self.set_fullscreen(not self.fullscreen)
     if not self.chat_model.command_input_widget_state:
       if self.ingame:
           if KEY == key.S:
@@ -304,6 +304,7 @@ class Window(main_chat.Window):
                     self.batch.round_counter += 1
               
               self.batch.swap()
+            self.batch.disp.burg_label.text = str(int(self.batch.castle.health))
               
           elif KEY == key.D:
             target = self.batch.get_card(self.batch.select_frame.position)
@@ -347,10 +348,9 @@ class Window(main_chat.Window):
     self.clear()
     if not self.loading:
       if self.ingame:
-        self.map.draw()
+        #self.map.draw()
         self.batch.draw()
         self.pop_up.draw()
-        self.map_border.draw()
       else:
         self.current_screen.draw()
       fps_display.draw() 

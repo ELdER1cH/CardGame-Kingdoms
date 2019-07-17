@@ -11,7 +11,7 @@ cards = {
             'Bauernhof': [1,1500,1500,0,17,0,'resc/farm.png',[Card.generate_mana,Card.generate_mana,Card.generate_mana],'immovable',[Card.farm_special]],
             'Speerkaempfer': [1,400,400,350,4,0.05,'resc\jolas\Speerwerfer.png',[],'',[]],
             'Healer': [1,700,700,135,10,0,'resc\jolas\Healer.png',[Card.heal],'',[]],
-            'Orc': [1,700,800,500,9,0.05,'resc/Orc.png',[],'',[]],
+            'Orc': [1,700,800,500,9,0.05,'resc/jolas/ork.png',[],'',[]],
             'Goblin': [1,200,200,350,3,0,'resc\jolas\Goblin.png',[],'',[Card.draw_card_special]],
             'Fahnentraeger': [1,750,750,100,22,0,'resc\jolas\Fahnentraeger.png',[],'',[Card.attack_booster_special]],
             'BigBoss': [1,500,10000,700,16,0,'resc\jolas\Bigboss.png',[Card.wake_up],'immovable',[]],

@@ -12,18 +12,24 @@ class Stats_Display():
     
 # --- Left Side -------------------------------------------------------------------
     # --- Rounds Counter ----------------------------------------------------------
-        self.rounds_counter_background = pyglet.sprite.Sprite(pyglet.image.load("resc\jolas\Rounds_Counter.png"),0, height //2)
         self.rounds_counter_number = pyglet.text.Label("",
-                                font_name='Bahnschrift Light', font_size=48,
-                                bold = True,color=(255, 255,255,255),
-                                x=73, y=height//2+50,
+                                font_name='Bahnschrift Light', font_size=40,
+                                bold = True,color=(0, 0,0,255),
+                                x=113, y=70,
                                 anchor_x='center', anchor_y='center')
         self.mana_label = pyglet.text.Label("",
-                        font_name='Times New Roman',
-                        font_size=20,
+                        font_name='Bahnschrift Light',
+                        font_size=35,
                         bold=True,color=(0, 0, 0,255),
-                        x=0, y=1080,
-                        anchor_x='left', anchor_y='top',multiline=True,width=400)
+                        x=430, y=90,
+                        anchor_x='center', anchor_y='center')#,multiline=True,width=400
+
+        self.burg_label = pyglet.text.Label("?",
+                        font_name='Bahnschrift Light',
+                        font_size=28,
+                        bold=True,color=(255, 255, 255,255),
+                        x=290, y=860,
+                        anchor_x='center', anchor_y='center')
 
 # ---Right Side -------------------------------------------------------------------
     # --- Side Card ---------------------------------------------------------------
@@ -61,11 +67,8 @@ class Stats_Display():
     
         
 #
-    def update(self,mana,max_mana,mana_reg,target,round_counter=None):
-        self.mana_label.text = """
-        Mana: %s
-        Max Mana: %s
-        Mana Reg: %s""" % (mana,max_mana,mana_reg)
+    def update(self,mana,max_mana,target,round_counter=None):
+        self.mana_label.text = "%s/%s" % (mana,max_mana)
         try:
             self.select_sprite.image = pyglet.image.load(target.img[:-4]+"_large.png")
         except:
@@ -77,9 +80,9 @@ class Stats_Display():
         # Side Card    
         self.card_describtion_card.text = target.description
         self.card_name.text = target.name
-        self.card_damage.text = str(target.dmg)
-        self.card_health.text = str(target.health)
-        self.card_cost.text = str(target.price)
+        self.card_damage.text = str(int(target.dmg))
+        self.card_health.text = str(int(target.health))
+        self.card_cost.text = str(int(target.price))
         
         
         
@@ -96,18 +99,18 @@ class Stats_Display():
         # Side Card    
         self.card_describtion_card.text = target.description
         self.card_name.text = target.name
-        self.card_damage.text = str(target.dmg)
-        self.card_health.text = str(target.health)
-        self.card_cost.text = str(target.price)
-        
+        self.card_damage.text = str(int(target.dmg))
+        self.card_health.text = str(int(target.health))
+        self.card_cost.text = str(int(target.price))
 
     def draw(self):
         self.mana_label.draw()
         self.blank.draw()
         self.select_sprite.draw()
+
+        self.burg_label.draw()
         
         #Rounds Counter
-        self.rounds_counter_background.draw()
         self.rounds_counter_number.draw()
 
 
