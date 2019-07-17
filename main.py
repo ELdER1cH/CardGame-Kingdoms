@@ -191,6 +191,27 @@ class Window(main_chat.Window):
           elif clicked_card.y == 0:
             ###IF TARGET NOT IN HAND
             if target.y > 0:
+              if clicked_card.special_tag == "splash":
+                if clicked_card.name == 'SplashMana':
+                      self.batch.pop_up.mana_event(target.position,3)
+                elif clicked_card.name == 'FireBall':
+                      self.batch.pop_up.damage_event(target.position,clicked_card.dmg)
+
+                clicked_card.replace(clicked_card,clicked_card.owner)
+                won = None
+                for special in self.place_special:
+                  won = special(self,target)
+                self.batch.update_hand(clicked_card)
+                if self.online == True:
+                      self.client.send_attack_event(clicked_card.position,target.position)
+                if won:
+                    if self.online:
+                        self.back_l()
+                    else:
+                      self.ingame = False
+                      self.back()
+                    self.g_print("You won!")
+                return
               ###IF TARGET IS MINE
               if target.owner == clicked_card.owner:
                 ###IF TARGET IS EMPTY FIELD
@@ -201,16 +222,10 @@ class Window(main_chat.Window):
                     #EMPTY FIELD AND CARD IN HAND SWAP POSITIONS
                     #HAND BEFORE: - if first card were to be placed
                     #C C C C C -> after: E C C C C
-                    if clicked_card.special_tag != "splash":
-                      clicked_card.swap(target,target.position,activate=True)
-                      if self.online:
-                          self.client.send_replace_event(clicked_card.position,clicked_card.name)
-                      self.batch.update_hand(target)
-                    else:
-                      clicked_card.replace(clicked_card,clicked_card.owner,activate=True)
-                      self.batch.update_hand(clicked_card)
-                      self.batch.pop_up.mana_event(target.position,3)
-
+                    clicked_card.swap(target,target.position,activate=True)
+                    if self.online:
+                        self.client.send_replace_event(clicked_card.position,clicked_card.name)
+                    self.batch.update_hand(target)
                     self.batch.hide(self.batch.select_frame)
                     #UPDATE STATS DISPLAY TO SHOW RIGHT MANA AMOUT
                     self.batch.update_disp(clicked_card)

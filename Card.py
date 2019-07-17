@@ -191,11 +191,41 @@ class Card(pyglet.sprite.Sprite):
           card.health = card.health/(1+multiplier)
 
   def splash_mana(self, on_off):
-    print('f')
     if self.owner == self.batch.castle.owner:
       if self.batch.castle.mana < self.batch.castle.max_mana:
         self.batch.castle.mana += 1
+    return False
     
+  def splash_damage(self,target):
+    won = False
+    dmg = self.dmg
+    defend = target.defend
+ 
+
+    if target.special_tag == "unoccupied_field":
+      #so there is no high -dmg in pop_up xD
+      target.health = dmg      
+    target.health -= dmg
+
+    if target.name == "Burg":
+      self.batch.disp.burg_label.text = str(target.health)
+
+    if target.special_tag != "unoccupied_field":
+      self.batch.update_disp(target)
+                                         
+    if target.health <= 0:
+      if target.special_tag != "unoccupied_field":
+        self.batch.update_disp(self)
+      if target.name == "Burg":
+        #pop_up.new_pop_up((target.position[0]+30,target.position[1]+30),text='Congrats! You won!!',life_span=5)
+        won = True
+        self.batch.cards = []
+      target.remove()
+
+      target.replace(target,target.owner,owner=target.owner)
+
+    return won
+  
   def resize(self):
     self.image.get_texture().width = SPRITE_WIDTH
     self.image.get_texture().height = SPRITE_HEIGHT
