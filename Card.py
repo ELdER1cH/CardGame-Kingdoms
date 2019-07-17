@@ -99,6 +99,9 @@ class Card(pyglet.sprite.Sprite):
   def swap(self,card,pos,activate=False):
     card.position = self.position
     self.position = pos
+
+    self.batch.update_hand(card)
+
     if activate:
       for special in self.place_special:
         special(self,1)
