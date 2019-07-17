@@ -138,8 +138,8 @@ class CardBatch(pyglet.graphics.Batch):
     row = []
     x,y = pos
     for card in self.cards:
-      if card.in_area((0,y),(135,y),
-                      (135*2,y),(135*3,y),(135*4,y)):
+      if card.in_area((left_gap,y),(left_gap+135,y),
+                      (left_gap+135*2,y),(left_gap+135*3,y),(left_gap+135*4,y)):
         row.append(card)
     return row
 

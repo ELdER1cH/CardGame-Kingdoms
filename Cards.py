@@ -21,7 +21,7 @@ cards = {
             'SplashMana': [1,0,0,0,0,0,'resc\jolas/splashmana.png',[],'splash',[Card.splash_mana,Card.splash_mana,Card.splash_mana]],
             'Dwarf': [1,1000,1000,400,9,0,'resc\jolas\Zwerg.png',[],'',[]],
             'FireBall': [1,0,0,700,4,0,'resc\jolas/feuerball.png',[],'splash',[Card.splash_damage]],
-            'Burg': [1,5000,10000,400,0,0,'resc/Castle.png',[Card.castle_special,Card.draw_card_special],"immovable",[]],
+            'Burg': [1,5000,10000,400,0,0,'resc\jolas/burg.png',[Card.castle_special,Card.draw_card_special],"immovable",[]],
             'green': [1,1,1,0,0,0,'resc/green_frame.png',[Card.generate_mana],"unoccupied_field",[]],
             'yellow': [1,1,1,0,0,0,'resc/yellow_frame.png',[Card.generate_mana],"unoccupied_field",[]],
             'gray': [1,1,1,0,0,0,'resc/gray_frame.png',[],"unoccupied_field",[]],

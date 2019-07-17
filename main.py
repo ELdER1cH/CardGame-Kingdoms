@@ -198,11 +198,12 @@ class Window(main_chat.Window):
                       self.batch.pop_up.damage_event(target.position,clicked_card.dmg)
                 won = None
                 for special in clicked_card.place_special:
-                  won = special(clicked_card,target)
+                  won = special(clicked_card,target=target,dmg=clicked_card.dmg)
                 self.batch.update_hand(clicked_card)
-                clicked_card.replace(clicked_card,clicked_card.owner)
                 if self.online == True:
-                      self.client.send_attack_event(clicked_card.position,target.position)
+                      self.client.send_splash_attack_eventk_event(target.position,clicked_card.dmg)
+                clicked_card.replace(clicked_card,clicked_card.owner)
+                
                 if won:
                     if self.online:
                         self.back_l()
@@ -416,7 +417,7 @@ class Window(main_chat.Window):
         elif cmd[0] == "/replace":
           if len(cmd) >= 2 and cmd[1] == "-hand":
             if cmd[2] in list(Cards.cards.keys()):
-              row = self.batch.get_row((0,0))
+              row = self.batch.get_row((left_gap,0))
               for card in row:
                 card.replace(card,cmd[2],owner=card.owner)
             else:
@@ -491,6 +492,14 @@ class Window(main_chat.Window):
                   target = self.batch.get_card(pos2)
                   
                   pyglet.clock.schedule_once(self.attack,0.01,clicked_card,target)
+
+                elif r['type'] == 'splash_attack':
+                  pos1,dmg = r['attack']
+                  pos1 = ((540+left_gap)-int(pos1[0])+left_gap,1080-int(pos1[1]))
+                  
+                  target = self.batch.get_card(pos1)
+                  
+                  pyglet.clock.schedule_once(target.splash_damage,0.01,target,dmg)
     
   def receive_messages(self):
       while True:

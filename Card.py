@@ -196,9 +196,8 @@ class Card(pyglet.sprite.Sprite):
         self.batch.castle.mana += 1
     return False
     
-  def splash_damage(self,target):
+  def splash_damage(self,delay=None,target=None,dmg=None):
     won = False
-    dmg = self.dmg
     defend = target.defend
  
 
