@@ -126,6 +126,7 @@ class Card(pyglet.sprite.Sprite):
       self.special_tag = ""
    
   def draw_card_special(self,on_off=False):
+      print("draw card special")
       if self.batch.online == True:
         if self.owner == self.batch.castle.owner:
             target = None
