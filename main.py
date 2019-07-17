@@ -54,8 +54,6 @@ class Window(main_chat.Window):
     self.batch = Batch.CardBatch()
     #time.sleep(2)
     self.loading = False
-    
-    
 
   def start_game(self,delay=0,my_move=True):
     self.hand = []
@@ -91,6 +89,30 @@ class Window(main_chat.Window):
     self.batch.pop_up.update(dt)
     self.pop_up.update(dt) 
     self.current_screen.update(dt) 
+
+  def splash_event(self,clicked_card,target):
+    if self.batch.castle.mana >= clicked_card.price:
+      self.batch.castle.mana -= clicked_card.price
+      if clicked_card.name == 'SplashMana':
+            self.batch.pop_up.mana_event(target.position,3)
+      elif clicked_card.name == 'FireBall':
+            self.batch.pop_up.damage_event(target.position,clicked_card.dmg)
+            if self.online == True:
+                self.client.send_splash_attack_event(target.position,clicked_card.dmg)
+      won = None
+      for special in clicked_card.place_special:
+        won = special(clicked_card,target=target,dmg=clicked_card.dmg)
+      self.batch.update_hand(clicked_card)
+      clicked_card.replace(clicked_card,clicked_card.owner)
+      
+      if won:
+          if self.online:
+              self.back_l()
+          else:
+            self.ingame = False
+            self.back()
+          self.g_print("You won!")
+      self.batch.hide(self.batch.select_frame)
 #------------------------------ System / Strukture -------------------------------------------------------- 
   def select(self,target,clicked_card):
     if target.special_tag != "immovable" or target.y == 0:
@@ -191,30 +213,8 @@ class Window(main_chat.Window):
           elif clicked_card.y == 0:
             ###IF TARGET NOT IN HAND
             if target.y > 0:
-              if clicked_card.special_tag == "splash":
-                if self.batch.castle.mana >= clicked_card.price:
-                    self.batch.castle.mana -= clicked_card.price
-                    if clicked_card.name == 'SplashMana':
-                          self.batch.pop_up.mana_event(target.position,3)
-                    elif clicked_card.name == 'FireBall':
-                          self.batch.pop_up.damage_event(target.position,clicked_card.dmg)
-                          if self.online == True:
-                              self.client.send_splash_attack_event(target.position,clicked_card.dmg)
-                    won = None
-                    for special in clicked_card.place_special:
-                      won = special(clicked_card,target=target,dmg=clicked_card.dmg)
-                    self.batch.update_hand(clicked_card)
-                    clicked_card.replace(clicked_card,clicked_card.owner)
-                    
-                    if won:
-                        if self.online:
-                            self.back_l()
-                        else:
-                          self.ingame = False
-                          self.back()
-                        self.g_print("You won!")
-                    self.batch.hide(self.batch.select_frame)
-                    return
+              # What happens wenn it's a Splash card
+              if clicked_card.special_tag == "splash": self.splash_event(clicked_card,target); return     
               ###IF TARGET IS MINE
               if target.owner == clicked_card.owner:
                 ###IF TARGET IS EMPTY FIELD

@@ -191,10 +191,11 @@ class Card(pyglet.sprite.Sprite):
         else:
           card.health = card.health/(1+multiplier)
 
-  def splash_mana(self, on_off):
+  def splash_mana(self,delay=None,target=None,dmg=None):
     if self.owner == self.batch.castle.owner:
       if self.batch.castle.mana < self.batch.castle.max_mana:
         self.batch.castle.mana += 1
+        self.batch.update_disp(self)
     return False
     
   def splash_damage(self,delay=None,target=None,dmg=None):
