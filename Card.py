@@ -54,7 +54,7 @@ class Card(pyglet.sprite.Sprite):
     if self.special_tag == "BW":
       dmg *=0.5
       defend *= 2
-      if target.name == "Burg":
+      if target.special_tag == "immovable":
         dmg *= 4
         defend *=.5
 
