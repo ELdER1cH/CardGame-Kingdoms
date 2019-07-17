@@ -19,7 +19,7 @@ cards = {
             'Shield': [1,1000,1000,200,22,0,'resc\jolas\Schield.png',[],'',[Card.shield_booster_special]],
             'Rammbock': [1,1500,1000,400,6,0,'resc\jolas\Rammbock.png',[],'BW',[]],
             'SplashMana': [1,0,0,0,0,0,'resc\jolas/splashmana.png',[],'splash',[Card.splash_mana,Card.splash_mana,Card.splash_mana]],
-            'Dwarf': [1,1000,1000,400,9,0,'resc\jolas\Zwerg.png',[],'',[]],
+            'Dwarf': [1,1000,1000,400,9,0,'resc\jolas\Zwerg.png',[Card.draw_card_special],'',[]],
             'FireBall': [1,0,0,200,4,0,'resc\jolas/feuerball.png',[],'splash',[Card.splash_damage]],
             'Burg': [1,5000,10000,400,0,0,'resc\jolas/burg.png',[Card.castle_special,Card.draw_card_special],"immovable",[]],
             'green': [1,1,1,0,0,0,'resc/green_frame.png',[Card.generate_mana],"unoccupied_field",[]],
@@ -30,26 +30,26 @@ cards = {
 
 cards_describtion={
     'Schwertkaempfer':["""Ein einsamer Schwertkaempfer"""],
-    'Turm': ["""Ein Gebäude mit viel Hp. Aber Achtung ! Er kann nicht verschoben werden"""],
+    'Turm': ["""Ein Gebäude mit viel Leben. !Aber Achtung ! Er kann nicht verschoben werden."""],
     'Palatin': ["""Er ist mächtig und kann viel aushalten, macht aber wenig Schaden!"""],
-    'Bauernhof': ["""Erhöht dein maximales Mana um 5 und deine Manaregeneration um 2"""],
-    'Speerkaempfer': ["""Vorsicht vor den Speeren, die sind spitz"""],
-    'Healer': ["""Sie heilt 1200 Leben und verteilt sie gerecht unter nahen Landsleuten"""],
-    'Orc': ["""Stark und hässlich  """],
-    'Goblin': ["""Dieser kleine Dieb hat eine Karten in seinem Beutel"""],
+    'Bauernhof': ["""Nütze Felder und Kornspeicher, dadürch erhöht sich dein maximales Mana um 5 und deine Manaregeneration um 2."""],
+    'Speerkaempfer': ["""Vorsicht vor den Speeren, die sind spitz!"""],
+    'Healer': ["""Sie heilt 1200 Leben und verteilt sie gerecht unter nahen Landsleuten."""],
+    'Orc': ["""Stark und hässlich"""],
+    'Goblin': ["""Dieser kleine Dieb hat eine Karten in seinem Beutel. Nütze sie!"""],
     'Fahnentraeger': ["""Die Moral ist gestärkt und alle Truppen dieser Reihe machen 1,5x Schaden"""],
     'Shield': ["""Durch diesen Panzertrupp werden die Leben aller Einheiten dieser Reihe um 1,5x verstärkt"""],
-    'BigBoss': ["""Er muss bis 5000 Leben geheilt werden, damit er aufwacht, aber dann ist er nicht mehr aufzuhalten """],
-    'Bombe': ["""Starker aber einmaliger Schaden"""],
-    'Rammbock': ["""Diese Einheit machen gegen Gebäude 1,5x Schaden, bekommt aber von normalen Einheiten 1,5x Schaden, hat keinen Verteidigungsschaden und macht an normalen Einheiten 0,5x Schaden"""],
+    'BigBoss': ["""Er muss bis auf 5000 Leben geheilt werden, damit er aufwacht, aber dann ist er nicht mehr aufzuhalten."""],
+    'Bombe': ["""Starker, aber einmaliger Schaden ... Effektiv!"""],
+    'Rammbock': ["""Diese Einheit machen gegen Gebäude 1,5x Schaden, bekommt aber von normalen Einheiten 1,5x Schaden, hat keinen Verteidigungsschaden und macht an normalen Einheiten 0,5x Schaden."""],
     'SplashMana': ["""Schnelle drei Mana ... Was gibt es besseres?"""],
-    'Dwarf': ["""Zwergen sind missmutig, dieser auch."""],
+    'Dwarf': ["""Zwergen sind missmutig, dieser auch! Aber befördert eine Karte pro Runde ans Tageslicht."""],
     'FireBall': ["""Achtung Heiß!"""],
-    'Burg': [""" """],
+    'Burg': ["""Sie ist unter allen Umständen zu schützen! Sollte sie zerstört werden, wirst du auf das Schaffot geführt. """],
     'green': [""" """],
     'yellow': [""" """],
     'gray': [""" """],
-    'Wall': [""" """]
+    'Wall': ["""Du solltest dich bedanken, sie schützt dich vor dem Feind. Doch nur 6 Runden lang und nicht vor Feuerbällen ... und Mexikanern."""]
 }
 
 
