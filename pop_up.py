@@ -47,6 +47,11 @@ class Pop_Up:
         self.life_time = 1
         self.pop_ups.append([self.pop_up_label,self.life_time])
     
+    def explosion_event(self,pos=()):
+        self.red_frame = pyglet.sprite.Sprite(pyglet.image.load('resc\jolas\explosion.png'),
+                                            pos[0],pos[1])
+        self.life_time = 5
+        self.pop_ups.append([self.red_frame,self.life_time])
     def new_pop_up(self,pos,life_span=0.3,text='', font_size =12,color=(255,50,50,255),delay=None):
         self.pop_up_label = pyglet.text.Label(text,
                           font_name='Arial',
