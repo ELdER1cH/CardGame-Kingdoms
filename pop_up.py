@@ -15,7 +15,7 @@ class Pop_Up:
         self.pop_ups.append([self.pop_up_label,self.life_time])
 
 
-    def emptyfield_special(self,pos=(0,0),amount=1):
+    def mana_event(self,pos=(0,0),amount=1):
         self.pop_up_label = pyglet.text.Label('+1',
                                               font_name ='Times New Roman',
                                               font_size=20,
@@ -27,8 +27,18 @@ class Pop_Up:
         self.life_time = 1
         self.pop_ups.append([self.pop_up_label,self.life_time])
     
-    def healer_special(self,pos=(),amount=1200):
+    def heal_special(self,pos=(),amount=1200):
         self.pop_up_label = pyglet.text.Label("+"+str(amount),
+                                              font_name ='Times New Roman',
+                                              font_size=20,
+                                              bold=True,
+                                              x=pos[0]+135//2, y=pos[1]+135//2,
+                                              anchor_x='center', anchor_y='center',color=(6, 194, 0,255))
+        self.life_time = 1
+        self.pop_ups.append([self.pop_up_label,self.life_time])
+
+    def damage_event(self,pos=(),amount=1200):
+        self.pop_up_label = pyglet.text.Label("-"+str(amount),
                                               font_name ='Times New Roman',
                                               font_size=20,
                                               bold=True,
@@ -39,7 +49,7 @@ class Pop_Up:
     
     def new_pop_up(self,pos,life_span=0.3,text='', font_size =12,color=(255,50,50,255),delay=None):
         self.pop_up_label = pyglet.text.Label(text,
-                          font_name='Arial',
+                          font_name='Times New Roman',
                           font_size=font_size,
                           bold=True,
                           x=pos[0], y=pos[1],
@@ -61,9 +71,13 @@ class Pop_Up:
                     pops[0].font_size += 1
                     pops[0].color= (pops[0].color[0],pops[0].color[1],pops[0].color[2],pops[0].color[3] -20)
                     pops[0].y += 2
-            pops[1] += -dt
-            if pops[1] <= 0 or pops[0].color[3] <= 0:
-                self.pop_ups.remove(pops) 
+                pops[1] += -dt
+                if pops[1] <= 0 or pops[0].color[3] <= 0:
+                    self.pop_ups.remove(pops) 
+            else:
+                pops[1] += -dt
+                if pops[1] <= 0:
+                    self.pop_ups.remove(pops) 
             
 
     def draw(self):

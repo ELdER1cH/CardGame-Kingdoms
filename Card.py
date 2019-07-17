@@ -64,8 +64,7 @@ class Card(pyglet.sprite.Sprite):
       
     target.health -= dmg
     self.health -= defend
-    pop_up.new_pop_up(target.position,text='%s DMG - %s left'
-                      % (self.dmg,target.health),life_span=0.7)
+    self.batch.pop_up.damage_event(target.position,dmg)
     
     if target.special_tag != "unoccupied_field":
       self.batch.update_disp(target)
@@ -113,7 +112,7 @@ class Card(pyglet.sprite.Sprite):
           card.health += heal_amount/cards_to_heal
           if card.health > card.max_health:
             card.health = card.max_health
-          self.batch.pop_up.healer_special(card.position,amount=heal_amount/cards_to_heal)
+          self.batch.pop_up.heal_special(card.position,amount=heal_amount/cards_to_heal)
           print('Healed %s at %s:%s to %s health' % (card.name,card.x/135,card.y/135,card.health))
 
   def wake_up(self):
