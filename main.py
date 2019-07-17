@@ -35,7 +35,7 @@ class Window(main_chat.Window):
 
     self.loading_text = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/loading.png"),700,400)
     self.wappen = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/wappen_small.png"),20,800)
-    self.map_border = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/Rahmen_map.png"), width //2, height//22)
+    
 
     self.map = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/map2.png"),left_gap-135,135)
 
@@ -47,10 +47,8 @@ class Window(main_chat.Window):
 
     self.loading = True
     
-    pyglet.clock.schedule_once(self.init_batch, 0.1)
-    #self.batch = Batch.CardBatch()
-
-    pyglet.clock.schedule(self.update)
+    self.init_batch()
+    
 
 #------------------------------ Game Stuff --------------------------------------
 
@@ -58,6 +56,8 @@ class Window(main_chat.Window):
     self.batch = Batch.CardBatch()
     #time.sleep(2)
     self.loading = False
+    
+    
 
   def start_game(self,delay=0,my_move=True):
     self.hand = []
@@ -74,7 +74,7 @@ class Window(main_chat.Window):
       self.hand = self.current_screen.hand_selection.hand
       self.batch.castle.load_hand(self.batch.castle.y-135,hand=self.hand)
     if self.my_move:
-      self.pop_up.your_turn_pop_up(0.01,(self.width//2,self.height//2))
+      self.pop_up.your_turn_pop_up(0.01,(width//2,height//2))
     self.loading = False
     
   def replace(self,delay,target,cardname,activate):
@@ -90,6 +90,7 @@ class Window(main_chat.Window):
       self.g_print("You lost!")
   
   def update(self,dt):
+    self.batch.pop_up.update(dt)
     self.pop_up.update(dt) 
     self.current_screen.update(dt) 
 #------------------------------ System / Strukture -------------------------------------------------------- 
@@ -350,7 +351,6 @@ class Window(main_chat.Window):
         self.map.draw()
         self.batch.draw()
         self.pop_up.draw()
-        self.map_border.draw()
       else:
         self.current_screen.draw()
       fps_display.draw() 

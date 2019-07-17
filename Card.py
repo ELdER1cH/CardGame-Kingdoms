@@ -17,6 +17,7 @@ class Card(pyglet.sprite.Sprite):
     super().__init__(Cards.init(self,card_type),*args,batch=batch,**kwargs)
     self.owner = owner
     self.init()
+    self.batch = batch
     
   def init(self):
     self.resize()
@@ -99,6 +100,7 @@ class Card(pyglet.sprite.Sprite):
         special(self,1)
 
   def heal(self):
+    print('t')
     heal_amount = 1200
     cards_to_heal = 0
     adjacent = self.batch.get_adjacent(self.position)
@@ -111,6 +113,7 @@ class Card(pyglet.sprite.Sprite):
           card.health += heal_amount/cards_to_heal
           if card.health > card.max_health:
             card.health = card.max_health
+          self.batch.pop_up.healer_special(card.position,amount=heal_amount/cards_to_heal)
           print('Healed %s at %s:%s to %s health' % (card.name,card.x/135,card.y/135,card.health))
 
   def wake_up(self):
