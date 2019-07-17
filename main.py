@@ -196,12 +196,11 @@ class Window(main_chat.Window):
                       self.batch.pop_up.mana_event(target.position,3)
                 elif clicked_card.name == 'FireBall':
                       self.batch.pop_up.damage_event(target.position,clicked_card.dmg)
-
-                clicked_card.replace(clicked_card,clicked_card.owner)
                 won = None
-                for special in self.place_special:
-                  won = special(self,target)
+                for special in clicked_card.place_special:
+                  won = special(clicked_card,target)
                 self.batch.update_hand(clicked_card)
+                clicked_card.replace(clicked_card,clicked_card.owner)
                 if self.online == True:
                       self.client.send_attack_event(clicked_card.position,target.position)
                 if won:
@@ -211,6 +210,7 @@ class Window(main_chat.Window):
                       self.ingame = False
                       self.back()
                     self.g_print("You won!")
+                self.batch.hide(self.batch.select_frame)
                 return
               ###IF TARGET IS MINE
               if target.owner == clicked_card.owner:
