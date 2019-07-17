@@ -455,7 +455,7 @@ class Window(main_chat.Window):
                           (self.current_screen.ready, self.current_screen.opponent_ready))
                     if self.current_screen.ready and self.current_screen.opponent_ready:
                       self.loading = True
-                      pyglet.clock.schedule_once(self.start_game,0.01)
+                      pyglet.clock.schedule_once(self.start_game,0.1)
                   except:
                     print("<< r['ready'] received a message for an action that could not be executed!")
     
