@@ -226,6 +226,7 @@ class Window(main_chat.Window):
                     clicked_card.swap(target,target.position,activate=True)
                     if self.online:
                         self.client.send_replace_event(clicked_card.position,clicked_card.name)
+                    self.batch.update_hand(target)
                     self.batch.hide(self.batch.select_frame)
                     #UPDATE STATS DISPLAY TO SHOW RIGHT MANA AMOUT
                     self.batch.update_disp(clicked_card)
