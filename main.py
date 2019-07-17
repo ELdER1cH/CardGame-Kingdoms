@@ -125,7 +125,7 @@ class Window(main_chat.Window):
         if action != None:
           if action == "ONLINE":
             self.loading = True
-            pyglet.clock.schedule_once(self.start_client,0.01)
+            pyglet.clock.schedule_once(self.start_client,0.2)
           elif action == "OFFLINE":
             self.current_screen =  screens.OfflineScreen(1920,1080)
             self.online = False
