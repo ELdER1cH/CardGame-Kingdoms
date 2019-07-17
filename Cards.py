@@ -40,7 +40,7 @@ cards_describtion={
     'Shield': ["""Durch diesen Panzertrupp werden die Leben aller Einheiten dieser Reihe um 1,5x verstärkt"""],
     'BigBoss': ["""Er muss bis 5000 Leben geheilt werden, damit er aufwacht, aber dann ist er nicht mehr aufzuhalten """],
     'Bombe': ["""Starker aber einmaliger Schaden"""],
-    'Rammbock': ["""Diese Einheit machen gegen Gebäude 1,5x Schaden, bekommt aber von normalen Einheiten 1,5x Schaden, hat keinen Verteidigungsschaden und macht an normalen Einheiten 0,5x Scjadem"""],
+    'Rammbock': ["""Diese Einheit machen gegen Gebäude 1,5x Schaden, bekommt aber von normalen Einheiten 1,5x Schaden, hat keinen Verteidigungsschaden und macht an normalen Einheiten 0,5x Schaden"""],
     'SplashMana': ["""Schnelle drei Mana ... Was gibt es besseres?"""],
     'Dwarf': ["""Zwergen sind missmutig, dieser auch."""],
     'Burg': [""" """],
