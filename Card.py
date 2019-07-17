@@ -125,19 +125,19 @@ class Card(pyglet.sprite.Sprite):
     if self.health >= 5000:
       self.special_tag = ""
    
-  def draw_card_special(self,on_off=False):
-      print("draw card special")
-      if self.batch.online == True:
-        if self.owner == self.batch.castle.owner:
-            target = None
-            for i in range(5):
-                card = self.batch.get_card((left_gap+SPRITE_WIDTH*(i),0))
-                if card.special_tag == "unoccupied_field":
-                    target = card
-                    break
-                
-            if target != None:
-                target.replace(target,random.choice(self.batch.castle.cards))
+  def draw_card_special(self,on_off=True):
+      if on_off:
+        if self.batch.online == True:
+          if self.owner == self.batch.castle.owner:
+              target = None
+              for i in range(5):
+                  card = self.batch.get_card((left_gap+SPRITE_WIDTH*(i),0))
+                  if card.special_tag == "unoccupied_field":
+                      target = card
+                      break
+                  
+              if target != None:
+                  target.replace(target,random.choice(self.batch.castle.cards))
               
   def generate_mana(self):
     if self.owner == self.batch.castle.owner:

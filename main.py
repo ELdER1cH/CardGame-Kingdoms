@@ -223,11 +223,13 @@ class Window(main_chat.Window):
                     #EMPTY FIELD AND CARD IN HAND SWAP POSITIONS
                     #HAND BEFORE: - if first card were to be placed
                     #C C C C C -> after: E C C C C
-                    clicked_card.swap(target,target.position,activate=True)
+                    clicked_card.swap(target,target.position)
                     if self.online:
                         self.client.send_replace_event(clicked_card.position,clicked_card.name)
                     self.batch.update_hand(target)
                     self.batch.hide(self.batch.select_frame)
+                    for special in clicked_card.place_special:
+                      special(clicked_card,1)
                     #UPDATE STATS DISPLAY TO SHOW RIGHT MANA AMOUT
                     self.batch.update_disp(clicked_card)
                   else:
