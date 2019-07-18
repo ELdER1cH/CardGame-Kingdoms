@@ -5,13 +5,9 @@ class Pop_Up:
         self.pop_ups = []
         
     def your_turn_pop_up(self,delay,pos=(0,0)):
-        self.pop_up_label = pyglet.text.Label('<< your turn!',
-                                              font_name ='Arial',
-                                              font_size=30,
-                                              bold=True,
-                                              x=pos[0], y=pos[1],
-                                              anchor_x='center', anchor_y='center',color=(50,255,50,255))
-        self.life_time = 0.8
+        self.pop_up_label = pyglet.sprite.Sprite(pyglet.image.load('resc\jolas\your_turn.png'),
+                                            790,560)
+        self.life_time = 2.8
         self.pop_ups.append([self.pop_up_label,self.life_time])
 
 
@@ -81,7 +77,7 @@ class Pop_Up:
                     self.pop_ups.remove(pops) 
             else:
                 if type(pops[0]) == pyglet.sprite.Sprite:
-                    pops[0].opacity -= 5
+                    pops[0].opacity -= 3
                 pops[1] += -dt
                 if pops[1] <= 0 or pops[0].opacity <= 0:
                     self.pop_ups.remove(pops) 

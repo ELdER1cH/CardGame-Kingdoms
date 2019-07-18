@@ -56,9 +56,8 @@ class Window(main_chat.Window):
 
   def start_game(self,delay=0,my_move=True):
     hand = []
-    
     #self.batch = Batch.CardBatch()
-    self.batch.cards = []
+    self.batch = Batch.CardBatch()
     # Sets online state for game 
     self.batch.online = self.online
     # Initialising Cards
