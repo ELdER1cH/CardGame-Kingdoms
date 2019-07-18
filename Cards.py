@@ -47,7 +47,7 @@ cards_describtion={
     'FireBall': ["""Achtung Heiß!"""],
     'Burg': ["""Sie ist unter allen Umständen zu schützen! Sollte sie zerstört werden, wirst du auf das Schaffot geführt. """],
     'green': [""" """],
-    'yellow': [""" """],
+    'yellow': ["""42 Gramm Fett"""],
     'gray': [""" """],
     'Wall': ["""Du solltest dich bedanken, sie schützt dich vor dem Feind. Doch nur 6 Runden lang und nicht vor Feuerbällen ... und Mexikanern."""]
 }
