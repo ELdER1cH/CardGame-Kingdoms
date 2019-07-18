@@ -42,6 +42,7 @@ class Window(main_chat.Window):
     self.ingame = False
     self.my_move = False
     self.online = True
+    self.lead_execute = False
 
     self.loading = True
     
@@ -54,7 +55,7 @@ class Window(main_chat.Window):
     self.loading = False
 
   def start_game(self,delay=0,my_move=True):
-    self.hand = []
+    hand = []
     
     #self.batch = Batch.CardBatch()
     self.batch.cards = []
@@ -64,9 +65,10 @@ class Window(main_chat.Window):
     self.batch.init_cards()
     self.ingame = True
     self.my_move = my_move
+    self.lead_execute = my_move
     if self.online:
-      self.hand = self.current_screen.hand_selection.hand
-      self.batch.castle.load_hand(self.batch.castle.y-135,hand=self.hand)
+      hand = self.current_screen.hand_selection.hand
+      self.batch.castle.load_hand(self.batch.castle.y-135,hand=hand)
     if self.my_move:
       self.pop_up.your_turn_pop_up(0.01,(width//2,height//2))
     self.loading = False
@@ -136,8 +138,8 @@ class Window(main_chat.Window):
       if clicked_card.name == 'SplashMana':
             self.batch.pop_up.mana_event(target.position,3)
       elif clicked_card.name == 'FireBall':
-            self.batch.pop_up.explosion_event(target.position)
-            self.batch.pop_up.damage_event(target.position,clicked_card.dmg)
+            self.batch.pop_up.explosion_event(pos=target.position)
+            self.batch.pop_up.damage_event(pos=target.position,amount=clicked_card.dmg)
             if self.online == True:
                 self.client.send_splash_attack_event(target.position,clicked_card.dmg)
       won = None
@@ -313,6 +315,8 @@ class Window(main_chat.Window):
         self.batch.hide(self.batch.select_frame)
         self.batch.disp.clear()
         self.batch.grouped_card_specials(group=False)
+        if self.lead_execute:
+              self.batch.grouped_card_specials(gray=True) 
         #s:2x r: 2x                
     else:
       
@@ -471,7 +475,8 @@ class Window(main_chat.Window):
                 elif r['type'] == 'move_done':
                   self.my_move = True
                   pyglet.clock.schedule_once(self.batch.grouped_card_specials,0.01,True)
-                  pyglet.clock.schedule_once(self.batch.grouped_card_specials,0.01,gray=True)
+                  if not self.lead_execute:
+                    pyglet.clock.schedule_once(self.batch.grouped_card_specials,0.01,gray=True)
                   #print("<< your turn!")
                   pyglet.clock.schedule_once(self.pop_up.your_turn_pop_up,0.01,(self.width//2,self.height//2))
                   
@@ -505,9 +510,11 @@ class Window(main_chat.Window):
                 elif r['type'] == 'splash_attack':
                   pos1,dmg = r['attack']
                   pos1 = ((540+left_gap)-int(pos1[0])+left_gap,1080-int(pos1[1]))
-                  
                   target = self.batch.get_card(pos1)
-                  
+                  if dmg > 0:
+                    pyglet.clock.schedule_once(self.batch.pop_up.explosion_event,0.01,pos=target.position)
+                    pyglet.clock.schedule_once(self.batch.pop_up.damage_event,0.01,pos=target.position,amount=dmg)
+
                   pyglet.clock.schedule_once(target.splash_damage,0.01,target,dmg)
     
   def receive_messages(self):

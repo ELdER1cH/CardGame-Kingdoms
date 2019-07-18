@@ -68,7 +68,7 @@ class Card(pyglet.sprite.Sprite):
     if target.name == "Burg":
       self.batch.disp.burg_label.text = str(target.health)
 
-    self.batch.pop_up.damage_event(target.position,dmg)
+    self.batch.pop_up.damage_event(pos=target.position,amount=dmg)
     
     
     if target.special_tag != "unoccupied_field":

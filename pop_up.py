@@ -37,7 +37,7 @@ class Pop_Up:
         self.life_time = 1
         self.pop_ups.append([self.pop_up_label,self.life_time])
 
-    def damage_event(self,pos=(),amount=1200):
+    def damage_event(self,delay=None,pos=(),amount=1200):
         self.pop_up_label = pyglet.text.Label("-"+str(amount),
                                               font_name ='Times New Roman',
                                               font_size=20,
@@ -47,7 +47,7 @@ class Pop_Up:
         self.life_time = 1
         self.pop_ups.append([self.pop_up_label,self.life_time])
     
-    def explosion_event(self,pos=()):
+    def explosion_event(self,delay=None,pos=()):
         self.explosion = pyglet.sprite.Sprite(pyglet.image.load('resc\jolas\explosion.png'),
                                             pos[0],pos[1])
         self.life_time = 3
