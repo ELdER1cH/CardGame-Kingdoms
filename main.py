@@ -98,9 +98,6 @@ class Window(main_chat.Window):
         if action == "ONLINE":
           self.loading = True
           pyglet.clock.schedule_once(self.start_client,0.2)
-        elif action == "OFFLINE":
-          self.current_screen =  screens.OfflineScreen(1920,1080)
-          self.online = False
         elif action == "SETTINGS":
           #settings - later: to change server addr. (and maybe sound or sth.)
           self.current_screen = screens.SettingsScreen(1920,1080,self.IP)
@@ -120,6 +117,7 @@ class Window(main_chat.Window):
               self.batch.castle.mana = 0
               self.batch.round_counter = 0
         elif action == "StartGameOffline":
+          self.online = False
           self.start_game()
           self.batch.castle.mana = 10
           self.batch.round_counter = 1

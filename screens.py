@@ -333,7 +333,7 @@ class StartScreen(Screen):
     self.buttons.append(button)
 
     button = Button(pyglet.image.load("resc/jolas/offline.png"),width/2,height/2+20,batch=self.batch)
-    button.action = "OFFLINE"
+    button.action = "StartGameOffline"
     self.buttons.append(button)
     
     button = Button(pyglet.image.load("resc/jolas/cards.png"),width/2,height/2-100,batch=self.batch)
@@ -460,36 +460,6 @@ class LobbyScreen(Screen):
         self.hand_selection.background.draw()
         self.hand_selection.grass_row.draw()
         self.batch.draw()
-
-class OfflineScreen(Screen):
-  def __init__(self,width, height):
-    self.batch = pyglet.graphics.Batch()
-    self.buttons = []
-
-    self.ready = False
-    self.opponent_ready = False
-
-
-    self.label = pyglet.text.Label(text= 'Start',
-                          x = width//2, 
-                          y = height//2,
-                          font_name='Times New Roman',
-                          font_size=48,
-                          bold=True,
-                          color=(0, 0, 0,255),
-                          batch= self.batch, anchor_x = 'center',anchor_y= 'center'
-                    
-                          )  
-    self.back_button = Button(pyglet.image.load("resc/backArrow.png")
-                          ,20,20, batch = self.batch,
-                          adj_anchor=False)
-    self.ready_button = Button(pyglet.image.load("resc/ready.png")
-                               ,width-135,20,batch=self.batch,
-                               adj_anchor=False)
-    self.ready_button.action = "StartGameOffline"
-    self.back_button.action = "BACK"
-    self.buttons.append(self.ready_button)
-    self.buttons.append(self.back_button)
 
 class CardScreen(Screen):
   def __init__(self,width,height):
