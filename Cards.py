@@ -20,7 +20,7 @@ cards = {
             'Rammbock': [1,1500,1000,400,6,0,'resc\jolas\Rammbock.png',[],'BW',[]],
             'SplashMana': [1,0,0,0,0,0,'resc\jolas/splashmana.png',[],'splash',[Card.splash_mana,Card.splash_mana,Card.splash_mana]],
             'Dwarf': [1,1000,1000,400,8,0,'resc\jolas\Zwerg.png',[Card.draw_card_special],'',[]],
-            'FireBall': [1,0,0,300,4,0,'resc\jolas/feuerball.png',[],'splash',[Card.splash_damage]],
+            'FireBall': [1,0,0,400,4,0,'resc\jolas/feuerball.png',[],'splash',[Card.splash_damage]],
             'Burg': [1,5000,10000,400,0,0,'resc\jolas/burg.png',[Card.castle_special,Card.draw_card_special],"immovable",[]],
             'green': [1,1,1,0,0,0,'resc/green_frame.png',[Card.generate_mana],"unoccupied_field",[]],
             'yellow': [1,1,1,0,0,0,'resc/yellow_frame.png',[Card.generate_mana],"unoccupied_field",[]],
