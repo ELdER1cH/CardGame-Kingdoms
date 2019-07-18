@@ -50,6 +50,7 @@ class CardBatch(pyglet.graphics.Batch):
     self.disp.burg_label.text = str(int(self.castle.health))
 
   def swap(self):
+    self.pop_up.pop_ups = []
     self.castle = self.get_card((width//2,945))
     for card in self.cards:
       card.position = ((135*4+left_gap)-card.position[0]+left_gap,height-card.position[1])

@@ -323,7 +323,7 @@ class StartScreen(Screen):
     img.anchor_x = img.width//2
     img.anchor_y = img.height//2
 
-    self.map = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/map3.png"), 0, 50)
+    self.map = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/map3.png"), 0, 80)
 
     self.logo = pyglet.sprite.Sprite(img, width/2, height/2 + 360, batch=self.batch)
 

@@ -38,8 +38,6 @@ class Window(main_chat.Window):
 
     self.weiter_button = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/weitergeben_button.png"),left_gap+135*6,10)
 
-    #self.map = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/map2.png"),left_gap-135,135)
-
     self.current_screen = screens.StartScreen(1920,1080)
     self.ingame = False
     self.my_move = False
@@ -377,7 +375,6 @@ class Window(main_chat.Window):
     self.clear()
     if not self.loading:
       if self.ingame:
-        #self.map.draw()
         self.batch.draw()
         self.pop_up.draw()
         self.weiter_button.draw()
