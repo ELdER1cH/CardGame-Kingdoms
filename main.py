@@ -596,6 +596,10 @@ if __name__ == "__main__":
   width = 1920;height = 1080
   window = Window(width,height,"Cardgame - Online Version (developer build)",resizable=True,vsync=True)
   window.maximize()
+  window.set_fullscreen(True)
+  icon1 = pyglet.image.load('resc/16x16.png')
+  icon2 = pyglet.image.load('resc/32x32.png')
+  window.set_icon(icon1, icon2)
   glClearColor(135,206,250,255)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
   fps_display = pyglet.window.FPSDisplay(window)
