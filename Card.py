@@ -109,7 +109,7 @@ class Card(pyglet.sprite.Sprite):
     cards_to_heal = 0
     adjacent = self.batch.get_adjacent(self.position)
     for card in adjacent:
-      if card.owner == self.owner and card.special_tag != "unoccupied_field":
+      if card.owner == self.owner and card.special_tag != "unoccupied_field" and card.health < card.max_health:
         cards_to_heal += 1
     for card in adjacent:
       if card.owner == self.owner and card.special_tag != "unoccupied_field":
