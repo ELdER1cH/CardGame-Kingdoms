@@ -14,16 +14,13 @@ class Castle(Card):
     #Setting up Cards in Hand
     self.cards = []
     all_cards = list(Cards.cards.keys())
-    placed = []
     for i in hand:
       self.cards.append(all_cards[i])
+    cardss = self.cards[:]
     for i in range(5):
-      name = random.choice(self.cards)
+      name = random.choice(cardss)
+      cardss.remove(name)
       info = Cards.cards[name]
-      while info[4] > 20 or name in placed:
-        name = random.choice(self.cards)
-        info = Cards.cards[name]
-      placed.append(name)
       c = Card(name,i*135+left_gap,y,batch=self.batch,owner=self.owner)
       if bo:
           c.image.anchor_x = 135; c.image.anchor_y = 135; c.rotation = 180

@@ -54,7 +54,7 @@ class Card(pyglet.sprite.Sprite):
     if self.special_tag == "BW":
       dmg *=0.5
       defend *= 2
-      if target.name == "Burg":
+      if target.special_tag == "immovable":
         dmg *= 4
         defend *=.5
 
@@ -68,7 +68,7 @@ class Card(pyglet.sprite.Sprite):
     if target.name == "Burg":
       self.batch.disp.burg_label.text = str(target.health)
 
-    self.batch.pop_up.damage_event(target.position,dmg)
+    self.batch.pop_up.damage_event(pos=target.position,amount=dmg)
     
     
     if target.special_tag != "unoccupied_field":
@@ -109,7 +109,7 @@ class Card(pyglet.sprite.Sprite):
     cards_to_heal = 0
     adjacent = self.batch.get_adjacent(self.position)
     for card in adjacent:
-      if card.owner == self.owner and card.special_tag != "unoccupied_field":
+      if card.owner == self.owner and card.special_tag != "unoccupied_field" and card.health < card.max_health:
         cards_to_heal += 1
     for card in adjacent:
       if card.owner == self.owner and card.special_tag != "unoccupied_field":
@@ -125,18 +125,19 @@ class Card(pyglet.sprite.Sprite):
     if self.health >= 5000:
       self.special_tag = ""
    
-  def draw_card_special(self,on_off=False):
-      if self.batch.online == True:
-        if self.owner == self.batch.castle.owner:
-            target = None
-            for i in range(5):
-                card = self.batch.get_card((left_gap+SPRITE_WIDTH*(i),0))
-                if card.special_tag == "unoccupied_field":
-                    target = card
-                    break
-                
-            if target != None:
-                target.replace(target,random.choice(self.batch.castle.cards))
+  def draw_card_special(self,on_off=True):
+      if on_off:
+        if self.batch.online == True:
+          if self.owner == self.batch.castle.owner:
+              target = None
+              for i in range(5):
+                  card = self.batch.get_card((left_gap+SPRITE_WIDTH*(i),0))
+                  if card.special_tag == "unoccupied_field":
+                      target = card
+                      break
+                  
+              if target != None:
+                  target.replace(target,random.choice(self.batch.castle.cards))
               
   def generate_mana(self):
     if self.owner == self.batch.castle.owner:
@@ -190,12 +191,42 @@ class Card(pyglet.sprite.Sprite):
         else:
           card.health = card.health/(1+multiplier)
 
-  def splash_mana(self, on_off):
-    print('f')
+  def splash_mana(self,delay=None,target=None,dmg=None):
     if self.owner == self.batch.castle.owner:
       if self.batch.castle.mana < self.batch.castle.max_mana:
         self.batch.castle.mana += 1
+        self.batch.update_disp(self)
+    return False
     
+  def splash_damage(self,delay=None,target=None,dmg=None):
+    won = False
+    defend = target.defend
+ 
+
+    if target.special_tag == "unoccupied_field":
+      #so there is no high -dmg in pop_up xD
+      target.health = dmg      
+    target.health -= dmg
+
+    if target.name == "Burg":
+      self.batch.disp.burg_label.text = str(target.health)
+
+    if target.special_tag != "unoccupied_field":
+      self.batch.update_disp(target)
+                                         
+    if target.health <= 0:
+      if target.special_tag != "unoccupied_field":
+        self.batch.update_disp(self)
+      if target.name == "Burg":
+        #pop_up.new_pop_up((target.position[0]+30,target.position[1]+30),text='Congrats! You won!!',life_span=5)
+        won = True
+        self.batch.cards = []
+      target.remove()
+
+      target.replace(target,target.owner,owner=target.owner)
+
+    return won
+  
   def resize(self):
     self.image.get_texture().width = SPRITE_WIDTH
     self.image.get_texture().height = SPRITE_HEIGHT

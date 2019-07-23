@@ -36,41 +36,38 @@ class Window(main_chat.Window):
     self.loading_text = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/loading.png"),700,400)
     self.wappen = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/wappen_small.png"),20,800)
 
-    #self.map = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/map2.png"),left_gap-135,135)
+    self.weiter_button = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/weitergeben_button.png"),left_gap+135*6,10)
 
     self.current_screen = screens.StartScreen(1920,1080)
     self.ingame = False
     self.my_move = False
     self.online = True
+    self.lead_execute = False
 
     self.loading = True
     
     self.init_batch()
-    
-
 #------------------------------ Game Stuff --------------------------------------
 
   def init_batch(self,delay=None):
     self.batch = Batch.CardBatch()
     #time.sleep(2)
     self.loading = False
-    
-    
 
   def start_game(self,delay=0,my_move=True):
-    self.hand = []
-    
+    hand = []
     #self.batch = Batch.CardBatch()
-    self.batch.cards = []
+    self.batch = Batch.CardBatch()
     # Sets online state for game 
     self.batch.online = self.online
     # Initialising Cards
     self.batch.init_cards()
     self.ingame = True
     self.my_move = my_move
+    self.lead_execute = my_move
     if self.online:
-      self.hand = self.current_screen.hand_selection.hand
-      self.batch.castle.load_hand(self.batch.castle.y-135,hand=self.hand)
+      hand = self.current_screen.hand_selection.hand
+      self.batch.castle.load_hand(self.batch.castle.y-135,hand=hand)
     if self.my_move:
       self.pop_up.your_turn_pop_up(0.01,(width//2,height//2))
     self.loading = False
@@ -91,6 +88,74 @@ class Window(main_chat.Window):
     self.batch.pop_up.update(dt)
     self.pop_up.update(dt) 
     self.current_screen.update(dt) 
+
+  def button_actions(self,x,y,button,MOD,antir):
+    cs = self.current_screen
+    for b in cs.buttons:
+      action = b.press((x / self.scale_x), (y / self.scale_y),button)
+      if action != None:
+        if action == "ONLINE":
+          self.loading = True
+          pyglet.clock.schedule_once(self.start_client,0.2)
+        elif action == "SETTINGS":
+          #settings - later: to change server addr. (and maybe sound or sth.)
+          self.current_screen = screens.SettingsScreen(1920,1080,self.IP)
+        elif action == "QUIT":
+          #button of startscreen
+          self.close()
+        elif action == "CARDS":
+              self.current_screen = screens.CardScreen(1920,1080)
+        elif action == "READY":
+          if self.client.lobbysize == 2 and len(self.current_screen.hand_selection.hand) >= 5:
+            cs.ready = not cs.ready
+            print(f"ready: {cs.ready}")
+            self.client.send_ready(self.current_screen.opponent_ready)
+            self.current_screen.update_ready_button()
+            if self.current_screen.ready and self.current_screen.opponent_ready:
+              self.start_game(my_move=False)
+              self.batch.castle.mana = 0
+              self.batch.round_counter = 0
+        elif action == "StartGameOffline":
+          self.online = False
+          self.start_game()
+          self.batch.castle.mana = 10
+          self.batch.round_counter = 1
+        elif action == "BACK":
+          self.ingame = False
+          self.back()
+          try:
+            self.client.s.close()
+          except:
+            pass
+        elif "NEWIP" in action:
+            self.IP = action[5:]
+            self.g_print(self.IP)
+
+  def splash_event(self,clicked_card,target):
+    if self.batch.castle.mana >= clicked_card.price:
+      self.batch.castle.mana -= clicked_card.price
+      if clicked_card.name == 'SplashMana':
+            self.batch.pop_up.mana_event(target.position,3)
+      elif clicked_card.name == 'FireBall':
+            self.batch.pop_up.explosion_event(pos=target.position)
+            self.batch.pop_up.damage_event(pos=target.position,amount=clicked_card.dmg)
+            if self.online == True:
+                self.client.send_splash_attack_event(target.position,clicked_card.dmg)
+      won = None
+      for special in clicked_card.place_special:
+        won = special(clicked_card,target=target,dmg=clicked_card.dmg)
+      clicked_card.replace(clicked_card,clicked_card.owner)
+      self.batch.update_hand(clicked_card)
+      
+      
+      if won:
+          if self.online:
+              self.back_l()
+          else:
+            self.ingame = False
+            self.back()
+          self.g_print("You won!")
+      self.batch.hide(self.batch.select_frame)
 #------------------------------ System / Strukture -------------------------------------------------------- 
   def select(self,target,clicked_card):
     if target.special_tag != "immovable" or target.y == 0:
@@ -119,51 +184,7 @@ class Window(main_chat.Window):
   
   def on_mouse_press(self,x,y,button,MOD,antir=True):
     if not self.ingame:
-      cs = self.current_screen
-      for b in cs.buttons:
-        action = b.press((x / self.scale_x), (y / self.scale_y),button)
-        if action != None:
-          if action == "ONLINE":
-            self.loading = True
-            pyglet.clock.schedule_once(self.start_client,0.01)
-          elif action == "OFFLINE":
-            self.current_screen =  screens.OfflineScreen(1920,1080)
-            self.online = False
-          elif action == "SETTINGS":
-            #settings - later: to change server addr. (and maybe sound or sth.)
-            self.current_screen = screens.SettingsScreen(1920,1080,self.IP)
-          elif action == "QUIT":
-            #button of startscreen
-            self.close()
-          elif action == "CARDS":
-                self.current_screen = screens.CardScreen(1920,1080)
-          elif action == "READY":
-            if self.client.lobbysize == 2 and len(self.current_screen.hand_selection.hand) >= 5:
-              cs.ready = not cs.ready
-              print(f"ready: {cs.ready}")
-              self.client.send_ready(self.current_screen.opponent_ready)
-              self.current_screen.update_ready_button()
-              if self.current_screen.ready and self.current_screen.opponent_ready:
-                self.start_game(my_move=False)
-                self.batch.castle.mana = 0
-                self.batch.round_counter = 0
-          elif action == "StartGameOffline":
-            self.start_game()
-            self.batch.castle.mana = 10
-            self.batch.round_counter = 1
-          elif action == "BACK":
-            self.ingame = False
-            self.back()
-            try:
-              self.client.s.close()
-            except:
-              pass
-          elif "NEWIP" in action:
-              self.IP = action[5:]
-              self.g_print(self.IP)
-          
-            
-          
+      self.button_actions(x,y,button,MOD,antir)
       return
     if not self.my_move:
       return
@@ -172,8 +193,11 @@ class Window(main_chat.Window):
     y /= self.scale_y
     ###LEFT
     if button == mouse.LEFT:
-      #bin ich online?
-
+        if x >= self.weiter_button.position[0]:
+          if x >= self.weiter_button.position[0] and x < self.weiter_button.position[0]+self.weiter_button.width and y >= self.weiter_button.position[1] and y < self.weiter_button.position[1]+self.weiter_button.height:
+                self.weitergeben()
+                return
+        
         ###NEW CLICK/ TARGET
         target = self.batch.get_card((x,y))
         if target == None: return
@@ -191,6 +215,8 @@ class Window(main_chat.Window):
           elif clicked_card.y == 0:
             ###IF TARGET NOT IN HAND
             if target.y > 0:
+              # What happens wenn it's a Splash card
+              if clicked_card.special_tag == "splash": self.splash_event(clicked_card,target); return     
               ###IF TARGET IS MINE
               if target.owner == clicked_card.owner:
                 ###IF TARGET IS EMPTY FIELD
@@ -201,17 +227,13 @@ class Window(main_chat.Window):
                     #EMPTY FIELD AND CARD IN HAND SWAP POSITIONS
                     #HAND BEFORE: - if first card were to be placed
                     #C C C C C -> after: E C C C C
-                    if clicked_card.special_tag != "splash":
-                      clicked_card.swap(target,target.position,activate=True)
-                      if self.online:
-                          self.client.send_replace_event(clicked_card.position,clicked_card.name)
-                      self.batch.update_hand(target)
-                    else:
-                      clicked_card.replace(clicked_card,clicked_card.owner,activate=True)
-                      self.batch.update_hand(clicked_card)
-                      self.batch.pop_up.mana_event(target.position,3)
-
+                    clicked_card.swap(target,target.position)
+                    if self.online:
+                        self.client.send_replace_event(clicked_card.position,clicked_card.name)
+                    self.batch.update_hand(target)
                     self.batch.hide(self.batch.select_frame)
+                    for special in clicked_card.place_special:
+                      special(clicked_card,1)
                     #UPDATE STATS DISPLAY TO SHOW RIGHT MANA AMOUT
                     self.batch.update_disp(clicked_card)
                   else:
@@ -282,6 +304,28 @@ class Window(main_chat.Window):
           #IF TARGET IS EMPTY FIELD SHOW RED FRAME
           self.pop_up.new_red_frame(target.position)    
 
+
+  def weitergeben(self):
+    if self.online == True:
+          #self.batch.swap()
+      if self.my_move:
+        self.client.send_move_done()
+        self.my_move = False
+        self.batch.hide(self.batch.select_frame)
+        self.batch.disp.clear()
+        self.batch.grouped_card_specials(group=False)
+        if self.lead_execute:
+              self.batch.grouped_card_specials(gray=True) 
+        #s:2x r: 2x                
+    else:
+      
+      if self.batch.castle.owner == 'yellow':
+            self.batch.grouped_card_specials(gray=True) 
+            self.batch.round_counter += 1
+      
+      self.batch.swap()
+    self.batch.disp.burg_label.text = str(int(self.batch.castle.health))
+            
   def on_key_press(self,KEY,MOD):
     #key.ENTER & key.ESCAPE in while command_input_state; T = open chat
     super().on_key_press(KEY,MOD)
@@ -290,23 +334,7 @@ class Window(main_chat.Window):
     if not self.chat_model.command_input_widget_state:
       if self.ingame:
           if KEY == key.S:
-            if self.online == True:
-              #self.batch.swap()
-              if self.my_move:
-                self.client.send_move_done()
-                self.my_move = False
-                self.batch.hide(self.batch.select_frame)
-                self.batch.disp.clear()
-                self.batch.grouped_card_specials(group=False)
-                #s:2x r: 2x                
-            else:
-              
-              if self.batch.castle.owner == 'yellow':
-                    self.batch.grouped_card_specials(gray=True) 
-                    self.batch.round_counter += 1
-              
-              self.batch.swap()
-            self.batch.disp.burg_label.text = str(int(self.batch.castle.health))
+            self.weitergeben()
               
           elif KEY == key.D:
             target = self.batch.get_card(self.batch.select_frame.position)
@@ -350,9 +378,9 @@ class Window(main_chat.Window):
     self.clear()
     if not self.loading:
       if self.ingame:
-        #self.map.draw()
         self.batch.draw()
         self.pop_up.draw()
+        self.weiter_button.draw()
       else:
         self.current_screen.draw()
       fps_display.draw() 
@@ -401,7 +429,7 @@ class Window(main_chat.Window):
         elif cmd[0] == "/replace":
           if len(cmd) >= 2 and cmd[1] == "-hand":
             if cmd[2] in list(Cards.cards.keys()):
-              row = self.batch.get_row((0,0))
+              row = self.batch.get_row((left_gap,0))
               for card in row:
                 card.replace(card,cmd[2],owner=card.owner)
             else:
@@ -439,13 +467,15 @@ class Window(main_chat.Window):
                           (self.current_screen.ready, self.current_screen.opponent_ready))
                     if self.current_screen.ready and self.current_screen.opponent_ready:
                       self.loading = True
-                      pyglet.clock.schedule_once(self.start_game,0.01)
+                      pyglet.clock.schedule_once(self.start_game,0.1)
                   except:
                     print("<< r['ready'] received a message for an action that could not be executed!")
     
                 elif r['type'] == 'move_done':
                   self.my_move = True
                   pyglet.clock.schedule_once(self.batch.grouped_card_specials,0.01,True)
+                  if not self.lead_execute:
+                    pyglet.clock.schedule_once(self.batch.grouped_card_specials,0.01,gray=True)
                   #print("<< your turn!")
                   pyglet.clock.schedule_once(self.pop_up.your_turn_pop_up,0.01,(self.width//2,self.height//2))
                   
@@ -475,6 +505,16 @@ class Window(main_chat.Window):
                   target = self.batch.get_card(pos2)
                   
                   pyglet.clock.schedule_once(self.attack,0.01,clicked_card,target)
+
+                elif r['type'] == 'splash_attack':
+                  pos1,dmg = r['attack']
+                  pos1 = ((540+left_gap)-int(pos1[0])+left_gap,1080-int(pos1[1]))
+                  target = self.batch.get_card(pos1)
+                  if dmg > 0:
+                    pyglet.clock.schedule_once(self.batch.pop_up.explosion_event,0.01,pos=target.position)
+                    pyglet.clock.schedule_once(self.batch.pop_up.damage_event,0.01,pos=target.position,amount=dmg)
+
+                  pyglet.clock.schedule_once(target.splash_damage,0.01,target,dmg)
     
   def receive_messages(self):
       while True:
@@ -562,6 +602,10 @@ if __name__ == "__main__":
   width = 1920;height = 1080
   window = Window(width,height,"Cardgame - Online Version (developer build)",resizable=True,vsync=True)
   window.maximize()
+  window.set_fullscreen(True)
+  icon1 = pyglet.image.load('resc/16x16.png')
+  icon2 = pyglet.image.load('resc/32x32.png')
+  window.set_icon(icon1, icon2)
   glClearColor(135,206,250,255)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
   fps_display = pyglet.window.FPSDisplay(window)

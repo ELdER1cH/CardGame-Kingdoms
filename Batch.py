@@ -50,6 +50,7 @@ class CardBatch(pyglet.graphics.Batch):
     self.disp.burg_label.text = str(int(self.castle.health))
 
   def swap(self):
+    self.pop_up.pop_ups = []
     self.castle = self.get_card((width//2,945))
     for card in self.cards:
       card.position = ((135*4+left_gap)-card.position[0]+left_gap,height-card.position[1])
@@ -61,7 +62,7 @@ class CardBatch(pyglet.graphics.Batch):
         if card.y > 0 and card.y < 1080 and card.owner == self.castle.owner:
           special(card) 
           if card.special_tag == 'unoccupied_field':
-            self.pop_up.mana_event(card.position)
+                self.pop_up.mana_event(card.position)
           if card.name == 'Bauernhof':
             self.pop_up.mana_event(card.position,3)
     self.hide(self.select_frame)
@@ -81,8 +82,16 @@ class CardBatch(pyglet.graphics.Batch):
           if not gray:
             if group and card.owner == self.castle.owner: 
               special(card)
-            elif not group and card.owner != self.castle.owner:
-              special(card)
+              if card.special_tag == 'unoccupied_field':
+                    self.pop_up.mana_event(card.position)
+              if card.name == 'Bauernhof':
+                self.pop_up.mana_event(card.position,3)
+            elif not group and self.castle.owner == "yellow":
+                if card.owner == 'green':
+                  special(card)
+            elif not group and self.castle.owner == "green":
+                if card.owner == 'yellow':
+                  special(card)
           elif card.owner != "yellow" and card.owner != "green":
             special(card)
     if group:
@@ -103,6 +112,8 @@ class CardBatch(pyglet.graphics.Batch):
     #only happening if game is offline
     if not self.online:  
       target.replace(target,random.choice(self.castle.cards))
+    else:
+      target.replace(target,self.castle.owner)
 
   def update_disp(self,target):
     self.disp.update(self.castle.mana,self.castle.max_mana,target,self.round_counter)
@@ -132,8 +143,8 @@ class CardBatch(pyglet.graphics.Batch):
     row = []
     x,y = pos
     for card in self.cards:
-      if card.in_area((0,y),(135,y),
-                      (135*2,y),(135*3,y),(135*4,y)):
+      if card.in_area((left_gap,y),(left_gap+135,y),
+                      (left_gap+135*2,y),(left_gap+135*3,y),(left_gap+135*4,y)):
         row.append(card)
     return row
 
