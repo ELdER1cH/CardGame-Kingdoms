@@ -91,7 +91,7 @@ class HandSelection:
         """
         self.h = height
         self.w = width
-        
+        self.batch = batch
         self.all_card_indentation = 100
         self.frame_height_gain = 120
         self.gap = 20
@@ -105,7 +105,9 @@ class HandSelection:
         self.background = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/card_selection_frame.png"),self.position[0],self.position[1]+135+self.gap*2)
 
         self.grass_row = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/grass_row.png"),self.position[0],self.position[1])
-
+        self.sprites = []
+        self.sprites_hand = []
+        self.draw_Cards()
       #Side Card      
         self.blank = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/blank_card.png"),1500, height //4 )
         #anchor_x = 'center', anchor_y = 'center'
@@ -139,13 +141,13 @@ class HandSelection:
                                 x=self.blank.x+300, y=self.blank.y+205,
                                 anchor_x='left', anchor_y='top')
       #  
-        self.sprites = []
         
-        self.all_cards = list(Cards.cards.keys())[:-5]
-        for i in range(len(self.all_cards)):
-            self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
-                                                     self.all_card_indentation+self.position[0]+(i % self.cpr)*(135+self.gap),
-                                                     self.height-(int(i/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain,batch=batch))
+        
+        #self.all_cards = list(Cards.cards.keys())[:-5]
+        #for i in range(len(self.all_cards)):
+        #    self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
+        #                                             self.all_card_indentation+self.position[0]+(i % self.cpr)*(135+self.gap),
+        #                                             self.height-(int(i/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain,batch=batch))
       
     def move_card(self,x,y):
         rx = x-self.all_card_indentation-self.position[0]
@@ -162,10 +164,16 @@ class HandSelection:
                     self.update_card(self.target)
                     if num < len(self.all_cards) and num not in self.hand:
                         if len(self.hand) < self.max_hand_lenght:
-                            self.sprites[num].y = self.position[1]
-                            self.sprites[num].x = self.position[0]+(135+self.gap)*len(self.hand)#+self.indentation
+                            #self.sprites[num].y = self.position[1]
+                            #self.sprites[num].x = self.position[0]+(135+self.gap)*len(self.hand)#+self.indentation
+                            self.sprites_hand.append(self.sprites[num])
+                            self.sprites_hand[-1].y = self.position[1]
+                            self.sprites_hand[-1].x = self.position[0]+(135+self.gap)*len(self.hand)                           
                             self.hand.append(num)
-                            
+                            print(2)
+                            self.replace_index(num,num,self.sprites)
+                            self.draw_Cards(init=False)
+
             
         elif y <= self.position[1]+(135+self.gap)+self.gap:
             num = int((x-self.position[0])/(135+self.gap))
@@ -174,15 +182,32 @@ class HandSelection:
                 return
             if len(self.hand) > num:
                 card = self.hand[num]
-                self.sprites[card].y = self.height-(int(card/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain
-                self.sprites[card].x = self.all_card_indentation+(card % self.cpr)*(135+self.gap)+self.position[0]
-                
+                #self.sprites[card].y = self.height-(int(card/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain
+                #self.sprites[card].x = self.all_card_indentation+(card % self.cpr)*(135+self.gap)+self.position[0]
+                self.replace_index(card,self.sprites_hand[num],self.sprites,pool=True)
+                self.sprites_hand.remove(self.sprites_hand[num])
                 self.hand.remove(card)
-                
+                self.draw_Cards(init=False)
+
                 if len(self.hand) > 0:
-                    for c in self.hand[num:]:
-                        self.sprites[c].x -= (135+self.gap)
+                    for c in range(num,len(self.hand),1):
+                      self.sprites_hand[c].x -= (135+self.gap)
             
+    def draw_Cards(self,init=True):
+      if init:
+        self.all_cards = list(Cards.cards.keys())[:-5]
+        for i in range(len(self.all_cards)):
+          self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
+                                                    self.all_card_indentation+self.position[0]+(i % self.cpr)*(135+self.gap),
+                                                    self.height-(int(i/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain,batch=self.batch))
+      else:
+        for i in self.sprites:
+          if not type(int):
+            i.draw()
+        for i in self.sprites_hand:
+          if not type(int):  
+            i.draw()
+      
     def press(self,x,y,button):
         if button == mouse.LEFT:
           xp,yp = self.position
@@ -202,6 +227,15 @@ class HandSelection:
       self.card_damage.text = str(target[3])
       self.card_health.text = str(target[1])
       self.card_cost.text = str(target[4])
+
+    def replace_index(self,index,replacement,liste,pool=False):
+      liste.insert(index, replacement)
+      liste.remove(liste[index+1])
+      if pool:
+        liste[index].y = self.height-(int(index/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain
+        liste[index].x = self.all_card_indentation+(index % self.cpr)*(135+self.gap)+self.position[0]
+        
+      
 
 class CardScreenCards:
   def __init__(self,batch,width,height):
@@ -352,7 +386,6 @@ class StartScreen(Screen):
   def draw(self):
         self.map.draw()
         self.batch.draw()
-
 class SettingsScreen(Screen):
   def __init__(self,width,height,IP):
     self.batch = pyglet.graphics.Batch()
