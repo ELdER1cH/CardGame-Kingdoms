@@ -105,8 +105,11 @@ class HandSelection:
         self.background = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/card_selection_frame.png"),self.position[0],self.position[1]+135+self.gap*2)
 
         self.grass_row = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/grass_row.png"),self.position[0],self.position[1])
+        # Sprites in Pool
         self.sprites = []
+        # Sprites in Hand
         self.sprites_hand = []
+        # Drawing Sprites with new Funktion
         self.draw_Cards()
       #Side Card      
         self.blank = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/blank_card.png"),1500, height //4 )
@@ -141,14 +144,7 @@ class HandSelection:
                                 x=self.blank.x+300, y=self.blank.y+205,
                                 anchor_x='left', anchor_y='top')
       #  
-        
-        
-        #self.all_cards = list(Cards.cards.keys())[:-5]
-        #for i in range(len(self.all_cards)):
-        #    self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
-        #                                             self.all_card_indentation+self.position[0]+(i % self.cpr)*(135+self.gap),
-        #                                             self.height-(int(i/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain,batch=batch))
-      
+             
     def move_card(self,x,y):
         rx = x-self.all_card_indentation-self.position[0]
         ry = (self.height+self.frame_height_gain)-(y-self.position[1])#(self.h-self.position[1])-(y-self.position[1])-self.height
@@ -164,14 +160,15 @@ class HandSelection:
                     self.update_card(self.target)
                     if num < len(self.all_cards) and num not in self.hand:
                         if len(self.hand) < self.max_hand_lenght:
-                            #self.sprites[num].y = self.position[1]
-                            #self.sprites[num].x = self.position[0]+(135+self.gap)*len(self.hand)#+self.indentation
+                            #Instead of Changing Position adding Sprite to new List and Changing Position                            
                             self.sprites_hand.append(self.sprites[num])
                             self.sprites_hand[-1].y = self.position[1]
                             self.sprites_hand[-1].x = self.position[0]+(135+self.gap)*len(self.hand)                           
+                            #Adding Card to Hand
                             self.hand.append(num)
-                            print(2)
+                            #Replacing Index in Sprites, because of not Index Problems (num usw....)
                             self.replace_index(num,num,self.sprites)
+                            #Drawing Changed Cards
                             self.draw_Cards(init=False)
 
             
@@ -182,11 +179,12 @@ class HandSelection:
                 return
             if len(self.hand) > num:
                 card = self.hand[num]
-                #self.sprites[card].y = self.height-(int(card/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain
-                #self.sprites[card].x = self.all_card_indentation+(card % self.cpr)*(135+self.gap)+self.position[0]
+                # Replacing Index in sprites and changing Position
                 self.replace_index(card,self.sprites_hand[num],self.sprites,pool=True)
+                # Removing Card from varios Lists
                 self.sprites_hand.remove(self.sprites_hand[num])
                 self.hand.remove(card)
+                #Drawing new Cards
                 self.draw_Cards(init=False)
 
                 if len(self.hand) > 0:
@@ -194,6 +192,7 @@ class HandSelection:
                       self.sprites_hand[c].x -= (135+self.gap)
             
     def draw_Cards(self,init=True):
+      #Will only be drawn once
       if init:
         self.all_cards = list(Cards.cards.keys())[:-5]
         for i in range(len(self.all_cards)):
@@ -228,7 +227,7 @@ class HandSelection:
       self.card_health.text = str(target[1])
       self.card_cost.text = str(target[4])
 
-    def replace_index(self,index,replacement,liste,pool=False):
+    def replace_index(self,liste,index,replacement,pool=False):
       liste.insert(index, replacement)
       liste.remove(liste[index+1])
       if pool:
