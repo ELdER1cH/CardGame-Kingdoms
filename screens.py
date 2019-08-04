@@ -216,7 +216,7 @@ class HandSelection:
             return self.action
         return None
     
-    def update_page(self,page):
+    def update_page(self,page): 
       self.page += page
       self.page_label.text = str(self.page)
    
@@ -235,8 +235,12 @@ class HandSelection:
       liste.insert(index, replacement)
       liste.remove(liste[index+1])
       if pool:
-        liste[index].y = self.height-(int(index/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain
-        liste[index].x = self.all_card_indentation+(index % self.cpr)*(135+self.gap)+self.position[0]
+        if index < 16:
+          liste[index].y = self.height-(int(index/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain
+          liste[index].x = self.all_card_indentation+(index % self.cpr)*(135+self.gap)+self.position[0]
+        elif index < 31:
+          liste[index].y = self.height-(int((index-16)/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain
+          liste[index].x = self.all_card_indentation+((index-16) % self.cpr)*(135+self.gap)+self.position[0]
         
       
 
