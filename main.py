@@ -601,8 +601,8 @@ class Window(main_chat.Window):
 if __name__ == "__main__":
   width = 1920;height = 1080
   window = Window(width,height,"Cardgame - Online Version (developer build)",resizable=True,vsync=True)
-  window.maximize()
-  window.set_fullscreen(True)
+  #window.maximize()
+  #window.set_fullscreen(True)
   icon1 = pyglet.image.load('resc/16x16.png')
   icon2 = pyglet.image.load('resc/32x32.png')
   window.set_icon(icon1, icon2)
