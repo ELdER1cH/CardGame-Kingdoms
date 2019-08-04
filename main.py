@@ -130,7 +130,13 @@ class Window(main_chat.Window):
         elif "NEWIP" in action:
             self.IP = action[5:]
             self.g_print(self.IP)
-
+        elif action == "Page->":
+          if self.current_screen.hand_selection.page < 2:
+            self.current_screen.hand_selection.update_page(1)
+        elif action == "Page<-":
+          if self.current_screen.hand_selection.page > 1:
+            self.current_screen.hand_selection.update_page(-1)
+              
   def splash_event(self,clicked_card,target):
     if self.batch.castle.mana >= clicked_card.price:
       self.batch.castle.mana -= clicked_card.price
