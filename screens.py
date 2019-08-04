@@ -96,6 +96,8 @@ class HandSelection:
         self.frame_height_gain = 120
         self.gap = 20
         self.cpr = 8
+        self.page = 1
+        self.saved_sprites = []
         
         self.action = None
         self.height = 3*(135+self.gap)+self.gap   
@@ -106,7 +108,15 @@ class HandSelection:
 
         self.grass_row = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/grass_row.png"),self.position[0],self.position[1])
         # Sprites in Pool
+        self.page_label = pyglet.text.Label("",
+                            font_name='Times New Roman', font_size=40,
+                            color=(0, 0, 0,255),
+                            x=1125, y=300,
+                            anchor_x='center', anchor_y='center',batch = self.batch)
+        self.page_label.text = str(self.page)
         self.sprites = []
+
+        self.current_page_sprites = []
         # Sprites in Hand
         self.sprites_hand = []
         # Drawing Sprites with new Funktion
@@ -152,7 +162,7 @@ class HandSelection:
             rx /= (135+self.gap); ry /= (135+self.gap)
             if rx-int(rx) <= 1-self.gap/(135+self.gap): 
                 if ry-int(ry) >= self.gap/(135+self.gap):
-                    num = int(int(rx) + int(ry)* (self.width/(135+self.gap)-2))
+                    num = int(int(rx) + int(ry)* (self.width/(135+self.gap)-2)+(self.page-1)*16)
                     self.target = Cards.cards[self.all_cards[num]]
                     describtion = Cards.cards_describtion[self.all_cards[num]]
                     self.target.append(describtion[0]) 
@@ -167,7 +177,7 @@ class HandSelection:
                             #Adding Card to Hand
                             self.hand.append(num)
                             #Replacing Index in Sprites, because of not Index Problems (num usw....)
-                            self.replace_index(num,num,self.sprites)
+                            self.replace_index(self.sprites,num,num)
                             #Drawing Changed Cards
                             self.draw_Cards(init=False)
 
@@ -180,7 +190,7 @@ class HandSelection:
             if len(self.hand) > num:
                 card = self.hand[num]
                 # Replacing Index in sprites and changing Position
-                self.replace_index(card,self.sprites_hand[num],self.sprites,pool=True)
+                self.replace_index(self.sprites,card,self.sprites_hand[num],pool=True)
                 # Removing Card from varios Lists
                 self.sprites_hand.remove(self.sprites_hand[num])
                 self.hand.remove(card)
@@ -190,23 +200,7 @@ class HandSelection:
                 if len(self.hand) > 0:
                     for c in range(num,len(self.hand),1):
                       self.sprites_hand[c].x -= (135+self.gap)
-            
-    def draw_Cards(self,init=True):
-      #Will only be drawn once
-      if init:
-        self.all_cards = list(Cards.cards.keys())[:-5]
-        for i in range(len(self.all_cards)):
-          self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
-                                                    self.all_card_indentation+self.position[0]+(i % self.cpr)*(135+self.gap),
-                                                    self.height-(int(i/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain,batch=self.batch))
-      else:
-        for i in self.sprites:
-          if not type(int):
-            i.draw()
-        for i in self.sprites_hand:
-          if not type(int):  
-            i.draw()
-      
+                  
     def press(self,x,y,button):
         if button == mouse.LEFT:
           xp,yp = self.position
@@ -215,6 +209,29 @@ class HandSelection:
             self.move_card(x,y)
             return self.action
         return None
+    
+    def update_page(self,page):
+      self.page += page
+      self.page_label.text = str(self.page)
+      self.draw_Cards(init=False)
+   
+    def draw_Cards(self,init=True):
+      #Will only be drawn once
+      if init:
+        self.all_cards = list(Cards.cards.keys())[:-5]
+        self.cards_page_1 = list(Cards.cards.keys())[:-5-1]
+        self.cards_page_2 = list(Cards.cards.keys())[16:-5]
+        for i in range(len(self.all_cards)):
+          if i < 16:
+            self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
+                                                      self.all_card_indentation+self.position[0]+(i % self.cpr)*(135+self.gap),
+                                                      self.height-(int(i/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain))
+          #Ab der 15ten Karte  fangen die Koordinaten von vorne an
+          elif i < 31:
+            self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
+                                                      self.all_card_indentation+self.position[0]+((i-16) % self.cpr)*(135+self.gap),
+                                                      self.height-(int((i-16)/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain))
+      
     
     def update_card(self,target):
       try:
@@ -339,14 +356,12 @@ class CardScreenCards:
     self.card_damage.text = str(target[3])
     self.card_health.text = str(target[1])
     self.card_cost.text = str(target[4])
-
 class Screen:
   def draw(self):
     self.batch.draw()
 
   def update(self,dt):
     pass
-
 class StartScreen(Screen):
   def __init__(self,width,height):
     self.batch = pyglet.graphics.Batch()
@@ -414,8 +429,7 @@ class SettingsScreen(Screen):
   def draw(self):
     self.batch.draw()
     if self.ip_textbox.active:
-        self.ip_textbox.label.draw()
-    
+        self.ip_textbox.label.draw()    
 class LobbyScreen(Screen):
   def __init__(self,width,height):
     self.batch = pyglet.graphics.Batch()
@@ -467,6 +481,16 @@ class LobbyScreen(Screen):
                               adj_anchor=False)
     self.back_button.action = "BACK"
     self.buttons.append(self.back_button)
+
+    self.page_foreward_button = Button(pyglet.image.load("resc\page_selector_forewards.png")
+                                        ,1150,250, batch = self.batch, adj_anchor = False)
+    self.page_foreward_button.action = "Page->"
+    self.buttons.append(self.page_foreward_button)
+
+    self.page_backward_button = Button(pyglet.image.load("resc\page_selector_backwards.png")
+                                        ,1000,250, batch = self.batch, adj_anchor = False)
+    self.page_backward_button.action = "Page<-"
+    self.buttons.append(self.page_backward_button)
   
   def update_opponent_search(self,delay,lz):
     if lz != 2:
@@ -491,6 +515,21 @@ class LobbyScreen(Screen):
         self.hand_selection.card_cost.draw()
         self.hand_selection.background.draw()
         self.hand_selection.grass_row.draw()
+        if self.hand_selection.page == 1:
+          for sprite in self.hand_selection.sprites[:-1]:
+            try:
+              sprite.draw()
+            except:
+              pass
+        elif self.hand_selection.page == 2:
+          for sprite in self.hand_selection.sprites[16:]:
+            try:
+              sprite.draw()
+            except:
+              pass
+        for sprite in self.hand_selection.sprites_hand:
+          if sprite != type(int):  
+            sprite.draw()
         self.batch.draw()
 
 class CardScreen(Screen):
