@@ -119,8 +119,18 @@ class HandSelection:
         self.current_page_sprites = []
         # Sprites in Hand
         self.sprites_hand = []
-        # Drawing Sprites with new Funktion
-        self.draw_Cards()
+        # Adding Sprites for Page 1 & 2
+        self.all_cards = list(Cards.cards.keys())[:-5]
+        for i in range(len(self.all_cards)):
+          if i < 16:
+            self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
+                                                      self.all_card_indentation+self.position[0]+(i % self.cpr)*(135+self.gap),
+                                                      self.height-(int(i/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain))
+          #Ab der 15ten Karte  fangen die Koordinaten von vorne an (Page 2)
+          elif i < 31:
+            self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
+                                                      self.all_card_indentation+self.position[0]+((i-16) % self.cpr)*(135+self.gap),
+                                                      self.height-(int((i-16)/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain))
       #Side Card      
         self.blank = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/blank_card.png"),1500, height //4 )
         #anchor_x = 'center', anchor_y = 'center'
@@ -178,8 +188,6 @@ class HandSelection:
                             self.hand.append(num)
                             #Replacing Index in Sprites, because of not Index Problems (num usw....)
                             self.replace_index(self.sprites,num,num)
-                            #Drawing Changed Cards
-                            self.draw_Cards(init=False)
 
             
         elif y <= self.position[1]+(135+self.gap)+self.gap:
@@ -194,8 +202,6 @@ class HandSelection:
                 # Removing Card from varios Lists
                 self.sprites_hand.remove(self.sprites_hand[num])
                 self.hand.remove(card)
-                #Drawing new Cards
-                self.draw_Cards(init=False)
 
                 if len(self.hand) > 0:
                     for c in range(num,len(self.hand),1):
@@ -213,26 +219,7 @@ class HandSelection:
     def update_page(self,page):
       self.page += page
       self.page_label.text = str(self.page)
-      self.draw_Cards(init=False)
    
-    def draw_Cards(self,init=True):
-      #Will only be drawn once
-      if init:
-        self.all_cards = list(Cards.cards.keys())[:-5]
-        self.cards_page_1 = list(Cards.cards.keys())[:-5-1]
-        self.cards_page_2 = list(Cards.cards.keys())[16:-5]
-        for i in range(len(self.all_cards)):
-          if i < 16:
-            self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
-                                                      self.all_card_indentation+self.position[0]+(i % self.cpr)*(135+self.gap),
-                                                      self.height-(int(i/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain))
-          #Ab der 15ten Karte  fangen die Koordinaten von vorne an
-          elif i < 31:
-            self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
-                                                      self.all_card_indentation+self.position[0]+((i-16) % self.cpr)*(135+self.gap),
-                                                      self.height-(int((i-16)/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain))
-      
-    
     def update_card(self,target):
       try:
           self.select_sprite.image = pyglet.image.load(target[6][:-4]+"_large.png")
@@ -515,6 +502,7 @@ class LobbyScreen(Screen):
         self.hand_selection.card_cost.draw()
         self.hand_selection.background.draw()
         self.hand_selection.grass_row.draw()
+        #Drawing Sprites of Cards for Page 1,2 and hand
         if self.hand_selection.page == 1:
           for sprite in self.hand_selection.sprites[:-1]:
             try:
