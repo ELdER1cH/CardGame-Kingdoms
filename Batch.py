@@ -62,9 +62,11 @@ class CardBatch(pyglet.graphics.Batch):
         if card.y > 0 and card.y < 1080 and card.owner == self.castle.owner:
           special(card) 
           if card.special_tag == 'unoccupied_field':
-                self.pop_up.mana_event(card.position)
+            self.pop_up.mana_event(card.position)
           if card.name == 'Bauernhof':
             self.pop_up.mana_event(card.position,3)
+          if card.name == 'Elf':
+            self.pop_up.mana_event(card.position)
     self.hide(self.select_frame)
     self.update_disp(self.castle)
 

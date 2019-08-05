@@ -1,6 +1,6 @@
 import pyglet
 from pyglet.gl import *
-import Cards
+import Cards,pop_up
 import random
 
 val = 1
@@ -18,6 +18,7 @@ class Card(pyglet.sprite.Sprite):
     self.owner = owner
     self.init()
     self.batch = batch
+    
     
   def init(self):
     self.resize()
@@ -104,7 +105,6 @@ class Card(pyglet.sprite.Sprite):
         special(self,1)
 
   def heal(self):
-    print('t')
     heal_amount = 1200
     cards_to_heal = 0
     adjacent = self.batch.get_adjacent(self.position)
@@ -138,12 +138,13 @@ class Card(pyglet.sprite.Sprite):
                   
               if target != None:
                   target.replace(target,random.choice(self.batch.castle.cards))
+        self.batch.pop_up.carddraw_event(pos=(int(self.x),int(self.y)))
               
   def generate_mana(self):
     if self.owner == self.batch.castle.owner:
       if self.batch.castle.mana < self.batch.castle.max_mana:
         self.batch.castle.mana += 1
-
+        
   def farm_special(self,on_off):
       if self.owner == self.batch.castle.owner:
         self.batch.castle.max_mana += 5*on_off
@@ -152,7 +153,6 @@ class Card(pyglet.sprite.Sprite):
         castle.max_mana += 5*on_off
         if castle.mana >= castle.max_mana:
               castle.mana = castle.max_mana
-      print("farm_special!") 
 
   def castle_special(self):
     if self.health < self.max_health:

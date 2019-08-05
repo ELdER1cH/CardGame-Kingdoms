@@ -48,6 +48,13 @@ class Pop_Up:
                                             pos[0],pos[1])
         self.life_time = 3
         self.pop_ups.append([self.explosion,self.life_time])
+    
+    def carddraw_event(self,pos=(0,0)):
+        self.card_draw_sprite = pyglet.sprite.Sprite(pyglet.image.load('resc\pop_up_card_draw_event_x1.png'),
+                                            pos[0]+135/4,pos[1]+135/4,)
+        self.life_time = 1
+        self.pop_ups.append([self.card_draw_sprite,self.life_time])
+    
     def new_pop_up(self,pos,life_span=0.3,text='', font_size =12,color=(255,50,50,255),delay=None):
         self.pop_up_label = pyglet.text.Label(text,
                           font_name='Arial',
