@@ -122,7 +122,7 @@ class Card(pyglet.sprite.Sprite):
 
   def wake_up(self):
     #For Sleeping Giant
-    if self.health >= 5000:
+    if self.health >= 3000:
       self.special_tag = ""
    
   def draw_card_special(self,on_off=True):
