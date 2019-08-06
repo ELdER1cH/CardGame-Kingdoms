@@ -526,7 +526,7 @@ class LobbyScreen(Screen):
         self.hand_selection.grass_row.draw()
         #Drawing Sprites of Cards for Page 1,2 and hand
         if self.hand_selection.page == 1:
-          for sprite in self.hand_selection.sprites[:-1]:
+          for sprite in self.hand_selection.sprites[:16-len(self.hand_selection-sprites)]:
             try:
               sprite.draw()
             except:
@@ -599,7 +599,7 @@ class CardScreen(Screen):
     self.hand_selection.background.draw()
     #Drawing Sprites of Cards for Page 1,2 and hand
     if self.hand_selection.page == 1:
-      for sprite in self.hand_selection.sprites[:-1]:
+      for sprite in self.hand_selection.sprites[:16-len(self.hand_selection.sprites)]:
         try:
           sprite.draw()
         except:

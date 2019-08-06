@@ -35,6 +35,10 @@ class Client():
   def send_splash_attack_event(self,pos1,dmg):
     info = {'type': 'splash_attack', 'attack':(pos1,dmg), 'lobby':self.lobby}
     self.send(json.dumps(info))
+  
+  def send_splash_heal_event(self,pos1,heal_amount):
+    info = {'type': 'splash_heal', 'target':(pos1,heal_amount), 'lobby':self.lobby}
+    self.send(json.dumps(info))
 
   def send_move_done(self):
     info = {'type': 'move_done', 'lobby':self.lobby}

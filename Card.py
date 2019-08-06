@@ -111,13 +111,15 @@ class Card(pyglet.sprite.Sprite):
     for card in adjacent:
       if card.owner == self.owner and card.special_tag != "unoccupied_field" and card.health < card.max_health:
         cards_to_heal += 1
+    real_heal = heal_amount/cards_to_heal
     for card in adjacent:
       if card.owner == self.owner and card.special_tag != "unoccupied_field":
         if card.health < card.max_health:
-          card.health += heal_amount/cards_to_heal
+          card.health += real_heal
           if card.health > card.max_health:
             card.health = card.max_health
-          self.batch.pop_up.heal_special(card.position,amount=heal_amount/cards_to_heal)
+            real_heal = real_heal - (card.health-card.max_health)
+          self.batch.pop_up.heal_special(card.position,amount=real_heal)
           print('Healed %s at %s:%s to %s health' % (card.name,card.x/135,card.y/135,card.health))
 
   def wake_up(self):
@@ -138,7 +140,7 @@ class Card(pyglet.sprite.Sprite):
                   
               if target != None:
                   target.replace(target,random.choice(self.batch.castle.cards))
-        self.batch.pop_up.carddraw_event(pos=(int(self.x),int(self.y)))
+        self.batch.pop_up.carddraw_event(pos=self.position)
               
   def generate_mana(self):
     if self.owner == self.batch.castle.owner:
@@ -191,6 +193,17 @@ class Card(pyglet.sprite.Sprite):
         else:
           card.health = card.health/(1+multiplier)
 
+  def splash_heal(self,delay=None,target=None,dmg=None):
+    heal_amount = 500 # Muss auch noch in main splash event geändert werden !
+    if target.owner == self.owner:
+        if target.health < target.max_health:
+          target.health += heal_amount
+        if target.health > target.max_health:
+          target.health = target.max_health
+          heal_amount = heal_amount - (target.health-target.max_health)
+        self.batch.pop_up.heal_special(pos=target.position,amount= heal_amount)
+    return False
+  
   def splash_mana(self,delay=None,target=None,dmg=None):
     if self.owner == self.batch.castle.owner:
       if self.batch.castle.mana < self.batch.castle.max_mana:

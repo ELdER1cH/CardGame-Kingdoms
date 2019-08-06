@@ -147,6 +147,9 @@ class Window(main_chat.Window):
             self.batch.pop_up.damage_event(pos=target.position,amount=clicked_card.dmg)
             if self.online == True:
                 self.client.send_splash_attack_event(target.position,clicked_card.dmg)
+      elif clicked_card.name == 'SplashHeal':
+        if self.online == True:
+                self.client.send_splash_heal_event(target.position,500)
       won = None
       for special in clicked_card.place_special:
         won = special(clicked_card,target=target,dmg=clicked_card.dmg)
@@ -309,7 +312,6 @@ class Window(main_chat.Window):
         else:
           #IF TARGET IS EMPTY FIELD SHOW RED FRAME
           self.pop_up.new_red_frame(target.position)    
-
 
   def weitergeben(self):
     if self.online == True:
@@ -519,8 +521,17 @@ class Window(main_chat.Window):
                   if dmg > 0:
                     pyglet.clock.schedule_once(self.batch.pop_up.explosion_event,0.01,pos=target.position)
                     pyglet.clock.schedule_once(self.batch.pop_up.damage_event,0.01,pos=target.position,amount=dmg)
-
                   pyglet.clock.schedule_once(target.splash_damage,0.01,target,dmg)
+                
+                elif r['type'] == 'splash_heal':
+                  pos1,heal_amount = r['target']
+                  pos1 = ((540+left_gap)-int(pos1[0])+left_gap,1080-int(pos1[1]))
+                  target = self.batch.get_card(pos1)
+                  pyglet.clock.schedule_once(self.batch.pop_up.heal_special,0.01,pos=target.position,amount=heal_amount)
+                  pyglet.clock.schedule_once(target.splash_heal,0.01,target,heal_amount)
+
+
+
     
   def receive_messages(self):
       while True:

@@ -19,8 +19,9 @@ cards = {
             'Shield': [1,1000,2000,200,9,0,'resc\jolas\Schield.png',[],'',[Card.shield_booster_special]],
             'Rammbock': [1,1500,1000,400,6,0,'resc\jolas\Rammbock.png',[],'BW',[]],
             'SplashMana': [1,0,0,0,0,0,'resc\jolas/splashmana.png',[],'splash',[Card.splash_mana,Card.splash_mana,Card.splash_mana]],
-            'Dwarf': [1,1000,1000,400,8,0,'resc\jolas\Zwerg.png',[Card.draw_card_special],'',[]],
+            'SplashHeal': [1,0,0,0,0,0,'resc\jolas/splash_heal.png',[],'splash',[Card.splash_heal]],
             'FireBall': [1,0,0,400,4,0,'resc\jolas/feuerball.png',[],'splash',[Card.splash_damage]],
+            'Dwarf': [1,1000,1000,400,8,0,'resc\jolas\Zwerg.png',[Card.draw_card_special],'',[]],    
             'Elf':  [1,600,600,500,7,0,'resc\jolas\elf.png',[Card.generate_mana],'',[]],
             'Burg': [1,5000,10000,400,0,0,'resc\jolas/burg.png',[Card.castle_special,Card.draw_card_special],"immovable",[]],
             'green': [1,1,1,0,0,0,'resc/green_frame.png',[Card.generate_mana],"unoccupied_field",[]],
@@ -44,8 +45,11 @@ cards_describtion={
     'Bombe': ["""Starker, aber einmaliger Schaden ... Effektiv!"""],
     'Rammbock': ["""Diese Einheit machen gegen Gebäude 1,5x Schaden, bekommt aber von normalen Einheiten 1,5x Schaden, hat keinen Verteidigungsschaden und macht an normalen Einheiten 0,5x Schaden."""],
     'SplashMana': ["""Schnelle drei Mana ... Was gibt es besseres?"""],
+    'SplashHeal': ["""Diese Karte heilt die Zielkarte um 500 Leben. 
+Hinweis: Diese Karte kann bei allen eigenen Karten eingesetzt werden."""],
+    'FireBall': ["""Achtung Heiß!
+Hinweis: Diese Karte kann überall eingesetzt werden."""],
     'Dwarf': ["""Zwergen sind missmutig, dieser auch! Aber befördert eine Karte pro Runde ans Tageslicht."""],
-    'FireBall': ["""Achtung Heiß!"""],
     'Elf':["""Sie werden sehr alt, es sei denn sie sterben im Kampf. Doch durch ihr gewaltiges Wissen wirken sie sich nicht auf deine Mana Regeneration aus."""],
     'Burg': ["""Sie ist unter allen Umständen zu schützen! Sollte sie zerstört werden, wirst du auf das Schaffot geführt. """],
     'green': [""" """],

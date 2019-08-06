@@ -23,7 +23,7 @@ class Pop_Up:
         self.life_time = 1
         self.pop_ups.append([self.pop_up_label,self.life_time])
     
-    def heal_special(self,pos=(),amount=1200):
+    def heal_special(self,delay=None,pos=(),amount=1200):
         self.pop_up_label = pyglet.text.Label("+"+str(amount),
                                               font_name ='Times New Roman',
                                               font_size=20,
