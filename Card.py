@@ -194,7 +194,7 @@ class Card(pyglet.sprite.Sprite):
           card.health = card.health/(1+multiplier)
 
   def splash_heal(self,delay=None,target=None,dmg=None):
-    heal_amount = 500 # Muss auch noch in main splash event geändert werden !
+    heal_amount = 500 # Muss auch noch in main: splash event und Cards: Describtion geändert werden !
     if target.owner == self.owner:
         if target.health < target.max_health:
           target.health += heal_amount

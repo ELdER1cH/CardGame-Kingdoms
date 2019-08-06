@@ -19,7 +19,7 @@ cards = {
             'Shield': [1,1000,2000,200,9,0,'resc\jolas\Schield.png',[],'',[Card.shield_booster_special]],
             'Rammbock': [1,1500,1000,400,6,0,'resc\jolas\Rammbock.png',[],'BW',[]],
             'SplashMana': [1,0,0,0,0,0,'resc\jolas/splashmana.png',[],'splash',[Card.splash_mana,Card.splash_mana,Card.splash_mana]],
-            'SplashHeal': [1,0,0,0,0,0,'resc\jolas/splash_heal.png',[],'splash',[Card.splash_heal]],
+            'SplashHeal': [1,0,0,0,5,0,'resc\jolas/splash_heal.png',[],'splash',[Card.splash_heal]],
             'FireBall': [1,0,0,400,4,0,'resc\jolas/feuerball.png',[],'splash',[Card.splash_damage]],
             'Dwarf': [1,1000,1000,400,8,0,'resc\jolas\Zwerg.png',[Card.draw_card_special],'',[]],    
             'Elf':  [1,600,600,500,7,0,'resc\jolas\elf.png',[Card.generate_mana],'',[]],
