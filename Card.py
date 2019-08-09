@@ -111,7 +111,10 @@ class Card(pyglet.sprite.Sprite):
     for card in adjacent:
       if card.owner == self.owner and card.special_tag != "unoccupied_field" and card.health < card.max_health:
         cards_to_heal += 1
-    real_heal = heal_amount/cards_to_heal
+    try:
+      real_heal = heal_amount/cards_to_heal
+    except:
+      pass
     for card in adjacent:
       if card.owner == self.owner and card.special_tag != "unoccupied_field":
         if card.health < card.max_health:
@@ -119,7 +122,7 @@ class Card(pyglet.sprite.Sprite):
           if card.health > card.max_health:
             card.health = card.max_health
             real_heal = real_heal - (card.health-card.max_health)
-          self.batch.pop_up.heal_special(card.position,amount=real_heal)
+          self.batch.pop_up.heal_special(pos=card.position,amount=real_heal)
           print('Healed %s at %s:%s to %s health' % (card.name,card.x/135,card.y/135,card.health))
 
   def wake_up(self):
