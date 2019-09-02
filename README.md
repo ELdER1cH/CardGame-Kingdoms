@@ -1,6 +1,13 @@
 # Cardgame
-
 Spiel mit Elementen aus Karten-, Strategiespielen, sowie Schach.
+
+##Installation
+-Benötigt Python 3.x (3.6, 3.7 wurden getestet) 
+	Installation via https://www.python.org/
+-Benötigt pyglet v1.3.2
+	Installation via pip in der Eingabeaufforderung (cmd/ Command Prompt) -> "pip install pyglet==1.3.2"
+	("pip install pyglet" alleine würde eine neuere Version (derzeit v1.4.2) installieren, 
+	welche nicht mit diesem Programm harmoniert - wichtige Funktionen wurden unersichtlich geändert)
 
 ## Ziel des Spiels
 
