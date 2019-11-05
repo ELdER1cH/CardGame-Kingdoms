@@ -8,6 +8,9 @@ Spiel mit Elementen aus Karten-, Strategiespielen, sowie Schach.
 	Installation via pip in der Eingabeaufforderung (cmd/ Command Prompt) -> "pip install pyglet==1.3.2"
 	("pip install pyglet" alleine würde eine neuere Version (derzeit v1.4.2) installieren, 
 	welche nicht mit diesem Programm harmoniert - wichtige Funktionen wurden unersichtlich geändert)
+	LÖSUNG: 
+	"ImageData" object has no attribute "texture" -> img.texture is deprecated, use get_texture() instead!
+	-> update this in all the code.., shouldn't be to much of a hustle
 
 ## Ziel des Spiels
 
