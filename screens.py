@@ -330,7 +330,7 @@ class CardScreenCards:
   def move_card(self,x,y):
       rx = x-self.all_card_indentation-self.position[0]
       ry = (self.height+self.frame_height_gain)-(y-self.position[1])#(self.h-self.position[1])-(y-self.position[1])-self.height
-      if y >=self.position[1]+self.frame_height_gain:
+      if y >=self.position[1]+self.frame_height_gain+150:
           rx /= (135+self.gap); ry /= (135+self.gap)
           if rx-int(rx) <= 1-self.gap/(135+self.gap): 
               if ry-int(ry) >= self.gap/(135+self.gap):
