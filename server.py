@@ -132,5 +132,6 @@ while run:
     except:
         print("<> server shut down!")
         break
+
     lobby = register(conn,addr)        
     threading.Thread(target=connection_loop,args=(conn,addr,lobby)).start()

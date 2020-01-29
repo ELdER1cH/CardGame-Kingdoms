@@ -410,43 +410,45 @@ class Window(main_chat.Window):
           self.set_minimum_size(853, 480)
 
   def on_cmd(self,cmd):
-        if cmd[0] == '/hello world':
-            self.g_print('§cHello, dear fella!')
-        elif cmd[0] == '/mana_cheat':
-            if len(cmd) == 2:
-                if cmd[1] == "-me":
-                    self.batch.castle.mana = 99999
-                else:
-                    try:
-                        self.batch.castle.mana += int(cmd[1])
-                    except ValueError as err:
-                        self.g_print("§cplease enter an integer as an argument! %s" % (err))
-            else: self.g_print("/mana_cheat <value/-me>")
-        elif cmd[0] == '/heal_cheat':
-            if len(cmd) >= 2 and cmd[1] == "-me":
-              self.batch.castle.health = 99999
-            elif len(cmd) == 4:
-              try:
-                card = self.batch.get_card((int(cmd[1])*135+left_gap,int(cmd[2])*135))
-              except ValueError as err:
-                self.g_print("§cplease enter an integer as an argument! %s" % (err))
-              if card != None:
-                card.health += int(cmd[3])
-              else: self.g_print("no card at that coordiante")
-            else: self.g_print("/heal_cheat <x-Koordiante> <y-Koordiante> <healamount>")
-        elif cmd[0] == "/replace":
-          if len(cmd) >= 2 and cmd[1] == "-hand":
-            if cmd[2] in list(Cards.cards.keys()):
-              row = self.batch.get_row((left_gap,0))
-              for card in row:
-                card.replace(card,cmd[2],owner=card.owner)
+    #self.server.on_cmd(cmd)
+    if cmd[0] == '/hello world':
+        self.g_print('§cHello, dear fella!')
+    elif cmd[0] == '/mana_cheat':
+        if len(cmd) == 2:
+            if cmd[1] == "-me":
+                self.batch.castle.mana = 99999
             else:
-              self.g_print("§cunknown card: %s" % (cmd[2]))
-          else:
-            self.g_print("§c/replace -hand <card_name>")
-
-        else: self.g_print("§cunknown command. '%s'" % (" ".join(cmd)))
-# -------------------------- Server Stuff ------------------------------------------
+                try:
+                    self.batch.castle.mana += int(cmd[1])
+                except ValueError as err:
+                    self.g_print("§cplease enter an integer as an argument! %s" % (err))
+        else: self.g_print("/mana_cheat <value/-me>")
+    elif cmd[0] == '/heal_cheat':
+        if len(cmd) >= 2 and cmd[1] == "-me":
+          self.batch.castle.health = 99999
+        elif len(cmd) == 4:
+          try:
+            card = self.batch.get_card((int(cmd[1])*135+left_gap,int(cmd[2])*135))
+          except ValueError as err:
+            self.g_print("§cplease enter an integer as an argument! %s" % (err))
+          if card != None:
+            card.health += int(cmd[3])
+          else: self.g_print("no card at that coordiante")
+        else: self.g_print("/heal_cheat <x-Koordiante> <y-Koordiante> <healamount>")
+    elif cmd[0] == "/replace":
+      if len(cmd) >= 2 and cmd[1] == "-hand":
+        if cmd[2] in list(Cards.cards.keys()):
+          row = self.batch.get_row((left_gap,0))
+          for card in row:
+            card.replace(card,cmd[2],owner=card.owner)
+        else:
+          self.g_print("§cunknown card: %s" % (cmd[2]))
+      else:
+        self.g_print("§c/replace -hand <card_name>")
+    else: self.g_print("§cunknown command. '%s'" % (" ".join(cmd)))
+    
+    #------------------------ Server Stuff ------------------------------------------
+  
   def back(self,delay=None):
     self.current_screen = screens.StartScreen(1920,1080)
 
