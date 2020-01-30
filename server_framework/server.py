@@ -12,7 +12,7 @@ loop = True
 
 def log(info, prefix="",p=True):
     lenght = 30; current_time = prefix + str(datetime.datetime.now())
-    with open("C:/Users/amosm/Documents/GitHub/CardGame-Kingdoms/server_framework/serverlog.txt","a") as f:
+    with open("serverlog.txt","a") as f:
         text = f'{current_time:<{lenght}}' + "- " + info + "\n"
         f.write(text)
         if p: print(text[:-1])
