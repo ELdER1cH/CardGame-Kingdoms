@@ -1,0 +1,21 @@
+*2020-02-01 00:30:37.047326   >> Socket successfully created!
+*2020-02-01 00:30:37.052331   >> Socket successfully bound to address: :6789
+*2020-02-01 00:30:37.053332   >> Socket is listening...
+<>2020-02-01 00:30:37.053332  >> main loop active!
+*2020-02-01 00:31:52.969569   >> Socket successfully created!
+*2020-02-01 00:31:52.973574   >> Socket successfully bound to address: :6789
+*2020-02-01 00:31:52.974574   >> Socket is listening...
+<>2020-02-01 00:31:52.974574  >> main loop active!
+*2020-02-01 00:33:25.524577   >> Socket successfully created!
+*2020-02-01 00:33:25.528581   >> Socket successfully bound to address: :6789
+*2020-02-01 00:33:25.528581   >> Socket is listening...
+<>2020-02-01 00:33:25.529582  >> main loop active!
+<>2020-02-01 00:33:35.530660  >> << New connetion from addr: ('127.0.0.1', 50858) num_conns: 1
+<>2020-02-01 00:33:35.531660  >> Assigned lobby None to ('127.0.0.1', 50858); elp:{}, elp2[], elp3{0: [{'conn': <socket.socket fd=996, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 6789), raddr=('127.0.0.1', 50858)>, 'addr': ('127.0.0.1', 50858), 'lobby': None}]}, flp[]
+<>2020-02-01 00:33:35.536664  >> << connection lost: ('127.0.0.1', 50858), lobby: None, num_conns: 0
+<>2020-02-01 00:33:35.538667  >> updated lobbys. full: {}, empty: {0: []}
+<>2020-02-01 00:33:35.540670  >> Starting shutt off timer! t: -30s
+*2020-02-01 00:34:05.567922   >> Socket successfully closed!
+--------
+
+<!>2020-02-01 00:34:05.567922 >> error whilst establishing a connection! shutting down... (open threads: 8)
