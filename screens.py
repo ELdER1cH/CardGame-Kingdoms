@@ -502,7 +502,7 @@ class LobbyScreen(Screen):
     self.buttons.append(self.page_backward_button)
   
   def update_opponent_search(self,delay,lz):
-    if lz != 2:
+    if not lz:
       self.opponent_search.image = self.awaiting_opponent_img
     else:
       self.opponent_search.image = self.opponent_found_img

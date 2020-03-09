@@ -47,6 +47,8 @@ class Window(main_chat.Window):
     self.loading = True
     
     self.init_batch()
+
+    self.on_resize(800,450)
 #------------------------------ Game Stuff --------------------------------------
 
   def init_batch(self,delay=None):
@@ -90,7 +92,7 @@ class Window(main_chat.Window):
     self.current_screen.update(dt) 
 
   def button_actions(self,x,y,button,MOD,antir):
-    cs = self.current_screen
+    cs = self.current_screen #tf, is this not in use? xD
     for b in cs.buttons:
       action = b.press((x / self.scale_x), (y / self.scale_y),button)
       if action != None:
@@ -106,7 +108,7 @@ class Window(main_chat.Window):
         elif action == "CARDS":
               self.current_screen = screens.CardScreen(1920,1080)
         elif action == "READY":
-          if self.client.lobbysize == 2 and len(self.current_screen.hand_selection.hand) >= 5:
+          if self.client.opponent_found and len(self.current_screen.hand_selection.hand) >= 5:
             cs.ready = not cs.ready
             print(f"ready: {cs.ready}")
             self.client.send_ready(self.current_screen.opponent_ready)
@@ -453,12 +455,35 @@ class Window(main_chat.Window):
     self.current_screen = screens.StartScreen(1920,1080)
 
   def back_l(self,delay=None):
+    #print("back_l")
     self.ingame = False
     self.current_screen = screens.LobbyScreen(1920,1080)
 
+  def jjjjoin(self,delay=None):
+    #print("jjjoin")
+    if not self.ingame:
+      self.client.opponent_found = True
+      pyglet.clock.schedule_once(self.current_screen.update_opponent_search, 0.01, self.client.opponent_found)
+      #print(self.client.opponent_found)
+
   def handle_message(self,r):
       if type(r) == dict:
-                if r['type'] == 'lobby':
+                if r['type'] == 'abort':
+                  self.current_screen.ready = False
+                  self.current_screen.opponent_ready = False
+                  self.client.opponent_found = False
+                  if self.ingame:
+                    #print("ini backL")
+                    pyglet.clock.schedule_once(self.back_l,0.01)
+                  if not self.ingame:
+                    pyglet.clock.schedule_once(self.current_screen.update_opponent_search, 0.01, self.client.opponent_found)
+                    pyglet.clock.schedule_once(self.current_screen.update_ready_button, 0.01)
+
+                elif r["type"] == "join":
+                  #print("join")
+                  pyglet.clock.schedule_once(self.jjjjoin, 0.05)
+
+                elif r['type'] == 'lobby':
                   self.client.lobby = int(r['lobby'])
                   self.client.lobbysize = int(r['lobbysize'])
                   self.current_screen.ready = False
@@ -469,6 +494,7 @@ class Window(main_chat.Window):
                     pyglet.clock.schedule_once(self.back_l,0.01)
                   if not self.ingame:
                     pyglet.clock.schedule_once(self.current_screen.update_opponent_search, 0.01, self.client.lobbysize)
+
                 elif r['type'] == 'ready':
                   try:
                     self.current_screen.opponent_ready = not self.current_screen.opponent_ready
@@ -532,90 +558,47 @@ class Window(main_chat.Window):
                   pyglet.clock.schedule_once(self.batch.pop_up.heal_special,0.01,pos=target.position,amount=heal_amount)
                   pyglet.clock.schedule_once(target.splash_heal,0.01,target,heal_amount)
 
-
-
+  def linesplit(self,socket,bits=1096):
+    while True:
+      try:
+          buffer = socket.recv(bits).decode()
+          if not buffer:
+              return
+      except Exception as err:
+          print(err)
+          print("Verbindung zu Server beendet! #1")#print("Error whilst fetching server messages! #1")
+          socket.close()
+          pyglet.clock.schedule_once(self.back,0.01)
+          break  
+      buffering = True
+      while buffering:
+          if "\n" in buffer:
+              (message, buffer) = buffer.split("\n", 1)
+              yield message
+          else:
+              try:
+                more = socket.recv(bits).decode()#
+                if not more:
+                  return
+              except Exception as err:
+                print(err)
+                print("Verbindung zu Server beendet! #2")#print("Error whilst fetching server messages! #2")
+                socket.close()
+                pyglet.clock.schedule_once(self.back,0.01)
+                break 
+              if not more:
+                  buffering = False
+              else:
+                  buffer += more
+      if buffer:
+          yield buffer
     
   def receive_messages(self):
-      while True:
-            re = ""
-            try:
-              re = self.client.s.recv(4096).decode()
-              print(f"- received: {re}")
-              spl = re.split("}{")
-              print(spl)
-            except Exception as err:
-              print(err)
-              print("Error whilst fetching server messages!")
-              pyglet.clock.schedule_once(self.back,0.01)
-              break
-            try: 
-                r = json.loads(re)
-                self.handle_message(r)
-            except Exception as err:
-                print(err)
-                try:
-                    self.client.s.close()
-                except:
-                    pass
-                print("Disconnected")
-                pyglet.clock.schedule_once(self.back,0.01)
-                break
-      """while True:
-        strings = ""
-        try:
-          re = self.client.s.recv(4096).decode()
-          if re != "":
-            print("re: %s" % re)
-
-          strings = re.split('\0')
-          #print(strings)
-          #for s in strings[:-1]:
-          #    print("Received: %s" % s) 
-          #print(f"- received: {re}")
-        except Exception as err:
-          print(err)
-          print("Error whilst fetching server messages!")
-          pyglet.clock.schedule_once(self.back,0.01)
-          break
-          
-        for s in strings[:-1]:
-          try: 
-              r = json.loads(s)
-              self.handle_message(r)
-          except Exception as err:
-              try:
-                  self.client.s.close()
-              except:
-                  pass
-              print("Disconnected")
-              pyglet.clock.schedule_once(self.back,0.01)
-              break"""
-
-      """
-
-      while True:
-            re = ""
-        try:
-          re = self.client.s.recv(4096).decode()
-          print(f"- received: {re}")
-        except Exception as err:
-          print(err)
-          print("Error whilst fetching server messages!")
-          pyglet.clock.schedule_once(self.back,0.01)
-          break
-        try: 
-            r = json.loads(re)
-            self.handle_message(r)
-        except Exception as err:
-            try:
-                self.client.s.close()
-            except:
-                pass
-            print("Disconnected")
-            pyglet.clock.schedule_once(self.back,0.01)
-
-      """
-        
+    ls = self.linesplit(self.client.s)
+    for message in ls:
+      print(f"- received: {message}")
+      data = json.loads(message)
+      self.handle_message(data)        
         
 if __name__ == "__main__":
   width = 1920;height = 1080

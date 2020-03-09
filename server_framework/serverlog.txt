@@ -1,21 +1,1190 @@
-*2020-02-01 00:30:37.047326   >> Socket successfully created!
-*2020-02-01 00:30:37.052331   >> Socket successfully bound to address: :6789
-*2020-02-01 00:30:37.053332   >> Socket is listening...
-<>2020-02-01 00:30:37.053332  >> main loop active!
-*2020-02-01 00:31:52.969569   >> Socket successfully created!
-*2020-02-01 00:31:52.973574   >> Socket successfully bound to address: :6789
-*2020-02-01 00:31:52.974574   >> Socket is listening...
-<>2020-02-01 00:31:52.974574  >> main loop active!
-*2020-02-01 00:33:25.524577   >> Socket successfully created!
-*2020-02-01 00:33:25.528581   >> Socket successfully bound to address: :6789
-*2020-02-01 00:33:25.528581   >> Socket is listening...
-<>2020-02-01 00:33:25.529582  >> main loop active!
-<>2020-02-01 00:33:35.530660  >> << New connetion from addr: ('127.0.0.1', 50858) num_conns: 1
-<>2020-02-01 00:33:35.531660  >> Assigned lobby None to ('127.0.0.1', 50858); elp:{}, elp2[], elp3{0: [{'conn': <socket.socket fd=996, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 6789), raddr=('127.0.0.1', 50858)>, 'addr': ('127.0.0.1', 50858), 'lobby': None}]}, flp[]
-<>2020-02-01 00:33:35.536664  >> << connection lost: ('127.0.0.1', 50858), lobby: None, num_conns: 0
-<>2020-02-01 00:33:35.538667  >> updated lobbys. full: {}, empty: {0: []}
-<>2020-02-01 00:33:35.540670  >> Starting shutt off timer! t: -30s
-*2020-02-01 00:34:05.567922   >> Socket successfully closed!
+*2020-01-30 00:59:39.574398   - Socket successfully created!
+*2020-01-30 00:59:39.591351   - Socket successfully bound to address: :6789
+*2020-01-30 00:59:39.592349   - Socket is listening...
+<>2020-01-30 00:59:39.592349  - ! main loop active!
+<>2020-01-30 00:59:42.191231  - >> New connetion from addr: ('127.0.0.1', 55305) num_conns: 1
+<>2020-01-30 00:59:42.208430  - L  assigned lobby None to ('127.0.0.1', 55305); full: 0, empty: 1; lobbys: [None]
+*2020-01-30 01:00:05.017723   - Socket successfully created!
+*2020-01-30 01:00:05.017723   - Socket successfully bound to address: :6789
+*2020-01-30 01:00:05.017723   - Socket is listening...
+<>2020-01-30 01:00:05.017723  - ! main loop active!
+<>2020-01-30 01:00:12.544537  - >> New connetion from addr: ('127.0.0.1', 55323) num_conns: 1
+<>2020-01-30 01:00:12.547960  - L  assigned lobby None to ('127.0.0.1', 55323); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:00:40.217736  - >> New connetion from addr: ('127.0.0.1', 55328) num_conns: 2
+<>2020-01-30 01:00:40.217736  - L  popped ('127.0.0.1', 55323) & ('127.0.0.1', 55328) into lobby 0
+<>2020-01-30 01:00:40.217736  - L  assigned lobby 0 to ('127.0.0.1', 55328); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 01:02:48.371019  - << connection lost: ('127.0.0.1', 55323), lobby: 0, num_conns: 1
+<>2020-01-30 01:02:48.372015  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 01:02:48.372015  - L  assigned lobby 0 to ('127.0.0.1', 55328); full: 0, empty: 1; lobbys: [0]
+<>2020-01-30 01:02:48.373015  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 01:03:26.380190   - Socket successfully created!
+*2020-01-30 01:03:26.380190   - Socket successfully bound to address: :6789
+*2020-01-30 01:03:26.380190   - Socket is listening...
+<>2020-01-30 01:03:26.380190  - ! main loop active!
+<>2020-01-30 01:24:29.751600  - >> New connetion from addr: ('127.0.0.1', 55457) num_conns: 1
+<>2020-01-30 01:24:29.751600  - L  assigned lobby None to ('127.0.0.1', 55457); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:24:44.140322  - >> New connetion from addr: ('127.0.0.1', 55464) num_conns: 2
+<>2020-01-30 01:24:44.143136  - L  popped ('127.0.0.1', 55457) & ('127.0.0.1', 55464) into lobby 0
+<>2020-01-30 01:24:44.143136  - L  assigned lobby 0 to ('127.0.0.1', 55464); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 01:25:31.319045  - << connection lost: ('127.0.0.1', 55464), lobby: 0, num_conns: 1
+<>2020-01-30 01:25:31.320042  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 01:25:31.321039  - L  assigned lobby 0 to ('127.0.0.1', 55457); full: 0, empty: 1; lobbys: [0]
+<>2020-01-30 01:25:31.321039  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 01:25:33.805313  - << connection lost: ('127.0.0.1', 55457), lobby: 0, num_conns: 0
+*2020-01-30 01:27:49.850607   - Socket successfully created!
+*2020-01-30 01:27:49.851637   - Socket successfully bound to address: :6789
+*2020-01-30 01:27:49.851637   - Socket is listening...
+<>2020-01-30 01:27:49.851637  - ! main loop active!
+<>2020-01-30 01:27:53.322601  - >> New connetion from addr: ('127.0.0.1', 55487) num_conns: 1
+<>2020-01-30 01:27:53.322601  - L  assigned lobby None to ('127.0.0.1', 55487); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:28:00.938125  - << connection lost: ('127.0.0.1', 55487), lobby: None, num_conns: 0
+<>2020-01-30 01:28:00.938125  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 01:28:00.938125   - ! Starting shutt off timer! t: -30s
+<>2020-01-30 01:28:06.494064  - >> New connetion from addr: ('127.0.0.1', 55489) num_conns: 1
+<>2020-01-30 01:28:06.494064  - L  assigned lobby None to ('127.0.0.1', 55489); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:28:22.433873  - >> New connetion from addr: ('127.0.0.1', 55497) num_conns: 2
+<>2020-01-30 01:28:22.446188  - L  popped ('127.0.0.1', 55489) & ('127.0.0.1', 55497) into lobby 0
+<>2020-01-30 01:28:22.447189  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 01:28:22.447581  - L  assigned lobby 0 to ('127.0.0.1', 55497); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 01:28:32.852131  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55489)
+<>2020-01-30 01:28:32.852131  - S>  send {'type': 'ready', 'ready': False} lobby: 0
+<>2020-01-30 01:28:41.802799  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55489)
+<>2020-01-30 01:28:41.802799  - S>  send {'type': 'ready', 'ready': False} lobby: 0
+<>2020-01-30 01:28:47.267383  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55497)
+<>2020-01-30 01:28:47.268382  - S>  send {'type': 'ready', 'ready': False} lobby: 0
+<>2020-01-30 01:28:55.936638  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 55489)
+<>2020-01-30 01:28:55.936638  - S>  send {'type': 'ready', 'ready': True} lobby: 0
+<>2020-01-30 01:29:04.591788  - G<  got {'type': 'replace', 'replace': [[825, 270], 'Bombe']} from ('127.0.0.1', 55497)
+<>2020-01-30 01:29:04.591788  - S>  send {'type': 'replace', 'replace': [[825, 270], 'Bombe']} lobby: 0
+<>2020-01-30 01:29:05.170459  - G<  got {'type': 'swap', 'swap': [[825, 405], [825, 270]]} from ('127.0.0.1', 55497)
+<>2020-01-30 01:29:05.170459  - S>  send {'type': 'swap', 'swap': [[825, 405], [825, 270]]} lobby: 0
+<>2020-01-30 01:29:05.803381  - G<  got {'type': 'attack', 'attack': [[825, 405], [825, 540]]} from ('127.0.0.1', 55497)
+<>2020-01-30 01:29:05.803381  - S>  send {'type': 'attack', 'attack': [[825, 405], [825, 540]]} lobby: 0
+<>2020-01-30 01:29:06.870468  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55497)
+<>2020-01-30 01:29:06.870468  - S>  send {'type': 'move_done'} lobby: 0
+<>2020-01-30 01:29:08.601162  - G<  got {'type': 'replace', 'replace': [[825, 270], 'Bombe']} from ('127.0.0.1', 55489)
+<>2020-01-30 01:29:08.601162  - S>  send {'type': 'replace', 'replace': [[825, 270], 'Bombe']} lobby: 0
+<>2020-01-30 01:29:09.069759  - G<  got {'type': 'swap', 'swap': [[825, 405], [825, 270]]} from ('127.0.0.1', 55489)
+<>2020-01-30 01:29:09.069759  - S>  send {'type': 'swap', 'swap': [[825, 405], [825, 270]]} lobby: 0
+<>2020-01-30 01:29:09.586390  - G<  got {'type': 'attack', 'attack': [[825, 405], [825, 540]]} from ('127.0.0.1', 55489)
+<>2020-01-30 01:29:09.586390  - S>  send {'type': 'attack', 'attack': [[825, 405], [825, 540]]} lobby: 0
+*2020-01-30 01:32:10.072885   - Socket successfully created!
+*2020-01-30 01:32:10.072885   - Socket successfully bound to address: :6789
+*2020-01-30 01:32:10.072885   - Socket is listening...
+<>2020-01-30 01:32:10.072885  - ! main loop active!
+<>2020-01-30 01:32:24.958434  - >> New connetion from addr: ('127.0.0.1', 55523) num_conns: 1
+<>2020-01-30 01:32:24.958434  - L  assigned lobby None to ('127.0.0.1', 55523); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:32:28.408100  - << connection lost: ('127.0.0.1', 55523), lobby: None, num_conns: 0
+<>2020-01-30 01:32:28.408100  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 01:32:28.408100   - ! Starting shutt off timer! t: -30s
+<>2020-01-30 01:32:31.052353  - >> New connetion from addr: ('127.0.0.1', 55524) num_conns: 1
+<>2020-01-30 01:32:31.052353  - L  assigned lobby None to ('127.0.0.1', 55524); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:32:45.514597  - >> New connetion from addr: ('127.0.0.1', 55533) num_conns: 2
+<>2020-01-30 01:32:45.515429  - L  popped ('127.0.0.1', 55524) & ('127.0.0.1', 55533) into lobby 0
+<>2020-01-30 01:32:45.515429  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 01:32:45.516426  - L  assigned lobby 0 to ('127.0.0.1', 55533); full: 1, empty: 0; lobbys: [0, 0]
+*2020-01-30 01:33:48.129029   - Socket successfully created!
+*2020-01-30 01:33:48.129029   - Socket successfully bound to address: :6789
+*2020-01-30 01:33:48.129029   - Socket is listening...
+<>2020-01-30 01:33:48.129029  - ! main loop active!
+<>2020-01-30 01:34:05.602582  - >> New connetion from addr: ('127.0.0.1', 55546) num_conns: 1
+<>2020-01-30 01:34:05.617167  - L  assigned lobby None to ('127.0.0.1', 55546); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:34:07.699233  - >> New connetion from addr: ('127.0.0.1', 55547) num_conns: 2
+<>2020-01-30 01:34:07.699233  - L  popped ('127.0.0.1', 55546) & ('127.0.0.1', 55547) into lobby 0
+<>2020-01-30 01:34:07.699233  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 01:34:07.705767  - L  assigned lobby 0 to ('127.0.0.1', 55547); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 01:34:10.915980  - << connection lost: ('127.0.0.1', 55547), lobby: 0, num_conns: 1
+<>2020-01-30 01:34:10.915980  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 01:34:10.915980  - L  assigned lobby None to ('127.0.0.1', 55546); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:34:10.919328  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 01:34:13.366982  - >> New connetion from addr: ('127.0.0.1', 55548) num_conns: 2
+<>2020-01-30 01:34:13.366982  - L  popped ('127.0.0.1', 55546) & ('127.0.0.1', 55548) into lobby 1
+<>2020-01-30 01:34:13.366982  - S>  send {'type': 'join'} lobby: 1
+<>2020-01-30 01:34:13.366982  - L  assigned lobby 1 to ('127.0.0.1', 55548); full: 1, empty: 0; lobbys: [1, 1]
+<>2020-01-30 01:34:14.301315  - << connection lost: ('127.0.0.1', 55548), lobby: 1, num_conns: 1
+<>2020-01-30 01:34:14.316945  - S>  send {'type': 'abort'} lobby: 1
+<>2020-01-30 01:34:14.317856  - L  assigned lobby None to ('127.0.0.1', 55546); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:34:14.317856  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 01:34:15.616938  - >> New connetion from addr: ('127.0.0.1', 55549) num_conns: 2
+<>2020-01-30 01:34:15.616938  - L  popped ('127.0.0.1', 55546) & ('127.0.0.1', 55549) into lobby 2
+<>2020-01-30 01:34:15.616938  - S>  send {'type': 'join'} lobby: 2
+<>2020-01-30 01:34:15.628249  - L  assigned lobby 2 to ('127.0.0.1', 55549); full: 1, empty: 0; lobbys: [2, 2]
+<>2020-01-30 01:34:16.457921  - << connection lost: ('127.0.0.1', 55546), lobby: 2, num_conns: 1
+<>2020-01-30 01:34:16.458897  - S>  send {'type': 'abort'} lobby: 2
+<>2020-01-30 01:34:16.458897  - L  assigned lobby None to ('127.0.0.1', 55549); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:34:16.459894  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 01:34:59.717924  - << connection lost: ('127.0.0.1', 55549), lobby: None, num_conns: 0
+<>2020-01-30 01:34:59.717924  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 01:34:59.717924   - ! Starting shutt off timer! t: -30s
+*2020-01-30 01:35:29.905428   - Socket successfully closed!
 --------
 
-<!>2020-02-01 00:34:05.567922 >> error whilst establishing a connection! shutting down... (open threads: 8)
+<!>2020-01-30 01:35:29.905428 - ! error whilst establishing a connection! shutting down... (open threads: 2)
+<>2020-01-30 01:35:29.906398  - ! main loop terminated!
+*2020-01-30 01:38:27.068682   - Socket successfully created!
+*2020-01-30 01:38:27.083017   - Socket successfully bound to address: :6789
+*2020-01-30 01:38:27.084023   - Socket is listening...
+<>2020-01-30 01:38:27.084023  - ! main loop active!
+<>2020-01-30 01:38:28.603612  - >> New connetion from addr: ('127.0.0.1', 55582) num_conns: 1
+<>2020-01-30 01:38:28.614719  - L  assigned lobby None to ('127.0.0.1', 55582); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:38:29.165835  - >> New connetion from addr: ('127.0.0.1', 55583) num_conns: 2
+<>2020-01-30 01:38:29.165835  - L  popped ('127.0.0.1', 55582) & ('127.0.0.1', 55583) into lobby 0
+<>2020-01-30 01:38:29.165835  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 01:38:29.174506  - L  assigned lobby 0 to ('127.0.0.1', 55583); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 01:38:32.847521  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55582)
+<>2020-01-30 01:38:32.848520  - S>  send {'type': 'ready', 'ready': False} lobby: 0
+<>2020-01-30 01:38:36.712756  - << connection lost: ('127.0.0.1', 55582), lobby: 0, num_conns: 1
+<>2020-01-30 01:38:36.715052  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 01:38:36.721469  - L  assigned lobby None to ('127.0.0.1', 55583); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:38:36.722461  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 01:38:40.346348  - >> New connetion from addr: ('127.0.0.1', 55584) num_conns: 2
+<>2020-01-30 01:38:40.347375  - L  popped ('127.0.0.1', 55583) & ('127.0.0.1', 55584) into lobby 1
+<>2020-01-30 01:38:40.348375  - S>  send {'type': 'join'} lobby: 1
+<>2020-01-30 01:38:40.349369  - L  assigned lobby 1 to ('127.0.0.1', 55584); full: 1, empty: 0; lobbys: [1, 1]
+<>2020-01-30 01:38:44.801117  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55583)
+<>2020-01-30 01:38:44.801117  - S>  send {'type': 'ready', 'ready': False} lobby: 1
+<>2020-01-30 01:38:46.164483  - << connection lost: ('127.0.0.1', 55584), lobby: 1, num_conns: 1
+<>2020-01-30 01:38:46.164483  - S>  send {'type': 'abort'} lobby: 1
+<>2020-01-30 01:38:46.174023  - L  assigned lobby None to ('127.0.0.1', 55583); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:38:46.175020  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 01:38:48.500220  - >> New connetion from addr: ('127.0.0.1', 55587) num_conns: 2
+<>2020-01-30 01:38:48.514561  - L  popped ('127.0.0.1', 55583) & ('127.0.0.1', 55587) into lobby 2
+<>2020-01-30 01:38:48.517553  - S>  send {'type': 'join'} lobby: 2
+<>2020-01-30 01:38:48.519547  - L  assigned lobby 2 to ('127.0.0.1', 55587); full: 1, empty: 0; lobbys: [2, 2]
+<>2020-01-30 01:38:51.500123  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55583)
+<>2020-01-30 01:38:51.501129  - S>  send {'type': 'ready', 'ready': False} lobby: 2
+<>2020-01-30 01:38:52.084464  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55583)
+<>2020-01-30 01:38:52.084464  - S>  send {'type': 'ready', 'ready': False} lobby: 2
+<>2020-01-30 01:39:12.432650  - << connection lost: ('127.0.0.1', 55587), lobby: 2, num_conns: 1
+<>2020-01-30 01:39:12.433648  - S>  send {'type': 'abort'} lobby: 2
+<>2020-01-30 01:39:12.437641  - L  assigned lobby None to ('127.0.0.1', 55583); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:39:12.438636  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 01:39:49.064096  - << connection lost: ('127.0.0.1', 55583), lobby: None, num_conns: 0
+<>2020-01-30 01:39:49.064096  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 01:39:49.079720   - ! Starting shutt off timer! t: -30s
+<>2020-01-30 01:39:53.129025  - >> New connetion from addr: ('127.0.0.1', 55599) num_conns: 1
+<>2020-01-30 01:39:53.132857  - L  assigned lobby None to ('127.0.0.1', 55599); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:40:08.766589  - >> New connetion from addr: ('127.0.0.1', 55602) num_conns: 2
+<>2020-01-30 01:40:08.766589  - L  popped ('127.0.0.1', 55599) & ('127.0.0.1', 55602) into lobby 3
+<>2020-01-30 01:40:08.766589  - S>  send {'type': 'join'} lobby: 3
+<>2020-01-30 01:40:08.766589  - L  assigned lobby 3 to ('127.0.0.1', 55602); full: 1, empty: 0; lobbys: [3, 3]
+<>2020-01-30 01:40:13.285303  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55599)
+<>2020-01-30 01:40:13.286310  - S>  send {'type': 'ready', 'ready': False} lobby: 3
+<>2020-01-30 01:40:14.540581  - << connection lost: ('127.0.0.1', 55602), lobby: 3, num_conns: 1
+<>2020-01-30 01:40:14.556202  - S>  send {'type': 'abort'} lobby: 3
+<>2020-01-30 01:40:14.567493  - L  assigned lobby None to ('127.0.0.1', 55599); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:40:14.580888  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 01:40:16.876754  - >> New connetion from addr: ('127.0.0.1', 55604) num_conns: 2
+<>2020-01-30 01:40:16.876754  - L  popped ('127.0.0.1', 55599) & ('127.0.0.1', 55604) into lobby 4
+<>2020-01-30 01:40:16.892378  - S>  send {'type': 'join'} lobby: 4
+<>2020-01-30 01:40:16.895938  - L  assigned lobby 4 to ('127.0.0.1', 55604); full: 1, empty: 0; lobbys: [4, 4]
+<>2020-01-30 01:40:19.288911  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55604)
+<>2020-01-30 01:40:19.288911  - S>  send {'type': 'ready', 'ready': False} lobby: 4
+<>2020-01-30 01:40:20.735740  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 55599)
+<>2020-01-30 01:40:20.736738  - S>  send {'type': 'ready', 'ready': True} lobby: 4
+<>2020-01-30 01:40:22.685217  - G<  got {'type': 'replace', 'replace': [[960, 270], 'Shield']} from ('127.0.0.1', 55604)
+<>2020-01-30 01:40:22.686214  - S>  send {'type': 'replace', 'replace': [[960, 270], 'Shield']} lobby: 4
+<>2020-01-30 01:40:23.352992  - G<  got {'type': 'swap', 'swap': [[960, 405], [960, 270]]} from ('127.0.0.1', 55604)
+<>2020-01-30 01:40:23.354098  - S>  send {'type': 'swap', 'swap': [[960, 405], [960, 270]]} lobby: 4
+<>2020-01-30 01:40:30.188316  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55604)
+<>2020-01-30 01:40:30.188316  - S>  send {'type': 'move_done'} lobby: 4
+<>2020-01-30 01:40:31.273035  - G<  got {'type': 'replace', 'replace': [[960, 270], 'Shield']} from ('127.0.0.1', 55599)
+<>2020-01-30 01:40:31.273035  - S>  send {'type': 'replace', 'replace': [[960, 270], 'Shield']} lobby: 4
+<>2020-01-30 01:40:31.889417  - G<  got {'type': 'swap', 'swap': [[960, 405], [960, 270]]} from ('127.0.0.1', 55599)
+<>2020-01-30 01:40:31.889417  - S>  send {'type': 'swap', 'swap': [[960, 405], [960, 270]]} lobby: 4
+<>2020-01-30 01:40:33.222879  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55599)
+<>2020-01-30 01:40:33.222879  - S>  send {'type': 'move_done'} lobby: 4
+<>2020-01-30 01:40:35.723956  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55604)
+<>2020-01-30 01:40:35.723956  - S>  send {'type': 'move_done'} lobby: 4
+<>2020-01-30 01:40:37.993791  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55599)
+<>2020-01-30 01:40:37.993791  - S>  send {'type': 'move_done'} lobby: 4
+<>2020-01-30 01:40:40.423485  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55604)
+<>2020-01-30 01:40:40.423485  - S>  send {'type': 'move_done'} lobby: 4
+<>2020-01-30 01:40:42.171864  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55599)
+<>2020-01-30 01:40:42.187509  - S>  send {'type': 'move_done'} lobby: 4
+<>2020-01-30 01:40:44.088794  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55604)
+<>2020-01-30 01:40:44.104419  - S>  send {'type': 'move_done'} lobby: 4
+<>2020-01-30 01:40:46.210098  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55599)
+<>2020-01-30 01:40:46.210098  - S>  send {'type': 'move_done'} lobby: 4
+<>2020-01-30 01:40:48.074696  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55604)
+<>2020-01-30 01:40:48.074696  - S>  send {'type': 'move_done'} lobby: 4
+<>2020-01-30 01:40:50.190386  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55599)
+<>2020-01-30 01:40:50.190386  - S>  send {'type': 'move_done'} lobby: 4
+<>2020-01-30 01:40:52.624385  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55604)
+<>2020-01-30 01:40:52.624385  - S>  send {'type': 'move_done'} lobby: 4
+<>2020-01-30 01:40:53.773105  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55599)
+<>2020-01-30 01:40:53.773105  - S>  send {'type': 'move_done'} lobby: 4
+<>2020-01-30 01:41:01.637782  - << connection lost: ('127.0.0.1', 55599), lobby: 4, num_conns: 1
+<>2020-01-30 01:41:01.638788  - S>  send {'type': 'abort'} lobby: 4
+<>2020-01-30 01:41:01.645760  - L  assigned lobby None to ('127.0.0.1', 55604); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:41:01.646767  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 01:41:10.857463  - >> New connetion from addr: ('127.0.0.1', 55612) num_conns: 2
+<>2020-01-30 01:41:10.870806  - L  popped ('127.0.0.1', 55604) & ('127.0.0.1', 55612) into lobby 5
+<>2020-01-30 01:41:10.874214  - S>  send {'type': 'join'} lobby: 5
+<>2020-01-30 01:41:10.879223  - L  assigned lobby 5 to ('127.0.0.1', 55612); full: 1, empty: 0; lobbys: [5, 5]
+<>2020-01-30 01:41:25.376041  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55604)
+<>2020-01-30 01:41:25.376041  - S>  send {'type': 'ready', 'ready': False} lobby: 5
+<>2020-01-30 01:41:29.606114  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 55612)
+<>2020-01-30 01:41:29.607122  - S>  send {'type': 'ready', 'ready': True} lobby: 5
+<>2020-01-30 01:41:39.126697  - G<  got {'type': 'replace', 'replace': [[690, 270], 'Rammbock']} from ('127.0.0.1', 55604)
+<>2020-01-30 01:41:39.126697  - S>  send {'type': 'replace', 'replace': [[690, 270], 'Rammbock']} lobby: 5
+<>2020-01-30 01:41:43.491968  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55604)
+<>2020-01-30 01:41:43.491968  - S>  send {'type': 'move_done'} lobby: 5
+<>2020-01-30 01:41:48.394367  - << connection lost: ('127.0.0.1', 55604), lobby: 5, num_conns: 1
+<>2020-01-30 01:41:48.394367  - S>  send {'type': 'abort'} lobby: 5
+<>2020-01-30 01:41:48.412701  - L  assigned lobby None to ('127.0.0.1', 55612); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:41:48.414695  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 01:41:54.522259  - >> New connetion from addr: ('127.0.0.1', 55615) num_conns: 2
+<>2020-01-30 01:41:54.522259  - L  popped ('127.0.0.1', 55612) & ('127.0.0.1', 55615) into lobby 6
+<>2020-01-30 01:41:54.522259  - S>  send {'type': 'join'} lobby: 6
+<>2020-01-30 01:41:54.533056  - L  assigned lobby 6 to ('127.0.0.1', 55615); full: 1, empty: 0; lobbys: [6, 6]
+<>2020-01-30 01:41:58.773549  - << connection lost: ('127.0.0.1', 55612), lobby: 6, num_conns: 1
+<>2020-01-30 01:41:58.774538  - S>  send {'type': 'abort'} lobby: 6
+<>2020-01-30 01:41:58.778525  - L  assigned lobby None to ('127.0.0.1', 55615); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:41:58.784886  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 01:41:59.719491  - << connection lost: ('127.0.0.1', 55615), lobby: None, num_conns: 0
+<>2020-01-30 01:41:59.720489  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 01:41:59.734047   - ! Starting shutt off timer! t: -30s
+*2020-01-30 01:42:29.842403   - Socket successfully closed!
+--------
+
+<!>2020-01-30 01:42:29.842403 - ! error whilst establishing a connection! shutting down... (open threads: 2)
+<>2020-01-30 01:42:29.843629  - ! main loop terminated!
+*2020-01-30 01:44:10.141657   - Socket successfully created!
+*2020-01-30 01:44:10.141657   - Socket successfully bound to address: :6789
+*2020-01-30 01:44:10.149576   - Socket is listening...
+<>2020-01-30 01:44:10.150603  - ! main loop active!
+<>2020-01-30 01:44:11.696540  - >> New connetion from addr: ('127.0.0.1', 55648) num_conns: 1
+<>2020-01-30 01:44:11.698098  - L  assigned lobby None to ('127.0.0.1', 55648); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:44:39.334757  - << connection lost: ('127.0.0.1', 55648), lobby: None, num_conns: 0
+<>2020-01-30 01:44:39.335741  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 01:44:39.337726   - ! Starting shutt off timer! t: -30s
+*2020-01-30 01:45:09.485133   - Socket successfully closed!
+--------
+
+<!>2020-01-30 01:45:09.485133 - ! error whilst establishing a connection! shutting down... (open threads: 2)
+<>2020-01-30 01:45:09.493147  - ! main loop terminated!
+*2020-01-30 01:47:57.561707   - Socket successfully created!
+*2020-01-30 01:47:57.561707   - Socket successfully bound to address: :6789
+*2020-01-30 01:47:57.561707   - Socket is listening...
+<>2020-01-30 01:47:57.561707  - ! main loop active!
+<>2020-01-30 01:47:59.239994  - >> New connetion from addr: ('127.0.0.1', 55658) num_conns: 1
+<>2020-01-30 01:47:59.239994  - L  assigned lobby None to ('127.0.0.1', 55658); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:48:01.304165  - >> New connetion from addr: ('127.0.0.1', 55659) num_conns: 2
+<>2020-01-30 01:48:01.304165  - L  popped ('127.0.0.1', 55658) & ('127.0.0.1', 55659) into lobby 0
+<>2020-01-30 01:48:01.304165  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 01:48:01.304165  - L  assigned lobby 0 to ('127.0.0.1', 55659); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 01:48:04.686727  - << connection lost: ('127.0.0.1', 55659), lobby: 0, num_conns: 1
+<>2020-01-30 01:48:04.686727  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 01:48:04.686727  - L  assigned lobby None to ('127.0.0.1', 55658); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:48:04.686727  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 01:48:05.773471  - >> New connetion from addr: ('127.0.0.1', 55660) num_conns: 2
+<>2020-01-30 01:48:05.773471  - L  popped ('127.0.0.1', 55658) & ('127.0.0.1', 55660) into lobby 1
+<>2020-01-30 01:48:05.773471  - S>  send {'type': 'join'} lobby: 1
+<>2020-01-30 01:48:05.773471  - L  assigned lobby 1 to ('127.0.0.1', 55660); full: 1, empty: 0; lobbys: [1, 1]
+<>2020-01-30 01:48:07.664597  - >> New connetion from addr: ('127.0.0.1', 55661) num_conns: 3
+<>2020-01-30 01:48:07.664597  - L  assigned lobby None to ('127.0.0.1', 55661); full: 1, empty: 1; lobbys: [1, 1, None]
+<>2020-01-30 01:48:08.697611  - >> New connetion from addr: ('127.0.0.1', 55662) num_conns: 4
+<>2020-01-30 01:48:08.697611  - L  popped ('127.0.0.1', 55661) & ('127.0.0.1', 55662) into lobby 2
+<>2020-01-30 01:48:08.697611  - S>  send {'type': 'join'} lobby: 2
+<>2020-01-30 01:48:08.697611  - L  assigned lobby 2 to ('127.0.0.1', 55662); full: 2, empty: 0; lobbys: [1, 1, 2, 2]
+<>2020-01-30 01:48:09.924141  - >> New connetion from addr: ('127.0.0.1', 55663) num_conns: 5
+<>2020-01-30 01:48:09.924141  - L  assigned lobby None to ('127.0.0.1', 55663); full: 2, empty: 1; lobbys: [1, 1, 2, 2, None]
+<>2020-01-30 01:48:10.962961  - >> New connetion from addr: ('127.0.0.1', 55664) num_conns: 6
+<>2020-01-30 01:48:10.962961  - L  popped ('127.0.0.1', 55663) & ('127.0.0.1', 55664) into lobby 3
+<>2020-01-30 01:48:10.962961  - S>  send {'type': 'join'} lobby: 3
+<>2020-01-30 01:48:10.962961  - L  assigned lobby 3 to ('127.0.0.1', 55664); full: 3, empty: 0; lobbys: [1, 1, 2, 2, 3, 3]
+<>2020-01-30 01:48:12.548657  - >> New connetion from addr: ('127.0.0.1', 55665) num_conns: 7
+<>2020-01-30 01:48:12.548657  - L  assigned lobby None to ('127.0.0.1', 55665); full: 3, empty: 1; lobbys: [1, 1, 2, 2, 3, 3, None]
+<>2020-01-30 01:48:13.699235  - >> New connetion from addr: ('127.0.0.1', 55667) num_conns: 8
+<>2020-01-30 01:48:13.699235  - L  popped ('127.0.0.1', 55665) & ('127.0.0.1', 55667) into lobby 4
+<>2020-01-30 01:48:13.699235  - S>  send {'type': 'join'} lobby: 4
+<>2020-01-30 01:48:13.699235  - L  assigned lobby 4 to ('127.0.0.1', 55667); full: 4, empty: 0; lobbys: [1, 1, 2, 2, 3, 3, 4, 4]
+<>2020-01-30 01:48:22.048271  - << connection lost: ('127.0.0.1', 55667), lobby: 4, num_conns: 7
+<>2020-01-30 01:48:22.048271  - S>  send {'type': 'abort'} lobby: 4
+<>2020-01-30 01:48:22.048271  - L  assigned lobby None to ('127.0.0.1', 55665); full: 3, empty: 1; lobbys: [1, 1, 2, 2, 3, 3, None]
+<>2020-01-30 01:48:22.048271  - L  updated lobbys. full: 3, empty: 1
+<>2020-01-30 01:48:24.931602  - >> New connetion from addr: ('127.0.0.1', 55668) num_conns: 8
+<>2020-01-30 01:48:24.931602  - L  popped ('127.0.0.1', 55665) & ('127.0.0.1', 55668) into lobby 5
+<>2020-01-30 01:48:24.931602  - S>  send {'type': 'join'} lobby: 5
+<>2020-01-30 01:48:24.931602  - L  assigned lobby 5 to ('127.0.0.1', 55668); full: 4, empty: 0; lobbys: [1, 1, 2, 2, 3, 3, 5, 5]
+<>2020-01-30 01:48:36.040602  - << connection lost: ('127.0.0.1', 55668), lobby: 5, num_conns: 7
+<>2020-01-30 01:48:36.040602  - S>  send {'type': 'abort'} lobby: 5
+<>2020-01-30 01:48:36.056204  - L  assigned lobby None to ('127.0.0.1', 55665); full: 3, empty: 1; lobbys: [1, 1, 2, 2, 3, 3, None]
+<>2020-01-30 01:48:36.056204  - L  updated lobbys. full: 3, empty: 1
+<>2020-01-30 01:48:38.775723  - << connection lost: ('127.0.0.1', 55664), lobby: 3, num_conns: 6
+<>2020-01-30 01:48:38.775723  - S>  send {'type': 'abort'} lobby: 3
+<>2020-01-30 01:48:38.791321  - L  popped ('127.0.0.1', 55665) & ('127.0.0.1', 55663) into lobby 6
+<>2020-01-30 01:48:38.791321  - S>  send {'type': 'join'} lobby: 6
+<>2020-01-30 01:48:38.791321  - L  assigned lobby 6 to ('127.0.0.1', 55663); full: 3, empty: 0; lobbys: [1, 1, 2, 2, 6, 6]
+<>2020-01-30 01:48:38.791321  - L  updated lobbys. full: 3, empty: 0
+<>2020-01-30 01:48:46.077548  - >> New connetion from addr: ('127.0.0.1', 55671) num_conns: 7
+<>2020-01-30 01:48:46.077548  - L  assigned lobby None to ('127.0.0.1', 55671); full: 3, empty: 1; lobbys: [1, 1, 2, 2, 6, 6, None]
+<>2020-01-30 01:48:47.345010  - << connection lost: ('127.0.0.1', 55662), lobby: 2, num_conns: 6
+<>2020-01-30 01:48:47.345010  - S>  send {'type': 'abort'} lobby: 2
+<>2020-01-30 01:48:47.345010  - L  popped ('127.0.0.1', 55671) & ('127.0.0.1', 55661) into lobby 7
+<>2020-01-30 01:48:47.345010  - S>  send {'type': 'join'} lobby: 7
+<>2020-01-30 01:48:47.345010  - L  assigned lobby 7 to ('127.0.0.1', 55661); full: 3, empty: 0; lobbys: [1, 1, 7, 6, 6, 7]
+<>2020-01-30 01:48:47.345010  - L  updated lobbys. full: 3, empty: 0
+<>2020-01-30 01:48:48.785848  - >> New connetion from addr: ('127.0.0.1', 55672) num_conns: 7
+<>2020-01-30 01:48:48.785848  - L  assigned lobby None to ('127.0.0.1', 55672); full: 3, empty: 1; lobbys: [1, 1, 7, 6, 6, 7, None]
+<>2020-01-30 01:48:49.948273  - >> New connetion from addr: ('127.0.0.1', 55673) num_conns: 8
+<>2020-01-30 01:48:49.948273  - L  popped ('127.0.0.1', 55672) & ('127.0.0.1', 55673) into lobby 8
+<>2020-01-30 01:48:49.948273  - S>  send {'type': 'join'} lobby: 8
+<>2020-01-30 01:48:49.948273  - L  assigned lobby 8 to ('127.0.0.1', 55673); full: 4, empty: 0; lobbys: [1, 1, 7, 6, 6, 7, 8, 8]
+<>2020-01-30 01:48:50.723078  - << connection lost: ('127.0.0.1', 55673), lobby: 8, num_conns: 7
+<>2020-01-30 01:48:50.723078  - S>  send {'type': 'abort'} lobby: 8
+<>2020-01-30 01:48:50.738678  - L  assigned lobby None to ('127.0.0.1', 55672); full: 3, empty: 1; lobbys: [1, 1, 7, 6, 6, 7, None]
+<>2020-01-30 01:48:50.738678  - L  updated lobbys. full: 3, empty: 1
+<>2020-01-30 01:48:51.614313  - << connection lost: ('127.0.0.1', 55671), lobby: 7, num_conns: 6
+<>2020-01-30 01:48:51.614313  - S>  send {'type': 'abort'} lobby: 7
+<>2020-01-30 01:48:51.614313  - L  popped ('127.0.0.1', 55672) & ('127.0.0.1', 55661) into lobby 9
+<>2020-01-30 01:48:51.614313  - S>  send {'type': 'join'} lobby: 9
+<>2020-01-30 01:48:51.614313  - L  assigned lobby 9 to ('127.0.0.1', 55661); full: 3, empty: 0; lobbys: [1, 1, 9, 6, 6, 9]
+<>2020-01-30 01:48:51.614313  - L  updated lobbys. full: 3, empty: 0
+<>2020-01-30 01:48:52.395426  - << connection lost: ('127.0.0.1', 55665), lobby: 6, num_conns: 5
+<>2020-01-30 01:48:52.395426  - S>  send {'type': 'abort'} lobby: 6
+<>2020-01-30 01:48:52.395426  - L  assigned lobby None to ('127.0.0.1', 55663); full: 2, empty: 1; lobbys: [1, 1, 9, None, 9]
+<>2020-01-30 01:48:52.395426  - L  updated lobbys. full: 2, empty: 1
+<>2020-01-30 01:48:55.360781  - >> New connetion from addr: ('127.0.0.1', 55675) num_conns: 6
+<>2020-01-30 01:48:55.360781  - L  popped ('127.0.0.1', 55663) & ('127.0.0.1', 55675) into lobby 10
+<>2020-01-30 01:48:55.360781  - S>  send {'type': 'join'} lobby: 10
+<>2020-01-30 01:48:55.360781  - L  assigned lobby 10 to ('127.0.0.1', 55675); full: 3, empty: 0; lobbys: [1, 1, 9, 10, 9, 10]
+<>2020-01-30 01:48:57.312012  - >> New connetion from addr: ('127.0.0.1', 55676) num_conns: 7
+<>2020-01-30 01:48:57.327633  - L  assigned lobby None to ('127.0.0.1', 55676); full: 3, empty: 1; lobbys: [1, 1, 9, 10, 9, 10, None]
+<>2020-01-30 01:48:58.617129  - >> New connetion from addr: ('127.0.0.1', 55677) num_conns: 8
+<>2020-01-30 01:48:58.617129  - L  popped ('127.0.0.1', 55676) & ('127.0.0.1', 55677) into lobby 11
+<>2020-01-30 01:48:58.617129  - S>  send {'type': 'join'} lobby: 11
+<>2020-01-30 01:48:58.617129  - L  assigned lobby 11 to ('127.0.0.1', 55677); full: 4, empty: 0; lobbys: [1, 1, 9, 10, 9, 10, 11, 11]
+<>2020-01-30 01:49:01.540984  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55677)
+<>2020-01-30 01:49:01.540984  - S>  send {'type': 'ready', 'ready': False} lobby: 11
+<>2020-01-30 01:49:05.113022  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 55676)
+<>2020-01-30 01:49:05.128649  - S>  send {'type': 'ready', 'ready': True} lobby: 11
+<>2020-01-30 01:49:12.218926  - << connection lost: ('127.0.0.1', 55675), lobby: 10, num_conns: 7
+<>2020-01-30 01:49:12.218926  - S>  send {'type': 'abort'} lobby: 10
+<>2020-01-30 01:49:12.218926  - L  assigned lobby None to ('127.0.0.1', 55663); full: 3, empty: 1; lobbys: [1, 1, 9, None, 9, 11, 11]
+<>2020-01-30 01:49:12.218926  - L  updated lobbys. full: 3, empty: 1
+<>2020-01-30 01:49:14.484576  - >> New connetion from addr: ('127.0.0.1', 55679) num_conns: 8
+<>2020-01-30 01:49:14.484576  - L  popped ('127.0.0.1', 55663) & ('127.0.0.1', 55679) into lobby 12
+<>2020-01-30 01:49:14.484576  - S>  send {'type': 'join'} lobby: 12
+<>2020-01-30 01:49:14.484576  - L  assigned lobby 12 to ('127.0.0.1', 55679); full: 4, empty: 0; lobbys: [1, 1, 9, 12, 9, 11, 11, 12]
+<>2020-01-30 01:49:23.677012  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55679)
+<>2020-01-30 01:49:23.677012  - S>  send {'type': 'ready', 'ready': False} lobby: 12
+<>2020-01-30 01:49:26.561123  - << connection lost: ('127.0.0.1', 55663), lobby: 12, num_conns: 7
+<>2020-01-30 01:49:26.576718  - S>  send {'type': 'abort'} lobby: 12
+<>2020-01-30 01:49:26.576718  - L  assigned lobby None to ('127.0.0.1', 55679); full: 3, empty: 1; lobbys: [1, 1, 9, 9, 11, 11, None]
+<>2020-01-30 01:49:26.576718  - L  updated lobbys. full: 3, empty: 1
+<>2020-01-30 01:49:28.202349  - >> New connetion from addr: ('127.0.0.1', 55681) num_conns: 8
+<>2020-01-30 01:49:28.202349  - L  popped ('127.0.0.1', 55679) & ('127.0.0.1', 55681) into lobby 13
+<>2020-01-30 01:49:28.202349  - S>  send {'type': 'join'} lobby: 13
+<>2020-01-30 01:49:28.202349  - L  assigned lobby 13 to ('127.0.0.1', 55681); full: 4, empty: 0; lobbys: [1, 1, 9, 9, 11, 11, 13, 13]
+<>2020-01-30 01:49:31.618159  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55681)
+<>2020-01-30 01:49:31.618159  - S>  send {'type': 'ready', 'ready': False} lobby: 13
+<>2020-01-30 01:49:32.821919  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 55679)
+<>2020-01-30 01:49:32.821919  - S>  send {'type': 'ready', 'ready': True} lobby: 13
+<>2020-01-30 01:49:39.606504  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55661)
+<>2020-01-30 01:49:39.606504  - S>  send {'type': 'ready', 'ready': False} lobby: 9
+<>2020-01-30 01:49:41.093415  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 55672)
+<>2020-01-30 01:49:41.093415  - S>  send {'type': 'ready', 'ready': True} lobby: 9
+<>2020-01-30 01:49:47.111194  - << connection lost: ('127.0.0.1', 55661), lobby: 9, num_conns: 7
+<>2020-01-30 01:49:47.111194  - S>  send {'type': 'abort'} lobby: 9
+<>2020-01-30 01:49:47.111194  - L  assigned lobby None to ('127.0.0.1', 55672); full: 3, empty: 1; lobbys: [1, 1, None, 11, 11, 13, 13]
+<>2020-01-30 01:49:47.111194  - L  updated lobbys. full: 3, empty: 1
+<>2020-01-30 01:49:50.707385  - << connection lost: ('127.0.0.1', 55660), lobby: 1, num_conns: 6
+<>2020-01-30 01:49:50.707385  - S>  send {'type': 'abort'} lobby: 1
+<>2020-01-30 01:49:50.707385  - L  popped ('127.0.0.1', 55672) & ('127.0.0.1', 55658) into lobby 14
+<>2020-01-30 01:49:50.707385  - S>  send {'type': 'join'} lobby: 14
+<>2020-01-30 01:49:50.722984  - L  assigned lobby 14 to ('127.0.0.1', 55658); full: 3, empty: 0; lobbys: [14, 14, 11, 11, 13, 13]
+<>2020-01-30 01:49:50.722984  - L  updated lobbys. full: 3, empty: 0
+<>2020-01-30 01:49:54.270907  - >> New connetion from addr: ('127.0.0.1', 55685) num_conns: 7
+<>2020-01-30 01:49:54.270907  - L  assigned lobby None to ('127.0.0.1', 55685); full: 3, empty: 1; lobbys: [14, 14, 11, 11, 13, 13, None]
+<>2020-01-30 01:50:01.806843  - << connection lost: ('127.0.0.1', 55685), lobby: None, num_conns: 6
+<>2020-01-30 01:50:01.806843  - L  updated lobbys. full: 3, empty: 1
+<>2020-01-30 01:50:02.768227  - >> New connetion from addr: ('127.0.0.1', 55687) num_conns: 7
+<>2020-01-30 01:50:02.768227  - L  assigned lobby None to ('127.0.0.1', 55687); full: 3, empty: 1; lobbys: [14, 14, 11, 11, 13, 13, None]
+<>2020-01-30 01:50:05.515104  - >> New connetion from addr: ('127.0.0.1', 55688) num_conns: 8
+<>2020-01-30 01:50:05.515104  - L  popped ('127.0.0.1', 55687) & ('127.0.0.1', 55688) into lobby 15
+<>2020-01-30 01:50:05.530723  - S>  send {'type': 'join'} lobby: 15
+<>2020-01-30 01:50:05.530723  - L  assigned lobby 15 to ('127.0.0.1', 55688); full: 4, empty: 0; lobbys: [14, 14, 11, 11, 13, 13, 15, 15]
+<>2020-01-30 01:50:07.622927  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55688)
+<>2020-01-30 01:50:07.622927  - S>  send {'type': 'ready', 'ready': False} lobby: 15
+<>2020-01-30 01:50:10.561103  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55658)
+<>2020-01-30 01:50:10.561103  - S>  send {'type': 'ready', 'ready': False} lobby: 14
+<>2020-01-30 01:50:17.878399  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 55672)
+<>2020-01-30 01:50:17.878399  - S>  send {'type': 'ready', 'ready': True} lobby: 14
+<>2020-01-30 01:50:23.147085  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 55687)
+<>2020-01-30 01:50:23.147085  - S>  send {'type': 'ready', 'ready': True} lobby: 15
+<>2020-01-30 01:50:26.868075  - << connection lost: ('127.0.0.1', 55687), lobby: 15, num_conns: 7
+<>2020-01-30 01:50:26.868075  - S>  send {'type': 'abort'} lobby: 15
+<>2020-01-30 01:50:26.868075  - L  assigned lobby None to ('127.0.0.1', 55688); full: 3, empty: 1; lobbys: [14, 14, 11, 11, 13, 13, None]
+<>2020-01-30 01:50:26.868075  - L  updated lobbys. full: 3, empty: 1
+<>2020-01-30 01:50:27.712638  - << connection lost: ('127.0.0.1', 55679), lobby: 13, num_conns: 6
+<>2020-01-30 01:50:27.712638  - S>  send {'type': 'abort'} lobby: 13
+<>2020-01-30 01:50:27.728263  - L  popped ('127.0.0.1', 55688) & ('127.0.0.1', 55681) into lobby 16
+<>2020-01-30 01:50:27.739850  - S>  send {'type': 'join'} lobby: 16
+<>2020-01-30 01:50:27.739850  - L  assigned lobby 16 to ('127.0.0.1', 55681); full: 3, empty: 0; lobbys: [14, 14, 11, 11, 16, 16]
+<>2020-01-30 01:50:27.739850  - L  updated lobbys. full: 3, empty: 0
+<>2020-01-30 01:50:28.539017  - << connection lost: ('127.0.0.1', 55677), lobby: 11, num_conns: 5
+<>2020-01-30 01:50:28.539017  - S>  send {'type': 'abort'} lobby: 11
+<>2020-01-30 01:50:28.539017  - L  assigned lobby None to ('127.0.0.1', 55676); full: 2, empty: 1; lobbys: [14, 14, None, 16, 16]
+<>2020-01-30 01:50:28.554638  - L  updated lobbys. full: 2, empty: 1
+<>2020-01-30 01:50:33.064973  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55658)
+<>2020-01-30 01:50:33.064973  - S>  send {'type': 'move_done'} lobby: 14
+<>2020-01-30 01:50:54.560242  - << connection lost: ('127.0.0.1', 55688), lobby: 16, num_conns: 4
+<>2020-01-30 01:50:54.575839  - S>  send {'type': 'abort'} lobby: 16
+<>2020-01-30 01:50:54.575839  - L  popped ('127.0.0.1', 55676) & ('127.0.0.1', 55681) into lobby 17
+<>2020-01-30 01:50:54.575839  - S>  send {'type': 'join'} lobby: 17
+<>2020-01-30 01:50:54.575839  - L  assigned lobby 17 to ('127.0.0.1', 55681); full: 2, empty: 0; lobbys: [14, 14, 17, 17]
+<>2020-01-30 01:50:54.575839  - L  updated lobbys. full: 2, empty: 0
+<>2020-01-30 01:50:55.587453  - >> New connetion from addr: ('127.0.0.1', 55694) num_conns: 5
+<>2020-01-30 01:50:55.587453  - L  assigned lobby None to ('127.0.0.1', 55694); full: 2, empty: 1; lobbys: [14, 14, 17, 17, None]
+<>2020-01-30 01:51:41.089123  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55676)
+<>2020-01-30 01:51:41.089123  - S>  send {'type': 'ready', 'ready': False} lobby: 17
+<>2020-01-30 01:51:44.059853  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 55681)
+<>2020-01-30 01:51:44.059853  - S>  send {'type': 'ready', 'ready': True} lobby: 17
+<>2020-01-30 01:51:46.191885  - << connection lost: ('127.0.0.1', 55672), lobby: 14, num_conns: 4
+<>2020-01-30 01:51:46.191885  - S>  send {'type': 'abort'} lobby: 14
+<>2020-01-30 01:51:46.207506  - L  popped ('127.0.0.1', 55694) & ('127.0.0.1', 55658) into lobby 18
+<>2020-01-30 01:51:46.207506  - S>  send {'type': 'join'} lobby: 18
+<>2020-01-30 01:51:46.207506  - L  assigned lobby 18 to ('127.0.0.1', 55658); full: 2, empty: 0; lobbys: [18, 17, 17, 18]
+<>2020-01-30 01:51:46.207506  - L  updated lobbys. full: 2, empty: 0
+<>2020-01-30 01:51:47.780692  - << connection lost: ('127.0.0.1', 55676), lobby: 17, num_conns: 3
+<>2020-01-30 01:51:47.780692  - S>  send {'type': 'abort'} lobby: 17
+<>2020-01-30 01:51:47.780692  - L  assigned lobby None to ('127.0.0.1', 55681); full: 1, empty: 1; lobbys: [18, None, 18]
+<>2020-01-30 01:51:47.780692  - L  updated lobbys. full: 1, empty: 1
+<>2020-01-30 01:52:50.523366  - << connection lost: ('127.0.0.1', 55658), lobby: 18, num_conns: 2
+<>2020-01-30 01:52:50.523366  - S>  send {'type': 'abort'} lobby: 18
+<>2020-01-30 01:52:50.523366  - L  popped ('127.0.0.1', 55681) & ('127.0.0.1', 55694) into lobby 19
+<>2020-01-30 01:52:50.523366  - S>  send {'type': 'join'} lobby: 19
+<>2020-01-30 01:52:50.523366  - L  assigned lobby 19 to ('127.0.0.1', 55694); full: 1, empty: 0; lobbys: [19, 19]
+<>2020-01-30 01:52:50.523366  - L  updated lobbys. full: 1, empty: 0
+<>2020-01-30 01:52:55.166767  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55681)
+<>2020-01-30 01:52:55.166767  - S>  send {'type': 'ready', 'ready': False} lobby: 19
+<>2020-01-30 01:52:56.042424  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55681)
+<>2020-01-30 01:52:56.042424  - S>  send {'type': 'ready', 'ready': False} lobby: 19
+<>2020-01-30 01:52:57.221417  - >> New connetion from addr: ('127.0.0.1', 55700) num_conns: 3
+<>2020-01-30 01:52:57.221417  - L  assigned lobby None to ('127.0.0.1', 55700); full: 1, empty: 1; lobbys: [19, 19, None]
+<>2020-01-30 01:53:00.289578  - << connection lost: ('127.0.0.1', 55700), lobby: None, num_conns: 2
+<>2020-01-30 01:53:00.289578  - L  updated lobbys. full: 1, empty: 1
+<>2020-01-30 01:53:01.865402  - >> New connetion from addr: ('127.0.0.1', 55701) num_conns: 3
+<>2020-01-30 01:53:01.865402  - L  assigned lobby None to ('127.0.0.1', 55701); full: 1, empty: 1; lobbys: [19, 19, None]
+<>2020-01-30 01:53:06.992074  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55694)
+<>2020-01-30 01:53:06.992074  - S>  send {'type': 'ready', 'ready': False} lobby: 19
+<>2020-01-30 01:53:08.533791  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 55681)
+<>2020-01-30 01:53:08.533791  - S>  send {'type': 'ready', 'ready': True} lobby: 19
+<>2020-01-30 01:54:07.772665  - << connection lost: ('127.0.0.1', 55681), lobby: 19, num_conns: 2
+<>2020-01-30 01:54:07.772665  - S>  send {'type': 'abort'} lobby: 19
+<>2020-01-30 01:54:07.772665  - L  popped ('127.0.0.1', 55701) & ('127.0.0.1', 55694) into lobby 20
+<>2020-01-30 01:54:07.772665  - S>  send {'type': 'join'} lobby: 20
+<>2020-01-30 01:54:07.772665  - L  assigned lobby 20 to ('127.0.0.1', 55694); full: 1, empty: 0; lobbys: [20, 20]
+<>2020-01-30 01:54:07.772665  - L  updated lobbys. full: 1, empty: 0
+<>2020-01-30 01:54:13.842028  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55701)
+<>2020-01-30 01:54:13.842028  - S>  send {'type': 'ready', 'ready': False} lobby: 20
+<>2020-01-30 01:54:14.009522  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55701)
+<>2020-01-30 01:54:14.009522  - S>  send {'type': 'ready', 'ready': False} lobby: 20
+<>2020-01-30 01:54:14.378961  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55701)
+<>2020-01-30 01:54:14.378961  - S>  send {'type': 'ready', 'ready': False} lobby: 20
+<>2020-01-30 01:54:14.905482  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55701)
+<>2020-01-30 01:54:14.905482  - S>  send {'type': 'ready', 'ready': False} lobby: 20
+<>2020-01-30 01:54:15.261880  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55701)
+<>2020-01-30 01:54:15.261880  - S>  send {'type': 'ready', 'ready': False} lobby: 20
+<>2020-01-30 01:54:17.875093  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55701)
+<>2020-01-30 01:54:17.875093  - S>  send {'type': 'ready', 'ready': False} lobby: 20
+<>2020-01-30 01:54:24.394979  - << connection lost: ('127.0.0.1', 55694), lobby: 20, num_conns: 1
+<>2020-01-30 01:54:24.394979  - S>  send {'type': 'abort'} lobby: 20
+<>2020-01-30 01:54:24.394979  - L  assigned lobby None to ('127.0.0.1', 55701); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:54:24.394979  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 01:54:25.426506  - >> New connetion from addr: ('127.0.0.1', 55708) num_conns: 2
+<>2020-01-30 01:54:25.426506  - L  popped ('127.0.0.1', 55701) & ('127.0.0.1', 55708) into lobby 21
+<>2020-01-30 01:54:25.426506  - S>  send {'type': 'join'} lobby: 21
+<>2020-01-30 01:54:25.426506  - L  assigned lobby 21 to ('127.0.0.1', 55708); full: 1, empty: 0; lobbys: [21, 21]
+<>2020-01-30 01:54:28.146765  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55708)
+<>2020-01-30 01:54:28.146765  - S>  send {'type': 'ready', 'ready': False} lobby: 21
+<>2020-01-30 01:54:29.408171  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 55701)
+<>2020-01-30 01:54:29.408171  - S>  send {'type': 'ready', 'ready': True} lobby: 21
+<>2020-01-30 01:54:31.669335  - >> New connetion from addr: ('127.0.0.1', 55709) num_conns: 3
+<>2020-01-30 01:54:31.669335  - L  assigned lobby None to ('127.0.0.1', 55709); full: 1, empty: 1; lobbys: [21, 21, None]
+<>2020-01-30 01:54:33.117547  - << connection lost: ('127.0.0.1', 55701), lobby: 21, num_conns: 2
+<>2020-01-30 01:54:33.117547  - S>  send {'type': 'abort'} lobby: 21
+<>2020-01-30 01:54:33.133170  - L  popped ('127.0.0.1', 55709) & ('127.0.0.1', 55708) into lobby 22
+<>2020-01-30 01:54:33.133170  - S>  send {'type': 'join'} lobby: 22
+<>2020-01-30 01:54:33.133170  - L  assigned lobby 22 to ('127.0.0.1', 55708); full: 1, empty: 0; lobbys: [22, 22]
+<>2020-01-30 01:54:33.133170  - L  updated lobbys. full: 1, empty: 0
+<>2020-01-30 01:56:33.958667  - << connection lost: ('127.0.0.1', 55708), lobby: 22, num_conns: 1
+<>2020-01-30 01:56:33.958667  - S>  send {'type': 'abort'} lobby: 22
+<>2020-01-30 01:56:33.958667  - L  assigned lobby None to ('127.0.0.1', 55709); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 01:56:33.958667  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 01:56:35.108999  - >> New connetion from addr: ('127.0.0.1', 55720) num_conns: 2
+<>2020-01-30 01:56:35.108999  - L  popped ('127.0.0.1', 55709) & ('127.0.0.1', 55720) into lobby 23
+<>2020-01-30 01:56:35.108999  - S>  send {'type': 'join'} lobby: 23
+<>2020-01-30 01:56:35.108999  - L  assigned lobby 23 to ('127.0.0.1', 55720); full: 1, empty: 0; lobbys: [23, 23]
+<>2020-01-30 01:56:41.086368  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55709)
+<>2020-01-30 01:56:41.086368  - S>  send {'type': 'ready', 'ready': False} lobby: 23
+<>2020-01-30 01:56:41.885342  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 55720)
+<>2020-01-30 01:56:41.885342  - S>  send {'type': 'ready', 'ready': True} lobby: 23
+<>2020-01-30 01:56:43.368890  - >> New connetion from addr: ('127.0.0.1', 55721) num_conns: 3
+<>2020-01-30 01:56:43.368890  - L  assigned lobby None to ('127.0.0.1', 55721); full: 1, empty: 1; lobbys: [23, 23, None]
+<>2020-01-30 01:56:47.878961  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55709)
+<>2020-01-30 01:56:47.878961  - S>  send {'type': 'move_done'} lobby: 23
+<>2020-01-30 01:56:54.000560  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55720)
+<>2020-01-30 01:56:54.000560  - S>  send {'type': 'move_done'} lobby: 23
+<>2020-01-30 01:56:58.695540  - G<  got {'type': 'move_done'} from ('127.0.0.1', 55709)
+<>2020-01-30 01:56:58.711166  - S>  send {'type': 'move_done'} lobby: 23
+<>2020-01-30 01:57:09.822992  - << connection lost: ('127.0.0.1', 55720), lobby: 23, num_conns: 2
+<>2020-01-30 01:57:09.822992  - S>  send {'type': 'abort'} lobby: 23
+<>2020-01-30 01:57:09.822992  - L  popped ('127.0.0.1', 55721) & ('127.0.0.1', 55709) into lobby 24
+<>2020-01-30 01:57:09.838611  - S>  send {'type': 'join'} lobby: 24
+<>2020-01-30 01:57:09.854232  - L  assigned lobby 24 to ('127.0.0.1', 55709); full: 1, empty: 0; lobbys: [24, 24]
+<>2020-01-30 01:57:09.854232  - L  updated lobbys. full: 1, empty: 0
+<>2020-01-30 01:57:24.771953  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55721)
+<>2020-01-30 01:57:24.771953  - S>  send {'type': 'ready', 'ready': False} lobby: 24
+<>2020-01-30 01:57:26.803486  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 55709)
+<>2020-01-30 01:57:26.803486  - S>  send {'type': 'ready', 'ready': True} lobby: 24
+<>2020-01-30 01:57:29.879110  - >> New connetion from addr: ('127.0.0.1', 55726) num_conns: 3
+<>2020-01-30 01:57:29.879110  - L  assigned lobby None to ('127.0.0.1', 55726); full: 1, empty: 1; lobbys: [24, 24, None]
+<>2020-01-30 01:57:31.073284  - << connection lost: ('127.0.0.1', 55721), lobby: 24, num_conns: 2
+<>2020-01-30 01:57:31.073284  - S>  send {'type': 'abort'} lobby: 24
+<>2020-01-30 01:57:31.073284  - L  popped ('127.0.0.1', 55726) & ('127.0.0.1', 55709) into lobby 25
+<>2020-01-30 01:57:31.073284  - S>  send {'type': 'join'} lobby: 25
+<>2020-01-30 01:57:31.073284  - L  assigned lobby 25 to ('127.0.0.1', 55709); full: 1, empty: 0; lobbys: [25, 25]
+<>2020-01-30 01:57:31.073284  - L  updated lobbys. full: 1, empty: 0
+<>2020-01-30 01:57:39.584551  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55726)
+<>2020-01-30 01:57:39.584551  - S>  send {'type': 'ready', 'ready': False} lobby: 25
+<>2020-01-30 01:57:56.415014  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55726)
+<>2020-01-30 01:57:56.415014  - S>  send {'type': 'ready', 'ready': False} lobby: 25
+<>2020-01-30 01:57:57.821485  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55726)
+<>2020-01-30 01:57:57.821485  - S>  send {'type': 'ready', 'ready': False} lobby: 25
+<>2020-01-30 01:57:58.462830  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55726)
+<>2020-01-30 01:57:58.462830  - S>  send {'type': 'ready', 'ready': False} lobby: 25
+<>2020-01-30 02:00:29.530366  - << connection lost: ('127.0.0.1', 55709), lobby: 25, num_conns: 1
+<>2020-01-30 02:00:29.531365  - << connection lost: ('127.0.0.1', 55726), lobby: 25, num_conns: 0
+*2020-01-30 02:07:42.521050   - Socket successfully created!
+*2020-01-30 02:07:42.521050   - Socket successfully bound to address: :6789
+*2020-01-30 02:07:42.521050   - Socket is listening...
+<>2020-01-30 02:07:42.521050  - ! main loop active!
+<>2020-01-30 02:08:09.784583  - >> New connetion from addr: ('127.0.0.1', 55780) num_conns: 1
+<>2020-01-30 02:08:09.784583  - L  assigned lobby None to ('127.0.0.1', 55780); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:08:10.263685  - >> New connetion from addr: ('127.0.0.1', 55781) num_conns: 2
+<>2020-01-30 02:08:10.263685  - L  popped ('127.0.0.1', 55780) & ('127.0.0.1', 55781) into lobby 0
+<>2020-01-30 02:08:10.263685  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 02:08:10.263685  - L  assigned lobby 0 to ('127.0.0.1', 55781); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 02:08:10.915558  - >> New connetion from addr: ('127.0.0.1', 55782) num_conns: 3
+<>2020-01-30 02:08:10.915558  - L  assigned lobby None to ('127.0.0.1', 55782); full: 1, empty: 1; lobbys: [0, 0, None]
+<>2020-01-30 02:08:13.615315  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55781)
+<>2020-01-30 02:08:13.615315  - S>  send {'type': 'ready', 'ready': False} lobby: 0
+<>2020-01-30 02:08:17.539067  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 55780)
+<>2020-01-30 02:08:17.539067  - S>  send {'type': 'ready', 'ready': True} lobby: 0
+<>2020-01-30 02:08:19.814772  - << connection lost: ('127.0.0.1', 55780), lobby: 0, num_conns: 2
+<>2020-01-30 02:08:19.814772  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:08:19.814772  - L  popped ('127.0.0.1', 55782) & ('127.0.0.1', 55781) into lobby 1
+<>2020-01-30 02:08:19.814772  - S>  send {'type': 'join'} lobby: 1
+<>2020-01-30 02:08:19.814772  - L  assigned lobby 1 to ('127.0.0.1', 55781); full: 1, empty: 0; lobbys: [1, 1]
+<>2020-01-30 02:08:19.814772  - L  updated lobbys. full: 1, empty: 0
+<>2020-01-30 02:09:46.851620  - << connection lost: ('127.0.0.1', 55781), lobby: 1, num_conns: 1
+<>2020-01-30 02:09:46.851620  - S>  send {'type': 'abort'} lobby: 1
+<>2020-01-30 02:09:46.851620  - L  assigned lobby None to ('127.0.0.1', 55782); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:09:46.851620  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 02:09:48.685890  - << connection lost: ('127.0.0.1', 55782), lobby: None, num_conns: 0
+<>2020-01-30 02:09:48.685890  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 02:09:48.685890   - ! Starting shutt off timer! t: -30s
+<>2020-01-30 02:09:57.304474  - >> New connetion from addr: ('127.0.0.1', 55792) num_conns: 1
+<>2020-01-30 02:09:57.304474  - L  assigned lobby None to ('127.0.0.1', 55792); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:09:58.373567  - >> New connetion from addr: ('127.0.0.1', 55793) num_conns: 2
+<>2020-01-30 02:09:58.373567  - L  popped ('127.0.0.1', 55792) & ('127.0.0.1', 55793) into lobby 2
+<>2020-01-30 02:09:58.373567  - S>  send {'type': 'join'} lobby: 2
+<>2020-01-30 02:09:58.373567  - L  assigned lobby 2 to ('127.0.0.1', 55793); full: 1, empty: 0; lobbys: [2, 2]
+<>2020-01-30 02:09:59.072152  - >> New connetion from addr: ('127.0.0.1', 55794) num_conns: 3
+<>2020-01-30 02:09:59.072152  - L  assigned lobby None to ('127.0.0.1', 55794); full: 1, empty: 1; lobbys: [2, 2, None]
+<>2020-01-30 02:10:02.482435  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55792)
+<>2020-01-30 02:10:02.482435  - S>  send {'type': 'ready', 'ready': False} lobby: 2
+<>2020-01-30 02:10:05.007855  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 55793)
+<>2020-01-30 02:10:05.007855  - S>  send {'type': 'ready', 'ready': True} lobby: 2
+<>2020-01-30 02:10:06.235164  - << connection lost: ('127.0.0.1', 55792), lobby: 2, num_conns: 2
+<>2020-01-30 02:10:06.235164  - S>  send {'type': 'abort'} lobby: 2
+<>2020-01-30 02:10:06.235164  - L  popped ('127.0.0.1', 55794) & ('127.0.0.1', 55793) into lobby 3
+<>2020-01-30 02:10:06.235164  - S>  send {'type': 'join'} lobby: 3
+<>2020-01-30 02:10:06.250709  - L  assigned lobby 3 to ('127.0.0.1', 55793); full: 1, empty: 0; lobbys: [3, 3]
+<>2020-01-30 02:10:06.250709  - L  updated lobbys. full: 1, empty: 0
+<>2020-01-30 02:13:55.627190  - << connection lost: ('127.0.0.1', 55793), lobby: 3, num_conns: 1
+<>2020-01-30 02:13:55.627190  - S>  send {'type': 'abort'} lobby: 3
+<>2020-01-30 02:13:55.627190  - L  assigned lobby None to ('127.0.0.1', 55794); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:13:55.627190  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 02:13:57.006371  - << connection lost: ('127.0.0.1', 55794), lobby: None, num_conns: 0
+<>2020-01-30 02:13:57.006371  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 02:13:57.006371   - ! Starting shutt off timer! t: -30s
+<>2020-01-30 02:14:05.643718  - >> New connetion from addr: ('127.0.0.1', 55811) num_conns: 1
+<>2020-01-30 02:14:05.643718  - L  assigned lobby None to ('127.0.0.1', 55811); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:14:06.100649  - >> New connetion from addr: ('127.0.0.1', 55812) num_conns: 2
+<>2020-01-30 02:14:06.100649  - L  popped ('127.0.0.1', 55811) & ('127.0.0.1', 55812) into lobby 4
+<>2020-01-30 02:14:06.100649  - S>  send {'type': 'join'} lobby: 4
+<>2020-01-30 02:14:06.100649  - L  assigned lobby 4 to ('127.0.0.1', 55812); full: 1, empty: 0; lobbys: [4, 4]
+<>2020-01-30 02:14:10.347284  - << connection lost: ('127.0.0.1', 55812), lobby: 4, num_conns: 1
+<>2020-01-30 02:14:10.347284  - S>  send {'type': 'abort'} lobby: 4
+<>2020-01-30 02:14:10.347284  - L  assigned lobby None to ('127.0.0.1', 55811); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:14:10.347284  - << connection lost: ('127.0.0.1', 55811), lobby: None, num_conns: 0
+<>2020-01-30 02:14:10.347284  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 02:14:10.347284  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 02:14:10.347284   - ! Starting shutt off timer! t: -30s
+*2020-01-30 02:14:10.347284   - ! Starting shutt off timer! t: -30s
+*2020-01-30 02:14:25.424132   - Socket successfully closed!
+--------
+
+<!>2020-01-30 02:14:25.424132 - ! error whilst establishing a connection! shutting down... (open threads: 3)
+<>2020-01-30 02:14:25.424132  - ! main loop terminated!
+*2020-01-30 02:14:26.432282   - Socket successfully closed!
+--------
+
+*2020-01-30 02:14:33.153334   - Socket successfully created!
+*2020-01-30 02:14:33.168948   - Socket successfully bound to address: :6789
+*2020-01-30 02:14:33.168948   - Socket is listening...
+<>2020-01-30 02:14:33.168948  - ! main loop active!
+<>2020-01-30 02:14:39.842684  - >> New connetion from addr: ('127.0.0.1', 55814) num_conns: 1
+<>2020-01-30 02:14:39.842684  - L  assigned lobby None to ('127.0.0.1', 55814); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:14:40.401760  - >> New connetion from addr: ('127.0.0.1', 55815) num_conns: 2
+<>2020-01-30 02:14:40.401760  - L  popped ('127.0.0.1', 55814) & ('127.0.0.1', 55815) into lobby 0
+<>2020-01-30 02:14:40.401760  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 02:14:40.401760  - L  assigned lobby 0 to ('127.0.0.1', 55815); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 02:14:42.814423  - << connection lost: ('127.0.0.1', 55814), lobby: 0, num_conns: 1
+<>2020-01-30 02:14:42.814423  - << connection lost: ('127.0.0.1', 55815), lobby: 0, num_conns: 0
+<>2020-01-30 02:14:42.814423  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55815); lobby 0
+<>2020-01-30 02:14:42.814423  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55814); lobby 0
+<>2020-01-30 02:14:42.814423  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:14:42.814423  - L  assigned lobby None to ('127.0.0.1', 55815); full: 0, empty: 1; lobbys: []
+<>2020-01-30 02:14:42.814423  - S>  send {'type': 'abort'} lobby: None
+<>2020-01-30 02:14:42.814423  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 02:14:42.830048   - ! Starting shutt off timer! t: -30s
+*2020-01-30 02:15:12.913514   - Socket successfully closed!
+--------
+
+<!>2020-01-30 02:15:12.913514 - ! error whilst establishing a connection! shutting down... (open threads: 2)
+<>2020-01-30 02:15:12.920849  - ! main loop terminated!
+*2020-01-30 02:22:41.298600   - Socket successfully created!
+*2020-01-30 02:22:41.298600   - Socket successfully bound to address: :6789
+*2020-01-30 02:22:41.298600   - Socket is listening...
+<>2020-01-30 02:22:41.314228  - ! main loop active!
+<>2020-01-30 02:22:45.772533  - >> New connetion from addr: ('127.0.0.1', 55848) num_conns: 1
+<>2020-01-30 02:22:45.866767  - L  assigned lobby None to ('127.0.0.1', 55848); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:22:47.145157  - >> New connetion from addr: ('127.0.0.1', 55850) num_conns: 2
+<>2020-01-30 02:22:47.253047  - L  popped ('127.0.0.1', 55848) & ('127.0.0.1', 55850) into lobby 0
+<>2020-01-30 02:22:47.387402  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 02:22:47.488490  - L  assigned lobby 0 to ('127.0.0.1', 55850); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 02:22:51.569467  - << connection lost: ('127.0.0.1', 55850), lobby: 0, num_conns: 1
+<>2020-01-30 02:22:51.569467  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:22:51.571498  - L  assigned lobby None to ('127.0.0.1', 55848); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:22:51.571498  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 02:25:10.152875   - Socket successfully created!
+*2020-01-30 02:25:10.152875   - Socket successfully bound to address: :6789
+*2020-01-30 02:25:10.152875   - Socket is listening...
+<>2020-01-30 02:25:10.168496  - ! main loop active!
+*2020-01-30 02:26:10.832807   - Socket successfully created!
+*2020-01-30 02:26:10.832807   - Socket successfully bound to address: :6789
+*2020-01-30 02:26:10.832807   - Socket is listening...
+<>2020-01-30 02:26:10.848427  - ! main loop active!
+<>2020-01-30 02:26:14.572865  - >> New connetion from addr: ('127.0.0.1', 55874) num_conns: 1
+<>2020-01-30 02:26:14.666614  - L  assigned lobby None to ('127.0.0.1', 55874); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:26:25.053656  - >> New connetion from addr: ('127.0.0.1', 55879) num_conns: 2
+<>2020-01-30 02:26:25.131761  - L  popped ('127.0.0.1', 55874) & ('127.0.0.1', 55879) into lobby 0
+<>2020-01-30 02:26:25.209896  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 02:26:25.307400  - L  assigned lobby 0 to ('127.0.0.1', 55879); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 02:26:29.612009  - << connection lost: ('127.0.0.1', 55879), lobby: 0, num_conns: 1
+<>2020-01-30 02:26:29.612009  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:26:29.612009  - L  assigned lobby None to ('127.0.0.1', 55874); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:26:29.612009  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 02:26:38.540570  - >> New connetion from addr: ('127.0.0.1', 55883) num_conns: 2
+<>2020-01-30 02:26:38.648947  - L  popped ('127.0.0.1', 55874) & ('127.0.0.1', 55883) into lobby 1
+<>2020-01-30 02:26:38.746795  - S>  send {'type': 'join'} lobby: 1
+<>2020-01-30 02:26:38.849140  - L  assigned lobby 1 to ('127.0.0.1', 55883); full: 1, empty: 0; lobbys: [1, 1]
+<>2020-01-30 02:26:42.117520  - << connection lost: ('127.0.0.1', 55883), lobby: 1, num_conns: 1
+<>2020-01-30 02:26:42.117520  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55874); lobby 1
+<>2020-01-30 02:26:42.117520  - S>  send {'type': 'abort'} lobby: 1
+<>2020-01-30 02:26:42.117520  - L  assigned lobby None to ('127.0.0.1', 55874); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:26:42.117520  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 02:26:42.117520  - << connection lost: ('127.0.0.1', 55874), lobby: None, num_conns: 0
+<>2020-01-30 02:26:42.117520  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 02:26:42.117520   - ! Starting shutt off timer! t: -30s
+*2020-01-30 02:27:12.680545   - Socket successfully closed!
+--------
+
+<!>2020-01-30 02:27:12.680545 - ! error whilst establishing a connection! shutting down... (open threads: 3)
+<>2020-01-30 02:27:12.680545  - ! main loop terminated!
+*2020-01-30 02:27:15.050326   - Socket successfully created!
+*2020-01-30 02:27:15.050326   - Socket successfully bound to address: :6789
+*2020-01-30 02:27:15.050326   - Socket is listening...
+<>2020-01-30 02:27:15.065970  - ! main loop active!
+<>2020-01-30 02:27:19.361777  - >> New connetion from addr: ('127.0.0.1', 55885) num_conns: 1
+<>2020-01-30 02:27:19.479673  - L  assigned lobby None to ('127.0.0.1', 55885); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:27:21.019539  - >> New connetion from addr: ('127.0.0.1', 55886) num_conns: 2
+<>2020-01-30 02:27:21.118975  - L  popped ('127.0.0.1', 55885) & ('127.0.0.1', 55886) into lobby 0
+<>2020-01-30 02:27:21.212703  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 02:27:21.319423  - L  assigned lobby 0 to ('127.0.0.1', 55886); full: 1, empty: 0; lobbys: [0, 0]
+*2020-01-30 02:29:11.866137   - Socket successfully created!
+*2020-01-30 02:29:11.866137   - Socket successfully bound to address: :6789
+*2020-01-30 02:29:11.866137   - Socket is listening...
+<>2020-01-30 02:29:11.866137  - ! main loop active!
+<>2020-01-30 02:29:24.870187  - >> New connetion from addr: ('127.0.0.1', 55918) num_conns: 1
+<>2020-01-30 02:29:24.870187  - L  assigned lobby None to ('127.0.0.1', 55918); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:29:25.481405  - >> New connetion from addr: ('127.0.0.1', 55919) num_conns: 2
+<>2020-01-30 02:29:25.481405  - L  popped ('127.0.0.1', 55918) & ('127.0.0.1', 55919) into lobby 0
+<>2020-01-30 02:29:25.481405  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 02:29:25.481405  - L  assigned lobby 0 to ('127.0.0.1', 55919); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 02:29:27.608564  - << connection lost: ('127.0.0.1', 55919), lobby: 0, num_conns: 1
+<>2020-01-30 02:29:27.608564  - << connection lost: ('127.0.0.1', 55918), lobby: 0, num_conns: 0
+<>2020-01-30 02:29:27.608564  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55918); lobby 0
+<>2020-01-30 02:29:27.608564  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:29:27.608564  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55919); lobby 0
+<>2020-01-30 02:29:27.608564  - L  assigned lobby None to ('127.0.0.1', 55918); full: 0, empty: 1; lobbys: []
+<>2020-01-30 02:29:27.608564  - S>  send {'type': 'abort'} lobby: None
+<>2020-01-30 02:29:27.608564  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 02:29:27.608564   - ! Starting shutt off timer! t: -30s
+*2020-01-30 02:29:57.707688   - Socket successfully closed!
+--------
+
+<!>2020-01-30 02:29:57.707688 - ! error whilst establishing a connection! shutting down... (open threads: 2)
+<>2020-01-30 02:29:57.707688  - ! main loop terminated!
+*2020-01-30 02:31:39.722358   - Socket successfully created!
+*2020-01-30 02:31:39.737980   - Socket successfully bound to address: :6789
+*2020-01-30 02:31:39.737980   - Socket is listening...
+<>2020-01-30 02:31:39.737980  - ! main loop active!
+<>2020-01-30 02:31:46.203499  - >> New connetion from addr: ('127.0.0.1', 55933) num_conns: 1
+<>2020-01-30 02:31:46.203499  - L  assigned lobby None to ('127.0.0.1', 55933); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:31:46.969999  - >> New connetion from addr: ('127.0.0.1', 55934) num_conns: 2
+<>2020-01-30 02:31:46.969999  - L  popped ('127.0.0.1', 55933) & ('127.0.0.1', 55934) into lobby 0
+<>2020-01-30 02:31:46.969999  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 02:31:46.969999  - L  assigned lobby 0 to ('127.0.0.1', 55934); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 02:31:48.578306  - << connection lost: ('127.0.0.1', 55933), lobby: 0, num_conns: 1
+<>2020-01-30 02:31:48.578306  - << connection lost: ('127.0.0.1', 55934), lobby: 0, num_conns: 0
+<>2020-01-30 02:31:48.578306  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55934); lobby 0
+<>2020-01-30 02:31:48.578306  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55933); lobby 0
+<>2020-01-30 02:31:48.578306  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:31:48.578306  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:31:48.578306  - L  assigned lobby None to ('127.0.0.1', 55934); full: 0, empty: 1; lobbys: []
+<!>2020-01-30 02:31:48.578306 - failed to unregister ('127.0.0.1', 55934), lobby None
+<>2020-01-30 02:31:48.578306  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 02:31:48.578306   - ! Starting shutt off timer! t: -30s
+<>2020-01-30 02:32:01.324541  - >> New connetion from addr: ('127.0.0.1', 55936) num_conns: 1
+<>2020-01-30 02:32:01.324541  - L  popped ('127.0.0.1', 55934) & ('127.0.0.1', 55936) into lobby 1
+<>2020-01-30 02:32:01.324541  - failed to send data: {'type': 'join'} to ('127.0.0.1', 55934); lobby 1
+<>2020-01-30 02:32:01.324541  - S>  send {'type': 'join'} lobby: 1
+<>2020-01-30 02:32:01.324541  - L  assigned lobby 1 to ('127.0.0.1', 55936); full: 1, empty: 0; lobbys: [1]
+<>2020-01-30 02:32:01.805542  - >> New connetion from addr: ('127.0.0.1', 55937) num_conns: 2
+<>2020-01-30 02:32:01.805542  - L  assigned lobby None to ('127.0.0.1', 55937); full: 1, empty: 1; lobbys: [1, None]
+<>2020-01-30 02:32:02.677601  - >> New connetion from addr: ('127.0.0.1', 55939) num_conns: 3
+<>2020-01-30 02:32:02.677601  - L  popped ('127.0.0.1', 55937) & ('127.0.0.1', 55939) into lobby 2
+<>2020-01-30 02:32:02.677601  - S>  send {'type': 'join'} lobby: 2
+<>2020-01-30 02:32:02.677601  - L  assigned lobby 2 to ('127.0.0.1', 55939); full: 2, empty: 0; lobbys: [1, 2, 2]
+<>2020-01-30 02:32:08.929516  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55936)
+<>2020-01-30 02:32:08.929516  - failed to send data: {'type': 'ready', 'ready': False} to ('127.0.0.1', 55934); lobby 1
+<>2020-01-30 02:32:08.929516  - S>  send {'type': 'ready', 'ready': False} lobby: 1
+<>2020-01-30 02:32:09.994325  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55937)
+<>2020-01-30 02:32:09.994325  - S>  send {'type': 'ready', 'ready': False} lobby: 2
+<>2020-01-30 02:32:14.934195  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55937)
+<>2020-01-30 02:32:14.934195  - S>  send {'type': 'ready', 'ready': False} lobby: 2
+<>2020-01-30 02:32:15.245825  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 55937)
+<>2020-01-30 02:32:15.245825  - S>  send {'type': 'ready', 'ready': False} lobby: 2
+<>2020-01-30 02:33:49.914013  - << connection lost: ('127.0.0.1', 55939), lobby: 2, num_conns: 2
+<>2020-01-30 02:33:49.914013  - S>  send {'type': 'abort'} lobby: 2
+<>2020-01-30 02:33:49.914013  - L  assigned lobby None to ('127.0.0.1', 55937); full: 1, empty: 1; lobbys: [1, None]
+<>2020-01-30 02:33:49.914013  - L  updated lobbys. full: 1, empty: 1
+<>2020-01-30 02:33:50.868778  - << connection lost: ('127.0.0.1', 55937), lobby: None, num_conns: 1
+<>2020-01-30 02:33:50.868778  - L  updated lobbys. full: 1, empty: 1
+<>2020-01-30 02:33:51.658150  - << connection lost: ('127.0.0.1', 55936), lobby: 1, num_conns: 0
+<>2020-01-30 02:33:51.658150  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55934); lobby 1
+<>2020-01-30 02:33:51.658150  - S>  send {'type': 'abort'} lobby: 1
+<>2020-01-30 02:33:51.658150  - L  assigned lobby 1 to ('127.0.0.1', 55934); full: 0, empty: 1; lobbys: []
+<>2020-01-30 02:33:51.658150  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 02:33:51.658150   - ! Starting shutt off timer! t: -30s
+*2020-01-30 02:35:48.297763   - Socket successfully created!
+*2020-01-30 02:35:48.297763   - Socket successfully bound to address: :6789
+*2020-01-30 02:35:48.297763   - Socket is listening...
+<>2020-01-30 02:35:48.297763  - ! main loop active!
+<>2020-01-30 02:35:53.708014  - >> New connetion from addr: ('127.0.0.1', 55956) num_conns: 1
+<>2020-01-30 02:35:53.708014  - L  assigned lobby None to ('127.0.0.1', 55956); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:35:57.099803  - >> New connetion from addr: ('127.0.0.1', 55957) num_conns: 2
+<>2020-01-30 02:35:57.099803  - L  popped ('127.0.0.1', 55956) & ('127.0.0.1', 55957) into lobby 0
+<>2020-01-30 02:35:57.115424  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 02:35:57.115424  - L  assigned lobby 0 to ('127.0.0.1', 55957); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 02:35:59.147575  - << connection lost: ('127.0.0.1', 55956), lobby: 0, num_conns: 1
+<>2020-01-30 02:35:59.147575  - << connection lost: ('127.0.0.1', 55957), lobby: 0, num_conns: 0
+<>2020-01-30 02:35:59.147575  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55957); lobby 0
+<>2020-01-30 02:35:59.147575  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:35:59.147575  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55956); lobby 0
+<>2020-01-30 02:35:59.147575  - L  assigned lobby None to ('127.0.0.1', 55957); full: 0, empty: 1; lobbys: []
+<>2020-01-30 02:35:59.147575  - S>  send {'type': 'abort'} lobby: None
+<>2020-01-30 02:35:59.147575  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 02:35:59.147575   - ! Starting shutt off timer! t: -30s
+*2020-01-30 02:36:29.233558   - Socket successfully closed!
+--------
+
+<!>2020-01-30 02:36:29.233558 - ! error whilst establishing a connection! shutting down... (open threads: 2)
+<>2020-01-30 02:36:29.233558  - ! main loop terminated!
+*2020-01-30 02:39:06.424740   - Socket successfully created!
+*2020-01-30 02:39:06.440362   - Socket successfully bound to address: :6789
+*2020-01-30 02:39:06.440362   - Socket is listening...
+<>2020-01-30 02:39:06.440362  - ! main loop active!
+<>2020-01-30 02:39:11.028750  - >> New connetion from addr: ('127.0.0.1', 55967) num_conns: 1
+<>2020-01-30 02:39:11.028750  - L  assigned lobby None to ('127.0.0.1', 55967); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:39:11.577614  - >> New connetion from addr: ('127.0.0.1', 55968) num_conns: 2
+<>2020-01-30 02:39:11.577614  - L  popped ('127.0.0.1', 55967) & ('127.0.0.1', 55968) into lobby 0
+<>2020-01-30 02:39:11.577614  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 02:39:11.577614  - L  assigned lobby 0 to ('127.0.0.1', 55968); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 02:39:13.233637  - << connection lost: ('127.0.0.1', 55968), lobby: 0, num_conns: 1
+<>2020-01-30 02:39:13.233637  - << connection lost: ('127.0.0.1', 55967), lobby: 0, num_conns: 0
+<>2020-01-30 02:39:13.233637  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55967); lobby 0
+<>2020-01-30 02:39:13.233637  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55968); lobby 0
+<>2020-01-30 02:39:13.233637  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:39:13.233637  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:39:13.233637  - L  assigned lobby 0 to ('127.0.0.1', 55967); full: 0, empty: 0; lobbys: []
+<>2020-01-30 02:39:13.233637  - L  updated lobbys. full: 0, empty: 0
+*2020-01-30 02:39:13.233637   - ! Starting shutt off timer! t: -30s
+*2020-01-30 02:39:43.429794   - Socket successfully closed!
+--------
+
+<!>2020-01-30 02:39:43.429794 - ! error whilst establishing a connection! shutting down... (open threads: 2)
+<>2020-01-30 02:39:43.429794  - ! main loop terminated!
+*2020-01-30 02:40:56.684184   - Socket successfully created!
+*2020-01-30 02:40:56.684184   - Socket successfully bound to address: :6789
+*2020-01-30 02:40:56.684184   - Socket is listening...
+<>2020-01-30 02:40:56.684184  - ! main loop active!
+<>2020-01-30 02:41:01.073410  - >> New connetion from addr: ('127.0.0.1', 55976) num_conns: 1
+<>2020-01-30 02:41:01.073410  - L  assigned lobby None to ('127.0.0.1', 55976); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:41:01.634258  - >> New connetion from addr: ('127.0.0.1', 55977) num_conns: 2
+<>2020-01-30 02:41:01.634258  - L  popped ('127.0.0.1', 55976) & ('127.0.0.1', 55977) into lobby 0
+<>2020-01-30 02:41:01.634258  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 02:41:01.634258  - L  assigned lobby 0 to ('127.0.0.1', 55977); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 02:41:03.279735  - << connection lost: ('127.0.0.1', 55977), lobby: 0, num_conns: 1
+<>2020-01-30 02:41:03.280733  - << connection lost: ('127.0.0.1', 55976), lobby: 0, num_conns: 0
+<>2020-01-30 02:41:03.280733  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55976); lobby 0
+<>2020-01-30 02:41:03.281730  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55977); lobby 0
+<>2020-01-30 02:41:03.282727  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:41:03.283724  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:41:03.284721  - L  updated lobbys. full: 1, empty: 0
+<>2020-01-30 02:41:03.284721  - L  updated lobbys. full: 1, empty: 0
+*2020-01-30 02:41:03.286717   - ! Starting shutt off timer! t: -30s
+*2020-01-30 02:41:03.286717   - ! Starting shutt off timer! t: -30s
+<>2020-01-30 02:41:16.584283  - >> New connetion from addr: ('127.0.0.1', 55981) num_conns: 1
+<>2020-01-30 02:41:16.584283  - L  assigned lobby None to ('127.0.0.1', 55981); full: 1, empty: 1; lobbys: [None]
+<>2020-01-30 02:41:19.068891  - >> New connetion from addr: ('127.0.0.1', 55983) num_conns: 2
+<>2020-01-30 02:41:19.068891  - L  popped ('127.0.0.1', 55981) & ('127.0.0.1', 55983) into lobby 1
+<>2020-01-30 02:41:19.068891  - S>  send {'type': 'join'} lobby: 1
+<>2020-01-30 02:41:19.068891  - L  assigned lobby 1 to ('127.0.0.1', 55983); full: 2, empty: 0; lobbys: [1, 1]
+*2020-01-30 02:42:53.656611   - Socket successfully created!
+*2020-01-30 02:42:53.656611   - Socket successfully bound to address: :6789
+*2020-01-30 02:42:53.656611   - Socket is listening...
+<>2020-01-30 02:42:53.656611  - ! main loop active!
+<!>2020-01-30 02:43:09.313841 - ! error whilst establishing a connection! shutting down... (open threads: 1)
+<>2020-01-30 02:43:09.313841  - ! main loop terminated!
+*2020-01-30 02:43:20.849982   - Socket successfully created!
+*2020-01-30 02:43:20.849982   - Socket successfully bound to address: :6789
+*2020-01-30 02:43:20.849982   - Socket is listening...
+<>2020-01-30 02:43:20.849982  - ! main loop active!
+<>2020-01-30 02:43:22.354394  - >> New connetion from addr: ('127.0.0.1', 55993) num_conns: 1
+<>2020-01-30 02:43:22.354394  - L  assigned lobby None to ('127.0.0.1', 55993); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:43:23.775889  - >> New connetion from addr: ('127.0.0.1', 55994) num_conns: 2
+<>2020-01-30 02:43:23.775889  - L  popped ('127.0.0.1', 55993) & ('127.0.0.1', 55994) into lobby 0
+<>2020-01-30 02:43:23.775889  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 02:43:23.775889  - L  assigned lobby 0 to ('127.0.0.1', 55994); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 02:43:31.331300  - << connection lost: ('127.0.0.1', 55994), lobby: 0, num_conns: 0
+<>2020-01-30 02:43:31.331300  - << connection lost: ('127.0.0.1', 55993), lobby: 0, num_conns: 1
+<>2020-01-30 02:43:31.331300  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55993); lobby 0
+<>2020-01-30 02:43:31.331300  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55994); lobby 0
+<>2020-01-30 02:43:31.331300  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:43:31.331300  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:43:31.331300  - L  assigned lobby 0 to ('127.0.0.1', 55993); full: 0, empty: 0; lobbys: []
+<>2020-01-30 02:43:31.331300  - L  updated lobbys. full: 0, empty: 0
+*2020-01-30 02:43:31.331300   - ! Starting shutt off timer! t: -30s
+*2020-01-30 02:44:01.461637   - Socket successfully closed!
+--------
+
+<!>2020-01-30 02:44:01.461637 - ! error whilst establishing a connection! shutting down... (open threads: 2)
+<>2020-01-30 02:44:01.461637  - ! main loop terminated!
+*2020-01-30 02:44:20.550392   - Socket successfully created!
+*2020-01-30 02:44:20.550392   - Socket successfully bound to address: :6789
+*2020-01-30 02:44:20.550392   - Socket is listening...
+<>2020-01-30 02:44:20.550392  - ! main loop active!
+<>2020-01-30 02:44:25.081089  - >> New connetion from addr: ('127.0.0.1', 55998) num_conns: 1
+<>2020-01-30 02:44:25.081089  - L  assigned lobby None to ('127.0.0.1', 55998); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:44:25.977346  - >> New connetion from addr: ('127.0.0.1', 55999) num_conns: 2
+<>2020-01-30 02:44:25.977346  - L  popped ('127.0.0.1', 55998) & ('127.0.0.1', 55999) into lobby 0
+<>2020-01-30 02:44:25.977346  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 02:44:25.977346  - L  assigned lobby 0 to ('127.0.0.1', 55999); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 02:44:27.691806  - << connection lost: ('127.0.0.1', 55998), lobby: 0, num_conns: 1
+<>2020-01-30 02:44:27.691806  - << connection lost: ('127.0.0.1', 55999), lobby: 0, num_conns: 0
+<>2020-01-30 02:44:27.692805  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55999); lobby 0
+<>2020-01-30 02:44:27.692805  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 55998); lobby 0
+<>2020-01-30 02:44:27.693801  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:44:27.694799  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:44:27.695796  - L  assigned lobby 0 to ('127.0.0.1', 55999); full: 0, empty: 0; lobbys: []
+<>2020-01-30 02:44:27.696794  - L  updated lobbys. full: 0, empty: 0
+<>2020-01-30 02:44:27.697790  - L  updated lobbys. full: 0, empty: 0
+*2020-01-30 02:44:27.697790   - ! Starting shutt off timer! t: -30s
+*2020-01-30 02:44:27.697790   - ! Starting shutt off timer! t: -30s
+<>2020-01-30 02:44:35.290754  - >> New connetion from addr: ('127.0.0.1', 56000) num_conns: 1
+<>2020-01-30 02:44:35.290754  - L  assigned lobby None to ('127.0.0.1', 56000); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:44:36.180840  - >> New connetion from addr: ('127.0.0.1', 56001) num_conns: 2
+<>2020-01-30 02:44:36.180840  - L  popped ('127.0.0.1', 56000) & ('127.0.0.1', 56001) into lobby 1
+<>2020-01-30 02:44:36.180840  - S>  send {'type': 'join'} lobby: 1
+<>2020-01-30 02:44:36.180840  - L  assigned lobby 1 to ('127.0.0.1', 56001); full: 1, empty: 0; lobbys: [1, 1]
+<>2020-01-30 02:44:40.848327  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56000)
+<>2020-01-30 02:44:40.848327  - S>  send {'type': 'ready', 'ready': False} lobby: 1
+<>2020-01-30 02:44:41.827262  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 56001)
+<>2020-01-30 02:44:41.827262  - S>  send {'type': 'ready', 'ready': True} lobby: 1
+<>2020-01-30 02:44:42.660907  - << connection lost: ('127.0.0.1', 56001), lobby: 1, num_conns: 1
+<>2020-01-30 02:44:42.660907  - S>  send {'type': 'abort'} lobby: 1
+<>2020-01-30 02:44:42.660907  - L  assigned lobby None to ('127.0.0.1', 56000); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:44:42.660907  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 02:45:21.534723  - << connection lost: ('127.0.0.1', 56000), lobby: None, num_conns: 0
+<>2020-01-30 02:45:21.534723  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 02:45:21.534723   - ! Starting shutt off timer! t: -30s
+*2020-01-30 02:46:21.721709   - Socket successfully created!
+*2020-01-30 02:46:21.721709   - Socket successfully bound to address: :6789
+*2020-01-30 02:46:21.721709   - Socket is listening...
+<>2020-01-30 02:46:21.721709  - ! main loop active!
+<>2020-01-30 02:46:27.323544  - >> New connetion from addr: ('127.0.0.1', 56015) num_conns: 1
+<>2020-01-30 02:46:27.323544  - L  assigned lobby None to ('127.0.0.1', 56015); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:46:28.716918  - >> New connetion from addr: ('127.0.0.1', 56018) num_conns: 2
+<>2020-01-30 02:46:28.716918  - L  popped ('127.0.0.1', 56015) & ('127.0.0.1', 56018) into lobby 0
+<>2020-01-30 02:46:28.716918  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 02:46:28.716918  - L  assigned lobby 0 to ('127.0.0.1', 56018); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 02:46:30.650572  - << connection lost: ('127.0.0.1', 56018), lobby: 0, num_conns: 1
+<>2020-01-30 02:46:30.650572  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:46:30.650572  - L  assigned lobby None to ('127.0.0.1', 56015); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:46:30.666196  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 02:47:14.075553  - >> New connetion from addr: ('127.0.0.1', 56020) num_conns: 2
+<>2020-01-30 02:47:14.075553  - L  popped ('127.0.0.1', 56015) & ('127.0.0.1', 56020) into lobby 1
+<>2020-01-30 02:47:14.075553  - S>  send {'type': 'join'} lobby: 1
+<>2020-01-30 02:47:14.075553  - L  assigned lobby 1 to ('127.0.0.1', 56020); full: 1, empty: 0; lobbys: [1, 1]
+<>2020-01-30 02:47:25.913764  - << connection lost: ('127.0.0.1', 56020), lobby: 1, num_conns: 1
+<>2020-01-30 02:47:25.913764  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 56015); lobby 1
+<>2020-01-30 02:47:25.913764  - S>  send {'type': 'abort'} lobby: 1
+<>2020-01-30 02:47:25.913764  - L  assigned lobby None to ('127.0.0.1', 56015); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:47:25.913764  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 02:48:39.672807   - Socket successfully created!
+*2020-01-30 02:48:39.688429   - Socket successfully bound to address: :6789
+*2020-01-30 02:48:39.688429   - Socket is listening...
+<>2020-01-30 02:48:39.688429  - ! main loop active!
+<>2020-01-30 02:48:47.655259  - >> New connetion from addr: ('127.0.0.1', 56023) num_conns: 1
+<>2020-01-30 02:48:47.655259  - L  assigned lobby None to ('127.0.0.1', 56023); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:48:48.289972  - >> New connetion from addr: ('127.0.0.1', 56024) num_conns: 2
+<>2020-01-30 02:48:48.289972  - L  popped ('127.0.0.1', 56023) & ('127.0.0.1', 56024) into lobby 0
+<>2020-01-30 02:48:48.289972  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 02:48:48.289972  - L  assigned lobby 0 to ('127.0.0.1', 56024); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 02:48:50.371752  - << connection lost: ('127.0.0.1', 56024), lobby: 0, num_conns: 1
+<>2020-01-30 02:48:50.371752  - << connection lost: ('127.0.0.1', 56023), lobby: 0, num_conns: 0
+<>2020-01-30 02:48:50.372750  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 56023); lobby 0
+<>2020-01-30 02:48:50.373747  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 56024); lobby 0
+<>2020-01-30 02:48:50.374743  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:48:50.375742  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:48:50.375742  - L  assigned lobby 0 to ('127.0.0.1', 56023); full: 0, empty: 0; lobbys: []
+<>2020-01-30 02:48:50.376738  - L  updated lobbys. full: 0, empty: 0
+<>2020-01-30 02:48:50.377735  - L  updated lobbys. full: 0, empty: 0
+*2020-01-30 02:48:50.378737   - ! Starting shutt off timer! t: -30s
+<>2020-01-30 02:48:57.834656  - >> New connetion from addr: ('127.0.0.1', 56026) num_conns: 1
+<>2020-01-30 02:48:57.834656  - L  assigned lobby None to ('127.0.0.1', 56026); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:48:58.311336  - >> New connetion from addr: ('127.0.0.1', 56027) num_conns: 2
+<>2020-01-30 02:48:58.311336  - L  popped ('127.0.0.1', 56026) & ('127.0.0.1', 56027) into lobby 1
+<>2020-01-30 02:48:58.311336  - S>  send {'type': 'join'} lobby: 1
+<>2020-01-30 02:48:58.311336  - L  assigned lobby 1 to ('127.0.0.1', 56027); full: 1, empty: 0; lobbys: [1, 1]
+<>2020-01-30 02:49:01.867187  - >> New connetion from addr: ('127.0.0.1', 56028) num_conns: 3
+<>2020-01-30 02:49:01.867187  - L  assigned lobby None to ('127.0.0.1', 56028); full: 1, empty: 1; lobbys: [1, 1, None]
+<>2020-01-30 02:49:07.267188  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56026)
+<>2020-01-30 02:49:07.282779  - S>  send {'type': 'ready', 'ready': False} lobby: 1
+<>2020-01-30 02:49:07.954702  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 56027)
+<>2020-01-30 02:49:07.954702  - S>  send {'type': 'ready', 'ready': True} lobby: 1
+<>2020-01-30 02:49:09.176215  - << connection lost: ('127.0.0.1', 56027), lobby: 1, num_conns: 2
+<>2020-01-30 02:49:09.176215  - S>  send {'type': 'abort'} lobby: 1
+<>2020-01-30 02:49:09.176215  - L  popped ('127.0.0.1', 56028) & ('127.0.0.1', 56026) into lobby 2
+<>2020-01-30 02:49:09.190221  - S>  send {'type': 'join'} lobby: 2
+<>2020-01-30 02:49:09.190221  - L  assigned lobby 2 to ('127.0.0.1', 56026); full: 1, empty: 0; lobbys: [2, 2]
+<>2020-01-30 02:49:09.190221  - L  updated lobbys. full: 1, empty: 0
+<>2020-01-30 02:51:13.030539  - << connection lost: ('127.0.0.1', 56028), lobby: 2, num_conns: 1
+<>2020-01-30 02:51:13.030539  - << connection lost: ('127.0.0.1', 56026), lobby: 2, num_conns: 0
+<>2020-01-30 02:51:13.031537  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 56026); lobby 2
+<>2020-01-30 02:51:13.031537  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 56028); lobby 2
+<>2020-01-30 02:51:13.033532  - S>  send {'type': 'abort'} lobby: 2
+<>2020-01-30 02:51:13.034529  - S>  send {'type': 'abort'} lobby: 2
+<>2020-01-30 02:51:13.035527  - L  assigned lobby 2 to ('127.0.0.1', 56026); full: 0, empty: 0; lobbys: []
+<>2020-01-30 02:51:13.035527  - L  updated lobbys. full: 0, empty: 0
+<>2020-01-30 02:51:13.038518  - L  updated lobbys. full: 0, empty: 0
+*2020-01-30 02:51:13.040515   - ! Starting shutt off timer! t: -30s
+<>2020-01-30 02:51:19.694555  - >> New connetion from addr: ('127.0.0.1', 56042) num_conns: 1
+<>2020-01-30 02:51:19.694555  - L  assigned lobby None to ('127.0.0.1', 56042); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:51:21.038733  - >> New connetion from addr: ('127.0.0.1', 56044) num_conns: 2
+<>2020-01-30 02:51:21.038733  - L  popped ('127.0.0.1', 56042) & ('127.0.0.1', 56044) into lobby 3
+<>2020-01-30 02:51:21.038733  - S>  send {'type': 'join'} lobby: 3
+<>2020-01-30 02:51:21.038733  - L  assigned lobby 3 to ('127.0.0.1', 56044); full: 1, empty: 0; lobbys: [3, 3]
+<>2020-01-30 02:51:21.640595  - >> New connetion from addr: ('127.0.0.1', 56045) num_conns: 3
+<>2020-01-30 02:51:21.640595  - L  assigned lobby None to ('127.0.0.1', 56045); full: 1, empty: 1; lobbys: [3, 3, None]
+<>2020-01-30 02:51:27.232631  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56044)
+<>2020-01-30 02:51:27.232631  - S>  send {'type': 'ready', 'ready': False} lobby: 3
+<>2020-01-30 02:51:28.010290  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 56042)
+<>2020-01-30 02:51:28.025912  - S>  send {'type': 'ready', 'ready': True} lobby: 3
+<>2020-01-30 02:51:29.402351  - << connection lost: ('127.0.0.1', 56042), lobby: 3, num_conns: 2
+<>2020-01-30 02:51:29.402351  - S>  send {'type': 'abort'} lobby: 3
+<>2020-01-30 02:51:29.402351  - L  popped ('127.0.0.1', 56045) & ('127.0.0.1', 56044) into lobby 4
+<>2020-01-30 02:51:29.402351  - S>  send {'type': 'join'} lobby: 4
+<>2020-01-30 02:51:29.402351  - L  assigned lobby 4 to ('127.0.0.1', 56044); full: 1, empty: 0; lobbys: [4, 4]
+<>2020-01-30 02:51:29.402351  - L  updated lobbys. full: 1, empty: 0
+<>2020-01-30 02:51:34.366935  - << connection lost: ('127.0.0.1', 56044), lobby: 4, num_conns: 1
+<>2020-01-30 02:51:34.366935  - S>  send {'type': 'abort'} lobby: 4
+<>2020-01-30 02:51:34.376688  - L  assigned lobby None to ('127.0.0.1', 56045); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:51:34.377700  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 02:51:35.608248  - << connection lost: ('127.0.0.1', 56045), lobby: None, num_conns: 0
+<>2020-01-30 02:51:35.609244  - L  updated lobbys. full: 0, empty: 1
+*2020-01-30 02:51:35.611237   - ! Starting shutt off timer! t: -30s
+*2020-01-30 02:52:05.782501   - Socket successfully closed!
+--------
+
+ shutting down... (open threads: 2)
+<>2020-01-30 02:52:05.782501  - ! main loop terminated!
+*2020-01-30 02:52:08.441639   - Socket successfully created!
+*2020-01-30 02:52:08.441639   - Socket successfully bound to address: :6789
+*2020-01-30 02:52:08.441639   - Socket is listening...
+<>2020-01-30 02:52:08.441639  - ! main loop active!
+<>2020-01-30 02:52:22.416337  - >> New connetion from addr: ('127.0.0.1', 56050) num_conns: 1
+<>2020-01-30 02:52:22.416337  - L  assigned lobby None to ('127.0.0.1', 56050); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:52:24.076238  - >> New connetion from addr: ('127.0.0.1', 56051) num_conns: 2
+<>2020-01-30 02:52:24.076238  - L  popped ('127.0.0.1', 56050) & ('127.0.0.1', 56051) into lobby 0
+<>2020-01-30 02:52:24.076238  - S>  send {'type': 'join'} lobby: 0
+<>2020-01-30 02:52:24.076238  - L  assigned lobby 0 to ('127.0.0.1', 56051); full: 1, empty: 0; lobbys: [0, 0]
+<>2020-01-30 02:52:25.215402  - >> New connetion from addr: ('127.0.0.1', 56052) num_conns: 3
+<>2020-01-30 02:52:25.215402  - L  assigned lobby None to ('127.0.0.1', 56052); full: 1, empty: 1; lobbys: [0, 0, None]
+<>2020-01-30 02:52:26.142211  - >> New connetion from addr: ('127.0.0.1', 56053) num_conns: 4
+<>2020-01-30 02:52:26.142211  - L  popped ('127.0.0.1', 56052) & ('127.0.0.1', 56053) into lobby 1
+<>2020-01-30 02:52:26.142211  - S>  send {'type': 'join'} lobby: 1
+<>2020-01-30 02:52:26.142211  - L  assigned lobby 1 to ('127.0.0.1', 56053); full: 2, empty: 0; lobbys: [0, 0, 1, 1]
+<>2020-01-30 02:52:27.124714  - >> New connetion from addr: ('127.0.0.1', 56054) num_conns: 5
+<>2020-01-30 02:52:27.124714  - L  assigned lobby None to ('127.0.0.1', 56054); full: 2, empty: 1; lobbys: [0, 0, 1, 1, None]
+<>2020-01-30 02:52:28.090592  - >> New connetion from addr: ('127.0.0.1', 56055) num_conns: 6
+<>2020-01-30 02:52:28.090592  - L  popped ('127.0.0.1', 56054) & ('127.0.0.1', 56055) into lobby 2
+<>2020-01-30 02:52:28.090592  - S>  send {'type': 'join'} lobby: 2
+<>2020-01-30 02:52:28.090592  - L  assigned lobby 2 to ('127.0.0.1', 56055); full: 3, empty: 0; lobbys: [0, 0, 1, 1, 2, 2]
+<>2020-01-30 02:52:44.708861  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56055)
+<>2020-01-30 02:52:44.708861  - S>  send {'type': 'ready', 'ready': False} lobby: 2
+<>2020-01-30 02:52:47.874328  - << connection lost: ('127.0.0.1', 56054), lobby: 2, num_conns: 5
+<>2020-01-30 02:52:47.874328  - S>  send {'type': 'abort'} lobby: 2
+<>2020-01-30 02:52:47.874328  - L  assigned lobby None to ('127.0.0.1', 56055); full: 2, empty: 1; lobbys: [0, 0, 1, 1, None]
+<>2020-01-30 02:52:47.874328  - L  updated lobbys. full: 2, empty: 1
+<>2020-01-30 02:52:53.202284  - << connection lost: ('127.0.0.1', 56053), lobby: 1, num_conns: 4
+<>2020-01-30 02:52:53.202284  - S>  send {'type': 'abort'} lobby: 1
+<>2020-01-30 02:52:53.202284  - L  popped ('127.0.0.1', 56055) & ('127.0.0.1', 56052) into lobby 3
+<>2020-01-30 02:52:53.202284  - S>  send {'type': 'join'} lobby: 3
+<>2020-01-30 02:52:53.202284  - L  assigned lobby 3 to ('127.0.0.1', 56052); full: 2, empty: 0; lobbys: [0, 0, 3, 3]
+<>2020-01-30 02:52:53.217906  - L  updated lobbys. full: 2, empty: 0
+<>2020-01-30 02:52:55.307642  - >> New connetion from addr: ('127.0.0.1', 56058) num_conns: 5
+<>2020-01-30 02:52:55.307642  - L  assigned lobby None to ('127.0.0.1', 56058); full: 2, empty: 1; lobbys: [0, 0, 3, 3, None]
+<>2020-01-30 02:52:55.906711  - >> New connetion from addr: ('127.0.0.1', 56059) num_conns: 6
+<>2020-01-30 02:52:55.907815  - L  popped ('127.0.0.1', 56058) & ('127.0.0.1', 56059) into lobby 4
+<>2020-01-30 02:52:55.908815  - S>  send {'type': 'join'} lobby: 4
+<>2020-01-30 02:52:55.909813  - L  assigned lobby 4 to ('127.0.0.1', 56059); full: 3, empty: 0; lobbys: [0, 0, 3, 3, 4, 4]
+<>2020-01-30 02:52:57.586203  - << connection lost: ('127.0.0.1', 56058), lobby: 4, num_conns: 5
+<>2020-01-30 02:52:57.586203  - S>  send {'type': 'abort'} lobby: 4
+<>2020-01-30 02:52:57.586203  - L  assigned lobby None to ('127.0.0.1', 56059); full: 2, empty: 1; lobbys: [0, 0, 3, 3, None]
+<>2020-01-30 02:52:57.586203  - L  updated lobbys. full: 2, empty: 1
+<>2020-01-30 02:52:58.891051  - << connection lost: ('127.0.0.1', 56050), lobby: 0, num_conns: 4
+<>2020-01-30 02:52:58.891051  - S>  send {'type': 'abort'} lobby: 0
+<>2020-01-30 02:52:58.891051  - L  popped ('127.0.0.1', 56059) & ('127.0.0.1', 56051) into lobby 5
+<>2020-01-30 02:52:58.891051  - S>  send {'type': 'join'} lobby: 5
+<>2020-01-30 02:52:58.891051  - L  assigned lobby 5 to ('127.0.0.1', 56051); full: 2, empty: 0; lobbys: [5, 3, 3, 5]
+<>2020-01-30 02:52:58.891051  - L  updated lobbys. full: 2, empty: 0
+<>2020-01-30 02:53:00.023742  - >> New connetion from addr: ('127.0.0.1', 56060) num_conns: 5
+<>2020-01-30 02:53:00.023742  - L  assigned lobby None to ('127.0.0.1', 56060); full: 2, empty: 1; lobbys: [5, 3, 3, 5, None]
+<>2020-01-30 02:53:01.077756  - >> New connetion from addr: ('127.0.0.1', 56061) num_conns: 6
+<>2020-01-30 02:53:01.077756  - L  popped ('127.0.0.1', 56060) & ('127.0.0.1', 56061) into lobby 6
+<>2020-01-30 02:53:01.077756  - S>  send {'type': 'join'} lobby: 6
+<>2020-01-30 02:53:01.077756  - L  assigned lobby 6 to ('127.0.0.1', 56061); full: 3, empty: 0; lobbys: [5, 3, 3, 5, 6, 6]
+<>2020-01-30 02:53:03.055984  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56061)
+<>2020-01-30 02:53:03.055984  - S>  send {'type': 'ready', 'ready': False} lobby: 6
+<>2020-01-30 02:53:05.297234  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 56060)
+<>2020-01-30 02:53:05.297234  - S>  send {'type': 'ready', 'ready': True} lobby: 6
+<>2020-01-30 02:53:09.957392  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56059)
+<>2020-01-30 02:53:09.957392  - S>  send {'type': 'ready', 'ready': False} lobby: 5
+<>2020-01-30 02:53:13.504911  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56052)
+<>2020-01-30 02:53:13.504911  - S>  send {'type': 'ready', 'ready': False} lobby: 3
+<>2020-01-30 02:53:17.835118  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 56051)
+<>2020-01-30 02:53:17.835118  - S>  send {'type': 'ready', 'ready': True} lobby: 5
+<>2020-01-30 02:53:22.713169  - << connection lost: ('127.0.0.1', 56055), lobby: 3, num_conns: 5
+<>2020-01-30 02:53:22.713169  - S>  send {'type': 'abort'} lobby: 3
+<>2020-01-30 02:53:22.728789  - L  assigned lobby None to ('127.0.0.1', 56052); full: 2, empty: 1; lobbys: [5, None, 5, 6, 6]
+<>2020-01-30 02:53:22.728789  - L  updated lobbys. full: 2, empty: 1
+<>2020-01-30 02:53:23.921444  - << connection lost: ('127.0.0.1', 56060), lobby: 6, num_conns: 4
+<>2020-01-30 02:53:23.921444  - S>  send {'type': 'abort'} lobby: 6
+<>2020-01-30 02:53:23.937067  - L  popped ('127.0.0.1', 56052) & ('127.0.0.1', 56061) into lobby 7
+<>2020-01-30 02:53:23.937067  - S>  send {'type': 'join'} lobby: 7
+<>2020-01-30 02:53:23.966929  - L  assigned lobby 7 to ('127.0.0.1', 56061); full: 2, empty: 0; lobbys: [5, 7, 5, 7]
+<>2020-01-30 02:53:23.967944  - L  updated lobbys. full: 2, empty: 0
+<>2020-01-30 02:53:29.266956  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56061)
+<>2020-01-30 02:53:29.266956  - S>  send {'type': 'ready', 'ready': False} lobby: 7
+<>2020-01-30 02:53:29.991704  - G<  got {'type': 'ready', 'ready': True} from ('127.0.0.1', 56052)
+<>2020-01-30 02:53:29.991704  - S>  send {'type': 'ready', 'ready': True} lobby: 7
+<>2020-01-30 02:53:31.329354  - >> New connetion from addr: ('127.0.0.1', 56065) num_conns: 5
+<>2020-01-30 02:53:31.329354  - L  assigned lobby None to ('127.0.0.1', 56065); full: 2, empty: 1; lobbys: [5, 7, 5, 7, None]
+<>2020-01-30 02:53:36.993973  - >> New connetion from addr: ('127.0.0.1', 56066) num_conns: 6
+<>2020-01-30 02:53:36.993973  - L  popped ('127.0.0.1', 56065) & ('127.0.0.1', 56066) into lobby 8
+<>2020-01-30 02:53:36.993973  - S>  send {'type': 'join'} lobby: 8
+<>2020-01-30 02:53:36.993973  - L  assigned lobby 8 to ('127.0.0.1', 56066); full: 3, empty: 0; lobbys: [5, 7, 5, 7, 8, 8]
+<>2020-01-30 02:53:37.114442  - >> New connetion from addr: ('127.0.0.1', 56067) num_conns: 7
+<>2020-01-30 02:53:37.114442  - L  assigned lobby None to ('127.0.0.1', 56067); full: 3, empty: 1; lobbys: [5, 7, 5, 7, 8, 8, None]
+<>2020-01-30 02:53:40.878711  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56065)
+<>2020-01-30 02:53:40.878711  - S>  send {'type': 'ready', 'ready': False} lobby: 8
+<>2020-01-30 02:54:07.340209  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56065)
+<>2020-01-30 02:54:07.340209  - S>  send {'type': 'ready', 'ready': False} lobby: 8
+<>2020-01-30 02:54:08.293034  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56065)
+<>2020-01-30 02:54:08.293034  - S>  send {'type': 'ready', 'ready': False} lobby: 8
+<>2020-01-30 02:54:08.629798  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56065)
+<>2020-01-30 02:54:08.629798  - S>  send {'type': 'ready', 'ready': False} lobby: 8
+<>2020-01-30 02:54:09.081336  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56065)
+<>2020-01-30 02:54:09.081336  - S>  send {'type': 'ready', 'ready': False} lobby: 8
+<>2020-01-30 02:54:09.569115  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56065)
+<>2020-01-30 02:54:09.584717  - S>  send {'type': 'ready', 'ready': False} lobby: 8
+<>2020-01-30 02:54:10.150827  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56065)
+<>2020-01-30 02:54:10.150827  - S>  send {'type': 'ready', 'ready': False} lobby: 8
+<>2020-01-30 02:54:10.607641  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56065)
+<>2020-01-30 02:54:10.607641  - S>  send {'type': 'ready', 'ready': False} lobby: 8
+<>2020-01-30 02:54:11.170440  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56065)
+<>2020-01-30 02:54:11.170440  - S>  send {'type': 'ready', 'ready': False} lobby: 8
+<>2020-01-30 02:54:11.491536  - G<  got {'type': 'ready', 'ready': False} from ('127.0.0.1', 56065)
+<>2020-01-30 02:54:11.491536  - S>  send {'type': 'ready', 'ready': False} lobby: 8
+<>2020-01-30 02:54:16.118401  - << connection lost: ('127.0.0.1', 56067), lobby: None, num_conns: 6
+<>2020-01-30 02:54:16.118401  - L  updated lobbys. full: 3, empty: 1
+<>2020-01-30 02:54:35.178791  - >> New connetion from addr: ('127.0.0.1', 56068) num_conns: 7
+<>2020-01-30 02:54:35.178791  - L  assigned lobby None to ('127.0.0.1', 56068); full: 3, empty: 1; lobbys: [5, 7, 5, 7, 8, 8, None]
+<>2020-01-30 02:54:39.157570  - << connection lost: ('127.0.0.1', 56065), lobby: 8, num_conns: 6
+<>2020-01-30 02:54:39.157570  - S>  send {'type': 'abort'} lobby: 8
+<>2020-01-30 02:54:39.157570  - L  popped ('127.0.0.1', 56068) & ('127.0.0.1', 56066) into lobby 9
+<>2020-01-30 02:54:39.157570  - S>  send {'type': 'join'} lobby: 9
+<>2020-01-30 02:54:39.157570  - L  assigned lobby 9 to ('127.0.0.1', 56066); full: 3, empty: 0; lobbys: [5, 7, 5, 7, 9, 9]
+<>2020-01-30 02:54:39.157570  - L  updated lobbys. full: 3, empty: 0
+<>2020-01-30 02:54:40.088156  - >> New connetion from addr: ('127.0.0.1', 56069) num_conns: 7
+<>2020-01-30 02:54:40.088156  - L  assigned lobby None to ('127.0.0.1', 56069); full: 3, empty: 1; lobbys: [5, 7, 5, 7, 9, 9, None]
+<>2020-01-30 02:55:27.383678  - << connection lost: ('127.0.0.1', 56068), lobby: 9, num_conns: 6
+<>2020-01-30 02:55:27.383678  - << connection lost: ('127.0.0.1', 56061), lobby: 7, num_conns: 5
+<>2020-01-30 02:55:27.383678  - S>  send {'type': 'abort'} lobby: 9
+<>2020-01-30 02:55:27.383678  - << connection lost: ('127.0.0.1', 56051), lobby: 5, num_conns: 3
+<>2020-01-30 02:55:27.383678  - << connection lost: ('127.0.0.1', 56069), lobby: None, num_conns: 1
+<>2020-01-30 02:55:27.383678  - << connection lost: ('127.0.0.1', 56059), lobby: 5, num_conns: 2
+<>2020-01-30 02:55:27.383678  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 56052); lobby 7
+<>2020-01-30 02:55:27.399304  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 56059); lobby 5
+<>2020-01-30 02:55:27.399304  - S>  send {'type': 'abort'} lobby: 10
+<>2020-01-30 02:55:27.399304  - failed to send data: {'type': 'abort'} to ('127.0.0.1', 56051); lobby 5
+<>2020-01-30 02:55:27.399304  - S>  send {'type': 'abort'} lobby: 7
+<>2020-01-30 02:55:27.383678  - L  popped ('127.0.0.1', 56069) & ('127.0.0.1', 56066) into lobby 10
+<>2020-01-30 02:55:27.383678  - << connection lost: ('127.0.0.1', 56052), lobby: 7, num_conns: 4
+<>2020-01-30 02:55:27.399304  - S>  send {'type': 'abort'} lobby: 5
+<>2020-01-30 02:55:27.399304  - L  popped ('127.0.0.1', 56066) & ('127.0.0.1', 56052) into lobby 10
+<>2020-01-30 02:55:27.399304  - S>  send {'type': 'abort'} lobby: 5
+<>2020-01-30 02:55:27.399304  - S>  send {'type': 'abort'} lobby: 10
+<>2020-01-30 02:55:27.399304  - L  assigned lobby 5 to ('127.0.0.1', 56059); full: 1, empty: 0; lobbys: [10]
+<>2020-01-30 02:55:27.399304  - L  assigned lobby None to ('127.0.0.1', 56066); full: 2, empty: 1; lobbys: [None]
+<>2020-01-30 02:55:27.399304  - L  updated lobbys. full: 1, empty: 0
+<>2020-01-30 02:55:27.399304  - L  assigned lobby None to ('127.0.0.1', 56066); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:55:27.399304  - failed to send data: {'type': 'join'} to ('127.0.0.1', 56052); lobby 10
+<>2020-01-30 02:55:27.399304  - failed to send data: {'type': 'join'} to ('127.0.0.1', 56052); lobby 10
+<>2020-01-30 02:55:27.399304  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 02:55:27.413813  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 02:55:27.413813  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 02:55:27.413813  - S>  send {'type': 'join'} lobby: None
+<>2020-01-30 02:55:27.413813  - S>  send {'type': 'join'} lobby: 10
+<>2020-01-30 02:55:27.413813  - L  assigned lobby None to ('127.0.0.1', 56066); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:55:27.413813  - L  assigned lobby 10 to ('127.0.0.1', 56052); full: 0, empty: 1; lobbys: [None]
+<>2020-01-30 02:55:27.413813  - L  updated lobbys. full: 0, empty: 1
+<>2020-01-30 02:55:27.413813  - L  updated lobbys. full: 0, empty: 1

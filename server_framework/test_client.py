@@ -27,6 +27,28 @@ print(lis)
 print(val)
 print(lis2)"""
 
+"""info = {'type': 'lobbyprecaution','lobby': 0}
+i2 = json.dumps(info)
+i3 = i2.encode()
+i4 = i2 + "\n"
+i5 = i4.encode()
+
+z = i5.decode()
+z1 = json.loads(z)["type"]
+z2 = z.split("\n")
+z3 = json.loads(z2[0])["type"]
+
+print(info)
+print(i2)
+print(i3)
+print(i4)
+print(i5)
+
+print(z)
+print(z1)
+print(z2)
+print(z3)"""
+
 HEADERSIZE = 10
 run = True
 
@@ -57,5 +79,7 @@ def recv_loop():
             break
             
 
-recv_loop()
+#recv_loop()
+
+
 
