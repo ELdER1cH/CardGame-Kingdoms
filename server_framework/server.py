@@ -1,4 +1,4 @@
-import pyglet, socket, sys, json, datetime, threading, time
+import socket, sys, json, datetime, threading, time
 
 # '*' = Serverlog; '<>'/'<!>' = GameServerlog
 
