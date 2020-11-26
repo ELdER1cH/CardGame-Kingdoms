@@ -83,3 +83,14 @@
 *2020-11-25 22:29:16.721556   - ! Starting shutt off timer! t: -30s
 <!>2020-11-25 22:29:46.928400 - ! error whilst establishing a connection! shutting down... (open threads: 2)
 <>2020-11-25 22:29:46.928400  - ! main loop terminated!
+*2020-11-26 23:35:25.398045   - Socket successfully created!
+*2020-11-26 23:35:25.398045   - Socket successfully bound to address: :6789
+*2020-11-26 23:35:25.399046   - Socket is listening...
+<>2020-11-26 23:35:25.399046  - ! main loop active!
+<>2020-11-26 23:35:30.139042  - >> New connetion from addr: ('127.0.0.1', 60608) num_conns: 1
+<>2020-11-26 23:35:30.139042  - L  assigned lobby None to ('127.0.0.1', 60608); full: 0, empty: 1; lobbys: [None]
+<>2020-11-26 23:35:54.245550  - << connection lost: ('127.0.0.1', 60608), lobby: None, num_conns: 0
+<>2020-11-26 23:35:54.245550  - L  updated lobbys. full: 0, empty: 1
+*2020-11-26 23:35:54.246552   - ! Starting shutt off timer! t: -30s
+<!>2020-11-26 23:36:24.516172 - ! error whilst establishing a connection! shutting down... (open threads: 2)
+<>2020-11-26 23:36:24.516172  - ! main loop terminated!
