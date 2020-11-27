@@ -250,7 +250,7 @@ class Card(pyglet.sprite.Sprite):
     self.h = SPRITE_HEIGHT
 
   def set_dot(self):
-    base = self.image.texture
+    base = self.image.get_texture()
     if self.owner == "green" or self.owner == "yellow":
       texture = pyglet.image.Texture.create(width=self.w,height=self.h)
       img = pyglet.image.load("resc/"+self.owner+"_dot.png").get_image_data()
