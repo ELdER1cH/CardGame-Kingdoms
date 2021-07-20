@@ -14,8 +14,8 @@ except ImportError as err:
 #79.231.167.136
 
 #python -m auto_py_to_exe
-IP = "127.0.0.1"
-PORT = 6789
+IP = "game01.gameserver.gratis"
+PORT = 25906
 
 val = 1
 SPRITE_WIDTH = int(135/val)
@@ -598,6 +598,7 @@ class Window(main_chat.Window):
     for message in ls:
       print(f"- received: {message}")
       data = json.loads(message)
+      self.print(data)
       self.handle_message(data)        
         
 if __name__ == "__main__":

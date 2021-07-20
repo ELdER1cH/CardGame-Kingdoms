@@ -3,7 +3,7 @@ import json
 import threading
 
 HOST = ''  # Standard loopback interface address (localhost)
-PORT = 6789        # Port to listen on (non-privileged ports are > 1023)
+PORT = 25906        # Port to listen on (non-privileged ports are > 1023)
 
 USERS = set()
 LOBBIES = {1:[]}
