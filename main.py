@@ -590,15 +590,14 @@ class Window(main_chat.Window):
                   buffering = False
               else:
                   buffer += more
-      if buffer:
-          yield buffer
+      yield buffer
     
   def receive_messages(self):
     ls = self.linesplit(self.client.s)
     for message in ls:
       print(f"- received: {message}")
       data = json.loads(message)
-      self.print(data)
+      print(data)
       self.handle_message(data)        
         
 if __name__ == "__main__":
