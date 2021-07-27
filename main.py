@@ -607,9 +607,13 @@ class Window(main_chat.Window):
     ls = self.linesplit(self.client.s)
     for message in ls:
       print(f"- received: {message}")
-      data = json.loads(message)
-      print(data)
-      self.handle_message(data)        
+      try:
+        data = json.loads(message)
+        print(data)
+        self.handle_message(data) 
+      except:
+        pass  
+       
         
 if __name__ == "__main__":
   width = 1920;height = 1080
