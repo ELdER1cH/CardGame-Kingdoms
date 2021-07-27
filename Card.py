@@ -137,7 +137,7 @@ class Card(pyglet.sprite.Sprite):
               target = None
               for i in range(5):
                   card = self.batch.get_card((left_gap+SPRITE_WIDTH*(i),0))
-                  if card.special_tag == "unoccupied_field":
+                  if card.special_tag == "empty":
                       target = card
                       break
                   
