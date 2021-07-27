@@ -448,8 +448,7 @@ class Window(main_chat.Window):
       else:
         self.g_print("§c/replace -hand <card_name>")
     else: self.g_print("§cunknown command. '%s'" % (" ".join(cmd)))
-    
-    #------------------------ Server Stuff ------------------------------------------
+#------------------------ Server Stuff ------------------------------------------
   
   def back(self,delay=None):
     self.current_screen = screens.StartScreen(1920,1080)
