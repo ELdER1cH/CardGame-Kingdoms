@@ -107,15 +107,14 @@ class CardBatch(pyglet.graphics.Batch):
     for i in range(int((pos[0]-left_gap)/(135)),5,1):
       for card in self.cards:
         if card.in_area((int(135*i)+left_gap,0)):
-          row.append(card)
-          
+          row.append(card)     
     for card in row:
       target.swap(card,card.position)
     #only happening if game is offline
     if not self.online:  
       target.replace(target,random.choice(self.castle.cards))
     else:
-      target.replace(target,self.castle.owner)
+      target.replace(target,'Empty')
 
   def update_disp(self,target):
     self.disp.update(self.castle.mana,self.castle.max_mana,target,self.round_counter)

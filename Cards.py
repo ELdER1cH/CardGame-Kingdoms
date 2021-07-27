@@ -1,7 +1,7 @@
 import pyglet
 from Card import Card
 import random
-#speical_tags to yet account for: Bombe, Rammbock, (+Burg) 
+ 
 
 cards = {
             #name level,h,   Maxh,dmg,cost,crit,img,       specials,special_tag,place_special  
@@ -27,7 +27,8 @@ cards = {
             'green': [1,1,1,0,0,0,'resc/green_frame.png',[Card.generate_mana],"unoccupied_field",[]],
             'yellow': [1,1,1,0,0,0,'resc/yellow_frame.png',[Card.generate_mana],"unoccupied_field",[]],
             'gray': [1,1,1,0,0,0,'resc/gray_frame.png',[],"unoccupied_field",[]],
-            'Wall': [1,15000,15000,400,0,0,'resc/jolas/mauer.png',[Card.wall_special],"immovable",[]]
+            'Wall': [1,15000,15000,400,0,0,'resc/jolas/mauer.png',[Card.wall_special],"immovable",[]],
+            'Empty': [1,1,1,1,0,0,'resc\empty_card.png',[],"empty",[]]
 }
 
 cards_describtion={
@@ -55,7 +56,8 @@ Hinweis: Diese Karte kann überall eingesetzt werden."""],
     'green': [""" """],
     'yellow': ["""42 Gramm Fett"""],
     'gray': [""" """],
-    'Wall': ["""Du solltest dich bedanken, sie schützt dich vor dem Feind. Doch nur 6 Runden lang und nicht vor Feuerbällen ... und Mexikanern."""]
+    'Wall': ["""Du solltest dich bedanken, sie schützt dich vor dem Feind. Doch nur 6 Runden lang und nicht vor Feuerbällen ... und Mexikanern."""],
+    'Empty': ["""Gähnende Leere"""]
 }
 
 

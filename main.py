@@ -91,53 +91,6 @@ class Window(main_chat.Window):
     self.pop_up.update(dt) 
     self.current_screen.update(dt) 
 
-  def button_actions(self,x,y,button,MOD,antir):
-    cs = self.current_screen #tf, is this not in use? xD
-    for b in cs.buttons:
-      action = b.press((x / self.scale_x), (y / self.scale_y),button)
-      if action != None:
-        if action == "ONLINE":
-          self.loading = True
-          pyglet.clock.schedule_once(self.start_client,0.2)
-        elif action == "SETTINGS":
-          #settings - later: to change server addr. (and maybe sound or sth.)
-          self.current_screen = screens.SettingsScreen(1920,1080,self.IP)
-        elif action == "QUIT":
-          #button of startscreen
-          self.close()
-        elif action == "CARDS":
-              self.current_screen = screens.CardScreen(1920,1080)
-        elif action == "READY":
-          if self.client.opponent_found and len(self.current_screen.hand_selection.hand) >= 5:
-            cs.ready = not cs.ready
-            print(f"ready: {cs.ready}")
-            self.client.send_ready(self.current_screen.opponent_ready)
-            self.current_screen.update_ready_button()
-            if self.current_screen.ready and self.current_screen.opponent_ready:
-              self.start_game(my_move=False)
-              self.batch.castle.mana = 0
-              self.batch.round_counter = 0
-        elif action == "StartGameOffline":
-          self.online = False
-          self.start_game()
-          self.batch.castle.mana = 10
-          self.batch.round_counter = 1
-        elif action == "BACK":
-          self.ingame = False
-          self.back()
-          try:
-            self.client.s.close()
-          except:
-            pass
-        elif "NEWIP" in action:
-            self.IP = action[5:]
-            self.g_print(self.IP)
-        elif action == "Page->":
-          if self.current_screen.hand_selection.page < 2:
-            self.current_screen.hand_selection.update_page(1)
-        elif action == "Page<-":
-          if self.current_screen.hand_selection.page > 1:
-            self.current_screen.hand_selection.update_page(-1)
               
   def splash_event(self,clicked_card,target):
     if self.batch.castle.mana >= clicked_card.price:
@@ -212,96 +165,105 @@ class Window(main_chat.Window):
         ###NEW CLICK/ TARGET
         target = self.batch.get_card((x,y))
         if target == None: return
+        if target.special_tag == 'empty': 
+          self.pop_up.new_red_frame(target.position)
+          return
         ###OLD CLICK/ SELECT
         clicked_card = self.batch.get_card(self.batch.select_frame.position)
         
         #MAKE SURE THERES A CARD AT THE OLD CLICK - IF THERES NONE, TARGET = NEW SELECT
-        if clicked_card != None: 
-          ###HIDE IF DOUBLE CLICK
-          if target == clicked_card:
-            self.batch.hide(self.batch.select_frame)
-           
-          #---HAND---
-          ###IF SELECT IN HAND  
-          elif clicked_card.y == 0:
-            ###IF TARGET NOT IN HAND
-            if target.y > 0:
-              # What happens wenn it's a Splash card
-              if clicked_card.special_tag == "splash": self.splash_event(clicked_card,target); return     
-              ###IF TARGET IS MINE
-              if target.owner == clicked_card.owner:
-                ###IF TARGET IS EMPTY FIELD
-                if target.special_tag == "unoccupied_field":
-                  #IF PLAYER HAS ENOUGH MONEY
-                  if self.batch.castle.mana >= clicked_card.price:
-                    self.batch.castle.mana -= clicked_card.price
-                    #EMPTY FIELD AND CARD IN HAND SWAP POSITIONS
-                    #HAND BEFORE: - if first card were to be placed
-                    #C C C C C -> after: E C C C C
-                    clicked_card.swap(target,target.position)
-                    if self.online:
-                        self.client.send_replace_event(clicked_card.position,clicked_card.name)
-                    self.batch.update_hand(target)
-                    self.batch.hide(self.batch.select_frame)
-                    for special in clicked_card.place_special:
-                      special(clicked_card,1)
-                    #UPDATE STATS DISPLAY TO SHOW RIGHT MANA AMOUT
-                    self.batch.update_disp(clicked_card)
+        if clicked_card != None:
+          #if clicked_card.special_tag ==  'empty':
+           # self.pop_up.new_red_frame(target.position)
+          #else:  
+            ###HIDE IF DOUBLE CLICK
+            if target == clicked_card:
+              self.batch.hide(self.batch.select_frame)
+            elif clicked_card.special_tag == 'empty':
+              self.batch.hide(self.batch.select_frame)
+            #---HAND---
+            ###IF SELECT IN HAND  
+            elif clicked_card.y == 0:
+              ###IF TARGET NOT IN HAND
+              if target.y > 0:
+                # What happens wenn it's a Splash card
+                if clicked_card.special_tag == "splash": self.splash_event(clicked_card,target); return     
+                ###IF TARGET IS MINE
+                if target.owner == clicked_card.owner:
+                  ###IF TARGET IS EMPTY FIELD
+                  if target.special_tag == "unoccupied_field":
+                    #IF PLAYER HAS ENOUGH MONEY
+                    if self.batch.castle.mana >= clicked_card.price:
+                      self.batch.castle.mana -= clicked_card.price
+                      #EMPTY FIELD AND CARD IN HAND SWAP POSITIONS
+                      #HAND BEFORE: - if first card were to be placed
+                      #C C C C C -> after: E C C C C
+                      clicked_card.swap(target,target.position)
+                      if self.online:
+                          self.client.send_replace_event(clicked_card.position,clicked_card.name)
+                      self.batch.update_hand(target)
+                      self.batch.hide(self.batch.select_frame)
+                      for special in clicked_card.place_special:
+                        special(clicked_card,1)
+                      #UPDATE STATS DISPLAY TO SHOW RIGHT MANA AMOUT
+                      self.batch.update_disp(clicked_card)
+                    else:
+                      self.pop_up.new_pop_up((x,y),0.5,'TOO COSTLY: %s' % (clicked_card.price))
+                      self.pop_up.new_red_frame(clicked_card.position)
                   else:
-                    self.pop_up.new_pop_up((x,y),0.5,'TOO COSTLY: %s' % (clicked_card.price))
-                    self.pop_up.new_red_frame(clicked_card.position)
+                    ###IF NEW CLICK NOT A EMPTY FIELD (AND MY CARD), SELECT THAT CARD
+                    self.select(target,clicked_card)  
                 else:
-                  ###IF NEW CLICK NOT A EMPTY FIELD (AND MY CARD), SELECT THAT CARD
-                  self.select(target,clicked_card)
+                  ###IF TARGET IS NOT MY CARD SHOW A RED FRAME
+                  self.pop_up.new_red_frame(clicked_card.position)
               else:
-                ###IF TARGET IS NOT MY CARD SHOW A RED FRAME
-                self.pop_up.new_red_frame(clicked_card.position)
-            else:
-              ###IF CARD IS IN HAND SELECT THAT CARD INSTEAD
-              self.batch.select_card(target)
+                ###IF CARD IS IN HAND SELECT THAT CARD INSTEAD
+                self.batch.select_card(target)
 
-          #---NOT HAND---
-          else:
-            #GET UP, DOWN, LEFT, RIGHT TO SELECT
-            adjacent = self.batch.get_adjacent(clicked_card.position)
-            for in_reach in adjacent:
-              ###IF NEW CARD/ TARGET IS IN REACH OF SELECT
-              if target == in_reach:
-                ###IF CARD IN REACH IS MY CARD
-                if clicked_card.owner == target.owner:
-                  ##IF CARD IS NOT IMMOVABLE
-                  if target.special_tag != "immovable":
-                    #SWAP POSITION WITH THAT CARD IN REACH
-                    clicked_card.swap(target,target.position)
-                    if self.online == True:
-                      self.client.send_swap_event(clicked_card.position,target.position)
-                    #MAKE SURE THE STATS DISPLAY STILL DISPLAYS THE RIGHT CARD - THEY SWAPPED, STATS WOULD DISPLAY YELLOW
-                    self.batch.update_disp(clicked_card)
-                  else:
-                    #IF CARD IN REACH == IMMOVABLE, SHOW RED FRAME
-                    self.pop_up.new_red_frame(clicked_card.position)
-                else:
-                  #IF CARD IN RANGE IS NOT MY CARD
-                  if self.batch.castle.mana >= 2:
-                    self.batch.castle.mana -= 2
-                    won = clicked_card.fight(target,self.pop_up)
-                    if self.online == True:
-                      self.client.send_attack_event(clicked_card.position,target.position)
-                    if won:
-                        if self.online:
-                            self.back_l()
-                        else:
-                          self.ingame = False
-                          self.back()
-                        self.g_print("You won!")
-                  else:
-                    self.pop_up.new_red_frame(target.position)
-                ##IF TARGET WAS IN REACH, HIDE SELECT, SINCE THERE WAS A SWAO or FIGHT
-                self.batch.hide(self.batch.select_frame)
-                break
+            #---NOT HAND---
             else:
-              ###IF CARD NOT IN REACH, TRY SELECTING THAT CARD
-              self.select(target,clicked_card)
+              #GET UP, DOWN, LEFT, RIGHT TO SELECT
+              adjacent = self.batch.get_adjacent(clicked_card.position)
+              for in_reach in adjacent:
+                ###IF NEW CARD/ TARGET IS IN REACH OF SELECT
+                if target == in_reach:
+                  ###IF CARD IN REACH IS MY CARD
+                  if clicked_card.owner == target.owner:
+                    ##IF CARD IS NOT IMMOVABLE
+                    if target.special_tag != "immovable":
+                      #SWAP POSITION WITH THAT CARD IN REACH
+                      clicked_card.swap(target,target.position)
+                      if self.online == True:
+                        self.client.send_swap_event(clicked_card.position,target.position)
+                      #MAKE SURE THE STATS DISPLAY STILL DISPLAYS THE RIGHT CARD - THEY SWAPPED, STATS WOULD DISPLAY YELLOW
+                      self.batch.update_disp(clicked_card)
+                    else:
+                      #IF CARD IN REACH == IMMOVABLE, SHOW RED FRAME
+                      self.pop_up.new_red_frame(clicked_card.position)
+                  else:
+                    #IF CARD IN RANGE IS NOT MY CARD
+                    if self.batch.castle.mana >= 2:
+                      self.batch.castle.mana -= 2
+                      won = clicked_card.fight(target,self.pop_up)
+                      if self.online == True:
+                        self.client.send_attack_event(clicked_card.position,target.position)
+                      if won:
+                          if self.online:
+                              self.back_l()
+                          else:
+                            self.ingame = False
+                            self.back()
+                          self.g_print("You won!")
+                    else:
+                      self.pop_up.new_red_frame(target.position)
+                  ##IF TARGET WAS IN REACH, HIDE SELECT, SINCE THERE WAS A SWAO or FIGHT
+                  self.batch.hide(self.batch.select_frame)
+                  break
+              else:
+                ###IF CARD NOT IN REACH, TRY SELECTING THAT CARD
+                self.select(target,clicked_card)
+          
+
 
         ##SINCE THERES NO SELECTED CARD, TARGET = NEW SELECT
         elif target.special_tag != "unoccupied_field":
@@ -314,6 +276,54 @@ class Window(main_chat.Window):
         else:
           #IF TARGET IS EMPTY FIELD SHOW RED FRAME
           self.pop_up.new_red_frame(target.position)    
+
+  def button_actions(self,x,y,button,MOD,antir):
+      cs = self.current_screen #tf, is this not in use? xD
+      for b in cs.buttons:
+        action = b.press((x / self.scale_x), (y / self.scale_y),button)
+        if action != None:
+          if action == "ONLINE":
+            self.loading = True
+            pyglet.clock.schedule_once(self.start_client,0.2)
+          elif action == "SETTINGS":
+            #settings - later: to change server addr. (and maybe sound or sth.)
+            self.current_screen = screens.SettingsScreen(1920,1080,self.IP)
+          elif action == "QUIT":
+            #button of startscreen
+            self.close()
+          elif action == "CARDS":
+                self.current_screen = screens.CardScreen(1920,1080)
+          elif action == "READY":
+            if self.client.opponent_found and len(self.current_screen.hand_selection.hand) >= 5:
+              cs.ready = not cs.ready
+              print(f"ready: {cs.ready}")
+              self.client.send_ready(self.current_screen.opponent_ready)
+              self.current_screen.update_ready_button()
+              if self.current_screen.ready and self.current_screen.opponent_ready:
+                self.start_game(my_move=False)
+                self.batch.castle.mana = 0
+                self.batch.round_counter = 0
+          elif action == "StartGameOffline":
+            self.online = False
+            self.start_game()
+            self.batch.castle.mana = 10
+            self.batch.round_counter = 1
+          elif action == "BACK":
+            self.ingame = False
+            self.back()
+            try:
+              self.client.s.close()
+            except:
+              pass
+          elif "NEWIP" in action:
+              self.IP = action[5:]
+              self.g_print(self.IP)
+          elif action == "Page->":
+            if self.current_screen.hand_selection.page < 2:
+              self.current_screen.hand_selection.update_page(1)
+          elif action == "Page<-":
+            if self.current_screen.hand_selection.page > 1:
+              self.current_screen.hand_selection.update_page(-1)
 
   def weitergeben(self):
     if self.online == True:
@@ -349,8 +359,9 @@ class Window(main_chat.Window):
           elif KEY == key.D:
             target = self.batch.get_card(self.batch.select_frame.position)
             if target != None:
-                if target.y == 0:     
+                if target.y == 0:    
                     self.batch.update_hand(target)
+                    target=None
                 elif target.owner == self.batch.castle.owner and target.y > 135 and target.y < 135*7:
                         self.batch.hide(self.batch.select_frame)
                         self.batch.castle.mana += target.price-1

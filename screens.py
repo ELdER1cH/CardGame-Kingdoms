@@ -97,10 +97,14 @@ class HandSelection:
         self.gap = 20
         self.cpr = 8
         self.page = 1
+        self.oldtarget = None
         
         self.action = None
-        self.height = 3*(135+self.gap)+self.gap   
+        #Höhe von Auswahlfenster
+        self.height = 3*(135+self.gap)+self.gap
+        #Weite von Auswahlfenster   
         self.width = self.cpr*(135+self.gap)+(135+self.gap)*2
+        #position von Auswahlfenster
         self.position = (30,(height-self.height-450))        
         
         self.background = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/card_selection_frame.png"),self.position[0],self.position[1]+135+self.gap*2)
@@ -118,6 +122,7 @@ class HandSelection:
         self.current_page_sprites = []
         # Sprites in Hand
         self.sprites_hand = []
+
         # Adding Sprites for Page 1 & 2
         self.all_cards = list(Cards.cards.keys())[:-5]
         for i in range(len(self.all_cards)):
@@ -172,21 +177,25 @@ class HandSelection:
             if rx-int(rx) <= 1-self.gap/(135+self.gap): 
                 if ry-int(ry) >= self.gap/(135+self.gap):
                     num = int(int(rx) + int(ry)* (self.width/(135+self.gap)-2)+(self.page-1)*16)
-                    self.target = Cards.cards[self.all_cards[num]]
-                    describtion = Cards.cards_describtion[self.all_cards[num]]
-                    self.target.append(describtion[0]) 
-                    self.target.append(self.all_cards[num])
-                    self.update_card(self.target)
-                    if num < len(self.all_cards) and num not in self.hand:
-                        if len(self.hand) < self.max_hand_lenght:
-                            #Instead of Changing Position adding Sprite to new List and Changing Position                            
-                            self.sprites_hand.append(self.sprites[num])
-                            self.sprites_hand[-1].y = self.position[1]
-                            self.sprites_hand[-1].x = self.position[0]+(135+self.gap)*len(self.hand)                           
-                            #Adding Card to Hand
-                            self.hand.append(num)
-                            #Replacing Index in Sprites, because of not Index Problems (num usw....)
-                            self.replace_index(self.sprites,num,num)
+                    if num < 16*self.page:
+                      self.target = Cards.cards[self.all_cards[num]]
+                      describtion = Cards.cards_describtion[self.all_cards[num]]
+                      self.target.append(describtion[0]) 
+                      self.target.append(self.all_cards[num])
+                      #Karte wird nur 
+                      self.update_card(self.target)
+                      if self.target == self.oldtarget:
+                        if num < len(self.all_cards) and num not in self.hand:
+                            if len(self.hand) < self.max_hand_lenght:
+                                #Instead of Changing Position adding Sprite to new List and Changing Position                            
+                                self.sprites_hand.append(self.sprites[num])
+                                self.sprites_hand[-1].y = self.position[1]
+                                self.sprites_hand[-1].x = self.position[0]+(135+self.gap)*len(self.hand)                           
+                                #Adding Card to Hand
+                                self.hand.append(num)
+                                #Replacing Index in Sprites, because of not Index Problems (num usw....)
+                                self.replace_index(self.sprites,num,num)
+                      self.oldtarget = self.target
 
             
         elif y <= self.position[1]+(135+self.gap)+self.gap:
@@ -210,7 +219,7 @@ class HandSelection:
         if button == mouse.LEFT:
           xp,yp = self.position
           if x >= xp and x < xp+self.width and y >= yp and y < yp+self.height+self.frame_height_gain:
-            #print("pressed")
+            print("pressed")
             self.move_card(x,y)
             return self.action
         return None
@@ -240,8 +249,6 @@ class HandSelection:
         elif index < 31:
           liste[index].y = self.height-(int((index-16)/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain
           liste[index].x = self.all_card_indentation+((index-16) % self.cpr)*(135+self.gap)+self.position[0]
-        
-      
 
 class CardScreenCards:
   def __init__(self,batch,width,height):
@@ -371,6 +378,7 @@ class Screen:
 
   def update(self,dt):
     pass
+
 class StartScreen(Screen):
   def __init__(self,width,height):
     self.batch = pyglet.graphics.Batch()
@@ -568,6 +576,7 @@ class CardScreen(Screen):
     self.lobby_title = pyglet.sprite.Sprite(img, width/2, height/2 + 450, batch=self.batch)
 
     self.hand_selection = CardScreenCards(self.batch,width,height)
+    
     self.buttons.append(self.hand_selection)
 
     #bad formating, bad layout, bad design
