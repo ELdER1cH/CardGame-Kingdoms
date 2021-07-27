@@ -590,7 +590,8 @@ class Window(main_chat.Window):
                   buffering = False
               else:
                   buffer += more
-      yield buffer
+      if buffer != None:
+        yield buffer
     
   def receive_messages(self):
     ls = self.linesplit(self.client.s)
