@@ -14,8 +14,8 @@ except ImportError as err:
 #79.231.167.136
 
 #python -m auto_py_to_exe
-IP = "game01.gameserver.gratis"
-PORT = 25906
+IP = "game02.gameserver.gratis"
+PORT = 29428
 
 val = 1
 SPRITE_WIDTH = int(135/val)
