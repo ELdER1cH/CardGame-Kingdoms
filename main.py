@@ -150,8 +150,7 @@ class Window(main_chat.Window):
     if not self.ingame:
       self.button_actions(x,y,button,MOD,antir)
       return
-    if not self.my_move:
-      return
+
     
     x /= self.scale_x
     y /= self.scale_y
@@ -171,6 +170,12 @@ class Window(main_chat.Window):
         ###OLD CLICK/ SELECT
         clicked_card = self.batch.get_card(self.batch.select_frame.position)
         
+        if not self.my_move:
+          if target.special_tag != 'empty' and target.special_tag != 'unoccupied_field':
+            self.batch.select_card(target)
+          else:
+            self.pop_up.new_red_frame(target.position) 
+          return
         #MAKE SURE THERES A CARD AT THE OLD CLICK - IF THERES NONE, TARGET = NEW SELECT
         if clicked_card != None:
           #if clicked_card.special_tag ==  'empty':
