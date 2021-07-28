@@ -75,7 +75,7 @@ class Window(main_chat.Window):
     self.loading = False
     
   def replace(self,delay,target,cardname,activate):
-    target.replace(target,cardname,activate=activate,rotate=True)
+    target.replace(target,cardname,activate=activate,rotate=False)
 
   def swap(self,delay,clicked_card,target):
     clicked_card.swap(target,target.position)
@@ -534,7 +534,7 @@ class Window(main_chat.Window):
                   pos, cardname = r['replace']
                   pos = ((135*4+left_gap)-int(pos[0])+left_gap,1080-int(pos[1]))
                   target = self.batch.get_card(pos)
-                  pyglet.clock.schedule_once(self.replace,0.01,target,cardname,True)
+                  pyglet.clock.schedule_once(self.replace,0.01,target,cardname,False)
     
                 elif r['type'] == 'swap':
                   pos1,pos2 = r['swap']
