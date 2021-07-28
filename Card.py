@@ -266,7 +266,7 @@ class Card(pyglet.sprite.Sprite):
     pass
 
 class CardGroup:
-  def __init__(self,positon,batch,*cards):
+  def __init__(self,position,batch,*cards):
     batch.card_groups.append(self)
     self.batch = batch
     self.position = position

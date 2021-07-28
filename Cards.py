@@ -39,7 +39,7 @@ cards_describtion={
     'Speerkaempfer': ["""Vorsicht vor den Speeren, die sind spitz!"""],
     'Healer': ["""Sie heilt 1200 Leben und verteilt sie gerecht unter nahen Landsleuten."""],
     'Orc': ["""Stark und hässlich"""],
-    'Goblin': ["""Dieser kleine Dieb hat eine Karten in seinem Beutel. Nütze sie!"""],
+    'Goblin': ["""Dieser kleine Dieb hat eine Karte in seinem Beutel. Nütze sie!"""],
     'Fahnentraeger': ["""Die Moral ist gestärkt und alle Truppen dieser Reihe machen 1,5x Schaden"""],
     'Shield': ["""Durch diesen Panzertrupp werden die Leben aller Einheiten dieser Reihe um 1,5x verstärkt"""],
     'BigBoss': ["""Er muss bis auf 3000 Leben geheilt werden, damit er aufwacht, aber dann ist er nicht mehr aufzuhalten."""],

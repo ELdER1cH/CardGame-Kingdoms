@@ -322,7 +322,7 @@ class CardScreenCards:
     #  
       self.sprites = []
       
-      self.all_cards = list(Cards.cards.keys())[:-5]
+      self.all_cards = list(Cards.cards.keys())[:-6]
       for i in range(len(self.all_cards)):
         if i < 16:
           self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
