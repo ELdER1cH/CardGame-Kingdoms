@@ -7,9 +7,9 @@ cards = {
             #name level,h,   Maxh,dmg,cost,crit,img,       specials,special_tag,place_special  
             'Schwertkaempfer': [1,500,500,300,4,0.5,'resc\jolas\Schwertkaempfer.png',[],'',[]],
             'Turm': [1,6000,6000,200,7,0,'resc/jolas/turm.png',[Card.generate_mana],'immovable',[]],
-            'Paladin': [1,3000,3000,200,12,0.02,'resc\jolas\Palatin.png',[],'',[]],
+            'Paladin': [1,3000,3000,200,7,0.02,'resc\jolas\Palatin.png',[],'',[]],
             'Bauernhof': [1,1500,1500,0,13,0,'resc/jolas/bauernhof.png',[Card.generate_mana,Card.generate_mana,Card.generate_mana],'immovable',[Card.farm_special]],
-            'Speerkaempfer': [1,400,400,350,4,0.05,'resc\jolas\Speerwerfer.png',[],'',[]],
+            'Speerkaempfer': [1,400,400,400,4,0.05,'resc\jolas\Speerwerfer.png',[],'',[]],
             'Heiler': [1,700,700,135,10,0,'resc\jolas\Healer.png',[Card.heal],'',[]],
             'Orc': [1,700,800,500,9,0.05,'resc/jolas/ork.png',[],'',[]],
             'Goblin': [1,200,200,350,3,0,'resc\jolas\Goblin.png',[],'',[Card.draw_card_special]],
