@@ -187,10 +187,11 @@ class HandSelection:
                       self.target.append(self.all_cards[num])
                       # Seitenkarte wird aktualisiert und Frame wird positioniert
                       self.update_card(self.target)
-                      if num <= 16:
+                      if self.page == 1:
                         framex = self.all_card_indentation+self.position[0]+((num-16) % self.cpr)*(135+self.gap)
                         framey = self.height-(int(num/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain
-                      if 16 < num <= 32:
+                      if self.page == 2:
+                        num -= 16
                         framex = self.all_card_indentation+self.position[0]+((num-16) % self.cpr)*(135+self.gap)
                         framey = self.height-(int(num/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain  
                       self.select_frame.position = [framex,framey]
@@ -239,6 +240,7 @@ class HandSelection:
     
     def update_page(self,page): 
       self.page += page
+      self.select_frame.visible = False
       self.page_label.text = str(self.page)
    
     def update_card(self,target):
@@ -363,27 +365,31 @@ class CardScreenCards:
                   self.target.append(describtion[0]) 
                   self.target.append(self.all_cards[num])
                   self.update_card(self.target)
-                  if num <= 16:
+                  #Koordinaten von 
+                  self.select_frame.visible = True
+                  if self.page == 1:
                         framex = self.all_card_indentation+self.position[0]+((num-16) % self.cpr)*(135+self.gap)
                         framey = self.height-(int(num/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain
-                  if 16 < num <= 32:
+                  if self.page == 2:
+                    num -= 16
                     framex = self.all_card_indentation+self.position[0]+((num-16) % self.cpr)*(135+self.gap)
                     framey = self.height-(int(num/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain  
                   self.select_frame.position = [framex,framey]
                       
 
   def update_page(self,page): 
-      self.page += page
-      self.page_label.text = str(self.page)
+    self.select_frame.visible = False
+    self.page += page
+    self.page_label.text = str(self.page)
 
   def press(self,x,y,button):
-      if button == mouse.LEFT:
-        xp,yp = self.position
-        if x >= xp and x < xp+self.width and y >= yp and y < yp+self.height+self.frame_height_gain:
-          #print("pressed")
-          self.move_card(x,y)
-          return self.action
-      return None
+    if button == mouse.LEFT:
+      xp,yp = self.position
+      if x >= xp and x < xp+self.width and y >= yp and y < yp+self.height+self.frame_height_gain:
+        #print("pressed")
+        self.move_card(x,y)
+        return self.action
+    return None
   
   def update_card(self,target):
     try:
