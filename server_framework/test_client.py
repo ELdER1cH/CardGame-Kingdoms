@@ -1,85 +1,72 @@
 import socket
-import sys, json
-import datetime
+import sys, json, datetime, time
 import threading
-import time
+import random
 
-"""import os
-import psutil
-process = psutil.Process(os.getpid())
-print(process.memory_percent())
-print(process.cpu_percent())
-print(process.num_threads())
-print(process.threads())
-print(process.status())
-
-while True:
-    pass"""
-
-"""lis = {0:1,2:3,4:5}
-lis3 = [1,2,3]
-print(len(lis))
-print(len(lis3))
-lis2 = lis.copy()
-print(lis)
-val = lis.pop(0)
-print(lis)
-print(val)
-print(lis2)"""
-
-"""info = {'type': 'lobbyprecaution','lobby': 0}
-i2 = json.dumps(info)
-i3 = i2.encode()
-i4 = i2 + "\n"
-i5 = i4.encode()
-
-z = i5.decode()
-z1 = json.loads(z)["type"]
-z2 = z.split("\n")
-z3 = json.loads(z2[0])["type"]
-
-print(info)
-print(i2)
-print(i3)
-print(i4)
-print(i5)
-
-print(z)
-print(z1)
-print(z2)
-print(z3)"""
-
-HEADERSIZE = 10
 run = True
-
-#msg = str(datetime.datetime.now()) +"test"
-#print(msg)
-msg = {'type': 'lobbyprecaution','lobby': 1}
+sockets = []
+nr = 0
+msg = "hello world"#str(datetime.datetime.now()) +"test" #print(msg) #msg = {'type': 'lobbyprecaution','lobby': 1}
 host = "127.0.0.1"      
-port = 6789             
+port = 6789                   
 
-s = socket.socket()
-s.connect((host, port))
-
-def send():
-    s.sendall(json.dumps(msg).encode())
-
-#inp = input(">num connections: ")
-
-def recv_loop():
+def connection(socket,nr):
     global run
-    while run:       
+    while run:
         try:
-            r = s.recv(1096).decode()
-            print(r)
+            msg = socket.recv(1096).decode()
+            print(str(nr) + ": got msg " + str(msg) + "\n")
         except Exception as err:
-            print(err)
+            #print(err)
             print("Error whilst fetching server messages!")
-            run = False
+            socket.close()
             break
+
+def new_socket():
+    global nr
+    s = socket.socket()
+    s.connect((host, port))
+    nr += 1
+    sockets.append(s)
+    thr = threading.Thread(target=connection,args=([s,nr]))#, daemon=True 
+    thr.start()
+
+if __name__ == "__main__":
+    while run:
+        inp = input("/n - new connection | /t - terminate one connection | /s - random socket sends msg | /c - close\n")
+        if inp == "/n":
+            new_socket()            
+        elif inp == "/t":
+            so = sockets.pop(0)
+            so.close()
+            print(len(sockets))
+
+        elif inp == "/s":
+            l = len(sockets)
+            ri = random.randint(0,l-1)
+            sockets[ri].sendall(msg.encode())
+            print(f"{ri} send {msg}\n")
             
+        elif inp == "/c":
+            run = False
+            for soc in sockets:
+                soc.close()
+            while threading.active_count() > 2: # this simply does it, that red >>> appears in console after
+                pass                            # errors/ messages from terminating threads (/ main threads terminates last ^^)
 
-#recv_loop()
+        elif inp == "/m": #many -> 50 conns
+            for i in range(50):
+                new_socket()
 
 
 
+#25 connections -> /c -> all stopped without erros (serversside too! ^^)
+
+
+#https://realpython.com/intro-to-python-threading/#using-a-threadpoolexecutor
+
+#https://www.programiz.com/python-programming/methods/built-in/enumerate
+#https://stackoverflow.com/questions/6319207/are-lists-thread-safe
+
+#https://realpython.com/python-concurrency/
+#https://realpython.com/async-io-python/

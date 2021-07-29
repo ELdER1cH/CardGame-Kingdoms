@@ -14,7 +14,7 @@ def log(info, prefix="",p=True):
     lenght = 30; current_time = prefix + str(datetime.datetime.now())
     with open("serverlog.txt","a") as f:
         text = f'{current_time:<{lenght}}' + "- " + info + "\n"
-        f.write(text)
+        f.write(text) #how isn't this causing race conditions? xD -> the file is most certainly accessed by multiple threads at the same time.. somehow it works.. nice :D I think ist because CPythons threading isnt "reaL" threading... xD (someone on stackoverflow said so, didnt dig deeper, I wont complain if it works)
         if p: print(text[:-1])
 
 class Server():
@@ -191,7 +191,7 @@ class GameServer(Server):
                     yield message
                 else:
                     try:
-                        more = conn["conn"].recv(bits).decode()#
+                        more = conn["conn"].recv(bits).decode()
                         if not more:
                             return
                     except:
@@ -207,29 +207,52 @@ class GameServer(Server):
         #self.to_unregister.append(conn)
 
     def connection_loop(self,conn):
-                ls = self.linesplit(conn)
-                for message in ls:
-                    data = json.loads(message)
-                    log(f"G<  got {data} from {conn['addr']}","<>")
-                    self.notify_lobby(data,conn)
+        ls = self.linesplit(conn)
+        for message in ls:
+            data = json.loads(message)
+            log(f"G<  got {data} from {conn['addr']}","<>")
+            self.notify_lobby(data,conn)
+
+    def connection_loop2(self,conn,addr):
+        while loop:
+            try:
+                msg = conn.recv(1096).decode()
+                log(f"G<  got {msg} from {addr}","<>")
+                conn.sendall(msg.encode())
+                log(f"S>  send {msg} to {addr}","<>")
+            except Exception as err:
+                print(err)
+                break
+        
+        self.connections.remove(conn) #(relatively) thread safe.. I think -> terminated 25 connections all at once, and no errors.. -> same for 50 conns when programm terminated instead of terminating conns with for loop
+        log(f'<< connection lost: {addr}, num_conns: {len(self.connections)}',"<>")
+        
+        del conn #? why nochmal? xD
+
+        if len(self.connections) <= 0:
+            if not self.shutting_off:
+                self.shutting_off = True; self.shutt_down_time = 30
+                threading.Thread(target=self.shut_off_timer).start()
+                log("! Starting shutt off timer! t: -30s","*")
+
 
     def main_loop(self):
         log("! main loop active!", "<>")
         while loop:
             try:
                 conn, addr = self.socket.accept()
+                #new_conn = {"conn" : conn, "addr" : addr, "lobby" : None}
+                #self.register(new_conn)        
+                #self.threads.append(threading.Thread(target=self.connection_loop,args=([new_conn])).start())
+                self.threads.append(threading.Thread(target=self.connection_loop2,args=([conn,addr])).start()) #apending is thread-safe I think.. ^^
+                
+                if self.shutting_off: self.shutting_off = False
+                self.connections.append(conn)
+                log(f'>> New connetion from addr: {addr} num_conns: {len(self.connections)}',"<>")
+
             except: #potential shutdown point, if I want to.
-                log(f"! error whilst establishing a connection! shutting down... (open threads: {threading.active_count()})","<!>")
+                log(f"! error whilst establishing a connection! (open threads: {threading.active_count()})","<!>")
 
-                #self.restart()
-                #log(f"open threads: {threading.active_count()}","<>")
-                #return
-                break
-
-            new_conn = {"conn" : conn, "addr" : addr, "lobby" : None}
-            self.register(new_conn)        
-            self.threads.append(threading.Thread(target=self.connection_loop,args=([new_conn])).start())
-        
         log("! main loop terminated!", "<>")
 
 if __name__ == "__main__":
