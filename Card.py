@@ -255,6 +255,16 @@ class Card(pyglet.sprite.Sprite):
         elif card.name == 'Drache':
           target.stamina + 0,5  
 
+  def RegenStamina(self):
+    if self.stamina < 1:
+      if self.name != 'Drache' and self.special_tag != 'immovable' and self.special_tag != 'empty' and self.special_tag != 'unoccupied_field':
+        if self.stamina < 1:
+          self.stamina += 1
+      elif self.name == 'Drache':
+        if self.health > 3000:
+          self.stamina + 0,5  
+
+
   def resize(self):
     self.image.get_texture().width = SPRITE_WIDTH
     self.image.get_texture().height = SPRITE_HEIGHT
