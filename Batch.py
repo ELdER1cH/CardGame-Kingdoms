@@ -135,6 +135,16 @@ class CardBatch(pyglet.graphics.Batch):
       if card.in_area(pos):
         return card
 
+  def get_all_my_cards(self):
+    my_cards = []
+    for card in self.cards:
+      for special in card.specials:
+        if card.y > 0 and card.y < 1080:
+          if card.owner == self.castle.owner:
+            my_cards.append(card)
+    return my_cards
+
+
   def get_adjacent(self,pos):
     adjacent = []
     x,y = pos

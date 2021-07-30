@@ -4,25 +4,25 @@ import random
  
 
 cards = {
-            #name level,h,   Maxh,dmg,cost,crit,img,       specials,special_tag,place_special  
-            'Schwertkaempfer': [1,500,500,300,4,0.5,'resc\jolas\Schwertkaempfer.png',[],'',[]],
+            #name level,h,   Maxh,dmg,cost,Laufweite,img,       specials,special_tag,place_special
+            'Schwertkaempfer': [1,500,500,300,4,1,'resc\jolas\Schwertkaempfer.png',[],'',[]],
             'Turm': [1,6000,6000,400,7,0,'resc/jolas/turm.png',[Card.generate_mana],'immovable',[]],
-            'Paladin': [1,3000,3000,200,7,0.02,'resc\jolas\Palatin.png',[],'',[]],
+            'Paladin': [1,3000,3000,200,7,1,'resc\jolas\Palatin.png',[],'',[]],
             'Bauernhof': [1,1500,1500,0,13,0,'resc/jolas/bauernhof.png',[Card.generate_mana,Card.generate_mana,Card.generate_mana],'immovable',[Card.farm_special]],
-            'Speerkaempfer': [1,400,400,400,4,0.05,'resc\jolas\Speerwerfer.png',[],'',[]],
-            'Heiler': [1,700,700,135,10,0,'resc\jolas\Healer.png',[Card.heal],'',[]],
-            'Orc': [1,700,800,500,9,0.05,'resc/jolas/ork.png',[],'',[]],
-            'Goblin': [1,200,200,350,3,0,'resc\jolas\Goblin.png',[],'',[Card.draw_card_special]],
-            'Fahnentraeger': [1,750,750,100,9,0,'resc\jolas\Fahnentraeger.png',[],'',[Card.attack_booster_special]],
+            'Speerkaempfer': [1,400,400,400,4,1,'resc\jolas\Speerwerfer.png',[],'',[]],
+            'Heiler': [1,700,700,135,10,1,'resc\jolas\Healer.png',[Card.heal],'',[]],
+            'Orc': [1,700,800,500,9,1,'resc/jolas/ork.png',[],'',[]],
+            'Goblin': [1,200,200,350,3,1,'resc\jolas\Goblin.png',[],'',[Card.draw_card_special]],
+            'Fahnentraeger': [1,750,750,100,9,1,'resc\jolas\Fahnentraeger.png',[],'',[Card.attack_booster_special]],
             'Drache': [1,500,7000,700,16,0,'resc\jolas\Bigboss.png',[Card.wake_up],'immovable',[]],
-            'Bombe': [1,1,1,1000,3,0,'resc\jolas\Bombe.png',[],'wantstodie',[]],
-            'Schild': [1,1000,2000,200,9,0,'resc\jolas\Schield.png',[],'',[Card.shield_booster_special]],
-            'Rammbock': [1,1500,1000,400,6,0,'resc\jolas\Rammbock.png',[],'BW',[]],
+            'Bombe': [1,1,1,1000,3,1,'resc\jolas\Bombe.png',[],'wantstodie',[]],
+            'Schild': [1,1000,2000,200,9,1,'resc\jolas\Schield.png',[],'',[Card.shield_booster_special]],
+            'Rammbock': [1,1500,1000,400,6,1,'resc\jolas\Rammbock.png',[],'BW',[]],
             'Mana': [1,0,0,0,0,0,'resc\jolas/splashmana.png',[],'splash',[Card.splash_mana,Card.splash_mana,Card.splash_mana]],
             'Heal': [1,0,0,0,5,0,'resc\jolas/splash_heal.png',[],'splash',[Card.splash_heal]],
             'Feuerball': [1,0,0,400,4,0,'resc\jolas/feuerball.png',[],'splash',[Card.splash_damage]],
-            'Zwerg': [1,1000,1000,400,8,0,'resc\jolas\Zwerg.png',[Card.draw_card_special],'',[]],    
-            'Elf':  [1,600,600,500,7,0,'resc\jolas\elf.png',[Card.generate_mana],'',[]],
+            'Zwerg': [1,1000,1000,400,8,1,'resc\jolas\Zwerg.png',[Card.draw_card_special],'',[]],    
+            'Elf':  [1,600,600,500,7,1,'resc\jolas\elf.png',[Card.generate_mana],'',[]],
             'Burg': [1,5000,10000,400,0,0,'resc\jolas/burg.png',[Card.castle_special,Card.draw_card_special],"immovable",[]],
             'green': [1,1,1,0,0,0,'resc/green_frame.png',[Card.generate_mana],"unoccupied_field",[]],
             'yellow': [1,1,1,0,0,0,'resc/yellow_frame.png',[Card.generate_mana],"unoccupied_field",[]],
@@ -73,7 +73,7 @@ def init(card,name):
     card.max_health = s[2]
     card.dmg = s[3]
     card.price = s[4]
-    card.crit = s[5]
+    card.stamina = s[5]
     card.img = s[6]
     card.specials = s[7]
     card.special_tag = s[8]

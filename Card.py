@@ -163,6 +163,7 @@ class Card(pyglet.sprite.Sprite):
     if self.health < self.max_health:
       self.health += 200
       if self.health > self.max_health: self.health = self.max_health
+    self.NewStamina()  
 
   def wall_special(self):
     self.health -= 3000
@@ -243,6 +244,17 @@ class Card(pyglet.sprite.Sprite):
 
     return won
   
+  def NewStamina(self):
+    my_cards = self.batch.get_all_my_cards()
+    for card in my_cards:
+      if card.y > 0 and card.y < 1080:
+        target = self.batch.get_card([card.x,card.y])
+        if target.name != 'Drache' and target.special_tag != 'immovable' and target.special_tag != 'empty' and target.special_tag != 'unoccupied_field':
+          if target.stamina < 1:
+            target.stamina + 1
+        elif card.name == 'Drache':
+          target.stamina + 0,5  
+
   def resize(self):
     self.image.get_texture().width = SPRITE_WIDTH
     self.image.get_texture().height = SPRITE_HEIGHT
