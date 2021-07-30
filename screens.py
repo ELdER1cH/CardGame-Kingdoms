@@ -248,8 +248,8 @@ class HandSelection:
           self.select_sprite.image = pyglet.image.load(target[6][:-4]+"_large.png")
       except:
           self.select_sprite.image = pyglet.image.load(target[6])
-      self.card_describtion_card.text = target[10]
-      self.card_name.text = target[11]
+      self.card_describtion_card.text = target[len(target)-2]
+      self.card_name.text = target[len(target)-1]
       self.card_damage.text = str(target[3])
       self.card_health.text = str(target[1])
       self.card_cost.text = str(target[4])
@@ -396,8 +396,8 @@ class CardScreenCards:
         self.select_sprite.image = pyglet.image.load(target[6][:-4]+"_large.png")
     except:
         self.select_sprite.image = pyglet.image.load(target[6])
-    self.card_describtion_card.text = target[10]
-    self.card_name.text = target[11]
+    self.card_describtion_card.text = target[len(target)-2]
+    self.card_name.text = target[len(target)-1]
     self.card_damage.text = str(target[3])
     self.card_health.text = str(target[1])
     self.card_cost.text = str(target[4])
