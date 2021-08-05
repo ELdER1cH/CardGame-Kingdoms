@@ -78,7 +78,7 @@ def init(card,name):
     card.special_tag = s[8]
     card.place_special = s[9]
     card.stamina = s[5]
-    card.max_stmaina = s[10]
+    card.max_stamina = s[10]
     card.stamina_reg = s[11]
     card.description = d[0]
     
