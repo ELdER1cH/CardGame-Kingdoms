@@ -31,8 +31,12 @@ class CardBatch(pyglet.graphics.Batch):
   def init_cards(self):
     self.castle = Castle("Burg",width//2,135,batch=self,owner="yellow")
     self.castle.mana = 10
-    c = Castle("Burg",width//2,945,batch=self,owner="green")
-    c.image.anchor_x = 135; c.image.anchor_y = 135; c.rotation = 180
+    if self.online:
+      c = Castle("Burg",width//2+135,1080,batch=self,owner="green")
+      c.image.anchor_x = 135; c.image.anchor_y = 135; c.rotation = 0
+    else:  
+      c = Castle("Burg",width//2,945,batch=self,owner="green")
+      c.image.anchor_x = 135; c.image.anchor_y = 135; c.rotation = 180
     # only happening if game is offline
     if not self.online:
       self.castle.load_hand(self.castle.y-135,bo=False)
@@ -107,15 +111,14 @@ class CardBatch(pyglet.graphics.Batch):
     for i in range(int((pos[0]-left_gap)/(135)),5,1):
       for card in self.cards:
         if card.in_area((int(135*i)+left_gap,0)):
-          row.append(card)
-          
+          row.append(card)     
     for card in row:
       target.swap(card,card.position)
     #only happening if game is offline
     if not self.online:  
       target.replace(target,random.choice(self.castle.cards))
     else:
-      target.replace(target,self.castle.owner)
+      target.replace(target,'Empty')
 
   def update_disp(self,target):
     self.disp.update(self.castle.mana,self.castle.max_mana,target,self.round_counter)

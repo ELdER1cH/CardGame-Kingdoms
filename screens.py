@@ -80,89 +80,97 @@ class TextBox(pyglet.sprite.Sprite):
 
 class HandSelection:
     def __init__(self,batch,width,height):
-        self.hand = []#[0,1,2,3,4,5,6,7,8,9,10,11,12]#
-        self.max_hand_lenght = 10
-        """
-        mesh:
-        x,x,x,x,x    | all_cards
-        x,x,x,x,x    |
-        x,x,x,x,x    |
-        .........    | selected
-        """
-        self.h = height
-        self.w = width
-        self.batch = batch
-        self.all_card_indentation = 100
-        self.frame_height_gain = 120
-        self.gap = 20
-        self.cpr = 8
-        self.page = 1
-        
-        self.action = None
-        self.height = 3*(135+self.gap)+self.gap   
-        self.width = self.cpr*(135+self.gap)+(135+self.gap)*2
-        self.position = (30,(height-self.height-450))        
-        
-        self.background = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/card_selection_frame.png"),self.position[0],self.position[1]+135+self.gap*2)
+      self.hand = []#[0,1,2,3,4,5,6,7,8,9,10,11,12]#
+      self.max_hand_lenght = 10
+      """
+      mesh:
+      x,x,x,x,x    | all_cards
+      x,x,x,x,x    |
+      x,x,x,x,x    |
+      .........    | selected
+      """
+      self.h = height
+      self.w = width
+      self.batch = batch
+      self.all_card_indentation = 100
+      self.frame_height_gain = 120
+      self.gap = 20
+      self.cpr = 8
+      self.page = 1
+      self.oldtarget = None
+      
+      self.action = None
+      #Höhe von Auswahlfenster
+      self.height = 3*(135+self.gap)+self.gap
+      #Weite von Auswahlfenster   
+      self.width = self.cpr*(135+self.gap)+(135+self.gap)*2
+      #position von Auswahlfenster
+      self.position = (30,(height-self.height-450))        
+      
+      self.background = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/card_selection_frame.png"),self.position[0],self.position[1]+135+self.gap*2)
 
-        self.grass_row = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/grass_row.png"),self.position[0],self.position[1])
-        # Sprites in Pool
-        self.page_label = pyglet.text.Label("",
-                            font_name='Times New Roman', font_size=40,
-                            color=(0, 0, 0,255),
-                            x=1125, y=300,
-                            anchor_x='center', anchor_y='center',batch = self.batch)
-        self.page_label.text = str(self.page)
-        self.sprites = []
+      self.grass_row = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/grass_row.png"),self.position[0],self.position[1])
+      # Sprites in Pool
+      self.page_label = pyglet.text.Label("",
+                          font_name='Times New Roman', font_size=40,
+                          color=(0, 0, 0,255),
+                          x=1125, y=300,
+                          anchor_x='center', anchor_y='center',batch = self.batch)
+      self.page_label.text = str(self.page)
+      self.sprites = []
 
-        self.current_page_sprites = []
-        # Sprites in Hand
-        self.sprites_hand = []
-        # Adding Sprites for Page 1 & 2
-        self.all_cards = list(Cards.cards.keys())[:-5]
-        for i in range(len(self.all_cards)):
-          if i < 16:
-            self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
-                                                      self.all_card_indentation+self.position[0]+(i % self.cpr)*(135+self.gap),
-                                                      self.height-(int(i/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain))
-          #Ab der 15ten Karte  fangen die Koordinaten von vorne an (Page 2)
-          elif i < 31:
-            self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
-                                                      self.all_card_indentation+self.position[0]+((i-16) % self.cpr)*(135+self.gap),
-                                                      self.height-(int((i-16)/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain))
-      #Side Card      
-        self.blank = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/blank_card.png"),1500, height //4 )
-        #anchor_x = 'center', anchor_y = 'center'
-        self.select_sprite = pyglet.sprite.Sprite(pyglet.image.load("resc/gray_frame.png"),self.blank.x+50, self.blank.y+220)
-        # --- Card Describtion ---
-        self.card_describtion_card = pyglet.text.Label("",
-                            font_name='Bahnschrift Light', font_size=12,
-                            color=(109, 43, 43,255),
-                            x=self.blank.x+50, y=self.blank.y+160,
-                            anchor_x='left', anchor_y='top',multiline=True,width=265)
-        # --- Card Name ---
-        self.card_name = pyglet.text.Label("",
-                            font_name='Bahnschrift Light', font_size=24,
-                            bold=True,color=(109, 43, 43,255),
-                            x=self.blank.x+self.blank.width//2, y=self.blank.y+500,
-                            anchor_x='center', anchor_y='center')    
-        # --- Stats Block ---
-        self.card_damage = pyglet.text.Label("",
-                            font_name='Bahnschrift Light', font_size=12,
-                            bold = True,color=(109, 43, 43,255),
-                            x=self.blank.x+85, y=self.blank.y+205,
-                            anchor_x='left', anchor_y='top')
-        self.card_health = pyglet.text.Label("",
-                            font_name='Bahnschrift Light', font_size=12,
-                            bold = True,color=(109, 43, 43,255),
-                            x=self.blank.x+200, y=self.blank.y+205,
-                            anchor_x='left', anchor_y='top')
-        self.card_cost = pyglet.text.Label("",
-                                font_name='Bahnschrift Light', font_size=12,
-                                bold = True,color=(109, 43, 43,255),
-                                x=self.blank.x+300, y=self.blank.y+205,
-                                anchor_x='left', anchor_y='top')
-      #  
+      self.current_page_sprites = []
+      # Sprites in Hand
+      self.sprites_hand = []
+
+      # Adding Sprites for Page 1 & 2
+      self.all_cards = list(Cards.cards.keys())[:-6]
+      for i in range(len(self.all_cards)):
+        if i < 16:
+          self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
+                                                    self.all_card_indentation+self.position[0]+(i % self.cpr)*(135+self.gap),
+                                                    self.height-(int(i/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain))
+        #Ab der 15ten Karte  fangen die Koordinaten von vorne an (Page 2)
+        elif i < 31:
+          self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
+                                                    self.all_card_indentation+self.position[0]+((i-16) % self.cpr)*(135+self.gap),
+                                                    self.height-(int((i-16)/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain))
+    #Side Card      
+      self.blank = pyglet.sprite.Sprite(pyglet.image.load("resc/jolas/blank_card.png"),1500, height //4 )
+      #anchor_x = 'center', anchor_y = 'center'
+      self.select_sprite = pyglet.sprite.Sprite(pyglet.image.load("resc/gray_frame.png"),self.blank.x+50, self.blank.y+220)
+      # --- Card Describtion ---
+      self.card_describtion_card = pyglet.text.Label("",
+                          font_name='Bahnschrift Light', font_size=12,
+                          color=(109, 43, 43,255),
+                          x=self.blank.x+50, y=self.blank.y+160,
+                          anchor_x='left', anchor_y='top',multiline=True,width=265)
+      # --- Card Name ---
+      self.card_name = pyglet.text.Label("",
+                          font_name='Bahnschrift Light', font_size=24,
+                          bold=True,color=(109, 43, 43,255),
+                          x=self.blank.x+self.blank.width//2, y=self.blank.y+500,
+                          anchor_x='center', anchor_y='center')    
+      # --- Stats Block ---
+      self.card_damage = pyglet.text.Label("",
+                          font_name='Bahnschrift Light', font_size=12,
+                          bold = True,color=(109, 43, 43,255),
+                          x=self.blank.x+85, y=self.blank.y+205,
+                          anchor_x='left', anchor_y='top')
+      self.card_health = pyglet.text.Label("",
+                          font_name='Bahnschrift Light', font_size=12,
+                          bold = True,color=(109, 43, 43,255),
+                          x=self.blank.x+200, y=self.blank.y+205,
+                          anchor_x='left', anchor_y='top')
+      self.card_cost = pyglet.text.Label("",
+                              font_name='Bahnschrift Light', font_size=12,
+                              bold = True,color=(109, 43, 43,255),
+                              x=self.blank.x+300, y=self.blank.y+205,
+                              anchor_x='left', anchor_y='top')
+      #Select Frame für ausgewählte Karte
+      self.select_frame = pyglet.sprite.Sprite(pyglet.image.load("resc/frame.png"),
+                                             -SPRITE_WIDTH,
+                                             -SPRITE_HEIGHT)
              
     def move_card(self,x,y):
         rx = x-self.all_card_indentation-self.position[0]
@@ -172,21 +180,36 @@ class HandSelection:
             if rx-int(rx) <= 1-self.gap/(135+self.gap): 
                 if ry-int(ry) >= self.gap/(135+self.gap):
                     num = int(int(rx) + int(ry)* (self.width/(135+self.gap)-2)+(self.page-1)*16)
-                    self.target = Cards.cards[self.all_cards[num]]
-                    describtion = Cards.cards_describtion[self.all_cards[num]]
-                    self.target.append(describtion[0]) 
-                    self.target.append(self.all_cards[num])
-                    self.update_card(self.target)
-                    if num < len(self.all_cards) and num not in self.hand:
-                        if len(self.hand) < self.max_hand_lenght:
-                            #Instead of Changing Position adding Sprite to new List and Changing Position                            
-                            self.sprites_hand.append(self.sprites[num])
-                            self.sprites_hand[-1].y = self.position[1]
-                            self.sprites_hand[-1].x = self.position[0]+(135+self.gap)*len(self.hand)                           
-                            #Adding Card to Hand
-                            self.hand.append(num)
-                            #Replacing Index in Sprites, because of not Index Problems (num usw....)
-                            self.replace_index(self.sprites,num,num)
+                    if num < 16*self.page:
+                      self.target = Cards.cards[self.all_cards[num]]
+                      describtion = Cards.cards_describtion[self.all_cards[num]]
+                      self.target.append(describtion[0]) 
+                      self.target.append(self.all_cards[num])
+                      # Seitenkarte wird aktualisiert und Frame wird positioniert
+                      self.update_card(self.target)
+                      if self.page == 1:
+                        framex = self.all_card_indentation+self.position[0]+((num-16) % self.cpr)*(135+self.gap)
+                        framey = self.height-(int(num/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain
+                      if self.page == 2:
+                        num -= 16
+                        framex = self.all_card_indentation+self.position[0]+((num-16) % self.cpr)*(135+self.gap)
+                        framey = self.height-(int(num/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain  
+                      self.select_frame.position = [framex,framey]
+                      self.select_frame.visible = True
+                      #Karte wird nur dann gemoved wenn du sie doppelt anklickst
+                      if self.target == self.oldtarget:
+                        if num < len(self.all_cards) and num not in self.hand:
+                            if len(self.hand) < self.max_hand_lenght:
+                                #Instead of Changing Position adding Sprite to new List and Changing Position                            
+                                self.sprites_hand.append(self.sprites[num])
+                                self.sprites_hand[-1].y = self.position[1]
+                                self.sprites_hand[-1].x = self.position[0]+(135+self.gap)*len(self.hand)
+                                self.select_frame.visible = False                      
+                                #Adding Card to Hand
+                                self.hand.append(num)
+                                #Replacing Index in Sprites, because of not Index Problems (num usw....)
+                                self.replace_index(self.sprites,num,num)
+                      self.oldtarget = self.target
 
             
         elif y <= self.position[1]+(135+self.gap)+self.gap:
@@ -210,13 +233,14 @@ class HandSelection:
         if button == mouse.LEFT:
           xp,yp = self.position
           if x >= xp and x < xp+self.width and y >= yp and y < yp+self.height+self.frame_height_gain:
-            #print("pressed")
+            print("pressed")
             self.move_card(x,y)
             return self.action
         return None
     
     def update_page(self,page): 
       self.page += page
+      self.select_frame.visible = False
       self.page_label.text = str(self.page)
    
     def update_card(self,target):
@@ -240,8 +264,6 @@ class HandSelection:
         elif index < 31:
           liste[index].y = self.height-(int((index-16)/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain
           liste[index].x = self.all_card_indentation+((index-16) % self.cpr)*(135+self.gap)+self.position[0]
-        
-      
 
 class CardScreenCards:
   def __init__(self,batch,width,height):
@@ -312,10 +334,13 @@ class CardScreenCards:
                               bold = True,color=(109, 43, 43,255),
                               x=self.blank.x+300, y=self.blank.y+205,
                               anchor_x='left', anchor_y='top')
-    #  
+      #Select Frame für ausgewählte Karte
+      self.select_frame = pyglet.sprite.Sprite(pyglet.image.load("resc/frame.png"),
+                                             -SPRITE_WIDTH,
+                                             -SPRITE_HEIGHT)
       self.sprites = []
       
-      self.all_cards = list(Cards.cards.keys())[:-5]
+      self.all_cards = list(Cards.cards.keys())[:-6]
       for i in range(len(self.all_cards)):
         if i < 16:
           self.sprites.append(pyglet.sprite.Sprite(pyglet.image.load(Cards.cards[self.all_cards[i]][6]),
@@ -340,19 +365,31 @@ class CardScreenCards:
                   self.target.append(describtion[0]) 
                   self.target.append(self.all_cards[num])
                   self.update_card(self.target)
-                  
+                  #Koordinaten von 
+                  self.select_frame.visible = True
+                  if self.page == 1:
+                        framex = self.all_card_indentation+self.position[0]+((num-16) % self.cpr)*(135+self.gap)
+                        framey = self.height-(int(num/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain
+                  if self.page == 2:
+                    num -= 16
+                    framex = self.all_card_indentation+self.position[0]+((num-16) % self.cpr)*(135+self.gap)
+                    framey = self.height-(int(num/self.cpr)+1)*(135+self.gap)+self.position[1]+self.frame_height_gain  
+                  self.select_frame.position = [framex,framey]
+                      
+
   def update_page(self,page): 
-      self.page += page
-      self.page_label.text = str(self.page)
+    self.select_frame.visible = False
+    self.page += page
+    self.page_label.text = str(self.page)
 
   def press(self,x,y,button):
-      if button == mouse.LEFT:
-        xp,yp = self.position
-        if x >= xp and x < xp+self.width and y >= yp and y < yp+self.height+self.frame_height_gain:
-          #print("pressed")
-          self.move_card(x,y)
-          return self.action
-      return None
+    if button == mouse.LEFT:
+      xp,yp = self.position
+      if x >= xp and x < xp+self.width and y >= yp and y < yp+self.height+self.frame_height_gain:
+        #print("pressed")
+        self.move_card(x,y)
+        return self.action
+    return None
   
   def update_card(self,target):
     try:
@@ -371,6 +408,7 @@ class Screen:
 
   def update(self,dt):
     pass
+
 class StartScreen(Screen):
   def __init__(self,width,height):
     self.batch = pyglet.graphics.Batch()
@@ -524,6 +562,7 @@ class LobbyScreen(Screen):
         self.hand_selection.card_cost.draw()
         self.hand_selection.background.draw()
         self.hand_selection.grass_row.draw()
+        self.hand_selection.select_frame.draw()
         #Drawing Sprites of Cards for Page 1,2 and hand
         if self.hand_selection.page == 1:
           for sprite in self.hand_selection.sprites[:16-len(self.hand_selection.sprites)]:
@@ -568,6 +607,7 @@ class CardScreen(Screen):
     self.lobby_title = pyglet.sprite.Sprite(img, width/2, height/2 + 450, batch=self.batch)
 
     self.hand_selection = CardScreenCards(self.batch,width,height)
+    
     self.buttons.append(self.hand_selection)
 
     #bad formating, bad layout, bad design
@@ -597,6 +637,7 @@ class CardScreen(Screen):
     self.hand_selection.card_health.draw()
     self.hand_selection.card_cost.draw()
     self.hand_selection.background.draw()
+    self.hand_selection.select_frame.draw()
     #Drawing Sprites of Cards for Page 1,2 and hand
     if self.hand_selection.page == 1:
       for sprite in self.hand_selection.sprites[:16-len(self.hand_selection.sprites)]:

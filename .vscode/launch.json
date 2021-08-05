@@ -15,7 +15,7 @@
             "name": "Python: Main",
             "type": "python",
             "request": "launch",
-            "program": "C:/Users/Maxi.bwimmer/Documents/GitHub/Cardgame/Cardgame/main.py",
+            "program": "C:/Users/mcw1m/OneDrive/Dokumente/GitHub/CardGame-Kingdoms/main.py",
             "console": "integratedTerminal"
         }
     ]
