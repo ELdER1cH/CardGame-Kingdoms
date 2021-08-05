@@ -178,8 +178,6 @@ class Window(main_chat.Window):
       self.pop_up.new_red_frame(target.position)
 
   def start_client(self,delay=None):
-    self.online = True
-    self.batch.online = True
     self.current_screen = screens.LobbyScreen(1920,1080)
     try:
       self.client = client.Client(self.IP,PORT)
@@ -191,6 +189,8 @@ class Window(main_chat.Window):
       self.loading = False
       return
     threading.Thread(target=self.receive_messages).start()
+    self.online = True
+    self.batch.online = True
     self.loading = False
   
   def on_mouse_press(self,x,y,button,MOD,antir=True):
@@ -339,9 +339,6 @@ class Window(main_chat.Window):
   def on_key_press(self,KEY,MOD):
     #key.ENTER & key.ESCAPE in while command_input_state; T = open chat
     super().on_key_press(KEY,MOD)
-    #message = self.chat_on_key_press(KEY,MOD)
-    #if self.online:
-    #  self.safe_send(self.client.send_chat_message(message))
     if KEY == key.F11:
           self.set_fullscreen(not self.fullscreen)
     if not self.chat_model.command_input_widget_state:
@@ -451,12 +448,17 @@ class Window(main_chat.Window):
       else:
         self.g_print("§c/replace -hand <card_name>")
     else: self.g_print("§cunknown command. '%s'" % (" ".join(cmd)))
-    
+
+  def on_chat(self,msg):
+    if self.online:
+      self.safe_send(self.client.send_chat_message(msg))
+      print(f"send msg '{msg}' to opponent")
+      
     #------------------------ Server Stuff ------------------------------------------
   
   def back(self,delay=None):
-    #self.ingame = False #would adding these be wise??
-    #self.online = False
+    self.ingame = False #would adding these be wise??
+    self.online = False
     self.current_screen = screens.StartScreen(1920,1080)
 
   def back_l(self,delay=None):
@@ -470,6 +472,10 @@ class Window(main_chat.Window):
       self.client.opponent_found = True
       pyglet.clock.schedule_once(self.current_screen.update_opponent_search, 0.01, self.client.opponent_found)
       #print(self.client.opponent_found)
+
+  def dt_g_print(self,delay,msg):
+    self.g_print(msg)
+    print(f"got '{msg}' and printed it in chat")
 
   def handle_message(self,r):
       if type(r) == dict:
@@ -488,8 +494,9 @@ class Window(main_chat.Window):
                   #print("join")
                   pyglet.clock.schedule_once(self.jjjjoin, 0.05)
 
-                #elif r['type'] == 'chat_message':
-                #  self.g_print(r['msg'])
+                elif r['type'] == 'chat_message':
+                  msg = "§g>> " + r['msg']
+                  pyglet.clock.schedule_once(self.dt_g_print, 0.05, msg)
 
                 elif r['type'] == 'lobby':
                   self.client.lobby = int(r['lobby'])
@@ -580,7 +587,9 @@ class Window(main_chat.Window):
     buffer = ""
     while True:
       try:
-        buffer += socket.recv(bits).decode()
+        data = socket.recv(bits).decode()
+        if not data: break #reading a zero length string (?) after connection is dropped ^^
+        buffer += data
       except Exception as err:
         print(f"\n{err}\n")
         break
@@ -589,7 +598,6 @@ class Window(main_chat.Window):
         yield message
     socket.close()
     print("Verbindung zu Server beendet!")
-    pyglet.clock.schedule_once(self.back_l,0.01)
     pyglet.clock.schedule_once(self.back,0.01)
     
   def receive_messages(self):

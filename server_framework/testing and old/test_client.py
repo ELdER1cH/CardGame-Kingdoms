@@ -6,9 +6,9 @@ import random
 run = True
 sockets = []
 nr = 0
-msg = "hello world"#str(datetime.datetime.now()) +"test" #print(msg) #msg = {'type': 'lobbyprecaution','lobby': 1}
+msg = "hello world\n"#str(datetime.datetime.now()) +"test" #print(msg) #msg = {'type': 'lobbyprecaution','lobby': 1}
 host = "127.0.0.1"      
-port = 6789                   
+port = 29428 #6789                   
 
 def connection(socket,nr):
     global run
@@ -39,7 +39,6 @@ if __name__ == "__main__":
         elif inp == "/t":
             so = sockets.pop(0)
             so.close()
-            print(len(sockets))
 
         elif inp == "/s":
             l = len(sockets)
@@ -59,6 +58,9 @@ if __name__ == "__main__":
                 new_socket()
 
 
+#new_server.py -> /t -> sometimes it misses, that a socket is closed... wonder if this could happen
+                #with a real client.. why is this happening?? ..
+                #-> /c -> it only registers that 8/50 are gone, altough all are gone!
 
 #25 connections -> /c -> all stopped without erros (serversside too! ^^)
 

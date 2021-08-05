@@ -20,6 +20,7 @@ class Server():
     def init_socket(self):
         try:
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            #self.socket.setblocking(0)
             log("Socket successfully created!", "*")
         except socket.error as err:
             log("socket creation failed with error %s" %(err), "*")
@@ -82,7 +83,7 @@ class GameServer(Server):
     def register(self,conn):
         if self.shutting_off: self.shutting_off = False
         self.connections.append(conn)
-        log(f'New connetion from addr: {conn["addr"]} num_conns: {len(self.connections)}',">>>")
+        log(f'New connection from addr: {conn["addr"]} num_conns: {len(self.connections)}',">>>")
         with self._lock:
             self.assign_lobby(conn)
 
@@ -129,19 +130,22 @@ class GameServer(Server):
             log(f"new conn ('{conn['addr']}') waiting for lobby (2. conn required for creation) | lobby count: {len(self.lobbys)}","<L>")
 
     def notify_lobby(self,data,conn,send_sender=False):
-        log(f"trying to send {data} to lobby nr.: {conn['lobby']}","<S>")    
-        for c in self.lobbys[conn["lobby"]]:
-            if send_sender or c != conn:
-                try:
-                    c["conn"].sendall((json.dumps(data) + "\n").encode())
-                except:
-                    log(f"failed to send data: {data} to {c['addr']} | lobby {c['lobby']}","<err>")
-
+        if conn["lobby"] != None:
+            log(f"trying to send {data} to lobby nr.: {conn['lobby']}","<S>")
+            for c in self.lobbys[conn["lobby"]]:
+                if send_sender or c != conn:
+                    try:
+                        c["conn"].sendall((json.dumps(data) + "\n").encode())
+                    except:
+                        log(f"failed to send data: {data} to {c['addr']} | lobby {c['lobby']}","<err>")
+        
     def receiver(self,conn,bits=1096):
         buffer = ""
         while self.loop:
             try:
-                buffer += conn["conn"].recv(bits).decode()
+                data = conn["conn"].recv(bits).decode()
+                if not data: break #reading a zero length string (?) after connection is dropped ^^
+                buffer += data
             except Exception as err:
                 log(f"\n{err}\n")
                 break
@@ -153,7 +157,7 @@ class GameServer(Server):
     def connection_loop(self,conn):
         recv = self.receiver(conn)
         for message in recv:
-            data = json.loads(message)
+            data = json.loads(message) #if data isn't json formatted, server will get an error
             log(f"received {data} from {conn['addr']}","<R>")
             self.notify_lobby(data,conn)
 

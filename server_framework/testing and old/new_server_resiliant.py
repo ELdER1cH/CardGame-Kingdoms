@@ -1,4 +1,4 @@
-import socket, json, datetime, threading, time
+import socket, sys, json, datetime, threading, time
 
 HOST = ''
 PORT = 29428
@@ -7,7 +7,7 @@ def log(info, prefix="",p=True): # '*' = Serverlog; '<>'/'<!>' = GameServerlog
     lenght = 30; current_time = prefix + str(datetime.datetime.now())
     with open("serverlog.txt","a") as f:
         text = f'{current_time:<{lenght}}' + " - " + info + "\n"
-        f.write(text) 
+        f.write(text) #how isn't this causing race conditions? xD -> the file is most certainly accessed by multiple threads at the same time.. somehow it works.. nice :D I think ist because CPythons threading isnt "reaL" threading... xD (someone on stackoverflow said so, didnt dig deeper, I wont complain if it works)
         if p: print(text[:-1])
 
 class Server():
@@ -53,21 +53,38 @@ class GameServer(Server):
         self.lobbys = {} # {lobby_nr : [0,1]}
         self.waiting_for_lobby = None
         self.lobby_counter = 0
+        
+        self.registry_buffer = [] # [[conn, "unregister"/"register"],[...]]
 
         self.shutting_off = False
+        self.shut_down_time = 30
 
-    def shut_off_timer(self,shut_down_time):
+    def shut_off_timer(self):
         while self.shutting_off:
             time.sleep(1)
-            shut_down_time -= 1
-            if shut_down_time <= 0:
+            self.shut_down_time -= 1
+            if self.shut_down_time <= 0:
                 self.shutting_off = False
                 self.close()
 
+    def registry_loop(self):
+        while self.loop:
+            if len(self.registry_buffer) != 0:
+                for conn, tag in self.registry_buffer:
+                    if tag == "register":
+                        pass
+                        #self.register(conn)
+                        #pass #register seems to work...
+                        #at end -> start recv loop/ func
+                        #threading.Thread(target=self.connection_loop,args=([conn])).start()
+                    if tag == "unregister":
+                        self.unregister(conn)
+                    self.registry_buffer.remove([conn,tag])
+    
     def register(self,conn):
         if self.shutting_off: self.shutting_off = False
         self.connections.append(conn)
-        log(f'New conn from addr: {conn["addr"]} num_conns: {len(self.connections)}',">>>")
+        log(f'New connection from addr: {conn["addr"]} num_conns: {len(self.connections)}',">>>")
         with self._lock:
             self.assign_lobby(conn)
 
@@ -76,22 +93,27 @@ class GameServer(Server):
             self.connections.remove(conn)
             log(f'Lost connection: {conn["addr"]}, lobby: {conn["lobby"]}, num_conns: {len(self.connections)}',"<<<")
             if conn["lobby"] != None:
-                info = {'type': 'abort'}
-                self.notify_lobby(info,conn)                
-                self.lobbys[conn["lobby"]].remove(conn)
-                lobby_mate = self.lobbys.pop(conn["lobby"])[0]
-                lobby_mate["lobby"] = None
-                log(f'notified affected lobby (lobby nr. {conn["lobby"]}); now reassigning lobby to remaining connection',"<L>")
-                self.assign_lobby(lobby_mate)
+                if conn["lobby"] in self.lobbys.keys(): #probably unnecessary.. lobby_mate["lobby"] = None fixed this occuring.. pretty sure.. :)
+                    info = {'type': 'abort'}
+                    self.notify_lobby(info,conn)                
+                    self.lobbys[conn["lobby"]].remove(conn)
+                    lobby_mate = self.lobbys.pop(conn["lobby"])[0]
+                    lobby_mate["lobby"] = None
+                    
+                    log(f'updated and notified affected lobby (lobby nr. {conn["lobby"]})',"<L>")
+
+                    self.assign_lobby(lobby_mate)
+                else:
+                    log(f'this shouldn\'t (can\'t) happen! lobby nr. {conn["lobby"]} of conn {conn["conn"]} isn\'t in self.lobbys',"<L>")
             else:
                 if self.waiting_for_lobby == conn:
                     self.waiting_for_lobby = None
                 
             if len(self.connections) == 0:
                 self.shutting_off = True
-                shut_down_time = 30
-                threading.Thread(target=self.shut_off_timer,args=([shut_down_time])).start()
-                log(f"!! Starting shutt off timer !! t: -{shut_down_time}s","*")
+                self.shut_down_time = 30
+                threading.Thread(target=self.shut_off_timer).start()
+                log(f"!! Starting shutt off timer !! t: -{self.shut_down_time}s","*")
                     
     def assign_lobby(self,conn):
         if self.waiting_for_lobby != None:
@@ -122,16 +144,17 @@ class GameServer(Server):
         buffer = ""
         while self.loop:
             try:
-                data = conn["conn"].recv(bits).decode()
-                if not data: break
-                buffer += data
+                buffer += conn["conn"].recv(bits).decode()
             except Exception as err:
                 log(f"\n{err}\n")
                 break
             if "\n" in buffer:
                 (message, buffer) = buffer.split("\n", 1)
                 yield message
-        self.unregister(conn)
+        print("closeeed!!!!!")
+        self.registry_buffer.append([conn,"unregister"])
+        conn['conn'].close()
+        #self.unregister(conn)
 
     def connection_loop(self,conn):
         recv = self.receiver(conn)
@@ -146,12 +169,23 @@ class GameServer(Server):
             try:
                 conn, addr = self.socket.accept()
                 new_conn = {"conn" : conn, "addr" : addr, "lobby" : None}
+                #self.registry_buffer.append([new_conn,"register"])
                 self.register(new_conn)        
                 threading.Thread(target=self.connection_loop,args=([new_conn])).start()                
             except Exception as err:
                 pass
+                #log(f"\n{err}\n")
+                #log(f"!! error whilst establishing a connection !! num_conns: {len(self.connections)} (open threads: {threading.active_count()})","<err>")
         log("main loop terminated.", "<gs>")
+
+    def input_loop(self):
+        while self.loop:
+            inp = input("inp: ")
+            if inp == "/c":
+                self.close()
 
 if __name__ == "__main__":
     server = GameServer()
+    #threading.Thread(target=server.input_loop).start()
+    threading.Thread(target=server.registry_loop).start()
     server.main_loop()
