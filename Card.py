@@ -244,17 +244,6 @@ class Card(pyglet.sprite.Sprite):
 
     return won
   
-  def NewStamina(self):
-    my_cards = self.batch.get_all_my_cards()
-    for card in my_cards:
-      if card.y > 0 and card.y < 1080:
-        target = self.batch.get_card([card.x,card.y])
-        if target.name != 'Drache' and target.special_tag != 'immovable' and target.special_tag != 'empty' and target.special_tag != 'unoccupied_field':
-          if target.stamina < 1:
-            target.stamina + 1
-        elif card.name == 'Drache':
-          target.stamina + 0,5  
-
   def RegenStamina(self):
     if self.stamina < self.max_stamina:
       self.stamina += self.stamina_reg

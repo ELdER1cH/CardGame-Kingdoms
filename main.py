@@ -238,7 +238,7 @@ class Window(main_chat.Window):
                     ##IF CARD IS NOT IMMOVABLE
                     if target.special_tag != "immovable":
                       print(clicked_card.stamina)
-                      if clicked_card.stamina > 0:
+                      if clicked_card.stamina >= 1:
                         clicked_card.stamina -= 1
                         #SWAP POSITION WITH THAT CARD IN REACH
                         clicked_card.swap(target,target.position)
