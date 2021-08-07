@@ -163,6 +163,7 @@ class Card(pyglet.sprite.Sprite):
     if self.health < self.max_health:
       self.health += 200
       if self.health > self.max_health: self.health = self.max_health
+    self.NewStamina()  
 
   def wall_special(self):
     self.health -= 3000
@@ -243,6 +244,12 @@ class Card(pyglet.sprite.Sprite):
 
     return won
   
+  def RegenStamina(self):
+    if self.stamina < self.max_stamina:
+      self.stamina += self.stamina_reg
+
+
+
   def resize(self):
     self.image.get_texture().width = SPRITE_WIDTH
     self.image.get_texture().height = SPRITE_HEIGHT
