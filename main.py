@@ -168,7 +168,7 @@ class Window(main_chat.Window):
           return
         ###OLD CLICK/ SELECT
         clicked_card = self.batch.get_card(self.batch.select_frame.position)
-        
+        #Wenn ich nicht dran bin kann ich nur Karten anschauen aber nicht bewegen
         if not self.my_move:
           if target.special_tag != 'empty' and target.special_tag != 'unoccupied_field':
             self.batch.select_card(target)
@@ -197,6 +197,7 @@ class Window(main_chat.Window):
                   ###IF TARGET IS EMPTY FIELD
                   if target.special_tag == "unoccupied_field":
                     #IF PLAYER HAS ENOUGH MONEY
+                    
                     if self.batch.castle.mana >= clicked_card.price:
                       self.batch.castle.mana -= clicked_card.price
                       #EMPTY FIELD AND CARD IN HAND SWAP POSITIONS
@@ -235,12 +236,21 @@ class Window(main_chat.Window):
                   if clicked_card.owner == target.owner:
                     ##IF CARD IS NOT IMMOVABLE
                     if target.special_tag != "immovable":
-                      #SWAP POSITION WITH THAT CARD IN REACH
-                      clicked_card.swap(target,target.position)
-                      if self.online == True:
-                        self.safe_send(self.client.send_swap_event(clicked_card.position,target.position))
-                      #MAKE SURE THE STATS DISPLAY STILL DISPLAYS THE RIGHT CARD - THEY SWAPPED, STATS WOULD DISPLAY YELLOW
-                      self.batch.update_disp(clicked_card)
+                      print(clicked_card.stamina)
+                      if clicked_card.stamina >= 1:
+                        clicked_card.stamina -= 1
+                        #SWAP POSITION WITH THAT CARD IN REACH
+                        clicked_card.swap(target,target.position)
+                        if self.online == True:
+                          self.safe_send(self.client.send_swap_event(clicked_card.position,target.position))
+                        #MAKE SURE THE STATS DISPLAY STILL DISPLAYS THE RIGHT CARD - THEY SWAPPED, STATS WOULD DISPLAY YELLOW
+                        self.batch.update_disp(clicked_card)
+                      else:
+                        self.pop_up.new_pop_up((x,y),0.5,'NOT ENOUGH STAMINA: %s' % (clicked_card.stamina))
+                        self.pop_up.new_red_frame(clicked_card.position)    
+                    else:
+                      #IF CARD IN REACH == IMMOVABLE, SHOW RED FRAME
+                      self.pop_up.new_red_frame(clicked_card.position)
                   else:
                     #IF CARD IN REACH == IMMOVABLE, SHOW RED FRAME
                     self.pop_up.new_red_frame(clicked_card.position)
