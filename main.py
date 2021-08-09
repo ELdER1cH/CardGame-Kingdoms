@@ -14,7 +14,7 @@ except ImportError as err:
 #79.231.167.136
 
 #python -m auto_py_to_exe
-IP = "localhost"#"game02.gameserver.gratis"
+IP = "game02.gameserver.gratis"#"localhost"
 PORT = 29428
 
 val = 1
