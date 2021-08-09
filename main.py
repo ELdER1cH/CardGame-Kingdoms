@@ -229,28 +229,24 @@ class Window(main_chat.Window):
             else:
               #GET UP, DOWN, LEFT, RIGHT TO SELECT
               adjacent = self.batch.get_adjacent(clicked_card.position)
-              for in_reach in adjacent:
-                ###IF NEW CARD/ TARGET IS IN REACH OF SELECT
-                if target == in_reach:
-                  ###IF CARD IN REACH IS MY CARD
-                  if clicked_card.owner == target.owner:
-                    ##IF CARD IS NOT IMMOVABLE
-                    if target.special_tag != "immovable":
-                      print(clicked_card.stamina)
-                      if clicked_card.stamina >= 1:
-                        clicked_card.stamina -= 1
-                        #SWAP POSITION WITH THAT CARD IN REACH
-                        clicked_card.swap(target,target.position)
-                        if self.online == True:
-                          self.safe_send(self.client.send_swap_event(clicked_card.position,target.position))
-                        #MAKE SURE THE STATS DISPLAY STILL DISPLAYS THE RIGHT CARD - THEY SWAPPED, STATS WOULD DISPLAY YELLOW
-                        self.batch.update_disp(clicked_card)
-                      else:
-                        self.pop_up.new_pop_up((x,y),0.5,'NOT ENOUGH STAMINA: %s' % (clicked_card.stamina))
-                        self.pop_up.new_red_frame(clicked_card.position)    
+              ###IF NEW CARD/ TARGET IS IN REACH OF SELECT e.g in reach of it
+              if target in adjacent:
+                ###IF CARD IN REACH IS MY CARD
+                if clicked_card.owner == target.owner:
+                  ##IF CARD IS NOT IMMOVABLE
+                  if target.special_tag != "immovable":
+                    print(clicked_card.stamina)
+                    if clicked_card.stamina >= 1:
+                      clicked_card.stamina -= 1
+                      #SWAP POSITION WITH THAT CARD IN REACH
+                      clicked_card.swap(target,target.position)
+                      if self.online == True:
+                        self.safe_send(self.client.send_swap_event(clicked_card.position,target.position))
+                      #MAKE SURE THE STATS DISPLAY STILL DISPLAYS THE RIGHT CARD - THEY SWAPPED, STATS WOULD DISPLAY YELLOW
+                      self.batch.update_disp(clicked_card)
                     else:
-                      #IF CARD IN REACH == IMMOVABLE, SHOW RED FRAME
-                      self.pop_up.new_red_frame(clicked_card.position)
+                      self.pop_up.new_pop_up((x,y),0.5,'NOT ENOUGH STAMINA: %s' % (clicked_card.stamina))
+                      self.pop_up.new_red_frame(clicked_card.position)    
                   else:
                     #IF CARD IN REACH == IMMOVABLE, SHOW RED FRAME
                     self.pop_up.new_red_frame(clicked_card.position)
@@ -272,11 +268,10 @@ class Window(main_chat.Window):
                     self.pop_up.new_red_frame(target.position)
                 ##IF TARGET WAS IN REACH, HIDE SELECT, SINCE THERE WAS A SWAO or FIGHT
                 self.batch.hide(self.batch.select_frame)
-                break
               else:
                 ###IF CARD NOT IN REACH, TRY SELECTING THAT CARD
-                self.select(target,clicked_card)
-          
+                if target.special_tag != "unoccupied_field":
+                  self.select(target,clicked_card)
 
 
         ##SINCE THERES NO SELECTED CARD, TARGET = NEW SELECT

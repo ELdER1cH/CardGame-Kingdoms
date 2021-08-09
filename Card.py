@@ -163,7 +163,7 @@ class Card(pyglet.sprite.Sprite):
     if self.health < self.max_health:
       self.health += 200
       if self.health > self.max_health: self.health = self.max_health
-    self.NewStamina()  
+    self.RegenStaminaStamina()  
 
   def wall_special(self):
     self.health -= 3000
