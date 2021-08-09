@@ -14,7 +14,7 @@ except ImportError as err:
 #79.231.167.136
 
 #python -m auto_py_to_exe
-IP = "game02.gameserver.gratis"
+IP = "localhost"#"game02.gameserver.gratis"
 PORT = 29428
 
 val = 1
@@ -41,7 +41,7 @@ class Window(main_chat.Window):
     self.current_screen = screens.StartScreen(1920,1080)
     self.ingame = False
     self.my_move = False
-    self.online = True
+    self.online = False #was True by default..
     self.lead_execute = False
 
     self.loading = True
@@ -90,7 +90,6 @@ class Window(main_chat.Window):
     self.batch.pop_up.update(dt)
     self.pop_up.update(dt) 
     self.current_screen.update(dt) 
-
               
   def splash_event(self,clicked_card,target):
     if self.batch.castle.mana >= clicked_card.price:
@@ -101,10 +100,10 @@ class Window(main_chat.Window):
             self.batch.pop_up.explosion_event(pos=target.position)
             self.batch.pop_up.damage_event(pos=target.position,amount=clicked_card.dmg)
             if self.online == True:
-                self.client.send_splash_attack_event(target.position,clicked_card.dmg)
+                self.safe_send(self.client.send_splash_attack_event(target.position,clicked_card.dmg))
       elif clicked_card.name == 'SplashHeal':
         if self.online == True:
-                self.client.send_splash_heal_event(target.position,500)
+                self.safe_send(self.client.send_splash_heal_event(target.position,500))
       won = None
       for special in clicked_card.place_special:
         won = special(clicked_card,target=target,dmg=clicked_card.dmg)
@@ -131,8 +130,6 @@ class Window(main_chat.Window):
       self.pop_up.new_red_frame(target.position)
 
   def start_client(self,delay=None):
-    self.online = True
-    self.batch.online = True
     self.current_screen = screens.LobbyScreen(1920,1080)
     try:
       self.client = client.Client(self.IP,PORT)
@@ -144,6 +141,8 @@ class Window(main_chat.Window):
       self.loading = False
       return
     threading.Thread(target=self.receive_messages).start()
+    self.online = True
+    self.batch.online = True
     self.loading = False
   
   def on_mouse_press(self,x,y,button,MOD,antir=True):
@@ -206,7 +205,7 @@ class Window(main_chat.Window):
                       #C C C C C -> after: E C C C C
                       clicked_card.swap(target,target.position)
                       if self.online:
-                          self.client.send_replace_event(clicked_card.position,clicked_card.name)
+                          self.safe_send(self.client.send_replace_event(clicked_card.position,clicked_card.name))
                       self.batch.update_hand(target)
                       self.batch.hide(self.batch.select_frame)
                       for special in clicked_card.place_special:
@@ -243,7 +242,7 @@ class Window(main_chat.Window):
                         #SWAP POSITION WITH THAT CARD IN REACH
                         clicked_card.swap(target,target.position)
                         if self.online == True:
-                          self.client.send_swap_event(clicked_card.position,target.position)
+                          self.safe_send(self.client.send_swap_event(clicked_card.position,target.position))
                         #MAKE SURE THE STATS DISPLAY STILL DISPLAYS THE RIGHT CARD - THEY SWAPPED, STATS WOULD DISPLAY YELLOW
                         self.batch.update_disp(clicked_card)
                       else:
@@ -253,24 +252,27 @@ class Window(main_chat.Window):
                       #IF CARD IN REACH == IMMOVABLE, SHOW RED FRAME
                       self.pop_up.new_red_frame(clicked_card.position)
                   else:
-                    #IF CARD IN RANGE IS NOT MY CARD
-                    if self.batch.castle.mana >= 2:
-                      self.batch.castle.mana -= 2
-                      won = clicked_card.fight(target,self.pop_up)
-                      if self.online == True:
-                        self.client.send_attack_event(clicked_card.position,target.position)
-                      if won:
-                          if self.online:
-                              self.back_l()
-                          else:
-                            self.ingame = False
-                            self.back()
-                          self.g_print("You won!")
-                    else:
-                      self.pop_up.new_red_frame(target.position)
-                  ##IF TARGET WAS IN REACH, HIDE SELECT, SINCE THERE WAS A SWAO or FIGHT
-                  self.batch.hide(self.batch.select_frame)
-                  break
+                    #IF CARD IN REACH == IMMOVABLE, SHOW RED FRAME
+                    self.pop_up.new_red_frame(clicked_card.position)
+                else:
+                  #IF CARD IN RANGE IS NOT MY CARD
+                  if self.batch.castle.mana >= 2:
+                    self.batch.castle.mana -= 2
+                    won = clicked_card.fight(target,self.pop_up)
+                    if self.online == True:
+                      self.safe_send(self.client.send_attack_event(clicked_card.position,target.position))
+                    if won:
+                        if self.online:
+                            self.back_l()
+                        else:
+                          self.ingame = False
+                          self.back()
+                        self.g_print("You won!")
+                  else:
+                    self.pop_up.new_red_frame(target.position)
+                ##IF TARGET WAS IN REACH, HIDE SELECT, SINCE THERE WAS A SWAO or FIGHT
+                self.batch.hide(self.batch.select_frame)
+                break
               else:
                 ###IF CARD NOT IN REACH, TRY SELECTING THAT CARD
                 self.select(target,clicked_card)
@@ -309,7 +311,7 @@ class Window(main_chat.Window):
             if self.client.opponent_found and len(self.current_screen.hand_selection.hand) >= 5:
               cs.ready = not cs.ready
               print(f"ready: {cs.ready}")
-              self.client.send_ready(self.current_screen.opponent_ready)
+              self.safe_send(self.client.send_ready(self.current_screen.opponent_ready))
               self.current_screen.update_ready_button()
               if self.current_screen.ready and self.current_screen.opponent_ready:
                 self.start_game(my_move=False)
@@ -341,7 +343,7 @@ class Window(main_chat.Window):
     if self.online == True:
           #self.batch.swap()
       if self.my_move:
-        self.client.send_move_done()
+        self.safe_send(self.client.send_move_done())
         self.my_move = False
         self.batch.hide(self.batch.select_frame)
         self.batch.disp.clear()
@@ -383,9 +385,9 @@ class Window(main_chat.Window):
                             self.batch.castle.mana = self.batch.castle.max_mana
                         if self.online:
                             if target.name == "yellow":
-                                self.client.send_replace_event(target.position,"green")
+                                self.safe_send(self.client.send_replace_event(target.position,"green"))
                             else:
-                                self.client.send_replace_event(target.position,"yellow")
+                                self.safe_send(self.client.send_replace_event(target.position,"yellow"))
                         self.batch.update_disp(self.batch.castle)
             
           elif KEY == key.C:
@@ -471,9 +473,17 @@ class Window(main_chat.Window):
       else:
         self.g_print("§c/replace -hand <card_name>")
     else: self.g_print("§cunknown command. '%s'" % (" ".join(cmd)))
+
+  def on_chat(self,msg):
+    if self.online:
+      self.safe_send(self.client.send_chat_message(msg))
+      print(f"send msg '{msg}' to opponent")
+      
 #------------------------ Server Stuff ------------------------------------------
   
   def back(self,delay=None):
+    self.ingame = False #would adding these be wise??
+    self.online = False
     self.current_screen = screens.StartScreen(1920,1080)
 
   def back_l(self,delay=None):
@@ -487,6 +497,10 @@ class Window(main_chat.Window):
       self.client.opponent_found = True
       pyglet.clock.schedule_once(self.current_screen.update_opponent_search, 0.01, self.client.opponent_found)
       #print(self.client.opponent_found)
+
+  def dt_g_print(self,delay,msg):
+    self.g_print(msg)
+    print(f"got '{msg}' and printed it in chat")
 
   def handle_message(self,r):
       if type(r) == dict:
@@ -505,12 +519,16 @@ class Window(main_chat.Window):
                   #print("join")
                   pyglet.clock.schedule_once(self.jjjjoin, 0.05)
 
+                elif r['type'] == 'chat_message':
+                  msg = "§g>> " + r['msg']
+                  pyglet.clock.schedule_once(self.dt_g_print, 0.05, msg)
+
                 elif r['type'] == 'lobby':
                   self.client.lobby = int(r['lobby'])
                   self.client.lobbysize = int(r['lobbysize'])
                   self.current_screen.ready = False
                   self.current_screen.opponent_ready = False
-                  self.client.send_lobby()
+                  self.safe_send(self.client.send_lobby())
                   print(f"<< lobby update: {self.client.lobby} (size: {self.client.lobbysize})")
                   if self.client.lobbysize != 2 and self.ingame:
                     pyglet.clock.schedule_once(self.back_l,0.01)
@@ -580,52 +598,39 @@ class Window(main_chat.Window):
                   pyglet.clock.schedule_once(self.batch.pop_up.heal_special,0.01,pos=target.position,amount=heal_amount)
                   pyglet.clock.schedule_once(target.splash_heal,0.01,target,heal_amount)
 
-  def linesplit(self,socket,bits=1096):
+  def safe_send(self,message):
+    try:
+      self.client.send(message)
+    except Exception as err:
+      print(f"\n{err}\n")
+      self.client.s.close()
+      print("Verbindung zu Server beendet!")
+      self.ingame = False
+      self.back()
+
+  def receiver(self,socket,bits=1096):
+    buffer = ""
     while True:
       try:
-          buffer = socket.recv(bits).decode()
-          if not buffer:
-              return
+        data = socket.recv(bits).decode()
+        if not data: break #reading a zero length string (?) after connection is dropped ^^
+        buffer += data
       except Exception as err:
-          print(err)
-          print("Verbindung zu Server beendet! #1")#print("Error whilst fetching server messages! #1")
-          socket.close()
-          pyglet.clock.schedule_once(self.back,0.01)
-          break  
-      buffering = True
-      while buffering:
-          if "\n" in buffer:
-              (message, buffer) = buffer.split("\n", 1)
-              yield message
-          else:
-              try:
-                more = socket.recv(bits).decode()#
-                if not more:
-                  return
-              except Exception as err:
-                print(err)
-                print("Verbindung zu Server beendet! #2")#print("Error whilst fetching server messages! #2")
-                socket.close()
-                pyglet.clock.schedule_once(self.back,0.01)
-                break 
-              if not more:
-                  buffering = False
-              else:
-                  buffer += more
-      if buffer != None:
-        yield buffer
+        print(f"\n{err}\n")
+        break
+      if "\n" in buffer:
+        (message, buffer) = buffer.split("\n", 1)
+        yield message
+    socket.close()
+    print("Verbindung zu Server beendet!")
+    pyglet.clock.schedule_once(self.back,0.01)
     
   def receive_messages(self):
-    ls = self.linesplit(self.client.s)
-    for message in ls:
+    recv = self.receiver(self.client.s)
+    for message in recv:
       print(f"- received: {message}")
-      try:
-        data = json.loads(message)
-        print(data)
-        self.handle_message(data) 
-      except:
-        pass  
-       
+      data = json.loads(message)
+      self.handle_message(data)        
         
 if __name__ == "__main__":
   width = 1920;height = 1080

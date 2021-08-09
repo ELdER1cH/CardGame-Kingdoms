@@ -78,11 +78,16 @@ class Window(pyglet.window.Window):
             split = self.chat_model.ciw.document.text.split(" ")
             self.on_cmd(split)
           else:
-            self.g_print(self.chat_model.ciw.document.text)
+            message = self.chat_model.ciw.document.text
+            self.g_print(message)
+            self.on_chat(message)
             self.chat_model.ciw.document.text = ''
         self.chat_model.command_input_widget_state = False
 
   def on_cmd(self,cmd):
+    pass
+
+  def on_chat(self,msg):
     pass
 
   def on_draw(self):
@@ -92,7 +97,7 @@ class Window(pyglet.window.Window):
     #self.batch.draw()
 
   def on_text(self, text):
-    if self.focus and self.chat_model.ciw.document.text != '/clear_prompt -n *':
+    if self.focus and self.chat_model.ciw.document.text != '/clear_prompt -n *':#/clear_prompt -n * funzt nicht, weil on_cmd oder welche funktion auch immer zuerst greift und sagt -> unkonwn command!
       if len(self.chat_model.ciw.document.text) <= 50:
         self.focus.caret.on_text(text)
       else: self.g_print("§cno more than 50 letters allowed."); self.chat_model.chat.update()

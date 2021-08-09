@@ -17,14 +17,16 @@ class Chat():
       self.text_labels.append(text_label)
       
   def g_print(self,text):
-    print(text)#end=','
+    #print(text)#end=','
     self.add_to_chat(text)
 
   def update(self):
     for tl in range(0,len(self.display)):
+      self.text_labels[tl].text = self.display[tl][2:]
       if self.display[tl][0:2] == '§c':
-        self.text_labels[tl].text = self.display[tl][2:]
         self.text_labels[tl].color = (255,50,50,220)
+      elif self.display[tl][0:2] == '§g':
+        self.text_labels[tl].color = (50,200,50,255)
       else:
         self.text_labels[tl].text = self.display[tl]
         self.text_labels[tl].color = (135,0,135,255)
