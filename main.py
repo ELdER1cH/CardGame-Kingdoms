@@ -224,23 +224,23 @@ class Window(main_chat.Window):
                 ###IF CARD IS IN HAND SELECT THAT CARD INSTEAD
                 self.batch.select_card(target)
 
-          #---NOT HAND---
-          else:
-            #GET UP, DOWN, LEFT, RIGHT TO SELECT
-            adjacent = self.batch.get_adjacent(clicked_card.position)
-            for in_reach in adjacent:
-              ###IF NEW CARD/ TARGET IS IN REACH OF SELECT
-              if target == in_reach:
-                ###IF CARD IN REACH IS MY CARD
-                if clicked_card.owner == target.owner:
-                  ##IF CARD IS NOT IMMOVABLE
-                  if target.special_tag != "immovable":
-                    #SWAP POSITION WITH THAT CARD IN REACH
-                    clicked_card.swap(target,target.position)
-                    if self.online == True:
-                      self.safe_send(self.client.send_swap_event(clicked_card.position,target.position))
-                    #MAKE SURE THE STATS DISPLAY STILL DISPLAYS THE RIGHT CARD - THEY SWAPPED, STATS WOULD DISPLAY YELLOW
-                    self.batch.update_disp(clicked_card)
+            #---NOT HAND---
+            else:
+              #GET UP, DOWN, LEFT, RIGHT TO SELECT
+              adjacent = self.batch.get_adjacent(clicked_card.position)
+              for in_reach in adjacent:
+                ###IF NEW CARD/ TARGET IS IN REACH OF SELECT
+                if target == in_reach:
+                  ###IF CARD IN REACH IS MY CARD
+                  if clicked_card.owner == target.owner:
+                    ##IF CARD IS NOT IMMOVABLE
+                    if target.special_tag != "immovable":
+                      #SWAP POSITION WITH THAT CARD IN REACH
+                      clicked_card.swap(target,target.position)
+                      if self.online == True:
+                        self.safe_send(self.client.send_swap_event(clicked_card.position,target.position))
+                      #MAKE SURE THE STATS DISPLAY STILL DISPLAYS THE RIGHT CARD - THEY SWAPPED, STATS WOULD DISPLAY YELLOW
+                      self.batch.update_disp(clicked_card)
                   else:
                     #IF CARD IN REACH == IMMOVABLE, SHOW RED FRAME
                     self.pop_up.new_red_frame(clicked_card.position)
