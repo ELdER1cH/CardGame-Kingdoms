@@ -1,16 +1,17 @@
 # Cardgame
 Spiel mit Elementen aus Karten-, Strategiespielen, sowie Schach.
 
-##Installation
--Benötigt Python 3.x (3.6, 3.7 wurden getestet) 
-	Installation via https://www.python.org/
--Benötigt pyglet v1.3.2
-	Installation via pip in der Eingabeaufforderung (cmd/ Command Prompt) -> "pip install pyglet==1.3.2"
-	("pip install pyglet" alleine würde eine neuere Version (derzeit v1.4.2) installieren, 
-	welche nicht mit diesem Programm harmoniert - wichtige Funktionen wurden unersichtlich geändert)
-	LÖSUNG: 
-	"ImageData" object has no attribute "texture" -> img.texture is deprecated, use get_texture() instead!
-	-> update this in all the code.., shouldn't be to much of a hustle
+## Installation
+
+Schnellstart:
+
+1. Virtuelle Umgebung erstellen
+2. `requirements.txt` installieren
+3. Spiel starten mit `python main.py`
+
+Vollständige Schritt-für-Schritt-Anleitung:
+
+- [SETUP.md](SETUP.md)
 
 ## Ziel des Spiels
 

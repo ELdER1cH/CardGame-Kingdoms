@@ -8,14 +8,16 @@
             "name": "Python: Aktuelle Datei",
             "type": "python",
             "request": "launch",
+            "python": "${workspaceFolder}/.venv/bin/python",
             "program": "${file}",
             "console": "integratedTerminal"
-        }
+        },
         {
             "name": "Python: Main",
             "type": "python",
             "request": "launch",
-            "program": "C:/Users/mcw1m/OneDrive/Dokumente/GitHub/CardGame-Kingdoms/main.py",
+            "python": "${workspaceFolder}/.venv/bin/python",
+            "program": "${workspaceFolder}/main.py",
             "console": "integratedTerminal"
         }
     ]

@@ -7,6 +7,15 @@ try:
   from pyglet.window import key, mouse
   import chat_dependencies.main_chat as main_chat
 
+  _pyglet_image_load = pyglet.image.load
+
+  def _image_load_compat(filename, *args, **kwargs):
+    if isinstance(filename, str):
+      filename = filename.replace('\\', '/')
+    return _pyglet_image_load(filename, *args, **kwargs)
+
+  pyglet.image.load = _image_load_compat
+
 except ImportError as err:
   print("couldn't load modue. %s" % (err))
 
